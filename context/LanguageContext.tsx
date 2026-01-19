@@ -22,8 +22,8 @@ export const translations: Record<Language, Record<string, any>> = {
       careers: "Careers"
     },
     home: {
-      hero_title_1: "Premier Odoo ERP &",
-      hero_title_2: "Digital Transformation Partners.",
+      hero_title_1: "Orchestrating the",
+      hero_title_2: "Digital Future.",
       hero_subtitle: "Oakivo Solutions empowers Canadian businesses with enterprise-grade Odoo implementation, intelligent automation, and cybersecurity resilience. Serving Atlantic Canada and Nationwide.",
       cta_primary: "Book a Consultation",
       insight_title: "Agility is the new currency for Canadian Business.",
@@ -150,102 +150,18 @@ export const translations: Record<Language, Record<string, any>> = {
       hero_title: "Digital Insights",
       hero_subtitle: "Expert analysis on Odoo, ERP trends, AI, and Cybersecurity for Canadian Leaders.",
       posts: [
-        { 
-          id: 1, 
-          date: "May 20, 2024", 
-          title: "Why Odoo is the Best ERP for Canadian SMEs in 2024", 
-          category: "ERP Strategy",
-          excerpt: "Comparing Odoo vs. SAP and NetSuite. Why modular open-source architecture wins on flexibility and cost-of-ownership.",
-          content: "Canadian SMEs need agility. Odoo offers a modular approach that legacy giants like SAP cannot match. With its open-source core, Odoo allows businesses to start with only what they need—Accounting and CRM, for instance—and scale seamlessly into Manufacturing and E-commerce. For a Canadian leader, this means avoiding the 'big bang' implementation risk while achieving a unified source of truth."
-        },
-        { 
-          id: 2, 
-          date: "May 12, 2024", 
-          title: "Bill C-27 and Data Privacy: Is Your Business Ready?", 
-          category: "Compliance",
-          excerpt: "Understanding the Consumer Privacy Protection Act (CPPA) and how to ensure your digital stack is compliant.",
-          content: "Bill C-27 represents a paradigm shift in how personal information is handled in Canada. Compliance isn't just a legal checkbox; it's a trust factor for your customers. At Oakivo, we help organizations audit their data flows, particularly within ERP systems, to ensure that residency requirements and encryption standards meet the new CPPA criteria. Proactive governance is the best defense against the heavy penalties outlined in the new act."
-        },
-        { 
-          id: 3, 
-          date: "April 28, 2024", 
-          title: "Implementing Zero Trust Architecture in Atlantic Canada", 
-          category: "Cybersecurity",
-          excerpt: "Moving beyond the firewall. How to secure remote workforces in Halifax and Moncton.",
-          content: "The perimeter is no longer a building; it's an identity. In Atlantic Canada, where remote work is a strategic advantage for talent acquisition, Zero Trust is essential. We implement granular access controls where 'never trust, always verify' is the default. By leveraging MFA and identity-based networking, we ensure that your Odoo instance and shared drives are only accessible to the right person, on a secure device, at the right time."
-        },
-        { 
-          id: 4, 
-          date: "April 15, 2024", 
-          title: "The ROI of Robotic Process Automation (RPA)", 
-          category: "Automation",
-          excerpt: "Real-world examples of how automating invoice processing can save 20+ hours a week.",
-          content: "Automation isn't about replacement; it's about reclamation. We recently implemented an RPA bot for a client in Dieppe that monitors an AP mailbox, extracts data from PDFs using AI, and enters it directly into Odoo. The result? 25 hours of manual data entry reclaimed weekly, allowing their finance team to focus on strategic forecasting rather than transactional bookkeeping."
-        },
-        {
-          id: 5,
-          date: "April 02, 2024",
-          title: "Cloud Sovereignty: Azure Canada vs AWS Canada",
-          category: "Cloud Infrastructure",
-          excerpt: "A technical comparison of data residency capabilities for regulated industries.",
-          content: "For Canadian healthcare and legal firms, data residency is non-negotiable. Both Azure and AWS now offer robust Canadian regions (Toronto and Montreal), but their integration with local compliance frameworks varies. Oakivo architects multi-cloud solutions that ensure your sensitive IP remains on Canadian soil, preventing 'data sprawl' and ensuring compliance with provincial privacy acts."
-        },
-        {
-          id: 6,
-          date: "March 20, 2024",
-          title: "Predictive Analytics in Odoo: The Future of Inventory",
-          category: "Artificial Intelligence",
-          excerpt: "How to use your ERP data to predict demand surges before they happen.",
-          content: "Most inventory systems are reactive. By layering AI onto Odoo’s reporting engine, we enable businesses to spot seasonal trends and supply chain disruptions weeks in advance. Using historical sales data and external market signals, predictive models can suggest optimal reorder points, reducing landed costs and ensuring you never lose a sale to a stockout."
-        },
-        {
-          id: 7,
-          date: "March 05, 2024",
-          title: "Securing the Hybrid Workforce: A 2025 Roadmap",
-          category: "Cybersecurity",
-          excerpt: "Tactical steps to harden your systems as hybrid work becomes the permanent standard.",
-          content: "As we move into 2025, the hybrid model is no longer an experiment. Security strategies must evolve from 'patching holes' to 'holistic resilience.' This roadmap covers hardware-level security, VPN-less access, and the critical role of employee security training in preventing social engineering attacks."
-        },
-        {
-          id: 8,
-          date: "February 22, 2024",
-          title: "Manufacturing 4.0: Connecting the Shop Floor",
-          category: "Digital Transformation",
-          excerpt: "Using IoT and ERP to create a 'Smart Factory' environment in New Brunswick.",
-          content: "Manufacturing in New Brunswick is facing a labor challenge. The solution lies in high-tech connectivity. By integrating shop floor sensors directly with Odoo's Manufacturing module, we provide real-time OEE (Overall Equipment Effectiveness) tracking. Know exactly why a machine is down, the moment it happens, and automate maintenance alerts."
-        },
-        {
-          id: 9,
-          date: "February 10, 2024",
-          title: "Odoo vs. SAP: A TCO Comparison for SMEs",
-          category: "ERP Strategy",
-          excerpt: "Deciding between a legacy giant and a modern agile ERP? Here's the data.",
-          content: "We break down the Total Cost of Ownership over 5 years. While SAP offers brand recognition, the licensing and implementation overhead often exceeds SME budgets. Odoo’s 'User-based' pricing and rapid deployment model typically deliver a 40% lower TCO while matching 90% of SAP’s core enterprise functionality."
-        },
-        {
-          id: 10,
-          date: "January 28, 2024",
-          title: "Generative AI for Business Operations",
-          category: "Artificial Intelligence",
-          excerpt: "Beyond ChatGPT: How custom LLMs can transform your internal documentation.",
-          content: "Imagine a bot that has read every policy, project report, and email in your company. We build custom 'Knowledge Agents' that allow your employees to ask questions like 'What was the resolution for the Smith project?' and get instant, accurate answers based only on your private internal data."
-        },
-        {
-          id: 11,
-          date: "January 15, 2024",
-          title: "Digital Transformation: The Cultural Hurdle",
-          category: "Leadership",
-          excerpt: "Why 70% of transformations fail, and how to ensure yours isn't one of them.",
-          content: "Software is the easy part. Change management is the hard part. We explore the 'Oakivo Method' for securing stakeholder buy-in, training resistant staff, and creating a culture that embraces continuous digital evolution rather than fearing it."
-        },
-        {
-          id: 12,
-          date: "January 02, 2024",
-          title: "The Future of Open Source in Enterprise",
-          category: "Tech Trends",
-          excerpt: "Why the world's largest companies are moving away from proprietary 'locked' systems.",
-          content: "Vendor lock-in is the enemy of innovation. We discuss the rise of open-source standards in the enterprise stack and why flexibility, community-driven security, and lower long-term costs are making systems like Odoo the first choice for modern CIOs."
-        }
+        { id: 1, date: "May 20, 2024", title: "Why Odoo is the Best ERP for Canadian SMEs in 2024", category: "ERP Strategy", excerpt: "Comparing Odoo vs. SAP and NetSuite. Why modular open-source architecture wins on flexibility.", content: "Canadian SMEs need agility. Odoo offers a modular approach that legacy giants like SAP cannot match. With its open-source core, Odoo allows businesses to start with only what they need and scale seamlessly. For a Canadian leader, this means avoiding the 'big bang' implementation risk while achieving a unified source of truth." },
+        { id: 2, date: "May 12, 2024", title: "Bill C-27 and Data Privacy: Is Your Business Ready?", category: "Compliance", excerpt: "Understanding the CPPA and how to ensure your digital stack is compliant.", content: "Bill C-27 represents a paradigm shift in how personal information is handled in Canada. Compliance isn't just a legal checkbox; it's a trust factor for your customers. At Oakivo, we help organizations audit their data flows to ensure that residency requirements and encryption standards meet the new CPPA criteria." },
+        { id: 3, date: "April 28, 2024", title: "Implementing Zero Trust Architecture in Atlantic Canada", category: "Cybersecurity", excerpt: "Moving beyond the firewall. How to secure remote workforces in Halifax and Moncton.", content: "The perimeter is no longer a building; it's an identity. In Atlantic Canada, where remote work is a strategic advantage, Zero Trust is essential. We implement granular access controls where 'never trust, always verify' is the default. By leveraging MFA, we ensure that your Odoo instance is only accessible to the right person." },
+        { id: 4, date: "April 15, 2024", title: "The ROI of Robotic Process Automation (RPA)", category: "Automation", excerpt: "Real-world examples of how automating invoice processing can save 20+ hours a week.", content: "Automation isn't about replacement; it's about reclamation. We recently implemented an RPA bot for a client in Dieppe that monitors an AP mailbox, extracts data from PDFs using AI, and enters it directly into Odoo. The result? 25 hours of manual data entry reclaimed weekly." },
+        { id: 5, date: "April 02, 2024", title: "Cloud Sovereignty: Azure Canada vs AWS Canada", category: "Cloud Infrastructure", excerpt: "A technical comparison of data residency capabilities for regulated industries.", content: "For Canadian healthcare and legal firms, data residency is non-negotiable. Both Azure and AWS now offer robust Canadian regions, but their integration with local compliance frameworks varies. Oakivo architects multi-cloud solutions that ensure your sensitive IP remains on Canadian soil." },
+        { id: 6, date: "March 20, 2024", title: "AI-Driven Forecasting in Odoo 17", category: "Artificial Intelligence", excerpt: "Using ERP data to predict demand surges before they happen.", content: "Layering AI onto Odoo’s reporting engine allows businesses to spot seasonal trends weeks in advance. Using historical sales data, predictive models suggest optimal reorder points, reducing landed costs and ensuring you never lose a sale to a stockout." },
+        { id: 7, date: "March 05, 2024", title: "Securing Atlantic Canada's Industrial Control Systems", category: "Cybersecurity", excerpt: "Protecting OT networks from modern ransomware threats.", content: "Operational Technology (OT) requires a different security posture than IT. We focus on network segmentation and protocol-aware threat detection to keep Maritime manufacturing and utility grids running safely." },
+        { id: 8, date: "February 18, 2024", title: "ERP Migration: Moving from QuickBooks to Odoo", category: "ERP Strategy", excerpt: "Signs that your business has outgrown its entry-level accounting software.", content: "When your 'accounting system' becomes a web of spreadsheets, it's time to upgrade. We discuss the seamless migration paths for growing companies looking to consolidate inventory, project management, and CRM into Odoo." },
+        { id: 9, date: "February 01, 2024", title: "The Role of vCIO in Scaling SMBs", category: "Digital Strategy", excerpt: "Why fractional technology leadership is the secret weapon for New Brunswick SMEs.", content: "A virtual CIO provides the strategic foresight of a veteran executive without the full-time salary. From budget planning to vendor management, we align your tech stack with your 5-year growth plan." },
+        { id: 10, date: "January 20, 2024", title: "Manufacturing 4.0: Connecting the Shop Floor", category: "Digital Transformation", excerpt: "Integrating IoT sensors with Odoo MRP for real-time visibility.", content: "Efficiency on the shop floor starts with data. By connecting machinery to Odoo via IoT gateways, manufacturers can track OEE in real-time and automate maintenance alerts, drastically reducing unplanned downtime." },
+        { id: 11, date: "January 05, 2024", title: "Robotic Process Automation for Healthcare Logistics", category: "Automation", excerpt: "How RPA is speeding up patient supply chains in Canada.", content: "Precision and speed are paramount in healthcare. RPA handles the repetitive documentation of supply movements, ensuring compliance while freeing staff to focus on patient outcomes." },
+        { id: 12, date: "December 15, 2023", title: "Cybersecurity Insurance: Meeting the 2024 Requirements", category: "Compliance", excerpt: "Why your premiums are rising and how to lower them through proper tech audits.", content: "Insurance providers now require proof of MFA, EDR, and offline backups. We guide Canadian businesses through the technical audits necessary to secure coverage and minimize digital liability." }
       ]
     },
     careers: {
@@ -309,8 +225,8 @@ export const translations: Record<Language, Record<string, any>> = {
       careers: "Carrières"
     },
     home: {
-      hero_title_1: "Partenaires Odoo ERP &",
-      hero_title_2: "Transformation Numérique.",
+      hero_title_1: "Orchestrer le",
+      hero_title_2: "Futur Numérique.",
       hero_subtitle: "Oakivo Solutions propulse les entreprises canadiennes avec l'implantation Odoo, l'automatisation intelligente et la cybersécurité. Au service du Canada atlantique et national.",
       cta_primary: "Réserver une consultation",
       insight_title: "L'agilité est la nouvelle monnaie des affaires.",
@@ -395,144 +311,30 @@ export const translations: Record<Language, Record<string, any>> = {
       hero_title: "Succès Clients",
       hero_subtitle: "Découvrez comment nous aidons les entreprises canadiennes à optimiser leurs opérations.",
       cases: [
-        { 
-          title: "Automatisation Chaîne Logistique Odoo", 
-          summary: "Implantation d'Odoo Inventaire & Fabrication pour une firme logistique, réduisant les ruptures de 45%.", 
-          quote: "Oakivo nous a donné une visibilité jamais vue. Odoo a tout changé.",
-          author: "VP Opérations, Atlantic Logistics"
-        },
-        { 
-          title: "Migration Cloud Fintech", 
-          summary: "Migration vers Azure avec architecture Zero Trust pour une fintech de Toronto.", 
-          quote: "Exécution sans faille. Conformité SOC2 atteinte en avance.",
-          author: "CTO, FinTrust Canada"
-        },
-        { 
-          title: "Consolidation ERP Détail", 
-          summary: "Unification de 15 systèmes POS disparates dans une instance Odoo unique.", 
-          quote: "Enfin une source unique de vérité pour nos ventes.",
-          author: "PDG, Northern Retail Group"
-        },
-        { 
-          title: "Agents de Support IA", 
-          summary: "Déploiement de bots LLM pour le support niveau 1, réduisant le volume de 40%.", 
-          quote: "Nos coûts de support ont chuté tandis que la satisfaction a augmenté.",
-          author: "Directeur Support, TechFlow"
-        },
-        { 
-          title: "Permis Numériques Municipaux", 
-          summary: "Création d'un portail web sécurisé pour les citoyens.", 
-          quote: "Un bond en avant pour les services aux citoyens.",
-          author: "Urbaniste, Ville de Moncton"
-        },
-        { 
-          title: "Sécurisation Réseau OT", 
-          summary: "Sécurisation des réseaux OT pour un fournisseur d'énergie régional.", 
-          quote: "L'expertise d'Oakivo en sécurité OT est inégalée.",
-          author: "CISO, Maritime Energy"
-        }
+        { title: "Automatisation Chaîne Logistique Odoo", summary: "Implantation d'Odoo Inventaire & Fabrication pour une firme logistique, réduisant les ruptures de 45%.", quote: "Oakivo nous a donné une visibilité jamais vue. Odoo a tout changé.", author: "VP Opérations, Atlantic Logistics" },
+        { title: "Migration Cloud Fintech", summary: "Migration vers Azure avec architecture Zero Trust pour une fintech de Toronto.", quote: "Exécution sans faille. Conformité SOC2 atteinte en avance.", author: "CTO, FinTrust Canada" },
+        { title: "Consolidation ERP Détail", summary: "Unification de 15 systèmes POS disparates dans une instance Odoo unique.", quote: "Enfin une source unique de vérité pour nos ventes.", author: "PDG, Northern Retail Group" },
+        { title: "Agents de Support IA", summary: "Déploiement de bots LLM pour le support niveau 1, réduisant le volume de 40%.", quote: "Nos coûts de support ont chuté tandis que la satisfaction a augmenté.", author: "Directeur Support, TechFlow" },
+        { title: "Permis Numériques Municipaux", summary: "Création d'un portail web sécurisé pour les citoyens.", quote: "Un bond en avant pour les services aux citoyens.", author: "Urbaniste, Ville de Moncton" },
+        { title: "Sécurisation Réseau OT", summary: "Sécurisation des réseaux OT pour un fournisseur d'énergie régional.", quote: "L'expertise d'Oakivo en sécurité OT est inégalée.", author: "CISO, Maritime Energy" }
       ]
     },
     blog: {
       hero_title: "Insights Numériques",
       hero_subtitle: "Analyses expertes sur Odoo, l'IA et la Cybersécurité.",
       posts: [
-        { 
-          id: 1, 
-          date: "20 Mai 2024", 
-          title: "Pourquoi Odoo est le meilleur ERP pour les PME en 2024", 
-          category: "Stratégie ERP",
-          excerpt: "Comparaison Odoo vs SAP et NetSuite. Pourquoi l'architecture open-source l'emporte.",
-          content: "Les PME canadiennes ont besoin d'agilité. Odoo offre une approche modulaire que les géants comme SAP ne peuvent égaler. Avec son noyau open-source, Odoo permet aux entreprises de commencer avec seulement ce dont elles ont besoin—Comptabilité et CRM, par exemple—et d'évoluer de manière transparente vers la fabrication et le commerce électronique."
-        },
-        { 
-          id: 2, 
-          date: "12 Mai 2024", 
-          title: "Loi C-27 et Confidentialité des Données", 
-          category: "Conformité",
-          excerpt: "Comprendre la CPPA et assurer la conformité de votre stack.",
-          content: "La loi C-27 représente un changement de paradigme dans la gestion des informations personnelles au Canada. La conformité n'est pas seulement une case à cocher juridique ; c'est un facteur de confiance pour vos clients. Chez Oakivo, nous aidons les organisations à auditer leurs flux de données pour garantir que les exigences de résidence et les normes de cryptage répondent aux nouveaux critères de la CPPA."
-        },
-        { 
-          id: 3, 
-          date: "28 Avril 2024", 
-          title: "Architecture Zero Trust au Canada Atlantique", 
-          category: "Cybersécurité",
-          excerpt: "Au-delà du pare-feu. Sécuriser le travail à distance à Halifax et Moncton.",
-          content: "Le périmètre n'est plus un bâtiment ; c'est une identité. Dans le Canada atlantique, où le travail à distance est un avantage stratégique pour l'acquisition de talents, le Zero Trust est essentiel. Nous mettons en œuvre des contrôles d'accès granulaires où 'ne jamais faire confiance, toujours vérifier' est le défaut."
-        },
-        { 
-          id: 4, 
-          date: "15 Avril 2024", 
-          title: "Le ROI de la RPA", 
-          category: "Automatisation",
-          excerpt: "Exemples concrets d'automatisation des factures.",
-          content: "L'automatisation n'est pas une question de remplacement ; c'est une question de récupération. Nous avons récemment mis en œuvre un bot RPA pour un client à Dieppe qui surveille une boîte aux lettres AP, extrait les données des PDF à l'aide de l'IA et les saisit directement dans Odoo."
-        },
-        {
-          id: 5,
-          date: "02 Avril 2024",
-          title: "Souveraineté Cloud : Azure vs AWS Canada",
-          category: "Infrastructure Cloud",
-          excerpt: "Comparaison technique pour les industries régulées.",
-          content: "Pour les cabinets de santé et juridiques canadiens, la résidence des données n'est pas négociable. Azure et AWS proposent désormais des régions canadiennes robustes (Toronto et Montréal), mais leur intégration aux cadres de conformité locaux varie. Oakivo conçoit des solutions multi-cloud qui garantissent que votre PI sensible reste sur le sol canadien."
-        },
-        {
-          id: 6,
-          date: "20 Mars 2024",
-          title: "Analytique Prédictive dans Odoo",
-          category: "Intelligence Artificielle",
-          excerpt: "Utiliser vos données ERP pour prévoir les hausses de demande.",
-          content: "La plupart des systèmes d'inventaire sont réactifs. En superposant l'IA sur le moteur de reporting d'Odoo, nous permettons aux entreprises de repérer les tendances saisonnières et les perturbations de la chaîne d'approvisionnement des semaines à l'avance."
-        },
-        {
-          id: 7,
-          date: "05 Mars 2024",
-          title: "Sécuriser le Travail Hybride : Feuille de route 2025",
-          category: "Cybersécurité",
-          excerpt: "Étapes tactiques pour renforcer vos systèmes.",
-          content: "Le modèle hybride n'est plus une expérience. Les stratégies de sécurité doivent évoluer vers une résilience globale, couvrant la sécurité au niveau du matériel et l'accès sans VPN."
-        },
-        {
-          id: 8,
-          date: "22 Février 2024",
-          title: "Manufacture 4.0 au Nouveau-Brunswick",
-          category: "Transformation Numérique",
-          excerpt: "Connecter l'atelier à l'ERP pour une usine intelligente.",
-          content: "L'industrie manufacturière au Nouveau-Brunswick fait face à un défi de main-d'œuvre. La solution réside dans la connectivité de haute technologie, intégrant les capteurs de l'atelier directement au module de fabrication d'Odoo."
-        },
-        {
-          id: 9,
-          date: "10 Février 2024",
-          title: "Odoo vs SAP : Comparaison du Coût de Détention",
-          category: "Stratégie ERP",
-          excerpt: "Choisir entre un géant historique et un ERP agile moderne.",
-          content: "Nous décomposons le coût total de possession sur 5 ans. Le modèle de déploiement rapide d'Odoo offre généralement un TCO 40% inférieur tout en égalant 90% des fonctionnalités d'entreprise de SAP."
-        },
-        {
-          id: 10,
-          date: "28 Janvier 2024",
-          title: "L'IA Générative pour les Opérations",
-          category: "Intelligence Artificielle",
-          excerpt: "Au-delà de ChatGPT : Transformer votre documentation interne.",
-          content: "Imaginez un bot qui a lu chaque politique et rapport de projet de votre entreprise. Nous construisons des agents de connaissance personnalisés qui permettent à vos employés d'obtenir des réponses précises basées sur vos données internes."
-        },
-        {
-          id: 11,
-          date: "15 Janvier 2024",
-          title: "Transformation Numérique : Le Défi Culturel",
-          category: "Leadership",
-          excerpt: "Pourquoi 70% des transformations échouent.",
-          content: "Le logiciel est la partie facile. La gestion du changement est la partie difficile. Nous explorons la méthode Oakivo pour obtenir l'adhésion des parties prenantes et former le personnel."
-        },
-        {
-          id: 12,
-          date: "02 Janvier 2024",
-          title: "L'Avenir de l'Open Source en Entreprise",
-          category: "Tendances Tech",
-          excerpt: "Pourquoi les grandes entreprises s'éloignent des systèmes verrouillés.",
-          content: "Le verrouillage propriétaire est l'ennemi de l'innovation. Nous discutons de la montée des normes open source et pourquoi la flexibilité et la sécurité pilotée par la communauté deviennent le premier choix des DSI modernes."
-        }
+        { id: 1, date: "20 Mai 2024", title: "Pourquoi Odoo est le meilleur ERP pour les PME en 2024", category: "Stratégie ERP", excerpt: "Comparaison Odoo vs SAP et NetSuite. Pourquoi l'open-source gagne.", content: "Les PME canadiennes ont besoin d'agilité. Odoo offre une approche modulaire que les géants comme SAP ne peuvent égaler." },
+        { id: 2, date: "12 Mai 2024", title: "Loi C-27 et Confidentialité des Données", category: "Conformité", excerpt: "Comprendre la CPPA et assurer la conformité de votre stack.", content: "La loi C-27 représente un changement de paradigme dans la gestion des informations personnelles au Canada." },
+        { id: 3, date: "28 Avril 2024", title: "Architecture Zero Trust au Canada Atlantique", category: "Cybersécurité", excerpt: "Au-delà du pare-feu. Sécuriser le travail à distance à Halifax et Moncton.", content: "Le périmètre n'est plus un bâtiment ; c'est une identité. Le Zero Trust est essentiel." },
+        { id: 4, date: "15 Avril 2024", title: "Le ROI de la RPA", category: "Automatisation", excerpt: "Exemples concrets d'automatisation des factures.", content: "L'automatisation n'est pas une question de remplacement ; c'est une question de récupération." },
+        { id: 5, date: "02 Avril 2024", title: "Souveraineté Cloud : Azure vs AWS Canada", category: "Infrastructure Cloud", excerpt: "Comparaison technique pour les industries régulées.", content: "Pour les cabinets de santé et juridiques canadiens, la résidence des données n'est pas négociable." },
+        { id: 6, date: "20 Mars 2024", title: "Prévisions basées sur l'IA dans Odoo 17", category: "Intelligence Artificielle", excerpt: "Utiliser vos données ERP pour prévoir les hausses de demande.", content: "Superposer l'IA sur le moteur de reporting d'Odoo permet d'anticiper les tendances saisonnières." },
+        { id: 7, date: "05 Mars 2024", title: "Sécuriser les systèmes de contrôle industriels", category: "Cybersécurité", excerpt: "Protéger les réseaux OT contre les ransomwares modernes.", content: "La technologie opérationnelle (OT) nécessite une posture de sécurité différente de celle de l'informatique traditionnelle." },
+        { id: 8, date: "18 Février 2024", title: "Migration ERP : Passer de QuickBooks à Odoo", category: "Stratégie ERP", excerpt: "Signes que votre entreprise a dépassé son logiciel comptable de base.", content: "Lorsque votre système comptable devient un réseau de tableurs, il est temps de passer à l'étape supérieure." },
+        { id: 9, date: "01 Février 2024", title: "Le rôle du vCIO dans la croissance des PME", category: "Stratégie Numérique", excerpt: "Pourquoi le leadership technologique fractionné est l'arme secrète des PME.", content: "Un DSI virtuel offre la clairvoyance stratégique d'un cadre chevronné sans le salaire à plein temps." },
+        { id: 10, date: "20 Janvier 2024", title: "Manufacture 4.0 : Connecter l'atelier", category: "Transformation Numérique", excerpt: "Intégration de capteurs IoT avec Odoo MRP.", content: "L'efficacité dans l'atelier commence par les données. En connectant les machines à Odoo via des passerelles IoT." },
+        { id: 11, date: "05 Janvier 2024", title: "RPA pour la logistique de santé", category: "Automatisation", excerpt: "Comment la RPA accélère les chaînes d'approvisionnement médicales au Canada.", content: "La précision et la rapidité sont primordiales dans le secteur de la santé. La RPA gère la documentation répétitive." },
+        { id: 12, date: "15 Décembre 2023", title: "Assurance Cybersécurité : Répondre aux exigences 2024", category: "Conformité", excerpt: "Pourquoi vos primes augmentent et comment les réduire.", content: "Les assureurs exigent désormais des preuves de MFA, d'EDR et de sauvegardes hors ligne." }
       ]
     },
     careers: {
