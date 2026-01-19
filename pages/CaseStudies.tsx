@@ -1,6 +1,6 @@
 import React from 'react';
 import Section from '../components/Section';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Quote } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
 
 const CaseStudies: React.FC = () => {
@@ -74,6 +74,7 @@ const CaseStudies: React.FC = () => {
                 key={project.id} 
                 className={`group cursor-pointer ${project.size === 'large' ? 'md:col-span-2' : ''}`}
               >
+                {/* Image */}
                 <div className="overflow-hidden mb-6 bg-gray-100 relative">
                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
                    <img 
@@ -83,14 +84,31 @@ const CaseStudies: React.FC = () => {
                     style={{ aspectRatio: project.size === 'large' ? '21/9' : '4/3' }}
                    />
                 </div>
+                
+                {/* Content */}
                 <div className="flex flex-col border-t border-black pt-6">
-                  <div className="flex justify-between items-start">
-                    <div>
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="max-w-3xl">
                         <span className="text-xs font-bold uppercase tracking-widest text-oakivo-secondary mb-3 block">{project.category} // {project.client}</span>
                         <h3 className="text-2xl md:text-4xl font-serif-display font-bold leading-tight group-hover:text-oakivo-muted transition-colors">{casesData[idx].title}</h3>
-                        <p className="text-gray-600 mt-4 max-w-3xl text-lg leading-relaxed">{casesData[idx].summary}</p>
+                        <p className="text-gray-600 mt-4 text-lg leading-relaxed">{casesData[idx].summary}</p>
                     </div>
-                    <ArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 duration-300 mt-2" />
+                    <ArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 duration-300 mt-2 flex-shrink-0" />
+                  </div>
+
+                  {/* Client Quote Section */}
+                  <div className="bg-oakivo-surface p-6 rounded-lg border-l-4 border-oakivo-primary">
+                    <div className="flex items-start gap-4">
+                      <Quote className="text-oakivo-secondary fill-oakivo-secondary shrink-0" size={24} />
+                      <div>
+                        <p className="text-lg font-serif-display italic text-gray-800 mb-2">
+                          "{casesData[idx].quote}"
+                        </p>
+                        <p className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                          — {casesData[idx].author}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

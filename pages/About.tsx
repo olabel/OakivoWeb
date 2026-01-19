@@ -1,11 +1,12 @@
 import React from 'react';
 import Section from '../components/Section';
-import { Target, Heart, Award, User, Code, LineChart, Shield, Layout } from 'lucide-react';
+import { Target, Heart, Award } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
 
 const About: React.FC = () => {
   const { t, language } = useLanguage();
   const values = translations[language].about.values;
+  const team = translations[language].about.team;
 
   return (
     <>
@@ -55,8 +56,8 @@ const About: React.FC = () => {
            <h2 className="text-3xl font-bold font-serif-display mb-16 text-center">{t('about.journey_title')}</h2>
            <div className="max-w-4xl mx-auto relative border-l-2 border-gray-200 ml-6 md:ml-auto space-y-12">
               {[
-                 { year: "2018", title: "Foundation", desc: "Oakivo is founded in Halifax, NS with a focus on local ERP implementations." },
-                 { year: "2020", title: "Digital Acceleration", desc: "Pivoted to remote-first digital transformation during the global shift, expanding to Toronto." },
+                 { year: "2018", title: "Foundation", desc: "Oakivo is founded with a focus on local ERP implementations." },
+                 { year: "2020", title: "Digital Acceleration", desc: "Pivoted to remote-first digital transformation during the global shift." },
                  { year: "2022", title: "The Automation Era", desc: "Launched dedicated AI & RPA division, securing key partnerships with UiPath and Microsoft." },
                  { year: "2024", title: "National Impact", desc: "Recognized as one of Canada's fastest-growing digital consultancies." }
               ].map((item, i) => (
@@ -91,21 +92,18 @@ const About: React.FC = () => {
           <p className="text-gray-500">{t('about.leadership_subtitle')}</p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-          {[
-            { name: "Sarah Jenkins", role: "CEO & Founder", icon: <Layout size={40} /> },
-            { name: "David Chen", role: "CTO", icon: <Code size={40} /> },
-            { name: "Emily Doucet", role: "Head of Strategy", icon: <LineChart size={40} /> },
-            { name: "Michael Ross", role: "Lead Architect", icon: <Shield size={40} /> },
-          ].map((member, idx) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+          {team.map((member: any, idx: number) => (
             <div key={idx} className="group cursor-pointer">
-              {/* Abstract Avatar Placeholder */}
-              <div className="relative overflow-hidden mb-6 bg-gradient-to-br from-gray-100 to-gray-200 h-80 flex items-center justify-center group-hover:from-oakivo-primary group-hover:to-black transition-all duration-500 rounded-sm">
-                <div className="text-gray-300 group-hover:text-oakivo-secondary transition-colors duration-500 transform group-hover:scale-110">
-                   {member.icon}
-                </div>
+              {/* Image Container */}
+              <div className="relative overflow-hidden mb-6 bg-gray-100 aspect-[3/4] w-full shadow-lg rounded-sm">
+                <img 
+                  src={member.img} 
+                  alt={member.name} 
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
+                />
               </div>
-              <div className="text-left">
+              <div className="text-left border-l-2 border-transparent group-hover:border-oakivo-secondary pl-0 group-hover:pl-4 transition-all duration-300">
                 <h3 className="text-xl font-bold text-oakivo-primary">{member.name}</h3>
                 <p className="text-sm text-oakivo-secondary font-bold uppercase tracking-widest mt-1">{member.role}</p>
               </div>

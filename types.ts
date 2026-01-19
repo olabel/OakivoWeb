@@ -24,11 +24,21 @@ export interface TeamMember {
   imageUrl: string;
 }
 
+export interface Job {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+}
+
 export enum NavRoute {
   HOME = '/',
   VERTICALS = '/verticals',
   ABOUT = '/about',
   SERVICES = '/services',
   CASE_STUDIES = '/case-studies',
-  CONTACT = '/contact'
+  CONTACT = '/contact',
+  BLOG = '/perspectives',
+  CAREERS = '/careers'
 }

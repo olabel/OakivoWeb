@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Twitter, Github, ArrowUp, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Linkedin, Twitter, Github, ArrowUp, Mail, MapPin, ArrowRight, Check, Loader2 } from 'lucide-react';
 import { NavRoute } from '../types';
 import Button from './Button';
 import Logo from './Logo';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage, translations } from '../context/LanguageContext';
 
 const Footer: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('submitting');
+    // Simulate API Call
+    setTimeout(() => {
+        setStatus('success');
+        setEmail('');
+        setTimeout(() => setStatus('idle'), 3000); // Reset after 3 seconds
+    }, 1500);
   };
 
   return (
@@ -37,16 +53,29 @@ const Footer: React.FC = () => {
                 </p>
                 
                 {/* Newsletter Input */}
-                <div className="relative max-w-sm">
+                <form onSubmit={handleSubscribe} className="relative max-w-sm">
                   <input 
                     type="email" 
-                    placeholder={t('footer.newsletter_placeholder')}
-                    className="w-full bg-white/5 border border-white/10 rounded-full py-4 pl-6 pr-14 text-white placeholder-gray-500 focus:outline-none focus:border-oakivo-secondary transition-colors"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder={status === 'success' ? "Subscribed!" : t('footer.newsletter_placeholder')}
+                    className="w-full bg-white/5 border border-white/10 rounded-full py-4 pl-6 pr-14 text-white placeholder-gray-500 focus:outline-none focus:border-oakivo-secondary transition-colors disabled:opacity-50"
+                    disabled={status !== 'idle'}
                   />
-                  <button className="absolute right-2 top-2 bottom-2 w-10 h-10 bg-oakivo-secondary rounded-full flex items-center justify-center text-oakivo-primary hover:bg-white transition-colors">
-                    <ArrowRight size={18} />
+                  <button 
+                    type="submit" 
+                    disabled={status !== 'idle'}
+                    className={`absolute right-2 top-2 bottom-2 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${status === 'success' ? 'bg-green-500 text-white' : 'bg-oakivo-secondary text-oakivo-primary hover:bg-white'}`}
+                  >
+                    {status === 'submitting' ? (
+                        <Loader2 className="animate-spin" size={18} />
+                    ) : status === 'success' ? (
+                        <Check size={18} />
+                    ) : (
+                        <ArrowRight size={18} />
+                    )}
                   </button>
-                </div>
+                </form>
              </div>
 
              {/* Socials */}
@@ -67,9 +96,9 @@ const Footer: React.FC = () => {
                 <h4 className="font-bold mb-8 text-white text-lg font-serif-display">{t('footer.col_capabilities')}</h4>
                 <ul className="space-y-4 text-gray-400">
                   {['Digital Strategy', 'Intelligent Automation', 'Cloud & Security', 'ERP Modernization', 'Data Analytics', 'Generative AI'].map((item, i) => (
-                    <li key={i}><a href="#" className="hover:text-oakivo-secondary transition-colors flex items-center gap-2 group">
+                    <li key={i}><Link to={NavRoute.SERVICES} className="hover:text-oakivo-secondary transition-colors flex items-center gap-2 group">
                       <span className="w-0 overflow-hidden group-hover:w-2 transition-all duration-300 text-oakivo-secondary">•</span> {item}
-                    </a></li>
+                    </Link></li>
                   ))}
                 </ul>
              </div>
@@ -80,8 +109,9 @@ const Footer: React.FC = () => {
                 <ul className="space-y-4 text-gray-400">
                   <li><Link to={NavRoute.ABOUT} className="hover:text-oakivo-secondary transition-colors">{t('nav.about')}</Link></li>
                   <li><Link to={NavRoute.CASE_STUDIES} className="hover:text-oakivo-secondary transition-colors">{t('nav.work')}</Link></li>
-                  <li><a href="#" className="hover:text-oakivo-secondary transition-colors">Careers</a></li>
-                  <li><a href="#" className="hover:text-oakivo-secondary transition-colors">Partners</a></li>
+                  <li><Link to={NavRoute.BLOG} className="hover:text-oakivo-secondary transition-colors">{t('home.perspectives_title')}</Link></li>
+                  <li><Link to={NavRoute.CAREERS} className="hover:text-oakivo-secondary transition-colors">{t('nav.careers')}</Link></li>
+                  <li><Link to={NavRoute.CONTACT} className="hover:text-oakivo-secondary transition-colors">Partners</Link></li>
                   <li><Link to={NavRoute.CONTACT} className="hover:text-oakivo-secondary transition-colors">{t('nav.contact')}</Link></li>
                 </ul>
              </div>
@@ -93,8 +123,8 @@ const Footer: React.FC = () => {
                   <li className="flex gap-3">
                     <MapPin className="text-oakivo-secondary shrink-0" size={20} />
                     <div>
-                      <strong className="text-white block">Halifax (HQ)</strong>
-                      <span className="text-sm">123 Innovation Dr.</span>
+                      <strong className="text-white block">Dieppe (HQ)</strong>
+                      <span className="text-sm">21 Delta Street</span>
                     </div>
                   </li>
                   <li className="flex gap-3">
@@ -120,8 +150,8 @@ const Footer: React.FC = () => {
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
           <div className="mb-4 md:mb-0">
              <span className="mr-8">&copy; {new Date().getFullYear()} Oakivo Solutions Inc.</span>
-             <a href="#" className="hover:text-white transition-colors mr-6">{t('footer.privacy')}</a>
-             <a href="#" className="hover:text-white transition-colors">{t('footer.terms')}</a>
+             <Link to={NavRoute.CONTACT} className="hover:text-white transition-colors mr-6">{t('footer.privacy')}</Link>
+             <Link to={NavRoute.CONTACT} className="hover:text-white transition-colors">{t('footer.terms')}</Link>
           </div>
           
           <button 

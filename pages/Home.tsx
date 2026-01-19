@@ -1,24 +1,55 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, TrendingUp, ShieldCheck, Layers, Cpu, Globe, Zap, Anchor } from 'lucide-react';
+import { ArrowRight, TrendingUp, ShieldCheck, Layers, Cpu, Globe, Zap, Anchor, Shield, Award, Users } from 'lucide-react';
 import Section from '../components/Section';
 import Button from '../components/Button';
 import Logo from '../components/Logo';
 import { NavRoute } from '../types';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage, translations } from '../context/LanguageContext';
+import SEO from '../components/SEO';
 
 const Home: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const blogPosts = translations[language].blog.posts.slice(0, 3);
+
+  // Schema.org Structured Data
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Oakivo Solutions Inc",
+    "url": "https://www.oakivo.com",
+    "logo": "https://www.oakivo.com/logo.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/oakivo",
+      "https://twitter.com/oakivo",
+      "https://www.linkedin.com/in/ahmed-bello/"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "21 Delta Street",
+      "addressLocality": "Dieppe",
+      "addressRegion": "NB",
+      "postalCode": "E1A 7B8",
+      "addressCountry": "CA"
+    }
+  };
 
   return (
     <>
-      {/* Hero Section - Strategic & Authoritative */}
+      <SEO 
+        title="Oakivo | Odoo ERP Partners & Digital Transformation Canada"
+        description="Oakivo Solutions is Canada's premier digital transformation agency. Specializing in Odoo ERP implementation, business automation, and cybersecurity for growing SMEs."
+        keywords="Odoo ERP Canada, Digital Transformation, Business Automation, Cyber Security Atlantic Canada, ERP Implementation"
+        schema={organizationSchema}
+      />
+
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center bg-black overflow-hidden pt-20">
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-5xl">
             <div className="mb-8 flex items-center gap-3">
                <Logo className="w-12 h-12" />
-               <span className="text-white font-bold tracking-widest uppercase text-sm">Oakivo Solutions</span>
+               <span className="text-white font-bold tracking-widest uppercase text-xs">Premier Digital Transformation Agency</span>
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-9xl font-serif-display font-bold text-white leading-[0.95] mb-10 tracking-tighter">
               {t('home.hero_title_1')} <br />
@@ -31,6 +62,9 @@ const Home: React.FC = () => {
               <Link to={NavRoute.CONTACT}>
                 <Button variant="primary" size="lg">{t('home.cta_primary')}</Button>
               </Link>
+              <Link to={NavRoute.SERVICES}>
+                <Button variant="outline" size="lg">Explore Our Method</Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -39,12 +73,31 @@ const Home: React.FC = () => {
         <div className="absolute right-0 bottom-0 w-[800px] h-[800px] bg-gradient-to-tl from-oakivo-secondary/20 to-transparent rounded-full blur-[120px] pointer-events-none opacity-40"></div>
       </section>
 
-      {/* Trusted By Strip */}
-      <div className="bg-white border-b border-gray-100 py-12 overflow-hidden">
+      {/* Trust & Compliance Strip (EEAT) */}
+      <div className="bg-gray-50 border-y border-gray-200 py-6">
         <div className="container mx-auto px-6">
-          <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-8">{t('home.trusted_by')}</p>
+          <div className="flex flex-wrap justify-center md:justify-between items-center gap-8 md:gap-4 opacity-70">
+            <div className="flex items-center gap-3 text-sm font-bold text-oakivo-primary">
+              <Shield size={20} className="text-oakivo-secondary" /> SOC2 COMPLIANT
+            </div>
+            <div className="flex items-center gap-3 text-sm font-bold text-oakivo-primary">
+              <Award size={20} className="text-oakivo-secondary" /> ODOO CERTIFIED PARTNER
+            </div>
+            <div className="flex items-center gap-3 text-sm font-bold text-oakivo-primary">
+              <Cpu size={20} className="text-oakivo-secondary" /> MICROSOFT SOLUTIONS PROVIDER
+            </div>
+            <div className="flex items-center gap-3 text-sm font-bold text-oakivo-primary">
+              <Users size={20} className="text-oakivo-secondary" /> 50+ ENTERPRISE DEPLOYMENTS
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Trusted By Strip */}
+      <div className="bg-white border-b border-gray-100 py-16 overflow-hidden">
+        <div className="container mx-auto px-6">
+          <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-10">{t('home.trusted_by')}</p>
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-12 opacity-50 grayscale">
-             {/* Placeholder Logos using Icons + Text for demo purposes */}
              <div className="flex items-center gap-2 text-xl font-bold text-gray-600"><Globe size={28} /> Global Logistics</div>
              <div className="flex items-center gap-2 text-xl font-bold text-gray-600"><ShieldCheck size={28} /> FinSecure</div>
              <div className="flex items-center gap-2 text-xl font-bold text-gray-600"><Zap size={28} /> Atlantic Power</div>
@@ -54,7 +107,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Insight Section - Editorial Layout */}
+      {/* Insight Section */}
       <section className="py-32 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -76,7 +129,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Capabilities - Immersive Grid with Illustrative Images */}
+      {/* Capabilities */}
       <section className="bg-black py-0">
         <div className="grid grid-cols-1 md:grid-cols-2">
             {[
@@ -105,18 +158,14 @@ const Home: React.FC = () => {
                 icon: <ShieldCheck size={32} />
               },
             ].map((item, idx) => (
-              <div key={idx} className="relative group h-[500px] overflow-hidden cursor-pointer border-b border-r border-gray-800">
-                 {/* Image */}
+              <Link to={NavRoute.SERVICES} key={idx} className="relative group h-[500px] overflow-hidden cursor-pointer border-b border-r border-gray-800">
                  <img 
                   src={item.img} 
                   alt={item.title} 
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40" 
+                  loading="lazy"
                  />
-                 
-                 {/* Gradient Overlay */}
                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-80 transition-opacity"></div>
-
-                 {/* Content */}
                  <div className="absolute inset-0 p-12 flex flex-col justify-end items-start">
                     <div className="mb-6 text-oakivo-secondary transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                       {item.icon}
@@ -131,12 +180,12 @@ const Home: React.FC = () => {
                       </span>
                     </div>
                  </div>
-              </div>
+              </Link>
             ))}
         </div>
       </section>
 
-      {/* Featured Work - High Contrast with Abstract Illustrative Images */}
+      {/* Featured Work */}
       <section className="bg-white text-black py-32">
         <div className="container mx-auto px-6">
            <div className="flex flex-col md:flex-row justify-between items-end mb-20">
@@ -151,14 +200,14 @@ const Home: React.FC = () => {
                {
                  client: "Atlantic Logistics",
                  title: "Reimagining the supply chain through the lens of IoT.",
-                 img: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2000&auto=format&fit=crop", // Abstract analytics/data
+                 img: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2000&auto=format&fit=crop",
                  tag: "Industrial Automation",
                  stat: "80% Efficiency Gain"
                },
                {
                  client: "FinTrust Canada",
                  title: "Architecting a fortress for the future of digital banking.",
-                 img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2000&auto=format&fit=crop", // Code/Security abstract
+                 img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2000&auto=format&fit=crop",
                  tag: "Cloud Security",
                  stat: "Zero Downtime Migration"
                }
@@ -166,9 +215,8 @@ const Home: React.FC = () => {
                <div key={idx} className="group grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                   <div className={`lg:col-span-7 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
                     <div className="overflow-hidden relative aspect-[4/3] lg:aspect-[16/9] rounded-lg shadow-2xl">
-                       {/* Illustrative Overlay to match Capabilities style */}
                       <div className="absolute inset-0 bg-gradient-to-tr from-oakivo-primary/60 to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
-                      <img src={work.img} alt={work.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" />
+                      <img src={work.img} alt={work.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" loading="lazy" />
                     </div>
                   </div>
                   <div className={`lg:col-span-5 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
@@ -191,34 +239,35 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Thought Leadership / Blog Preview */}
+      {/* Blog Preview */}
       <section className="bg-oakivo-surface py-24">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-end mb-12">
             <h2 className="text-3xl md:text-4xl font-serif-display font-bold">{t('home.perspectives_title')}</h2>
-            <Link to="#" className="text-oakivo-primary font-bold hover:text-oakivo-secondary transition-colors">{t('home.view_insights')}</Link>
+            <Link to={NavRoute.BLOG} className="text-oakivo-primary font-bold hover:text-oakivo-secondary transition-colors">{t('home.view_insights')}</Link>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-             {[
-                { date: "Oct 12, 2023", title: "The CIO's Guide to Generative AI", category: "Artificial Intelligence" },
-                { date: "Sep 28, 2023", title: "Why ERP Migrations Fail (And How to Fix Them)", category: "Enterprise Platforms" },
-                { date: "Sep 15, 2023", title: "Zero Trust: Beyond the Buzzword", category: "Cybersecurity" }
-             ].map((post, i) => (
-                <div key={i} className="bg-white p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 group cursor-pointer">
-                   <div className="text-xs font-bold text-oakivo-secondary uppercase tracking-widest mb-4">{post.category}</div>
-                   <h3 className="text-xl font-bold mb-4 group-hover:text-oakivo-blue transition-colors">{post.title}</h3>
-                   <div className="flex justify-between items-center mt-8">
-                      <span className="text-gray-400 text-sm">{post.date}</span>
-                      <ArrowRight size={18} className="text-gray-300 group-hover:text-oakivo-secondary transition-colors" />
-                   </div>
-                </div>
+             {blogPosts.map((post: any, i: number) => (
+                <Link key={i} to={`/perspectives/${post.id}`} className="block h-full group">
+                  <div className="bg-white p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 group cursor-pointer h-full flex flex-col rounded-xl">
+                     <div className="text-xs font-bold text-oakivo-secondary uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <Zap size={12} /> {post.category}
+                     </div>
+                     <h3 className="text-xl font-bold mb-4 group-hover:text-oakivo-blue transition-colors flex-grow">{post.title}</h3>
+                     <p className="text-sm text-gray-500 line-clamp-2 mb-6">{post.excerpt}</p>
+                     <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
+                        <span className="text-gray-400 text-xs">{post.date}</span>
+                        <ArrowRight size={18} className="text-gray-300 group-hover:text-oakivo-secondary transition-colors" />
+                     </div>
+                  </div>
+                </Link>
              ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Footer CTA */}
       <section className="bg-oakivo-secondary py-32 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
         <div className="container mx-auto px-6 relative z-10">
@@ -227,7 +276,7 @@ const Home: React.FC = () => {
             {t('home.cta_footer_text')}
           </p>
           <Link to={NavRoute.CONTACT}>
-            <Button variant="black" size="lg" className="px-12 py-5 text-lg">{t('home.cta_footer_btn')}</Button>
+            <Button variant="black" size="lg" className="px-12 py-5 text-lg shadow-2xl">{t('home.cta_footer_btn')}</Button>
           </Link>
         </div>
       </section>

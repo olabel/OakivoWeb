@@ -5,15 +5,13 @@ import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import { useLanguage, translations } from '../context/LanguageContext';
+import SEO from '../components/SEO';
 
 const Services: React.FC = () => {
   const { t, language } = useLanguage();
   const servicesList = translations[language].services.list;
   const steps = translations[language].services.steps;
 
-  // Since focus areas aren't translated in the context for brevity, hardcoding generic ones or handling them properly would be ideal. 
-  // For this implementation, I'll use a static array or map them if I had them. 
-  // To keep it simple and working, I'll reuse the tags from the original file but ideally these should be in the translation object.
   const tagsMap = [
      ["Ecosystem Architecture", "Legacy Modernization", "CX Strategy"],
      ["Robotic Process Automation", "Generative AI", "Predictive Analytics"],
@@ -21,11 +19,42 @@ const Services: React.FC = () => {
      ["Zero Trust Architecture", "SOC2/ISO Compliance", "vCISO Advisory"]
   ];
 
+  // Specific illustrative images for each service
+  const serviceImages = [
+     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop", // Digital Strategy (Globe/Network)
+     "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=1000&auto=format&fit=crop", // Automation/AI (Robot/Brain)
+     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop", // ERP (Dashboard/Data)
+     "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop"  // Security (Code/Lock)
+  ];
+
   const methodIcons = [<Search size={32} />, <PenTool size={32} />, <Zap size={32} />, <BarChart size={32} />];
   const methodSteps = ["01", "02", "03", "04"];
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Odoo ERP Implementation",
+    "provider": {
+      "@type": "Organization",
+      "name": "Oakivo Solutions Inc"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Canada"
+    },
+    "description": "Full-cycle Odoo ERP implementation, migration, and training for Canadian SMEs."
+  };
+
   return (
     <>
+      <SEO 
+        title="ERP Implementation & Digital Automation Services | Oakivo"
+        description="Expert Odoo ERP implementation, Intelligent Automation, and Cybersecurity services for Canadian businesses. Drive efficiency with our certified consultants."
+        keywords="Odoo ERP Service, Business Process Automation Canada, Cyber Security Consultants, Digital Transformation Agency"
+        schema={serviceSchema}
+        canonical="/services"
+      />
+
       <section className="bg-black text-white pt-40 pb-20">
          <div className="container mx-auto px-6">
             <div className="flex items-center gap-4 mb-8">
@@ -46,16 +75,25 @@ const Services: React.FC = () => {
                <div key={idx} className="group border-t border-gray-200 py-20 hover:bg-gray-50 transition-colors">
                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div className="lg:col-span-4">
-                       <h2 className="text-4xl font-serif-display font-bold group-hover:text-oakivo-primary transition-colors flex items-start gap-3">
+                       <h2 className="text-4xl font-serif-display font-bold group-hover:text-oakivo-primary transition-colors flex items-start gap-3 mb-6">
                          <span className="text-oakivo-secondary opacity-0 group-hover:opacity-100 transition-opacity -ml-8 mt-1"><Plus /></span>
                          {service.title}
                        </h2>
+                       {/* Illustrative Image */}
+                       <div className="w-full h-48 md:h-64 overflow-hidden rounded-lg relative">
+                         <div className="absolute inset-0 bg-oakivo-primary/20 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                         <img 
+                           src={serviceImages[idx]} 
+                           alt={service.title} 
+                           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
+                         />
+                       </div>
                     </div>
-                    <div className="lg:col-span-5 flex flex-col items-start">
+                    <div className="lg:col-span-5 flex flex-col items-start pt-2">
                        <p className="text-lg text-gray-700 leading-relaxed mb-8">{service.desc}</p>
                        
                        {/* Strategic Insight Block */}
-                       <div className="bg-oakivo-secondary/10 border-l-4 border-oakivo-secondary p-6 mb-8 rounded-r-lg">
+                       <div className="bg-oakivo-secondary/10 border-l-4 border-oakivo-secondary p-6 mb-8 rounded-r-lg w-full">
                           <div className="flex items-center gap-2 mb-2 text-oakivo-secondary font-bold uppercase text-xs tracking-widest">
                              <Lightbulb size={16} /> Strategic Insight
                           </div>
@@ -68,7 +106,7 @@ const Services: React.FC = () => {
                           </Button>
                        </Link>
                     </div>
-                    <div className="lg:col-span-3">
+                    <div className="lg:col-span-3 pt-2">
                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Focus Areas</h4>
                        <ul className="space-y-3">
                           {tagsMap[idx].map((tag, tIdx) => (
