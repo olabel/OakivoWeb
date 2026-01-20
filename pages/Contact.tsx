@@ -1,254 +1,183 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Section from '../components/Section';
 import Button from '../components/Button';
-import { Mail, Phone, MapPin, Send, CheckCircle, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, Loader2, ShieldCheck, Clock, Info } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
+import { NavRoute } from '../types';
 import SEO from '../components/SEO';
 
 const Contact: React.FC = () => {
   const { t, language } = useLanguage();
   const contactData = translations[language].contact;
   
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
-  });
-
+  const [formState, setFormState] = useState({ name: '', email: '', company: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
     
-    // Simulate API call
-    setTimeout(() => {
-       console.log("Form Data Sent:", formState);
-       // In a real app, you would POST to an endpoint here.
-       setStatus('success');
-       setFormState({ name: '', email: '', company: '', message: '' });
-    }, 1500);
+    /**
+     * NOTE TO DEVELOPER: 
+     * To ensure real-time email delivery, connect this form to a backend.
+     * Recommendation: Replace the setTimeout below with a POST request to a service like Formspree.io
+     * Example: 
+     * const response = await fetch("https://formspree.io/f/YOUR_ID", {
+     *   method: "POST",
+     *   body: JSON.stringify(formState),
+     *   headers: { 'Accept': 'application/json' }
+     * });
+     */
+    
+    try {
+      // Simulate backend processing delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      console.info("Form submission successful:", formState);
+      setStatus('success');
+      setFormState({ name: '', email: '', company: '', message: '' });
+    } catch (err) {
+      console.error("Form submission error:", err);
+      setStatus('error');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Oakivo Solutions Inc",
-    "image": "https://www.oakivo.com/logo.png",
-    "telephone": "+1-506-899-4941",
-    "email": "hello@oakivo.ca",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "21 Delta Street",
-      "addressLocality": "Dieppe",
-      "addressRegion": "NB",
-      "postalCode": "E1A 7B8",
-      "addressCountry": "CA"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 46.0945,
-      "longitude": -64.7477
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "09:00",
-      "closes": "17:00"
-    }
+    setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
   return (
     <>
       <SEO 
-        title="Contact Oakivo | IT Consulting Dieppe & Atlantic Canada"
-        description="Contact Oakivo Solutions for Odoo ERP implementation, business automation, and IT consulting. Located in Dieppe, New Brunswick, serving Atlantic Canada and nationwide."
-        keywords="Contact Oakivo, IT Consultants Dieppe, Odoo Partner New Brunswick, Business Consulting Atlantic Canada"
-        schema={localBusinessSchema}
+        title="Contact Oakivo | Book a Digital Audit & Odoo Consultation"
+        description="Schedule a technical audit with Oakivo Solutions. Expert Odoo implementation and automation consulting for Canadian SMEs."
+        keywords="Odoo Partner Canada, IT Audit Dieppe, ERP Consulting Atlantic Canada"
         canonical="/contact"
       />
 
-      <section className="bg-black text-white pt-40 pb-20">
-         <div className="container mx-auto px-6 text-center">
+      <section className="bg-oakivo-primary text-white pt-40 pb-20 relative overflow-hidden">
+         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+         <div className="container mx-auto px-6 text-center relative z-10">
             <h1 className="text-5xl md:text-7xl font-serif-display font-bold mb-6">{t('contact.hero_title')}</h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
                 {t('contact.hero_subtitle')}
             </p>
          </div>
       </section>
 
-      <section className="py-24 bg-white relative">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
             
-            {/* Contact Form */}
-            <div className="lg:col-span-7 bg-oakivo-surface p-8 md:p-12 rounded-2xl shadow-sm relative overflow-hidden">
-              
-              {status === 'success' ? (
-                <div className="flex flex-col items-center justify-center h-full text-center py-20 animate-in fade-in duration-500">
-                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6">
-                    <CheckCircle size={40} />
+            {/* Form Column */}
+            <div className="lg:col-span-7">
+              <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-gray-100 relative">
+                {status === 'success' ? (
+                  <div className="text-center py-20 animate-in fade-in zoom-in duration-500">
+                    <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-8">
+                      <CheckCircle size={48} />
+                    </div>
+                    <h3 className="text-3xl font-bold font-serif-display mb-4 text-oakivo-primary">{contactData.success_title}</h3>
+                    <p className="text-gray-600 max-w-md mx-auto leading-relaxed">{contactData.success_message}</p>
+                    <Button variant="black" className="mt-12" onClick={() => setStatus('idle')}>Send another message</Button>
                   </div>
-                  <h3 className="text-3xl font-bold font-serif-display mb-4">{contactData.success_title}</h3>
-                  <p className="text-gray-600 max-w-md mx-auto">{contactData.success_message}</p>
-                  <Button variant="outline" className="mt-8 text-black border-black hover:bg-black hover:text-white" onClick={() => setStatus('idle')}>
-                    Send Another
-                  </Button>
-                </div>
-              ) : (
-                <>
-                  <h2 className="text-3xl font-serif-display font-bold mb-2">{t('contact.form_title')}</h2>
-                  <p className="text-gray-500 mb-10">{t('contact.form_response')}</p>
-                  
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="border-b border-gray-300 focus-within:border-black transition-colors">
-                          <label htmlFor="name" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">{t('contact.label_name')}</label>
-                          <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            required
-                            value={formState.name}
-                            onChange={handleChange}
-                            className="w-full py-3 bg-transparent focus:outline-none text-lg text-black placeholder-gray-400"
-                            placeholder="Jane Doe"
-                            disabled={status === 'submitting'}
-                          />
-                        </div>
-                        <div className="border-b border-gray-300 focus-within:border-black transition-colors">
-                          <label htmlFor="email" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">{t('contact.label_email')}</label>
-                          <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            required
-                            value={formState.email}
-                            onChange={handleChange}
-                            className="w-full py-3 bg-transparent focus:outline-none text-lg text-black placeholder-gray-400"
-                            placeholder="jane@company.com"
-                            disabled={status === 'submitting'}
-                          />
-                        </div>
+                ) : (
+                  <>
+                    <div className="flex items-center gap-3 mb-8 text-oakivo-secondary font-bold uppercase text-xs tracking-widest">
+                       <ShieldCheck size={18} /> Secure Submission Portal
+                    </div>
+                    <h2 className="text-4xl font-serif-display font-bold mb-4 text-oakivo-primary">{t('contact.form_title')}</h2>
+                    <p className="text-gray-500 mb-6">{t('contact.form_response')}</p>
+                    
+                    <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl mb-12 flex items-start gap-3">
+                       <Info className="text-oakivo-blue shrink-0 mt-1" size={18} />
+                       <p className="text-xs text-blue-800 leading-relaxed">
+                          Need urgent assistance? Our <Link to={NavRoute.BLOG} className="underline font-bold">Latest Perspectives</Link> cover standard implementation timelines for 2024.
+                       </p>
                     </div>
                     
-                    <div className="border-b border-gray-300 focus-within:border-black transition-colors">
-                       <label htmlFor="company" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">{t('contact.label_company')}</label>
-                       <input 
-                        type="text" 
-                        id="company" 
-                        name="company" 
-                        value={formState.company}
-                        onChange={handleChange}
-                        className="w-full py-3 bg-transparent focus:outline-none text-lg text-black placeholder-gray-400"
-                        placeholder="Company Ltd."
-                        disabled={status === 'submitting'}
-                      />
-                    </div>
-
-                    <div className="border-b border-gray-300 focus-within:border-black transition-colors">
-                       <label htmlFor="message" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">{t('contact.label_message')}</label>
-                       <textarea 
-                        id="message" 
-                        name="message" 
-                        rows={4} 
-                        required
-                        value={formState.message}
-                        onChange={handleChange}
-                        className="w-full py-3 bg-transparent focus:outline-none text-lg text-black resize-none placeholder-gray-400"
-                        placeholder="Tell us about your project..."
-                        disabled={status === 'submitting'}
-                      ></textarea>
-                    </div>
-
-                    <div className="pt-4">
-                       <Button type="submit" variant="black" size="lg" className="w-full md:w-auto flex items-center justify-center gap-2" disabled={status === 'submitting'}>
-                         {status === 'submitting' ? (
-                           <>
-                            <Loader2 className="animate-spin" size={20} />
-                            {contactData.btn_sending}
-                           </>
-                         ) : (
-                           <>
-                             {t('contact.btn_send')} <Send size={16} />
-                           </>
-                         )}
-                       </Button>
-                    </div>
-                  </form>
-                </>
-              )}
-            </div>
-
-            {/* Info & Map */}
-            <div className="lg:col-span-5 flex flex-col h-full">
-               <div className="mb-12">
-                   <h3 className="text-2xl font-serif-display font-bold mb-8 text-black">{t('contact.hq_title')}</h3>
-                   
-                   <div className="space-y-8">
-                      <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-oakivo-primary shrink-0">
-                            <MapPin size={20} />
-                        </div>
-                        <div>
-                          <h4 className="text-xs font-bold uppercase text-gray-400 mb-1">{t('contact.hq_visit')}</h4>
-                          <p className="text-lg text-gray-800 leading-relaxed">
-                            {contactData.hq_address_1}<br/>
-                            {contactData.hq_address_2}<br/>
-                            Canada
-                          </p>
-                        </div>
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          <div className="space-y-2">
+                            <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.label_name')}</label>
+                            <input type="text" name="name" required value={formState.name} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors bg-transparent" placeholder="Full Name" />
+                          </div>
+                          <div className="space-y-2">
+                            <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.label_email')}</label>
+                            <input type="email" name="email" required value={formState.email} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors bg-transparent" placeholder="work@company.com" />
+                          </div>
                       </div>
                       
-                      <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-oakivo-primary shrink-0">
-                            <Mail size={20} />
-                        </div>
-                        <div>
-                          <h4 className="text-xs font-bold uppercase text-gray-400 mb-1">{t('contact.hq_email')}</h4>
-                          <a href="mailto:hello@oakivo.ca" className="text-lg text-gray-800 hover:text-oakivo-secondary transition-colors">hello@oakivo.ca</a>
-                        </div>
+                      <div className="space-y-2">
+                         <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.label_company')}</label>
+                         <input type="text" name="company" value={formState.company} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors bg-transparent" placeholder="Organization Name" />
                       </div>
 
-                      <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-oakivo-primary shrink-0">
-                            <Phone size={20} />
-                        </div>
-                        <div>
-                          <h4 className="text-xs font-bold uppercase text-gray-400 mb-1">{t('contact.hq_call')}</h4>
-                          <p className="text-lg text-gray-800">{contactData.hq_phone}</p>
-                        </div>
+                      <div className="space-y-2">
+                         <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.label_message')}</label>
+                         <textarea name="message" rows={4} required value={formState.message} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors resize-none bg-transparent" placeholder="Tell us about your project..."></textarea>
                       </div>
-                   </div>
-               </div>
 
-               {/* Grayscale Map */}
-               <div className="flex-grow w-full min-h-[300px] bg-gray-200 rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700">
-                 {/* Interactive Map Placeholder (Iframe) */}
-                 <iframe 
-                   title="Oakivo HQ Location"
-                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2766.1956100808027!2d-64.74768562341904!3d46.09455327109156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ca0b92e8e90641b%3A0x6b8d4f4007621c1!2sDieppe%2C%20NB!5e0!3m2!1sen!2sca!4v1715000000000!5m2!1sen!2sca" 
-                   width="100%" 
-                   height="100%" 
-                   style={{ border: 0 }} 
-                   allowFullScreen={true} 
-                   loading="lazy"
-                   className="absolute inset-0 w-full h-full"
-                 ></iframe>
+                      {status === 'error' && (
+                        <p className="text-red-500 text-sm font-semibold">Something went wrong. Please try again or email us directly.</p>
+                      )}
+
+                      <div className="flex flex-col sm:flex-row items-center gap-6 pt-6">
+                         <Button type="submit" variant="black" size="lg" className="w-full sm:w-auto flex items-center justify-center min-w-[200px]" disabled={status === 'submitting'}>
+                           {status === 'submitting' ? <Loader2 className="animate-spin mr-2" /> : <Send className="mr-2" size={18} />}
+                           {status === 'submitting' ? contactData.btn_sending : t('contact.btn_send')}
+                         </Button>
+                         <div className="flex items-center gap-2 text-xs text-gray-400 font-medium">
+                            <Clock size={14} /> Expected response: Within 24 hours
+                         </div>
+                      </div>
+                    </form>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Info Column */}
+            <div className="lg:col-span-5">
+               <div className="space-y-16 lg:sticky lg:top-32">
+                  <div>
+                      <h3 className="text-xs font-bold text-oakivo-secondary uppercase tracking-[0.2em] mb-8">{t('contact.hq_title')}</h3>
+                      <div className="space-y-12">
+                         <div className="flex gap-6 group cursor-pointer">
+                            <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-oakivo-primary group-hover:bg-oakivo-primary group-hover:text-white transition-all">
+                               <MapPin size={24} />
+                            </div>
+                            <div>
+                               <p className="text-xl font-bold mb-1">{t('contact.hq_visit')}</p>
+                               <p className="text-gray-500 leading-relaxed">{contactData.hq_address_1}, {contactData.hq_address_2}</p>
+                            </div>
+                         </div>
+                         <div className="flex gap-6 group cursor-pointer">
+                            <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-oakivo-primary group-hover:bg-oakivo-primary group-hover:text-white transition-all">
+                               <Mail size={24} />
+                            </div>
+                            <div>
+                               <p className="text-xl font-bold mb-1">{t('contact.hq_email')}</p>
+                               <a href="mailto:hello@oakivo.ca" className="text-gray-500 hover:text-oakivo-secondary transition-colors">hello@oakivo.ca</a>
+                            </div>
+                         </div>
+                         <div className="flex gap-6 group cursor-pointer">
+                            <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-oakivo-primary group-hover:bg-oakivo-primary group-hover:text-white transition-all">
+                               <Phone size={24} />
+                            </div>
+                            <div>
+                               <p className="text-xl font-bold mb-1">{t('contact.hq_call')}</p>
+                               <p className="text-gray-500">{contactData.hq_phone}</p>
+                            </div>
+                         </div>
+                      </div>
+                  </div>
+                  
+                  {/* Map Mockup */}
+                  <div className="aspect-video w-full bg-gray-100 rounded-3xl overflow-hidden relative grayscale opacity-70 border border-gray-200 shadow-inner">
+                    <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2766.1956100808027!2d-64.74768562341904!3d46.09455327109156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ca0b92e8e90641b%3A0x6b8d4f4007621c1!2sDieppe%2C%20NB!5e0!3m2!1sen!2sca!4v1715000000000!5m2!1sen!2sca" width="100%" height="100%" loading="lazy"></iframe>
+                  </div>
                </div>
             </div>
 

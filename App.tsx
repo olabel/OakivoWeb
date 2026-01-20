@@ -12,6 +12,7 @@ import Verticals from './pages/Verticals';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Careers from './pages/Careers';
+import Chatbot from './components/Chatbot';
 import { LanguageProvider } from './context/LanguageContext';
 
 // Scroll to top component
@@ -29,10 +30,9 @@ const App: React.FC = () => {
       <LanguageProvider>
         <Router>
           <ScrollToTop />
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen relative">
             <Navbar />
             <main className="flex-grow pt-16"> 
-              {/* pt-16 adds padding to account for fixed navbar height */}
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
@@ -46,6 +46,8 @@ const App: React.FC = () => {
               </Routes>
             </main>
             <Footer />
+            {/* AI Assistant available on all pages */}
+            <Chatbot />
           </div>
         </Router>
       </LanguageProvider>

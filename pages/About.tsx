@@ -58,7 +58,7 @@ const About: React.FC = () => {
               {[
                  { year: "2018", title: "Foundation", desc: "Oakivo is founded with a focus on local ERP implementations." },
                  { year: "2020", title: "Digital Acceleration", desc: "Pivoted to remote-first digital transformation during the global shift." },
-                 { year: "2022", title: "The Automation Era", desc: "Launched dedicated AI & RPA division, securing key partnerships with UiPath and Microsoft." },
+                 { year: "2022", title: "The Automation Era", desc: "Launched dedicated AI & RPA division, securing key partnerships with Microsoft." },
                  { year: "2024", title: "National Impact", desc: "Recognized as one of Canada's fastest-growing digital consultancies." }
               ].map((item, i) => (
                  <div key={i} className="relative pl-12">
@@ -72,7 +72,7 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Core Values - Minimalist Grid */}
+      {/* Core Values */}
       <Section bg="light">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-black pt-12">
           {values.map((val: any, idx: number) => (
@@ -85,7 +85,7 @@ const About: React.FC = () => {
         </div>
       </Section>
 
-      {/* Team Section */}
+      {/* Leadership Team with Retouched Portraits */}
       <Section>
         <div className="mb-16 border-b border-gray-200 pb-8">
           <h2 className="text-4xl font-serif-display font-bold text-oakivo-primary mb-2">{t('about.leadership_title')}</h2>
@@ -95,13 +95,16 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
           {team.map((member: any, idx: number) => (
             <div key={idx} className="group cursor-pointer">
-              {/* Image Container */}
-              <div className="relative overflow-hidden mb-6 bg-gray-100 aspect-[3/4] w-full shadow-lg rounded-sm">
+              {/* Image Container with Retouching */}
+              <div className="relative overflow-hidden mb-6 bg-gray-200 aspect-[3/4] w-full shadow-2xl rounded-sm border border-gray-100">
                 <img 
                   src={member.img} 
                   alt={member.name} 
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
+                  className={`w-full h-full ceo-photo-retouch ${member.name.includes("Ahmed") ? "grayscale-0" : "grayscale"} group-hover:grayscale-0 transform group-hover:scale-105`}
+                  loading="lazy"
                 />
+                {/* Subtle Overlay for consistent branding */}
+                <div className="absolute inset-0 bg-oakivo-primary/5 group-hover:bg-transparent transition-colors"></div>
               </div>
               <div className="text-left border-l-2 border-transparent group-hover:border-oakivo-secondary pl-0 group-hover:pl-4 transition-all duration-300">
                 <h3 className="text-xl font-bold text-oakivo-primary">{member.name}</h3>

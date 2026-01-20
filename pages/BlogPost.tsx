@@ -11,8 +11,9 @@ const BlogPost: React.FC = () => {
   const { id } = useParams();
   const { t, language } = useLanguage();
   const posts = translations[language].blog.posts;
+  const team = translations[language].about.team;
+  const ahmed = team.find((m: any) => m.name.includes("Ahmed"));
   
-  // Find post by ID (simple match since we used simple IDs)
   const post = posts.find((p: any) => p.id.toString() === id);
 
   if (!post) {
@@ -71,14 +72,14 @@ const BlogPost: React.FC = () => {
             <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-white/10">
                <div className="flex items-center gap-3">
                   <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" 
+                    src={ahmed?.img} 
                     alt="Ahmed Bello" 
                     className="w-10 h-10 rounded-full object-cover border border-white/20"
                     loading="lazy"
                   />
                   <div>
                     <span className="block text-sm font-bold">Ahmed Bello</span>
-                    <span className="block text-xs text-gray-400">CEO & Founder, Oakivo</span>
+                    <span className="block text-xs text-gray-400">CEO & Co-Founder, Oakivo</span>
                   </div>
                </div>
                <div className="h-8 w-[1px] bg-white/10 hidden sm:block"></div>
@@ -94,7 +95,6 @@ const BlogPost: React.FC = () => {
 
       <Section>
         <div className="max-w-3xl mx-auto">
-           {/* Trust Signal: Expert Reviewer */}
            <div className="mb-12 p-6 bg-gray-50 rounded-xl border border-gray-100 flex items-start gap-4">
               <ShieldCheck className="text-oakivo-secondary shrink-0 mt-1" size={24} />
               <div>
@@ -109,9 +109,10 @@ const BlogPost: React.FC = () => {
               <p className="lead text-2xl text-gray-700 mb-12 font-light leading-relaxed border-l-4 border-oakivo-secondary pl-8 italic">
                  {post.excerpt}
               </p>
-              <div className="text-gray-800 leading-loose space-y-8 font-sans">
-                 {post.content}
-              </div>
+              <div 
+                className="text-gray-800 leading-loose space-y-8 font-sans blog-content"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
            </article>
 
            <div className="mt-20 p-12 bg-oakivo-surface rounded-2xl border border-gray-100 flex flex-col items-center text-center">
