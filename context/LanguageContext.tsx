@@ -66,13 +66,13 @@ export const translations: Record<Language, Record<string, any>> = {
         { title: "Absolute Integrity", text: "We operate with total transparency. If a technology doesn't serve your ROI, we won't recommend it." },
         { title: "Tangible Impact", text: "We don't measure success by hours billed. We measure it by costs reduced and revenue generated." }
       ],
-      leadership_title: "Leadership Team",
-      leadership_subtitle: "The strategists behind your success.",
+      leadership_title: "Executive Leadership",
+      leadership_subtitle: "Certified specialists driving Canadian enterprise innovation.",
       team: [
-        { name: "Ahmed Bello", role: "CEO & Co-Founder", img: "https://images.unsplash.com/photo-1531123897727-8f129e16fd3c?q=80&w=800&auto=format&fit=crop" },
-        { name: "Sarah Chen", role: "CTO", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop" },
-        { name: "James Thorne", role: "Head of Strategy", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop" },
-        { name: "Elena Rodriguez", role: "Lead Architect", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop" }
+        { name: "Ahmed Bello", role: "Chief Executive Officer", bio: "15+ years of experience in Enterprise Resource Planning and Operational Strategy. Certified Odoo Consultant.", credentials: "MBA, PMP" },
+        { name: "Sarah Chen", role: "Chief Technology Officer", bio: "Specialist in Cloud Architecture and Legacy Modernization. Formerly lead architect for major FinTech infrastructures.", credentials: "M.Sc. Computer Science, Azure Solutions Architect" },
+        { name: "James Thorne", role: "Head of Strategy", bio: "Leading digital transformation roadmaps for the Canadian Public Sector and Energy utilities.", credentials: "B.Eng, vCIO Certified" },
+        { name: "Elena Rodriguez", role: "Director of Cybersecurity", bio: "SOC2 Compliance Lead and Zero Trust strategist. Expert in OT Network hardening.", credentials: "CISSP, CISM" }
       ]
     },
     services: {
@@ -220,13 +220,13 @@ export const translations: Record<Language, Record<string, any>> = {
         { title: "Intégrité", text: "Transparence totale." },
         { title: "Impact", text: "Coûts réduits, revenus générés." }
       ],
-      leadership_title: "Direction",
-      leadership_subtitle: "Les stratèges.",
+      leadership_title: "Direction Executive",
+      leadership_subtitle: "Spécialistes certifiés pour l'innovation.",
       team: [
-        { name: "Ahmed Bello", role: "PDG et Co-Fondateur", img: "https://images.unsplash.com/photo-1531123897727-8f129e16fd3c?q=80&w=800&auto=format&fit=crop" },
-        { name: "Sarah Chen", role: "CTO", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop" },
-        { name: "James Thorne", role: "Stratégie", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop" },
-        { name: "Elena Rodriguez", role: "Architecte", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop" }
+        { name: "Ahmed Bello", role: "Président-Directeur Général", bio: "Plus de 15 ans d'expérience en ERP et stratégie opérationnelle. Consultant Odoo certifié.", credentials: "MBA, PMP" },
+        { name: "Sarah Chen", role: "Directrice de la Technologie", bio: "Spécialiste en architecture cloud et modernisation. Ancienne architecte principale pour infrastructures FinTech.", credentials: "M.Sc., Azure Architect" },
+        { name: "James Thorne", role: "Directeur de la Stratégie", bio: "Responsable des feuilles de route de transformation pour le secteur public et l'énergie.", credentials: "B.Eng, vCIO" },
+        { name: "Elena Rodriguez", role: "Directrice de la Cybersécurité", bio: "Responsable de la conformité SOC2 et stratégie Zero Trust.", credentials: "CISSP, CISM" }
       ]
     },
     services: {
