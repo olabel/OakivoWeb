@@ -42,7 +42,7 @@ const Contact: React.FC = () => {
     } catch (err) {
       console.error("Critical submission error:", err);
       setStatus('error');
-      setErrorMessage(language === 'en' ? 'Submission failed. Please try hello@oakivo.ca' : 'Échec de l\'envoi. Veuillez essayer hello@oakivo.ca');
+      setErrorMessage(language === 'en' ? 'Submission failed. Please try hello@oakivo.com' : 'Échec de l\'envoi. Veuillez essayer hello@oakivo.com');
     }
   };
 
@@ -62,7 +62,7 @@ const Contact: React.FC = () => {
       <section className="bg-oakivo-primary text-white pt-40 pb-20 relative overflow-hidden">
          <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
          <div className="container mx-auto px-6 text-center relative z-10">
-            <h1 className="text-5xl md:text-7xl font-serif-display font-bold mb-6">{t('contact.hero_title')}</h1>
+            <h1 className="text-5xl md:text-7xl font-serif-display font-bold mb-6 tracking-tighter">{t('contact.hero_title')}</h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
                 {t('contact.hero_subtitle')}
             </p>
@@ -174,7 +174,7 @@ const Contact: React.FC = () => {
                             </div>
                             <div>
                                <p className="text-xl font-bold mb-1">{t('contact.hq_email')}</p>
-                               <a href="mailto:hello@oakivo.ca" className="text-gray-500 hover:text-oakivo-secondary transition-colors">hello@oakivo.ca</a>
+                               <a href="mailto:hello@oakivo.com" className="text-gray-500 hover:text-oakivo-secondary transition-colors">hello@oakivo.com</a>
                             </div>
                          </div>
                          <div className="flex gap-6 group cursor-pointer">

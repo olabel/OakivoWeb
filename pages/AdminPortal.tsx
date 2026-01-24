@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db, DatabaseEntry } from '../utils/database';
-import { Shield, Trash2, CheckCircle, Clock, Search, Download, Trash, LayoutDashboard, Mail, Users, Briefcase } from 'lucide-react';
+import { Shield, Trash2, CheckCircle, Clock, Search, Download, Trash, LayoutDashboard, Mail, Users, Briefcase, Lock, Key, AlertCircle } from 'lucide-react';
 import Button from '../components/Button';
 import Logo from '../components/Logo';
 
@@ -8,10 +8,31 @@ const AdminPortal: React.FC = () => {
   const [entries, setEntries] = useState<DatabaseEntry[]>([]);
   const [filter, setFilter] = useState<DatabaseEntry['type'] | 'all'>('all');
   const [search, setSearch] = useState('');
+  
+  // Security State
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passcode, setPasscode] = useState('');
+  const [authError, setAuthError] = useState(false);
+
+  // The "Tactical Access Code" - updated as per security protocol
+  const VAULT_KEY = "OakivoP@ssword1209";
 
   useEffect(() => {
-    setEntries(db.getAllEntries());
-  }, []);
+    if (isAuthenticated) {
+      setEntries(db.getAllEntries());
+    }
+  }, [isAuthenticated]);
+
+  const handleAuth = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passcode === VAULT_KEY) {
+      setIsAuthenticated(true);
+      setAuthError(false);
+    } else {
+      setAuthError(true);
+      setPasscode('');
+    }
+  };
 
   const handleUpdateStatus = (id: string, status: DatabaseEntry['status']) => {
     db.updateStatus(id, status);
@@ -47,6 +68,54 @@ const AdminPortal: React.FC = () => {
     a.download = `oakivo_strategy_vault_${new Date().toISOString().split('T')[0]}.json`;
     a.click();
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-oakivo-primary flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-oakivo-secondary/10 rounded-full blur-[100px] -mr-40 -mt-40"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-oakivo-blue/10 rounded-full blur-[100px] -ml-40 -mb-40"></div>
+        
+        <div className="max-w-md w-full bg-white rounded-3xl p-10 shadow-2xl relative z-10 border border-white/10">
+           <div className="flex flex-col items-center mb-10">
+              <Logo className="w-16 h-16 mb-6" withText={false} />
+              <h1 className="text-2xl font-serif-display font-bold text-oakivo-primary">Strategy Vault</h1>
+              <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] mt-2">Classified Access Only</p>
+           </div>
+
+           <form onSubmit={handleAuth} className="space-y-6">
+              <div className="relative">
+                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                    <Lock size={18} />
+                 </div>
+                 <input 
+                    type="password" 
+                    value={passcode}
+                    onChange={(e) => setPasscode(e.target.value)}
+                    placeholder="Enter Access Key"
+                    className={`w-full bg-gray-50 border py-4 pl-12 pr-4 rounded-xl focus:outline-none transition-all ${authError ? 'border-red-500 bg-red-50' : 'border-gray-200 focus:border-oakivo-primary'}`}
+                 />
+              </div>
+
+              {authError && (
+                 <div className="flex items-center gap-2 text-red-600 text-[10px] font-bold uppercase tracking-widest animate-shake">
+                    <AlertCircle size={14} /> Unauthorized credentials detected
+                 </div>
+              )}
+
+              <Button type="submit" variant="black" className="w-full flex items-center justify-center gap-2">
+                 <Key size={16} /> Authenticate Session
+              </Button>
+           </form>
+
+           <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col items-center">
+              <div className="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                 <Shield size={14} className="text-oakivo-secondary" /> AES-256 Encrypted Portal
+              </div>
+           </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-oakivo-surface pt-32 pb-20">

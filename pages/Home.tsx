@@ -47,9 +47,12 @@ const Home: React.FC = () => {
       <section className="relative min-h-screen flex items-center bg-black overflow-hidden pt-20">
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-5xl">
-            <div className="mb-8 flex items-center gap-3">
-               <Logo className="w-12 h-12" />
-               <span className="text-white font-bold tracking-widest uppercase text-xs">Premier Digital Transformation Agency</span>
+            <div className="mb-8 flex items-center gap-4">
+               {/* Fixed: Logo text disabled here to avoid overlap with description */}
+               <Logo className="w-14 h-14" withText={false} />
+               <span className="text-white font-bold tracking-[0.2em] uppercase text-[10px] md:text-xs border-l border-white/20 pl-4 py-1">
+                 Premier Digital Transformation Agency
+               </span>
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-9xl font-serif-display font-bold text-white leading-[0.95] mb-10 tracking-tighter">
               {t('home.hero_title_1')} <br />
