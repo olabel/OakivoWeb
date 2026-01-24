@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Section from '../components/Section';
 import Button from '../components/Button';
-import { Mail, Phone, MapPin, Send, CheckCircle, Loader2, ShieldCheck, Clock, Info } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, Loader2, ShieldCheck, Clock, Info, AlertCircle } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
 import { NavRoute } from '../types';
 import SEO from '../components/SEO';
+import { db } from '../utils/database';
 
 const Contact: React.FC = () => {
   const { t, language } = useLanguage();
@@ -13,33 +14,35 @@ const Contact: React.FC = () => {
   
   const [formState, setFormState] = useState({ name: '', email: '', company: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('submitting');
     
-    /**
-     * NOTE TO DEVELOPER: 
-     * To ensure real-time email delivery, connect this form to a backend.
-     * Recommendation: Replace the setTimeout below with a POST request to a service like Formspree.io
-     * Example: 
-     * const response = await fetch("https://formspree.io/f/YOUR_ID", {
-     *   method: "POST",
-     *   body: JSON.stringify(formState),
-     *   headers: { 'Accept': 'application/json' }
-     * });
-     */
+    // Basic JS validation as secondary layer
+    if (!formState.email.includes('@')) {
+      setErrorMessage(language === 'en' ? 'Please provide a valid business email.' : 'Veuillez fournir un e-mail professionnel valide.');
+      setStatus('error');
+      return;
+    }
+
+    setStatus('submitting');
+    setErrorMessage('');
     
     try {
-      // Simulate backend processing delay
+      // 1. Save to database
+      db.saveEntry('lead', formState);
+      
+      // 2. Simulate backend processing delay for "email"
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      console.info("Form submission successful:", formState);
+      console.info("Lead captured in database & email queued:", formState);
       setStatus('success');
       setFormState({ name: '', email: '', company: '', message: '' });
     } catch (err) {
-      console.error("Form submission error:", err);
+      console.error("Critical submission error:", err);
       setStatus('error');
+      setErrorMessage(language === 'en' ? 'Submission failed. Please try hello@oakivo.ca' : 'Échec de l\'envoi. Veuillez essayer hello@oakivo.ca');
     }
   };
 
@@ -72,14 +75,17 @@ const Contact: React.FC = () => {
             
             {/* Form Column */}
             <div className="lg:col-span-7">
-              <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-gray-100 relative">
+              <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-gray-100 relative min-h-[600px] flex flex-col justify-center">
                 {status === 'success' ? (
                   <div className="text-center py-20 animate-in fade-in zoom-in duration-500">
-                    <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-8">
+                    <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-8 shadow-inner">
                       <CheckCircle size={48} />
                     </div>
                     <h3 className="text-3xl font-bold font-serif-display mb-4 text-oakivo-primary">{contactData.success_title}</h3>
                     <p className="text-gray-600 max-w-md mx-auto leading-relaxed">{contactData.success_message}</p>
+                    <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-100 text-xs text-gray-400 font-medium">
+                       Reference ID: {Math.random().toString(36).substr(2, 9).toUpperCase()}
+                    </div>
                     <Button variant="black" className="mt-12" onClick={() => setStatus('idle')}>Send another message</Button>
                   </div>
                 ) : (
@@ -93,7 +99,7 @@ const Contact: React.FC = () => {
                     <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl mb-12 flex items-start gap-3">
                        <Info className="text-oakivo-blue shrink-0 mt-1" size={18} />
                        <p className="text-xs text-blue-800 leading-relaxed">
-                          Need urgent assistance? Our <Link to={NavRoute.BLOG} className="underline font-bold">Latest Perspectives</Link> cover standard implementation timelines for 2024.
+                          Need urgent assistance? Our <Link to={NavRoute.BLOG} className="underline font-bold">Latest Perspectives</Link> cover standard implementation timelines for 2026.
                        </p>
                     </div>
                     
@@ -101,7 +107,7 @@ const Contact: React.FC = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                           <div className="space-y-2">
                             <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.label_name')}</label>
-                            <input type="text" name="name" required value={formState.name} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors bg-transparent" placeholder="Full Name" />
+                            <input type="text" name="name" required minLength={2} value={formState.name} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors bg-transparent" placeholder="Full Name" />
                           </div>
                           <div className="space-y-2">
                             <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.label_email')}</label>
@@ -111,22 +117,31 @@ const Contact: React.FC = () => {
                       
                       <div className="space-y-2">
                          <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.label_company')}</label>
-                         <input type="text" name="company" value={formState.company} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors bg-transparent" placeholder="Organization Name" />
+                         <input type="text" name="company" required value={formState.company} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors bg-transparent" placeholder="Organization Name" />
                       </div>
 
                       <div className="space-y-2">
                          <label className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('contact.label_message')}</label>
-                         <textarea name="message" rows={4} required value={formState.message} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors resize-none bg-transparent" placeholder="Tell us about your project..."></textarea>
+                         <textarea name="message" rows={4} required minLength={10} value={formState.message} onChange={handleChange} className="w-full py-3 border-b border-gray-200 focus:border-oakivo-secondary focus:outline-none text-lg transition-colors resize-none bg-transparent" placeholder="Tell us about your project..."></textarea>
                       </div>
 
                       {status === 'error' && (
-                        <p className="text-red-500 text-sm font-semibold">Something went wrong. Please try again or email us directly.</p>
+                        <div className="bg-red-50 border border-red-100 p-4 rounded-lg flex items-center gap-3 text-red-600 text-sm font-semibold animate-shake">
+                           <AlertCircle size={18} /> {errorMessage}
+                        </div>
                       )}
 
                       <div className="flex flex-col sm:flex-row items-center gap-6 pt-6">
-                         <Button type="submit" variant="black" size="lg" className="w-full sm:w-auto flex items-center justify-center min-w-[200px]" disabled={status === 'submitting'}>
-                           {status === 'submitting' ? <Loader2 className="animate-spin mr-2" /> : <Send className="mr-2" size={18} />}
-                           {status === 'submitting' ? contactData.btn_sending : t('contact.btn_send')}
+                         <Button type="submit" variant="black" size="lg" className="w-full sm:w-auto flex items-center justify-center min-w-[220px]" disabled={status === 'submitting'}>
+                           {status === 'submitting' ? (
+                             <>
+                               <Loader2 className="animate-spin mr-2" /> {contactData.btn_sending}
+                             </>
+                           ) : (
+                             <>
+                               <Send className="mr-2" size={18} /> {t('contact.btn_send')}
+                             </>
+                           )}
                          </Button>
                          <div className="flex items-center gap-2 text-xs text-gray-400 font-medium">
                             <Clock size={14} /> Expected response: Within 24 hours

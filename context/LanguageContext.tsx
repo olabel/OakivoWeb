@@ -92,6 +92,13 @@ export const translations: Record<Language, Record<string, any>> = {
         { title: "Implement", desc: "Agile deployment with rigorous testing and data migration." },
         { title: "Scale", desc: "Ongoing support, training, and feature expansion." }
       ],
+      faq_title: "Frequently Asked Questions",
+      faq: [
+        { q: "What is the typical timeline for an Odoo implementation?", a: "A standard Phase 1 (MVP) implementation usually takes between 3 to 6 months. This timeline depends on the number of modules, the complexity of your current workflows, and the volume of data being migrated." },
+        { q: "How do you measure the ROI of business automation?", a: "We focus on two primary metrics: 'Time Reclaimed' (hours saved on manual tasks) and 'Error Reduction Rate'. Most of our clients see a full return on investment within 12 to 18 months of deployment." },
+        { q: "Do you provide training for our internal team?", a: "Absolutely. Every implementation project includes a dedicated training phase with custom workshops and documentation. We ensure your team is fully capable of managing the system independently post-launch." },
+        { q: "Is Odoo secure enough for sensitive financial data?", a: "Yes. As cybersecurity experts, we implement Odoo with advanced hardening layers, including MFA, encrypted databases, and hosting within SOC2-compliant Canadian cloud regions." }
+      ],
       cta_title: "Transform Your Business Today",
       cta_text: "Stop struggling with spreadsheets and legacy systems.",
       cta_btn: "Book Your Assessment"
@@ -112,12 +119,12 @@ export const translations: Record<Language, Record<string, any>> = {
       hero_title: "Digital Insights",
       hero_subtitle: "Expert analysis on Odoo, ERP trends, AI, and Cybersecurity.",
       posts: [
-        { id: 1, date: "May 20, 2024", title: "Why Odoo is the Best ERP for Canadian SMEs", category: "ERP Strategy", excerpt: "Comparing Odoo vs. SAP and NetSuite. Why modular open-source wins.", content: "Canadian SMEs need agility. Odoo offers a modular approach that legacy giants like SAP cannot match. Learn more in our <a href='#/services'>Services</a> page and see how we help <a href='#/verticals'>Manufacturers</a>." },
-        { id: 2, date: "May 12, 2024", title: "Bill C-27 and Data Privacy", category: "Compliance", excerpt: "Understanding the CPPA and ensuring compliance.", content: "Bill C-27 represents a paradigm shift. Oakivo's <a href='#/services'>Cybersecurity Services</a> ensure you are ready for these new regulations." },
-        { id: 3, date: "April 28, 2024", title: "Implementing Zero Trust Architecture", category: "Cybersecurity", excerpt: "Securing remote workforces in Atlantic Canada.", content: "The perimeter is no longer a building; it's an identity. See our approach to <a href='#/services'>Security and Governance</a> for modern firms." },
-        { id: 4, date: "April 15, 2024", title: "The ROI of Robotic Process Automation", category: "Automation", excerpt: "Automating invoice processing saves 20+ hours a week.", content: "Automation reclamation is the goal. Explore our <a href='#/services'>Intelligent Automation solutions</a> to reclaim your team's time." },
-        { id: 5, date: "April 02, 2024", title: "Cloud Sovereignty in Canada", category: "Cloud Infrastructure", excerpt: "Azure vs AWS Canada technical comparison.", content: "For Canadian healthcare and legal firms, data residency is non-negotiable. Learn about our <a href='#/services'>Strategy Consulting</a> for regulated industries." },
-        { id: 6, date: "March 20, 2024", title: "AI-Driven Forecasting in Odoo 17", category: "Artificial Intelligence", excerpt: "Predicting demand surges before they happen.", content: "Layering AI onto Odoo reporting engine allows proactive inventory management. Read our <a href='#/case-studies'>Case Studies</a> to see it in action." }
+        { id: 1, date: "January 15, 2026", title: "Why Odoo is the Best ERP for Canadian SMEs", category: "ERP Strategy", excerpt: "Comparing Odoo vs. SAP and NetSuite. Why modular open-source wins.", content: "### Key Takeaways\n* **Modularity:** Build only what you need, when you need it.\n* **Cost-Efficiency:** Significantly lower TCO compared to SAP/Oracle.\n* **Localization:** Native support for Canadian tax and payroll.\n\nCanadian SMEs need agility. Odoo offers a modular approach that legacy giants like SAP cannot match. Learn more in our <a href='#/services'>Services</a> page and see how we help <a href='#/verticals'>Manufacturers</a>." },
+        { id: 2, date: "December 12, 2025", title: "Bill C-27 and Data Privacy", category: "Compliance", excerpt: "Understanding the CPPA and ensuring compliance.", content: "### Key Takeaways\n* **CPPA:** Mandatory privacy management programs for private firms.\n* **Data Residency:** Critical shifts for Canadian cloud infrastructure.\n* **Fines:** Severe penalties for non-compliance.\n\nBill C-27 represents a paradigm shift. Oakivo's <a href='#/services'>Cybersecurity Services</a> ensure you are ready for these new regulations." },
+        { id: 3, date: "November 28, 2025", title: "Implementing Zero Trust Architecture", category: "Cybersecurity", excerpt: "Securing remote workforces in Atlantic Canada.", content: "### Key Takeaways\n* **Identity is the Perimeter:** Verifying every access request regardless of location.\n* **Micro-segmentation:** Preventing lateral movement of threats.\n* **Remote Access:** Replacing traditional VPNs with secure identity proxies.\n\nThe perimeter is no longer a building; it's an identity. See our approach to <a href='#/services'>Security and Governance</a> for modern firms." },
+        { id: 4, date: "October 15, 2025", title: "The ROI of Robotic Process Automation", category: "Automation", excerpt: "Automating invoice processing saves 20+ hours a week.", content: "### Key Takeaways\n* **Time Reclamation:** Eliminating high-volume repetitive tasks.\n* **Error Reduction:** Robots provide 100% data accuracy in processing.\n* **Scalability:** Handle business growth without increasing headcount.\n\nAutomation reclamation is the goal. Explore our <a href='#/services'>Intelligent Automation solutions</a> to reclaim your team's time." },
+        { id: 5, date: "September 02, 2025", title: "Cloud Sovereignty in Canada", category: "Cloud Infrastructure", excerpt: "Azure vs AWS Canada technical comparison.", content: "### Key Takeaways\n* **PIPEDA/CPPA:** Meeting strict data residency requirements.\n* **Latency:** Localized infrastructure in Quebec and Ontario regions.\n* **Business Continuity:** Geographically redundant Canadian backups.\n\nFor Canadian healthcare and legal firms, data residency is non-negotiable. Learn about our <a href='#/services'>Strategy Consulting</a> for regulated industries." },
+        { id: 6, date: "August 20, 2025", title: "AI-Driven Forecasting in Odoo 17", category: "Artificial Intelligence", excerpt: "Predicting demand surges before they happen.", content: "### Key Takeaways\n* **Predictive MRP:** Aligning manufacturing with real-time demand signals.\n* **Cash Flow Insight:** Forecasting revenue with higher statistical confidence.\n* **Inventory Optimization:** Reducing carrying costs through AI analysis.\n\nLayering AI onto Odoo reporting engine allows proactive inventory management. Read our <a href='#/case-studies'>Case Studies</a> to see it in action." }
       ]
     },
     careers: {
@@ -241,6 +248,13 @@ export const translations: Record<Language, Record<string, any>> = {
       method_title: "Méthode",
       method_subtitle: "Cadre éprouvé.",
       steps: [{ title: "Audit", desc: "Analyse." }, { title: "Architecture", desc: "Design." }, { title: "Implantation", desc: "Déploiement." }, { title: "Mise à l'échelle", desc: "Support." }],
+      faq_title: "Questions Fréquemment Posées",
+      faq: [
+        { q: "Quel est le délai typique pour une implantation Odoo ?", a: "Une implantation standard de la phase 1 (MVP) prend généralement entre 3 et 6 mois. Ce délai dépend du nombre de modules et de la complexité des flux de travail." },
+        { q: "Comment mesurez-vous le ROI de l'automatisation ?", a: "Nous suivons le 'Temps Récupéré' et le 'Taux de Réduction des Erreurs'. La plupart des clients voient un retour sur investissement complet sous 12 à 18 mois." },
+        { q: "Offrez-vous une formation pour notre équipe ?", a: "Oui, chaque projet inclut des ateliers de formation et une documentation personnalisée pour assurer l'adoption du système." },
+        { q: "Odoo est-il assez sécurisé pour mes données financières ?", a: "Absolument. Nous implantons Odoo avec des couches de sécurité avancées, incluant le MFA et un hébergement cloud certifié SOC2 au Canada." }
+      ],
       cta_title: "Transformez-vous", cta_text: "Finis les tableurs.", cta_btn: "Évaluation"
     },
     caseStudies: {
@@ -257,8 +271,8 @@ export const translations: Record<Language, Record<string, any>> = {
     blog: {
       hero_title: "Insights", hero_subtitle: "Odoo, IA et Cybersécurité.",
       posts: [
-        { id: 1, date: "20 Mai 2024", title: "Pourquoi Odoo ?", category: "Stratégie ERP", excerpt: "Modularité vs SAP.", content: "Agilité pour PME. Voir nos <a href='#/services'>Services</a> et <a href='#/verticals'>Secteurs</a>." },
-        { id: 2, date: "12 Mai 2024", title: "Loi C-27", category: "Conformité", excerpt: "Confidentialité au Canada.", content: "Soyez prêt. Voir nos services de <a href='#/services'>Sécurité</a>." }
+        { id: 1, date: "15 Janvier 2026", title: "Pourquoi Odoo ?", category: "Stratégie ERP", excerpt: "Modularité vs SAP.", content: "### Points Clés\n* **Modularité :** Construisez uniquement ce dont vous avez besoin.\n* **Efficacité :** Coût total de possession réduit.\n* **Localisation :** Support natif des taxes canadiennes.\n\nAgilité pour PME. Voir nos <a href='#/services'>Services</a> et <a href='#/verticals'>Secteurs</a>." },
+        { id: 2, date: "12 Décembre 2025", title: "Loi C-27", category: "Conformité", excerpt: "Confidentialité au Canada.", content: "### Points Clés\n* **CPPA :** Programmes obligatoires de gestion de la vie privée.\n* **Souveraineté :** Enjeux de résidence des données au Canada.\n* **Amendes :** Sanctions sévères en cas de non-conformité.\n\nSoyez prêt. Voir nos services de <a href='#/services'>Sécurité</a>." }
       ]
     },
     careers: {

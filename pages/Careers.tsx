@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ArrowRight, Globe, Heart, Clock, Loader2, Send, CheckCircle, Zap } from 'lucide-react';
+import { ArrowRight, Globe, Heart, Clock, Loader2, Send, CheckCircle, Zap, AlertCircle } from 'lucide-react';
 import Button from '../components/Button';
 import { useLanguage, translations } from '../context/LanguageContext';
 import Section from '../components/Section';
+import { db } from '../utils/database';
 
 const Careers: React.FC = () => {
   const { t, language } = useLanguage();
@@ -14,18 +15,38 @@ const Careers: React.FC = () => {
     linkedin: '',
     message: ''
   });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const icons = [<Globe size={24} />, <Zap size={24} />, <Clock size={24} />, <Heart size={24} />];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Explicit Validation
+    if (!formState.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setErrorMessage(language === 'en' ? 'Valid email required.' : 'E-mail valide requis.');
+      setStatus('error');
+      return;
+    }
+
     setStatus('submitting');
-    // Simulate API submission
-    setTimeout(() => {
-        setStatus('success');
-        setFormState({ name: '', email: '', linkedin: '', message: '' });
-    }, 1500);
+    setErrorMessage('');
+    
+    try {
+      // 1. Save to database
+      db.saveEntry('applicant', formState);
+      
+      // 2. Simulate processing delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setStatus('success');
+      setFormState({ name: '', email: '', linkedin: '', message: '' });
+    } catch (err) {
+      console.error("Applicant capture error:", err);
+      setStatus('error');
+      setErrorMessage(language === 'en' ? 'Submission failure.' : 'Échec de l\'envoi.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -35,9 +56,7 @@ const Careers: React.FC = () => {
   return (
     <>
       <section className="bg-black text-white pt-40 pb-20 overflow-hidden relative">
-         {/* Abstract background */}
          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-oakivo-secondary/10 to-transparent pointer-events-none"></div>
-         
          <div className="container mx-auto px-6 relative z-10">
             <h1 className="text-5xl md:text-8xl font-serif-display font-bold max-w-5xl leading-tight mb-8">
               {careersData.hero_title}
@@ -48,7 +67,6 @@ const Careers: React.FC = () => {
          </div>
       </section>
 
-      {/* Culture / Values Section */}
       <section className="bg-white py-24">
         <div className="container mx-auto px-6">
            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
@@ -71,7 +89,6 @@ const Careers: React.FC = () => {
         </div>
       </section>
 
-      {/* Spontaneous Application CTA */}
       <Section bg="light">
         <div className="bg-white rounded-3xl p-8 md:p-16 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-oakivo-secondary via-oakivo-blue to-oakivo-secondary"></div>
@@ -90,10 +107,10 @@ const Careers: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100">
+            <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100 min-h-[400px] flex flex-col justify-center">
                {status === 'success' ? (
-                  <div className="text-center py-12">
-                     <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 text-green-600 rounded-full mb-6">
+                  <div className="text-center py-12 animate-in fade-in zoom-in">
+                     <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 text-green-600 rounded-full mb-6 shadow-inner">
                         <CheckCircle size={32} />
                      </div>
                      <h3 className="text-2xl font-bold mb-2">Application Received</h3>
@@ -104,7 +121,7 @@ const Careers: React.FC = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                      <div>
                         <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Full Name</label>
-                        <input type="text" name="name" required value={formState.name} onChange={handleChange} className="w-full p-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors" placeholder="John Doe" disabled={status === 'submitting'} />
+                        <input type="text" name="name" required minLength={2} value={formState.name} onChange={handleChange} className="w-full p-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors" placeholder="John Doe" disabled={status === 'submitting'} />
                      </div>
                      <div>
                         <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
@@ -112,14 +129,27 @@ const Careers: React.FC = () => {
                      </div>
                      <div>
                         <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">LinkedIn Profile</label>
-                        <input type="url" name="linkedin" value={formState.linkedin} onChange={handleChange} className="w-full p-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors" placeholder="linkedin.com/in/johndoe" disabled={status === 'submitting'} />
+                        <input type="url" name="linkedin" required value={formState.linkedin} onChange={handleChange} className="w-full p-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors" placeholder="https://linkedin.com/in/johndoe" disabled={status === 'submitting'} />
                      </div>
                      <div>
                         <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Tell us about yourself</label>
-                        <textarea name="message" rows={3} required value={formState.message} onChange={handleChange} className="w-full p-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors resize-none" placeholder="What drives you?" disabled={status === 'submitting'}></textarea>
+                        <textarea name="message" rows={3} required minLength={20} value={formState.message} onChange={handleChange} className="w-full p-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors resize-none" placeholder="What drives you?" disabled={status === 'submitting'}></textarea>
                      </div>
+
+                     {status === 'error' && (
+                        <div className="text-red-500 text-xs font-bold flex items-center gap-2">
+                           <AlertCircle size={14} /> {errorMessage}
+                        </div>
+                     )}
+
                      <Button type="submit" variant="black" className="w-full justify-center" disabled={status === 'submitting'}>
-                        {status === 'submitting' ? <Loader2 className="animate-spin" size={20} /> : careersData.apply_btn}
+                        {status === 'submitting' ? (
+                           <>
+                              <Loader2 className="animate-spin mr-2" size={20} /> Processing...
+                           </>
+                        ) : (
+                           careersData.apply_btn
+                        )}
                      </Button>
                   </form>
                )}

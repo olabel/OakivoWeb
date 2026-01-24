@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Section from '../components/Section';
-import { ArrowRight, Plus, Lightbulb, Search, PenTool, Zap, BarChart } from 'lucide-react';
+import { ArrowRight, Plus, Lightbulb, Search, PenTool, Zap, BarChart, ChevronDown } from 'lucide-react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import { useLanguage, translations } from '../context/LanguageContext';
 import SEO from '../components/SEO';
 
+const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="border-b border-gray-200 py-6">
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between text-left group focus:outline-none"
+      >
+        <span className="text-xl font-bold font-serif-display group-hover:text-oakivo-secondary transition-colors">{question}</span>
+        <ChevronDown className={`text-oakivo-secondary transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+        <p className="text-gray-600 leading-relaxed text-lg">{answer}</p>
+      </div>
+    </div>
+  );
+};
+
 const Services: React.FC = () => {
   const { t, language } = useLanguage();
   const servicesList = translations[language].services.list;
   const steps = translations[language].services.steps;
+  const faqs = translations[language].services.faq;
 
   const tagsMap = [
      ["Ecosystem Architecture", "Legacy Modernization", "CX Strategy"],
@@ -19,12 +38,11 @@ const Services: React.FC = () => {
      ["Zero Trust Architecture", "SOC2/ISO Compliance", "vCISO Advisory"]
   ];
 
-  // Specific illustrative images for each service
   const serviceImages = [
-     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop", // Digital Strategy (Globe/Network)
-     "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=1000&auto=format&fit=crop", // Automation/AI (Robot/Brain)
-     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop", // ERP (Dashboard/Data)
-     "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop"  // Security (Code/Lock)
+     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop", 
+     "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=1000&auto=format&fit=crop",
+     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+     "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1000&auto=format&fit=crop"
   ];
 
   const methodIcons = [<Search size={32} />, <PenTool size={32} />, <Zap size={32} />, <BarChart size={32} />];
@@ -79,7 +97,6 @@ const Services: React.FC = () => {
                          <span className="text-oakivo-secondary opacity-0 group-hover:opacity-100 transition-opacity -ml-8 mt-1"><Plus /></span>
                          {service.title}
                        </h2>
-                       {/* Illustrative Image */}
                        <div className="w-full h-48 md:h-64 overflow-hidden rounded-lg relative">
                          <div className="absolute inset-0 bg-oakivo-primary/20 mix-blend-multiply z-10 group-hover:bg-transparent transition-colors duration-500"></div>
                          <img 
@@ -92,7 +109,6 @@ const Services: React.FC = () => {
                     <div className="lg:col-span-5 flex flex-col items-start pt-2">
                        <p className="text-lg text-gray-700 leading-relaxed mb-8">{service.desc}</p>
                        
-                       {/* Strategic Insight Block */}
                        <div className="bg-oakivo-secondary/10 border-l-4 border-oakivo-secondary p-6 mb-8 rounded-r-lg w-full">
                           <div className="flex items-center gap-2 mb-2 text-oakivo-secondary font-bold uppercase text-xs tracking-widest">
                              <Lightbulb size={16} /> Strategic Insight
@@ -143,6 +159,18 @@ const Services: React.FC = () => {
                ))}
             </div>
          </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-white py-24">
+        <div className="container mx-auto px-6 max-w-4xl">
+           <h2 className="text-4xl font-serif-display font-bold mb-12 text-center">{t('services.faq_title')}</h2>
+           <div className="space-y-4">
+              {faqs.map((item: any, i: number) => (
+                <FAQItem key={i} question={item.q} answer={item.a} />
+              ))}
+           </div>
+        </div>
       </section>
 
       <Section bg="light" className="text-center">

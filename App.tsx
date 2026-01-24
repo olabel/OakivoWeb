@@ -12,6 +12,7 @@ import Verticals from './pages/Verticals';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Careers from './pages/Careers';
+import AdminPortal from './pages/AdminPortal';
 import Chatbot from './components/Chatbot';
 import { LanguageProvider } from './context/LanguageContext';
 
@@ -43,6 +44,7 @@ const App: React.FC = () => {
                 <Route path="/perspectives" element={<Blog />} />
                 <Route path="/perspectives/:id" element={<BlogPost />} />
                 <Route path="/careers" element={<Careers />} />
+                <Route path="/admin-portal" element={<AdminPortal />} />
               </Routes>
             </main>
             <Footer />

@@ -1,5 +1,6 @@
 import React from 'react';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 import { Target, Heart, Award, ShieldCheck, Briefcase, GraduationCap, ChevronRight } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
 
@@ -8,8 +9,28 @@ const About: React.FC = () => {
   const values = translations[language].about.values;
   const team = translations[language].about.team;
 
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Oakivo Solutions Inc",
+      "description": "Leading Canadian digital transformation agency specializing in Odoo ERP and intelligent automation.",
+      "founder": "Ahmed Bello",
+      "areaServed": "Canada"
+    }
+  };
+
   return (
     <>
+      <SEO 
+        title="About Oakivo | Leadership in Canadian Digital Transformation"
+        description="Discover Oakivo's mission to re-engineer Canadian businesses through intelligent automation, Odoo ERP expertise, and strategic digital consulting."
+        keywords="Oakivo Team, Ahmed Bello CEO, Digital Strategy Canada, Odoo Partners Atlantic Canada, IT Consulting Dieppe"
+        schema={aboutSchema}
+        canonical="/about"
+      />
+
       {/* Header */}
       <section className="bg-oakivo-primary text-white pt-40 pb-24">
         <div className="container mx-auto px-6">

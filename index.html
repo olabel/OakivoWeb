@@ -26,14 +26,14 @@
     <meta property="og:locale" content="en_CA" />
     <meta property="og:locale:alternate" content="fr_CA" />
 
-    <!-- Updated Production Favicon SVG matching Logo.tsx -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230A3D3A'/%3E%3Cg stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 34 V78' /%3E%3Cpath d='M50 48 L38 60' /%3E%3Cpath d='M50 58 L62 72' /%3E%3Cpath d='M50 68 L32 86' /%3E%3Cpath d='M50 72 L68 90' /%3E%3Cpath d='M50 18 C41 18, 35 22, 33 29 C26 27, 19 31, 19 40 C13 40, 11 50, 16 58 C11 67, 17 77, 27 79 C34 83, 44 85, 50 85 C56 85, 66 83, 73 79 C83 77, 89 67, 84 58 C89 50, 87 40, 81 40 C81 31, 74 27, 67 29 C65 22, 59 18, 50 18 Z' fill='none' stroke-width='4.2' /%3E%3C/g%3E%3C/svg%3E" />
+    <!-- Precise Favicon SVG matching the refined Oakivo tree emblem -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cg fill='white'%3E%3Ccircle cx='50' cy='38' r='16'/%3E%3Ccircle cx='36' cy='46' r='14'/%3E%3Ccircle cx='64' cy='46' r='14'/%3E%3Ccircle cx='41' cy='60' r='11'/%3E%3Ccircle cx='59' cy='60' r='11'/%3E%3Crect x='36' y='46' width='28' height='14'/%3E%3Crect x='47' y='55' width='6' height='32' rx='1'/%3E%3Cpath d='M51 72 L66 50 L71 54 L55 75 Z'/%3E%3C/g%3E%3C/svg%3E" />
     
     <title>Oakivo Solutions | Orchestrating the Digital Future</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -42,7 +42,7 @@
           extend: {
             colors: {
               oakivo: {
-                primary: '#0A3D3A', // Core Forest Green
+                primary: '#123530', 
                 secondary: '#2ECC71',
                 blue: '#0078FF', 
                 bg: '#FFFFFF',
@@ -55,6 +55,7 @@
             fontFamily: {
               sans: ['Inter', 'system-ui', 'sans-serif'],
               serif: ['Playfair Display', 'serif'],
+              funky: ['Quicksand', 'sans-serif'],
             },
             container: {
               center: true,
@@ -67,31 +68,14 @@
     <style>
       body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #0F172A; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
       .font-serif-display { font-family: 'Playfair Display', serif; }
+      .font-funky { font-family: 'Quicksand', sans-serif; }
       html { scroll-behavior: smooth; }
       
-      /* Performance Optimized Animations */
       @keyframes fade-in-up {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
       .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-      /* Portrait Portrait Retouching & Production Lighting */
-      .ceo-photo-retouch {
-        filter: brightness(1.02) contrast(1.05) saturate(1.1) drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-        object-fit: cover;
-        object-position: 50% 15%;
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .ceo-photo-retouch:hover {
-        filter: brightness(1.06) contrast(1.08) saturate(1.2) drop-shadow(0 20px 25px rgba(0,0,0,0.15));
-        transform: scale(1.02);
-      }
-      
-      /* Chatbot UI polishing */
-      .chatbot-scrollbar::-webkit-scrollbar { width: 4px; }
-      .chatbot-scrollbar::-webkit-scrollbar-track { background: transparent; }
-      .chatbot-scrollbar::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
     </style>
     
   <script type="importmap">

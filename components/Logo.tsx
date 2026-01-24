@@ -2,69 +2,66 @@ import React from 'react';
 
 interface LogoProps {
   className?: string;
-  dark?: boolean;
+  withText?: boolean;
+  light?: boolean;
 }
 
 /**
- * Oakivo Solutions Inc. Official Logo Component
- * format: Precision Geometric Vector SVG
- * identity: Protected Brand Asset
+ * Oakivo - Official Brand Mark
+ * Icon: Solid #123530 circle with white negative space tree (High-Fidelity Reference).
+ * Type: Professional "Quicksand" font with the signature secondary color dot.
  */
-const Logo: React.FC<LogoProps> = ({ className = "w-10 h-10", dark = false }) => {
+const Logo: React.FC<LogoProps> = ({ className = "h-10", withText = true, light = false }) => {
+  const brandTeal = "#123530"; 
+  const accentColor = "#2ECC71"; // Oakivo Secondary Green
+  const primaryColor = light ? "#FFFFFF" : brandTeal;
+
   return (
-    <svg 
-      viewBox="0 0 100 100" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg" 
-      className={className} 
-      role="img"
-      aria-label="Oakivo Solutions Inc. Logo"
-    >
-      <title>Oakivo Solutions Inc.</title>
-      
-      {/* Brand Primary: #0A3D3A (Dark Forest Green) Circle */}
-      <circle cx="50" cy="50" r="48" fill="#0A3D3A" />
-      
-      {/* 
-         Oak Tree Structure 
-         Mathematically aligned branch structure for maximum brand stability.
-      */}
-      <g 
-        stroke="white" 
-        strokeWidth="3.2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
+    <div className={`flex items-center gap-3 ${className}`}>
+      {/* High-Fidelity Vector Icon precisely matching the reference image */}
+      <svg 
+        viewBox="0 0 100 100" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg" 
+        className="h-full w-auto flex-shrink-0"
+        role="img"
+        aria-label="Oakivo Logo Emblem"
       >
-        {/* Main Trunk - Tapered for architectural elegance */}
-        <path d="M50 34 V78" />
-        
-        {/* Branch Architecture - Precision angled for stable geometry */}
-        <path d="M50 48 L38 60" />
-        <path d="M50 58 L62 72" />
-        <path d="M50 68 L32 86" />
-        <path d="M50 72 L68 90" />
-        
-        {/* 
-           Official 5-Lobe Scalloped Canopy 
-           A high-fidelity organic path with exact curvature for the Oakivo brand mark.
-        */}
-        <path 
-          d="M50 18
-             C41 18, 35 22, 33 29
-             C26 27, 19 31, 19 40
-             C13 40, 11 50, 16 58
-             C11 67, 17 77, 27 79
-             C34 83, 44 85, 50 85
-             C56 85, 66 83, 73 79
-             C83 77, 89 67, 84 58
-             C89 50, 87 40, 81 40
-             C81 31, 74 27, 67 29
-             C65 22, 59 18, 50 18 Z" 
-          fill="none" 
-          strokeWidth="4.2"
-        />
-      </g>
-    </svg>
+        <circle cx="50" cy="50" r="50" fill={brandTeal} />
+        <g fill="white">
+          {/* Cloud-shaped canopy geometry matching the original reference */}
+          <circle cx="50" cy="38" r="16" />
+          <circle cx="36" cy="46" r="14" />
+          <circle cx="64" cy="46" r="14" />
+          <circle cx="41" cy="60" r="11" />
+          <circle cx="59" cy="60" r="11" />
+          <rect x="36" y="46" width="28" height="14" />
+          
+          {/* Straight vertical trunk */}
+          <rect x="47" y="55" width="6" height="32" rx="1" />
+          
+          {/* Single thick branch pointing up-right at 45-degrees */}
+          <path 
+            d="M51 72 L66 50 L71 54 L55 75 Z" 
+          />
+        </g>
+      </svg>
+
+      {withText && (
+        <div className="flex items-baseline leading-none">
+          {/* "Quicksand" font: Funky yet professional rounded style */}
+          <span 
+            className="text-2xl md:text-3xl font-bold font-funky tracking-tight" 
+            style={{ 
+              color: primaryColor,
+              letterSpacing: '-0.01em'
+            }}
+          >
+            Oakivo<span style={{ color: light ? 'white' : accentColor }}>.</span>
+          </span>
+        </div>
+      )}
+    </div>
   );
 };
 
