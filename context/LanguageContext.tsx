@@ -59,7 +59,7 @@ export const translations: Record<Language, Record<string, any>> = {
       standard_title: "The Oakivo Standard",
       standard_p1: "Headquartered in Dieppe, New Brunswick, Oakivo Solutions is a premier digital consultancy serving Atlantic Canada and the nation.",
       standard_p2: "We bridge the gap between complex technology (like Odoo ERP and Azure) and strategic business goals.",
-      standard_p3: "Our team consists of certified Odoo experts, cloud architects, and cybersecurity analysts.",
+      standard_p3: "Our team consists of Odoo experts, cloud architects, and cybersecurity analysts.",
       journey_title: "Our Roadmap",
       values: [
         { title: "Radical Innovation", text: "We implement forward-thinking architectures that leapfrog the competition." },
@@ -69,7 +69,7 @@ export const translations: Record<Language, Record<string, any>> = {
       leadership_title: "Executive Leadership",
       leadership_subtitle: "Certified specialists driving Canadian enterprise innovation.",
       team: [
-        { name: "Ahmed Bello", role: "Chief Executive Officer", bio: "15+ years of experience in Enterprise Resource Planning and Operational Strategy. Certified Odoo Consultant.", credentials: "MBA, PMP" },
+        { name: "Ahmed Bello", role: "Chief Executive Officer", bio: "15+ years of experience in Enterprise Resource Planning and Operational Strategy. Senior Odoo Architect.", credentials: "MBA, PMP" },
         { name: "Sarah Chen", role: "Chief Technology Officer", bio: "Specialist in Cloud Architecture and Legacy Modernization. Formerly lead architect for major FinTech infrastructures.", credentials: "M.Sc. Computer Science, Azure Solutions Architect" },
         { name: "James Thorne", role: "Head of Strategy", bio: "Leading digital transformation roadmaps for the Canadian Public Sector and Energy utilities.", credentials: "B.Eng, vCIO Certified" },
         { name: "Elena Rodriguez", role: "Director of Cybersecurity", bio: "SOC2 Compliance Lead and Zero Trust strategist. Expert in OT Network hardening.", credentials: "CISSP, CISM" }
@@ -79,7 +79,7 @@ export const translations: Record<Language, Record<string, any>> = {
       hero_label: "Our Expertise",
       hero_title: "End-to-End Digital Transformation.",
       list: [
-        { title: "Odoo ERP Implementation", desc: "As certified partners, we customize Odoo to unify your accounting, inventory, and CRM. Say goodbye to data silos.", insight: "Unified data decreases operational costs by an average of 23%." },
+        { title: "Odoo ERP Implementation", desc: "As specialized partners, we customize Odoo to unify your accounting, inventory, and CRM. Say goodbye to data silos.", insight: "Unified data decreases operational costs by an average of 23%." },
         { title: "Intelligent Automation & AI", desc: "We deploy Microsoft Power Automate and custom AI agents to handle repetitive tasks.", insight: "Automation can reclaim up to 30% of employee time annually." },
         { title: "Digital Strategy Consulting", desc: "Virtual CIO (vCIO) services to align your tech stack with business KPIs.", insight: "Technology without strategy is just overhead." },
         { title: "Cybersecurity & Governance", desc: "Vulnerability assessments, penetration testing, and SOC2 compliance readiness.", insight: "The average cost of a data breach in Canada is over $6M." }
@@ -117,14 +117,132 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     blog: {
       hero_title: "Digital Insights",
-      hero_subtitle: "Expert analysis on Odoo, ERP trends, AI, and Cybersecurity.",
+      hero_subtitle: "Expert analysis on Odoo, ERP trends, AI, and Cybersecurity for the Canadian market.",
       posts: [
-        { id: 1, date: "January 15, 2026", title: "Why Odoo is the Best ERP for Canadian SMEs", category: "ERP Strategy", excerpt: "Comparing Odoo vs. SAP and NetSuite. Why modular open-source wins for growth-oriented firms.", content: "### Key Takeaways\n* **Modularity:** Build only what you need, when you need it.\n* **Cost-Efficiency:** Significantly lower TCO compared to SAP/Oracle.\n* **Localization:** Native support for Canadian tax and payroll.\n\nCanadian SMEs need agility. Odoo offers a modular approach that legacy giants like SAP cannot match. Learn more in our <a href='#/services'>Services</a> page and see how we help <a href='#/verticals'>Manufacturers</a>." },
-        { id: 2, date: "December 12, 2025", title: "Bill C-27 and Data Privacy", category: "Compliance", excerpt: "Understanding the CPPA and ensuring compliance for Canadian private enterprises.", content: "### Key Takeaways\n* **CPPA:** Mandatory privacy management programs for private firms.\n* **Data Residency:** Critical shifts for Canadian cloud infrastructure.\n* **Fines:** Severe penalties for non-compliance.\n\nBill C-27 represents a paradigm shift. Oakivo's <a href='#/services'>Cybersecurity Services</a> ensure you are ready for these new regulations." },
-        { id: 3, date: "November 28, 2025", title: "Implementing Zero Trust Architecture", category: "Cybersecurity", excerpt: "Securing remote workforces in Atlantic Canada using zero-trust principles.", content: "### Key Takeaways\n* **Identity is the Perimeter:** Verifying every access request regardless of location.\n* **Micro-segmentation:** Preventing lateral movement of threats.\n* **Remote Access:** Replacing traditional VPNs with secure identity proxies.\n\nThe perimeter is no longer a building; it's an identity. See our approach to <a href='#/services'>Security and Governance</a> for modern firms." },
-        { id: 4, date: "October 15, 2025", title: "The ROI of Robotic Process Automation", category: "Automation", excerpt: "Automating invoice processing saves 20+ hours a week for finance teams.", content: "### Key Takeaways\n* **Time Reclamation:** Eliminating high-volume repetitive tasks.\n* **Error Reduction:** Robots provide 100% data accuracy in processing.\n* **Scalability:** Handle business growth without increasing headcount.\n\nAutomation reclamation is the goal. Explore our <a href='#/services'>Intelligent Automation solutions</a> to reclaim your team's time." },
-        { id: 5, date: "February 10, 2026", title: "Maritime Logistics & Odoo 18", category: "Industrial Strategy", excerpt: "How IoT-connected ERP systems are changing the East Coast supply chain landscape.", content: "### Key Takeaways\n* **Real-time Tracking:** Integrating GPS and sensor data directly into Odoo Inventory.\n* **Landed Cost Precision:** Automating complex international shipping calculations.\n* **Predictive Maintenance:** Using MRP data to schedule asset repairs before failure.\n\nAtlantic Canada's logistics sector is undergoing a digital renaissance. See our latest video on <a href='#/case-studies'>Atlantic Logistics</a> to see these systems in action." },
-        { id: 6, date: "February 01, 2026", title: "Generative AI for ERP Workflows", category: "Artificial Intelligence", excerpt: "Leveraging LLMs to automate Odoo CRM and Project management data entry.", content: "### Key Takeaways\n* **Voice-to-Task:** Converting field meeting notes into structured Odoo project tasks via AI.\n* **Smart Forecasting:** Using historical sales data with AI models to predict seasonal inventory needs.\n* **Auto-Replies:** Implementing intelligent support bots that integrate with the Odoo helpdesk.\n\nAI is no longer a luxury; it's the new standard for operational excellence. Check our <a href='#/services'>Automation services</a>." }
+        { 
+          id: 1, 
+          date: "January 15, 2026", 
+          title: "Why Odoo is the Best ERP for Canadian SMEs", 
+          category: "ERP Strategy", 
+          excerpt: "Comparing Odoo vs. SAP and NetSuite. Why modular open-source wins for growth-oriented Canadian firms.", 
+          content: `### The Strategic Shift in ERP
+For decades, Canadian mid-market firms were trapped in a binary choice: settle for underpowered accounting tools or suffer the crushing complexity of "Big ERP" systems designed for multinational conglomerates.
+
+**Odoo has fundamentally disrupted this landscape.** As a modular, API-first platform, it allows Atlantic Canadian businesses to start lean—focusing on core pillars like Inventory and Accounting—before horizontally scaling into Manufacturing, CRM, or E-commerce.
+
+### Key Competitive Advantages for Canada:
+*   **Modular Scalability:** Unlike NetSuite, where you pay for bloated features from day one, Odoo's "app-based" model ensures your tech debt remains low while your agility stays high.
+*   **Native Canadian Localization:** From automated **GST/HST/PST** multi-regional tax handling to precise Canadian Payroll modules, Odoo is engineered for our specific regulatory environment.
+*   **The TCO Equation:** Open-source architecture means lower licensing overhead, allowing you to reinvest that capital into custom workflow engineering rather than recurring subscription fees.
+
+### Strategic Takeaways
+The objective of an Oakivo implementation is **Data Unification**. When your sales team, warehouse managers, and finance leads all operate from a single, real-time source of truth, you eliminate the operational "fog" that stalls growth.
+
+*Is your current tech stack holding you back? View our [Services](#/services) page to see our implementation roadmap.*`
+        },
+        { 
+          id: 2, 
+          date: "December 12, 2025", 
+          title: "Bill C-27 and Data Privacy in Canada", 
+          category: "Compliance", 
+          excerpt: "Understanding the Consumer Privacy Protection Act (CPPA) and ensuring compliance for Canadian private enterprises.", 
+          content: `### The Dawn of the CPPA
+The regulatory landscape in Canada is undergoing its most radical transformation since the inception of PIPEDA. **Bill C-27**, which introduces the **Consumer Privacy Protection Act (CPPA)**, brings monumental changes to how private sector organizations must manage personal information.
+
+Failure to comply is no longer just a reputation risk; it's an existential financial one. Serious violations can result in fines of up to **5% of global revenue** or $25 million.
+
+### Three Pillars of Compliance for 2026:
+1.  **Data Portability & Disposal:** Customers now possess the legal right to request their data be transferred or permanently deleted. Your ERP must have the granular control to execute these requests without affecting core business integrity.
+2.  **Consent Management:** Passive consent is dead. The CPPA requires clear, affirmative consent for data collection, with strict transparency on how that data is utilized.
+3.  **Algorithmic Accountability:** If your business uses AI to automate decisions (e.g., credit approvals or recruitment), you must maintain clear documentation explaining the logic behind those automated outcomes.
+
+### The Oakivo Security Layer
+We help Canadian firms architect **Compliance-by-Design**. By centralizing all customer data within a secured Odoo environment hosted in **Canadian Azure Regions**, we ensure you maintain absolute data residency and a clear, immutable audit trail for CPPA inquiries.
+
+*Ensure your organization is CPPA-ready. Contact our [Cybersecurity Leads](#/contact) for a compliance audit.*`
+        },
+        { 
+          id: 3, 
+          date: "November 28, 2025", 
+          title: "Implementing Zero Trust Architecture", 
+          category: "Cybersecurity", 
+          excerpt: "Securing remote and hybrid workforces in Atlantic Canada using zero-trust principles and identity-centric security.", 
+          content: `### Beyond the Office Firewall
+The traditional "Moat and Castle" approach to IT security—where everything inside the office network is trusted—is officially obsolete. With hybrid work now the standard in Dieppe, Moncton, and Halifax, your data is being accessed from hundreds of unmanaged residential networks.
+
+**Zero Trust** is not a product; it is a strategic mindset: **Never Trust, Always Verify.**
+
+### The Core Components of Zero Trust:
+*   **Identity is the New Perimeter:** We replace legacy VPNs with Identity-Aware Proxies. Every single access request to your Odoo ERP is verified using Multi-Factor Authentication (MFA) and device health checks.
+*   **Micro-Segmentation:** If a breach occurs on one workstation, our architecture ensures the threat cannot "move laterally" to your critical accounting or HR servers.
+*   **Continuous Analytics:** We deploy AI-driven monitoring that detects anomalous behavior—like a user logging in from Toronto and Vancouver simultaneously—and triggers automatic lockout.
+
+### Strategic Resilience
+Oakivo's Zero Trust framework ensures that your workforce remains productive anywhere in Canada without compromising the security of your most sensitive intellectual property.
+
+*Protect your hybrid team. [Schedule a Security Audit](#/contact) with our CISSP-certified architects.*`
+        },
+        { 
+          id: 4, 
+          date: "October 15, 2025", 
+          title: "The ROI of Robotic Process Automation (RPA)", 
+          category: "Automation", 
+          excerpt: "How automating high-volume invoice processing and data entry saves 20+ hours a week for Canadian finance teams.", 
+          content: `### Eliminating the "Manual Tax"
+High-growth Canadian companies are often held back by a hidden "Manual Tax"—the cost of paying skilled professionals to perform repetitive, low-value data entry. Manual data processing is not only slow but carries a **1-3% error rate**, which compounds into significant financial discrepancies over time.
+
+### High-Impact Automation Targets:
+1.  **Accounts Payable:** AI-powered OCR (Optical Character Recognition) extracts data from vendor invoices and creates draft bills in Odoo for one-click approval.
+2.  **Order Orchestration:** Automatically syncing customer data between Shopify, Amazon, and Odoo without a single manual keystroke.
+3.  **Client Onboarding:** Standardizing the collection of KYC (Know Your Customer) documents and syncing them to the CRM.
+
+### Measuring Tangible Success
+At Oakivo, we calculate RPA success using **"Hours Reclaimed."** For an industrial client in Atlantic Canada, we automated their manifest processing, reclaiming **15 hours of productivity per week** for their logistics lead. 
+
+This allowed her to transition from data entry to **strategic supply chain optimization**, resulting in a 12% reduction in shipping costs within the first quarter.
+
+*Ready to reclaim your team's time? Explore our [Intelligent Automation](#/services) solutions.*`
+        },
+        { 
+          id: 5, 
+          date: "February 10, 2026", 
+          title: "Maritime Logistics & Odoo 18", 
+          category: "Industrial Strategy", 
+          excerpt: "How IoT-connected ERP systems are revolutionizing the East Coast supply chain and port operations.", 
+          content: `### Digital Transformation at the Port
+The Atlantic Maritime corridor is the lifeblood of our regional economy. Yet, many logistics firms still struggle with "visibility gaps"—periods where cargo location and true landed costs are unknown. 
+
+**Odoo 18** represents a paradigm shift for maritime operations when integrated with modern **IoT (Internet of Things)** technology.
+
+### The Maritime Tech Stack:
+*   **Real-Time Fleet Telematics:** Integrating GPS and engine sensor data directly into the Odoo Maintenance module to prevent mid-transit breakdowns.
+*   **Smart WMS (Warehouse Management):** Utilizing barcode-driven workflows that sync with Odoo Inventory, allowing port managers to view real-time throughput from any device.
+*   **Automated Landed Costing:** Instant calculations of duties, maritime insurance, and port fees to ensure your profit margins are protected on every shipment.
+
+### The competitive Edge
+Visibility is no longer a luxury; it is the primary differentiator. Logistics firms that can provide their clients with real-time, automated status updates and precise billing will always outperform legacy operators.
+
+*Witness the impact of maritime tech in our [Case Studies](#/case-studies) section.*`
+        },
+        { 
+          id: 6, 
+          date: "February 01, 2026", 
+          title: "Generative AI for ERP Workflows", 
+          category: "Artificial Intelligence", 
+          excerpt: "Leveraging Large Language Models (LLMs) to automate Odoo CRM and streamline project management data entry.", 
+          content: `### AI: Beyond the Chatbot
+The real value of **Generative AI** in the enterprise isn't in generating text, but in **orchestrating complex workflows**. At Oakivo, we integrate LLMs (Large Language Models) directly into your Odoo ERP to act as an "Agentic Layer."
+
+### Practical AI Integrations for 2026:
+1.  **Semantic Search:** Sales teams can query their CRM using natural language (e.g., "Show me all clients in NB who haven't ordered in 6 months and have a high sentiment score").
+2.  **Voice-to-ERP:** Field technicians describe a site repair into their mobile device. The AI extracts the core issue, creates a service ticket in Odoo, and schedules a follow-up visit based on technician availability.
+3.  **Automated Response Orchestration:** Intelligent support agents that can not only answer customer queries but also trigger Odoo actions like issuing a return label or updating a shipping address.
+
+### The Human-Centric AI Approach
+We believe AI should **augment human intelligence**, not replace it. Our "Humans-in-the-Loop" architecture ensures that AI handles the heavy cognitive lifting while your experts retain final strategic approval.
+
+*Lead the AI revolution in your industry. See our [Automation Expertise](#/services).*`
+        }
       ]
     },
     careers: {
@@ -220,7 +338,7 @@ export const translations: Record<Language, Record<string, any>> = {
       standard_title: "Le Standard Oakivo",
       standard_p1: "Basée à Dieppe, Nouveau-Brunswick.",
       standard_p2: "Nous comblons le fossé technologique.",
-      standard_p3: "Experts certifiés Odoo.",
+      standard_p3: "Experts Odoo.",
       journey_title: "Parcours",
       values: [
         { title: "Innovation", text: "Architectures avant-gardistes." },
@@ -230,7 +348,7 @@ export const translations: Record<Language, Record<string, any>> = {
       leadership_title: "Direction Executive",
       leadership_subtitle: "Spécialistes certifiés pour l'innovation.",
       team: [
-        { name: "Ahmed Bello", role: "Président-Directeur Général", bio: "Plus de 15 ans d'expérience en ERP et stratégie opérationnelle. Consultant Odoo certifié.", credentials: "MBA, PMP" },
+        { name: "Ahmed Bello", role: "Président-Directeur Général", bio: "Plus de 15 ans d'expérience en ERP et stratégie opérationnelle. Expert Odoo.", credentials: "MBA, PMP" },
         { name: "Sarah Chen", role: "Directrice de la Technologie", bio: "Spécialiste en architecture cloud et modernisation. Ancienne architecte principale pour infrastructures FinTech.", credentials: "M.Sc., Azure Architect" },
         { name: "James Thorne", role: "Directeur de la Stratégie", bio: "Responsable des feuilles de route de transformation pour le secteur public et l'énergie.", credentials: "B.Eng, vCIO" },
         { name: "Elena Rodriguez", role: "Directrice de la Cybersécurité", bio: "Responsable de la conformité SOC2 et stratégie Zero Trust.", credentials: "CISSP, CISM" }
@@ -240,7 +358,7 @@ export const translations: Record<Language, Record<string, any>> = {
       hero_label: "Expertise",
       hero_title: "Transformation Numérique.",
       list: [
-        { title: "Implantation Odoo", desc: "Partenaires certifiés.", insight: "Réduction de 23% des coûts." },
+        { title: "Implantation Odoo", desc: "Partenaires spécialisés.", insight: "Réduction de 23% des coûts." },
         { title: "Automatisation & IA", desc: "RPA et agents IA.", insight: "Récupérez 30% de temps." },
         { title: "Conseil Stratégique", desc: "Services de vCIO.", insight: "La stratégie d'abord." },
         { title: "Cybersécurité", desc: "SOC2 et Zero Trust.", insight: "Souveraineté des données." }

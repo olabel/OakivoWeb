@@ -167,7 +167,7 @@ const About: React.FC = () => {
                  </p>
               </div>
               <div className="md:col-span-5 flex flex-wrap gap-4 justify-start md:justify-end">
-                 {['Odoo Gold Partner', 'Microsoft Tier 1', 'CISSP Certified', 'SOC2 Readiness'].map((cert, i) => (
+                 {['Odoo Partners', 'Microsoft Tier 1', 'CISSP Certified', 'SOC2 Readiness'].map((cert, i) => (
                     <div key={i} className="px-4 py-2 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest bg-white/5">
                        {cert}
                     </div>

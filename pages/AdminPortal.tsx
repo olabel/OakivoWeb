@@ -1,6 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { db, DatabaseEntry } from '../utils/database';
-import { Shield, Trash2, CheckCircle, Clock, Search, Download, Trash, LayoutDashboard, Mail, Users, Briefcase, Lock, Key, AlertCircle } from 'lucide-react';
+// Added missing Info icon to lucide-react imports
+import { Shield, Trash2, CheckCircle, Clock, Search, Download, Trash, LayoutDashboard, Mail, Users, Briefcase, Lock, Key, AlertCircle, Eye, X, Terminal, Code, User, Building, MessageSquare, Link as LinkIcon, Info } from 'lucide-react';
 import Button from '../components/Button';
 import Logo from '../components/Logo';
 
@@ -8,6 +10,8 @@ const AdminPortal: React.FC = () => {
   const [entries, setEntries] = useState<DatabaseEntry[]>([]);
   const [filter, setFilter] = useState<DatabaseEntry['type'] | 'all'>('all');
   const [search, setSearch] = useState('');
+  const [selectedEntry, setSelectedEntry] = useState<DatabaseEntry | null>(null);
+  const [showRaw, setShowRaw] = useState(false);
   
   // Security State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,12 +41,16 @@ const AdminPortal: React.FC = () => {
   const handleUpdateStatus = (id: string, status: DatabaseEntry['status']) => {
     db.updateStatus(id, status);
     setEntries(db.getAllEntries());
+    if (selectedEntry?.id === id) {
+      setSelectedEntry(prev => prev ? { ...prev, status } : null);
+    }
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Permanently delete this entry?')) {
+    if (confirm('Permanently delete this entry from the Strategy Vault?')) {
       db.deleteEntry(id);
       setEntries(db.getAllEntries());
+      if (selectedEntry?.id === id) setSelectedEntry(null);
     }
   };
 
@@ -50,6 +58,7 @@ const AdminPortal: React.FC = () => {
     if (confirm('CRITICAL: This will wipe the entire Strategy Vault. Proceed?')) {
       db.clear();
       setEntries([]);
+      setSelectedEntry(null);
     }
   };
 
@@ -136,7 +145,7 @@ const AdminPortal: React.FC = () => {
               </div>
               
               <div className="flex gap-4">
-                 <Button variant="outline" size="sm" onClick={exportData} className="flex items-center gap-2">
+                 <Button variant="outline" size="sm" onClick={exportData} className="flex items-center gap-2 bg-white/5 border-white/20 hover:bg-white/10">
                     <Download size={14} /> Export Insight
                  </Button>
                  <Button variant="outline" size="sm" onClick={handleClearAll} className="border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white flex items-center gap-2">
@@ -213,7 +222,7 @@ const AdminPortal: React.FC = () => {
                    </tr>
                  ) : (
                    filteredEntries.map(entry => (
-                     <tr key={entry.id} className="hover:bg-gray-50 transition-colors group">
+                     <tr key={entry.id} className="hover:bg-gray-50 transition-colors group cursor-pointer" onClick={() => setSelectedEntry(entry)}>
                         <td className="px-6 py-4">
                            <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
                               <Clock size={12} className="text-oakivo-secondary" />
@@ -240,17 +249,17 @@ const AdminPortal: React.FC = () => {
                            </div>
                         </td>
                         <td className="px-6 py-4">
-                           <button 
-                             onClick={() => handleUpdateStatus(entry.id, entry.status === 'new' ? 'processed' : 'new')}
-                             className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest ${entry.status === 'new' ? 'text-oakivo-secondary' : 'text-gray-400'}`}
-                           >
+                           <div className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest ${entry.status === 'new' ? 'text-oakivo-secondary' : 'text-gray-400'}`}>
                               {entry.status === 'new' ? <div className="w-1.5 h-1.5 rounded-full bg-oakivo-secondary animate-pulse" /> : <CheckCircle size={12} />}
                               {entry.status}
-                           </button>
+                           </div>
                         </td>
-                        <td className="px-6 py-4 text-right">
+                        <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+                           <button className="p-2 text-gray-400 hover:text-oakivo-primary transition-colors">
+                              <Eye size={16} />
+                           </button>
                            <button 
-                             onClick={() => handleDelete(entry.id)}
+                             onClick={(e) => { e.stopPropagation(); handleDelete(entry.id); }}
                              className="p-2 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                            >
                               <Trash2 size={16} />
@@ -263,11 +272,134 @@ const AdminPortal: React.FC = () => {
            </table>
         </div>
 
+        {/* Enhanced Detail Modal (Asset Inspector) */}
+        {selectedEntry && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-oakivo-primary/90 backdrop-blur-md animate-in fade-in duration-300">
+            <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden relative animate-in zoom-in slide-in-from-bottom-8 duration-500 flex flex-col">
+              
+              {/* Modal Header */}
+              <div className="bg-oakivo-primary p-8 text-white flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className={`p-3 rounded-2xl ${
+                    selectedEntry.type === 'lead' ? 'bg-blue-500/20 text-blue-400' :
+                    selectedEntry.type === 'applicant' ? 'bg-purple-500/20 text-purple-400' :
+                    'bg-green-500/20 text-green-400'
+                  }`}>
+                    {selectedEntry.type === 'lead' ? <Users size={24} /> : selectedEntry.type === 'applicant' ? <Briefcase size={24} /> : <Mail size={24} />}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold font-serif-display leading-tight">Asset Intelligence Inspector</h2>
+                    <p className="text-[10px] text-white/50 font-bold uppercase tracking-[0.2em] mt-1">Unique Identifier: {selectedEntry.id}</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => { setSelectedEntry(null); setShowRaw(false); }}
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              {/* Inspector Content */}
+              <div className="p-8 overflow-y-auto max-h-[60vh]">
+                 
+                 {/* Metadata Strip */}
+                 <div className="grid grid-cols-2 gap-8 mb-12 pb-8 border-b border-gray-100">
+                    <div>
+                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Session Creation</label>
+                       <div className="flex items-center gap-2 text-sm font-medium text-oakivo-primary">
+                          <Clock size={14} className="text-oakivo-secondary" />
+                          {new Date(selectedEntry.createdAt).toLocaleString()}
+                       </div>
+                    </div>
+                    <div>
+                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Lifecycle Status</label>
+                       <div className="flex gap-2">
+                          {(['new', 'processed', 'archived'] as const).map(s => (
+                            <button
+                              key={s}
+                              onClick={() => handleUpdateStatus(selectedEntry.id, s)}
+                              className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${selectedEntry.status === s ? 'bg-oakivo-secondary text-oakivo-primary shadow-lg shadow-oakivo-secondary/20' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`}
+                            >
+                              {s}
+                            </button>
+                          ))}
+                       </div>
+                    </div>
+                 </div>
+
+                 {/* Information Payload */}
+                 <div className="space-y-10">
+                    <div className="flex items-center justify-between">
+                       <h3 className="text-xs font-bold text-oakivo-primary uppercase tracking-[0.2em] flex items-center gap-2">
+                          <Terminal size={14} className="text-oakivo-secondary" /> Content Analysis
+                       </h3>
+                       <button 
+                         onClick={() => setShowRaw(!showRaw)}
+                         className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-colors ${showRaw ? 'text-oakivo-blue' : 'text-gray-400'}`}
+                       >
+                         {showRaw ? <Eye size={14} /> : <Code size={14} />} 
+                         {showRaw ? 'Render Structured View' : 'View Source JSON'}
+                       </button>
+                    </div>
+
+                    {showRaw ? (
+                       <pre className="bg-oakivo-primary text-green-400 p-6 rounded-2xl text-xs font-mono overflow-x-auto shadow-inner leading-relaxed">
+                          {JSON.stringify(selectedEntry, null, 2)}
+                       </pre>
+                    ) : (
+                       <div className="space-y-6">
+                          {Object.entries(selectedEntry.data).map(([key, value]) => {
+                             // Icon Mapping
+                             let FieldIcon = Info;
+                             if (key.toLowerCase().includes('name')) FieldIcon = User;
+                             if (key.toLowerCase().includes('company')) FieldIcon = Building;
+                             if (key.toLowerCase().includes('email')) FieldIcon = Mail;
+                             if (key.toLowerCase().includes('message')) FieldIcon = MessageSquare;
+                             if (key.toLowerCase().includes('link')) FieldIcon = LinkIcon;
+
+                             return (
+                                <div key={key} className="flex gap-6 group">
+                                   <div className="shrink-0 w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-300 group-hover:bg-oakivo-surface group-hover:text-oakivo-secondary transition-all">
+                                      <FieldIcon size={20} />
+                                   </div>
+                                   <div className="flex-grow pt-1">
+                                      <label className="text-[9px] font-bold text-gray-400 uppercase tracking-widest block mb-1">{key.replace(/([A-Z])/g, ' $1').trim()}</label>
+                                      <div className="text-base font-medium text-oakivo-primary leading-relaxed break-words">
+                                         {typeof value === 'string' && (value.startsWith('http') || value.includes('@')) ? (
+                                            <a href={value.includes('@') && !value.startsWith('http') ? `mailto:${value}` : value} target="_blank" rel="noopener noreferrer" className="text-oakivo-blue underline decoration-oakivo-blue/30 hover:decoration-oakivo-blue transition-all">
+                                               {value}
+                                            </a>
+                                         ) : String(value)}
+                                      </div>
+                                   </div>
+                                </div>
+                             );
+                          })}
+                       </div>
+                    )}
+                 </div>
+              </div>
+
+              {/* Modal Footer Actions */}
+              <div className="p-8 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+                 <button 
+                   onClick={() => handleDelete(selectedEntry.id)}
+                   className="text-red-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 hover:bg-red-50 px-4 py-2 rounded-lg transition-all"
+                 >
+                    <Trash2 size={16} /> Permanently Wipe Asset
+                 </button>
+                 <Button variant="black" onClick={() => { setSelectedEntry(null); setShowRaw(false); }}>Close Inspector</Button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="mt-8 p-6 border border-dashed border-gray-200 rounded-2xl flex items-center justify-between text-gray-400">
            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]">
               <Shield size={16} /> Data Encryption Standard: Oakivo-Vault-AES-256
            </div>
-           <p className="text-[10px]">Vault session expires on browser refresh unless localStorage persistent.</p>
+           <p className="text-[10px]">Administrative session is secured and logs are captured for audit compliance.</p>
         </div>
       </div>
     </div>

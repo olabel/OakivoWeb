@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
     <!-- Production SEO & EEAT Signals -->
-    <meta name="description" content="Oakivo Solutions Inc. is Canada's premier digital transformation consultancy. We specialize in certified Odoo ERP implementation, intelligent business automation (AI/RPA), and cybersecurity audits for high-growth enterprises." />
+    <meta name="description" content="Oakivo Solutions Inc. is Canada's premier digital transformation consultancy. We specialize in Odoo ERP implementation, intelligent business automation (AI/RPA), and cybersecurity audits for high-growth enterprises." />
     <meta name="keywords" content="Odoo ERP Canada, Odoo Implementation New Brunswick, Business Process Automation Canada, Cybersecurity Audit SOC2, Digital Transformation Strategy Atlantic Canada, RPA Consultants Dieppe" />
     <meta name="author" content="Oakivo Solutions Inc." />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -19,7 +19,7 @@
 
     <!-- Open Graph (Social SEO) -->
     <meta property="og:title" content="Oakivo Solutions | Orchestrating the Digital Future" />
-    <meta property="og:description" content="Certified Odoo Partners & Digital Strategy experts helping Canadian businesses scale through automation and security." />
+    <meta property="og:description" content="Odoo Partners & Digital Strategy experts helping Canadian businesses scale through automation and security." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.oakivo.com" />
     <meta property="og:site_name" content="Oakivo Solutions Inc." />
@@ -27,7 +27,7 @@
     <meta property="og:locale:alternate" content="fr_CA" />
 
     <!-- Precise Favicon SVG matching the refined Oakivo tree emblem -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cg fill='white'%3E%3Ccircle cx='50' cy='38' r='16'/%3E%3Ccircle cx='36' cy='46' r='14'/%3E%3Ccircle cx='64' cy='46' r='14'/%3E%3Ccircle cx='41' cy='60' r='11'/%3E%3Ccircle cx='59' cy='60' r='11'/%3E%3Crect x='36' y='46' width='28' height='14'/%3E%3Crect x='47' y='55' width='6' height='32' rx='1'/%3E%3Cpath d='M51 72 L66 50 L71 54 L55 75 Z'/%3E%3C/g%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cg fill='white'%3E%3Ccircle cx='50' cy='38' r='16'/%3E%3Ccircle cx='35' cy='46' r='13'/%3E%3Ccircle cx='65' cy='46' r='13'/%3E%3Ccircle cx='42' cy='58' r='11'/%3E%3Ccircle cx='58' cy='58' r='11'/%3E%3Crect x='47' y='52' width='6' height='35' rx='0.5'/%3E%3Cpath d='M51 68 L68 46 L73 50 L56 72 Z'/%3E%3C/g%3E%3C/svg%3E" />
     
     <title>Oakivo Solutions | Orchestrating the Digital Future</title>
 
@@ -76,6 +76,17 @@
         to { opacity: 1; transform: translateY(0); }
       }
       .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      
+      /* Smooth marquee animation for industry vertical logos/text */
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .animate-marquee {
+        animation: scroll 30s linear infinite;
+        display: flex;
+        width: max-content;
+      }
     </style>
     
   <script type="importmap">
