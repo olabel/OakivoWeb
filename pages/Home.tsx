@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, TrendingUp, ShieldCheck, Layers, Cpu, Globe, Zap, Anchor, Shield, Award, Users, Play, Target, BarChart3, ChevronRight, Activity, Database, Workflow } from 'lucide-react';
+import { ArrowRight, TrendingUp, ShieldCheck, Play, ChevronRight, Activity, Database, Workflow, Sparkles, BrainCircuit, Bot } from 'lucide-react';
 import Button from '../components/Button';
 import Logo from '../components/Logo';
 import { NavRoute } from '../types';
@@ -10,6 +10,25 @@ import SEO from '../components/SEO';
 const Home: React.FC = () => {
   const { t, language } = useLanguage();
   const blogPosts = translations[language].blog.posts.slice(0, 3);
+  const [reclaimedHours, setReclaimedHours] = useState(482100);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setReclaimedHours(prev => prev + Math.floor(Math.random() * 3));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    setMousePos({
+      x: (e.clientX - rect.left) / rect.width - 0.5,
+      y: (e.clientY - rect.top) / rect.height - 0.5
+    });
+  };
 
   const industries = [
     "Manufacturing", "Retail", "Distribution", "Finance", "Public Sector", "Logistics", "Energy", "Healthcare"
@@ -18,133 +37,140 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Oakivo | Orchestrating Canadian Digital Transformation"
-        description="Oakivo Solutions is Canada's premier digital transformation agency. Specializing in Odoo ERP, intelligent automation, and cybersecurity for enterprise SMEs."
-        keywords="Odoo ERP Canada, Digital Transformation, Business Automation, Cyber Security Atlantic Canada, ERP Implementation"
+        title="Oakivo | AI Automation & Odoo ERP Leaders in Canada"
+        description="Oakivo Solutions Inc. orchestrates the digital future with Intelligent AI Automation and Expert Odoo ERP implementation for enterprise SMEs."
+        keywords="AI Automation Canada, Odoo ERP implementation, Digital Transformation Dieppe, Business Automation Atlantic Canada"
       />
 
-      {/* Hero Section - Cinematic & Expert-Grade Design */}
-      <section className="relative min-h-screen flex items-center bg-[#020504] overflow-hidden">
-        {/* Dynamic Background Elements */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-oakivo-primary via-black to-black"></div>
-          <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-oakivo-secondary/5 rounded-full blur-[160px] animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-oakivo-blue/5 rounded-full blur-[140px] animate-pulse delay-1000"></div>
-          {/* Subtle grid pattern overlay */}
-          <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+      {/* Hero Section - High-Impact Cinematic Design */}
+      <section 
+        ref={heroRef}
+        onMouseMove={handleMouseMove}
+        className="relative min-h-screen flex items-center bg-[#020504] overflow-hidden pt-20"
+      >
+        {/* Animated Background Layers */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#05110d] via-black to-black"></div>
+          
+          <div 
+            className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-oakivo-secondary/10 rounded-full blur-[200px] transition-transform duration-[2000ms] ease-out"
+            style={{ transform: `translate(${mousePos.x * 120}px, ${mousePos.y * 120}px)` }}
+          ></div>
+          <div 
+            className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-oakivo-blue/10 rounded-full blur-[180px] transition-transform duration-[2500ms] ease-out delay-100"
+            style={{ transform: `translate(${mousePos.x * -100}px, ${mousePos.y * -100}px)` }}
+          ></div>
+          
+          <div className="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 pt-20">
-          <div className="max-w-6xl">
-            <div className="mb-12 inline-flex items-center gap-4 bg-white/5 border border-white/10 px-6 py-2 rounded-full backdrop-blur-md animate-fade-in-up">
-               <Activity className="text-oakivo-secondary" size={16} />
-               <span className="text-white font-bold tracking-[0.2em] uppercase text-[10px] md:text-xs">
-                 Canada's Lead Digital Architects
-               </span>
-            </div>
-
-            <h1 className="text-6xl md:text-8xl lg:text-[11rem] font-serif-display font-bold text-white leading-[0.8] mb-12 tracking-tighter animate-fade-in-up [animation-delay:200ms]">
-              {t('home.hero_title_1')} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-oakivo-secondary via-green-400 to-white">{t('home.hero_title_2')}</span>
-            </h1>
-
-            <p className="text-xl md:text-3xl text-gray-400 mb-16 max-w-4xl font-light leading-snug animate-fade-in-up [animation-delay:400ms]">
-              {t('home.hero_subtitle')}
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center gap-10 animate-fade-in-up [animation-delay:600ms]">
-              <Link to={NavRoute.CONTACT}>
-                <Button variant="primary" size="lg" className="px-14 py-6 text-xl shadow-[0_0_50px_rgba(46,204,113,0.3)] hover:scale-105 transition-transform duration-500">
-                  {t('home.cta_primary')}
-                </Button>
-              </Link>
-              <Link to={NavRoute.CASE_STUDIES} className="group flex items-center gap-5 text-white font-bold uppercase tracking-widest text-sm transition-all hover:text-oakivo-secondary">
-                <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-oakivo-secondary group-hover:text-black group-hover:border-oakivo-secondary transition-all">
-                  <Play size={20} fill="currentColor" />
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-16 mb-16">
+              <div className="max-w-4xl">
+                <div className="mb-10 inline-flex items-center gap-4 bg-white/5 border border-white/10 px-6 py-2.5 rounded-full backdrop-blur-xl animate-fade-in-up">
+                   <BrainCircuit className="text-oakivo-secondary" size={16} />
+                   <span className="text-white font-bold tracking-[0.5em] uppercase text-[10px]">
+                     Orchestrating AI & Enterprise
+                   </span>
                 </div>
-                {language === 'en' ? 'Success Showreel' : 'Démo de succès'}
-              </Link>
+
+                <h1 className="text-6xl md:text-8xl lg:text-[11.5rem] font-serif-display font-bold text-white leading-[0.8] mb-12 tracking-tighter animate-fade-in-up [animation-delay:200ms]">
+                  Build Your <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-oakivo-secondary via-white to-oakivo-blue/80">Autonomous Future.</span>
+                </h1>
+
+                <p className="text-xl md:text-3xl text-gray-400 mb-16 max-w-3xl font-light leading-snug animate-fade-in-up [animation-delay:400ms]">
+                  {language === 'en' 
+                    ? "Empowering Canadian enterprises with Agentic AI Automation, Expert Odoo Orchestration, and Zero-Trust Cybersecurity." 
+                    : "Propulser les entreprises canadiennes avec l'automatisation IA, l'orchestration Odoo et la cybersécurité."}
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center gap-10 animate-fade-in-up [animation-delay:600ms]">
+                  <Link to={NavRoute.CONTACT}>
+                    <Button variant="primary" size="lg" className="px-16 py-7 text-2xl shadow-[0_0_80px_rgba(46,204,113,0.3)] hover:scale-105 transition-all duration-500 group">
+                      {t('nav.contact')} <ArrowRight className="inline ml-3 group-hover:translate-x-2 transition-transform" />
+                    </Button>
+                  </Link>
+                  <Link to={NavRoute.CASE_STUDIES} className="group flex items-center gap-5 text-white font-bold uppercase tracking-widest text-sm transition-all hover:text-oakivo-secondary">
+                    <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-oakivo-secondary group-hover:text-black group-hover:border-oakivo-secondary transition-all shadow-4xl backdrop-blur-md">
+                      <Play size={20} fill="currentColor" />
+                    </div>
+                    Showreel 2026
+                  </Link>
+                </div>
+              </div>
+
+              {/* Business Agility Widget */}
+              <div className="lg:w-96 bg-white/5 border border-white/10 backdrop-blur-3xl p-10 rounded-[48px] hidden lg:block animate-fade-in-up [animation-delay:800ms] shadow-4xl group hover:border-oakivo-secondary/30 transition-all duration-700">
+                 <div className="mb-8 flex items-center justify-between">
+                    <div className="w-12 h-12 bg-oakivo-secondary/20 rounded-2xl flex items-center justify-center text-oakivo-secondary group-hover:bg-oakivo-secondary group-hover:text-oakivo-primary transition-all">
+                       <Bot size={24} />
+                    </div>
+                    <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.3em]">AI-Driven Impact</span>
+                 </div>
+                 <h4 className="text-white font-bold text-6xl font-serif-display mb-3 tracking-tighter">{reclaimedHours.toLocaleString()}</h4>
+                 <p className="text-gray-400 text-lg font-light leading-snug">Hours reclaimed globally through autonomous enterprise logic.</p>
+                 <div className="mt-10 h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-full bg-oakivo-secondary w-3/4 animate-pulse"></div>
+                 </div>
+              </div>
             </div>
           </div>
         </div>
         
-        {/* Animated Scroll Visual */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 opacity-30">
-          <div className="w-[1px] h-24 bg-gradient-to-b from-white to-transparent"></div>
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-8 opacity-20 pointer-events-none">
+          <div className="w-[1px] h-32 bg-gradient-to-b from-white to-transparent"></div>
         </div>
       </section>
 
-      {/* Industry Marquee Section */}
-      <div className="bg-oakivo-primary py-8 border-y border-white/5 overflow-hidden">
+      {/* Professional Marquee */}
+      <div className="bg-oakivo-primary py-12 border-y border-white/5 overflow-hidden cv-auto">
         <div className="animate-marquee">
           {[...industries, ...industries].map((industry, i) => (
-            <div key={i} className="flex items-center gap-4 mx-12">
-              <span className="text-white/20 font-serif-display text-4xl font-bold uppercase tracking-tighter italic">{industry}</span>
-              <div className="w-2 h-2 rounded-full bg-oakivo-secondary/30"></div>
+            <div key={i} className="flex items-center gap-12 mx-16">
+              <span className="text-white/20 font-serif-display text-5xl font-bold uppercase tracking-tighter italic transition-all hover:text-oakivo-secondary/50 cursor-default">{industry}</span>
+              <div className="w-3 h-3 rounded-full bg-oakivo-secondary/40 shadow-[0_0_15px_rgba(46,204,113,0.5)]"></div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Expert Stats Strip - Removed "Gold Partner" */}
-      <div className="bg-white py-16 border-b border-gray-100">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
-            {[
-              { label: 'Partnership', val: 'Odoo Experts', icon: <Award className="text-oakivo-secondary" /> },
-              { label: 'Infrastructure', val: 'SOC2 Ready', icon: <Shield className="text-oakivo-secondary" /> },
-              { label: 'Operational Impact', val: '500k+ Hours', icon: <Activity className="text-oakivo-secondary" /> },
-              { label: 'Strategic Scale', val: '98% Retention', icon: <Users className="text-oakivo-secondary" /> },
-            ].map((stat, i) => (
-              <div key={i} className="flex items-center gap-5 group">
-                <div className="p-4 bg-oakivo-surface rounded-2xl group-hover:bg-oakivo-primary group-hover:text-white transition-all duration-500">
-                  {stat.icon}
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
-                  <p className="text-2xl font-bold text-oakivo-primary font-serif-display">{stat.val}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Value Proposition - Core Methodology */}
-      <section className="py-32 bg-white">
+      {/* Core Insight Section */}
+      <section className="py-40 bg-white cv-auto">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
             <div className="lg:col-span-6">
-              <div className="inline-block px-5 py-2 bg-oakivo-secondary/10 text-oakivo-secondary rounded-full text-xs font-bold uppercase tracking-widest mb-8">
-                The Oakivo Methodology
+              <div className="inline-block px-5 py-2 bg-oakivo-secondary/10 text-oakivo-secondary rounded-full text-[10px] font-bold uppercase tracking-[0.4em] mb-12">
+                The Oakivo Standard
               </div>
-              <h2 className="text-5xl md:text-8xl font-serif-display font-bold text-oakivo-primary leading-[0.9] mb-12 tracking-tighter">
+              <h2 className="text-6xl md:text-8xl font-serif-display font-bold text-oakivo-primary leading-[0.9] mb-12 tracking-tighter">
                 {t('home.insight_title')}
               </h2>
-              <div className="space-y-10">
-                <p className="text-2xl text-gray-600 leading-relaxed font-light italic border-l-8 border-oakivo-secondary pl-10">
+              <div className="space-y-12">
+                <p className="text-2xl text-gray-700 leading-relaxed font-light italic border-l-[12px] border-oakivo-secondary pl-12 bg-oakivo-surface py-12 rounded-r-3xl pr-10 shadow-sm">
                   {t('home.insight_text_1')}
                 </p>
-                <p className="text-xl text-gray-500 leading-relaxed max-w-2xl">
+                <p className="text-xl text-gray-400 leading-relaxed max-w-2xl font-light">
                   {t('home.insight_text_2')}
                 </p>
               </div>
             </div>
             <div className="lg:col-span-6">
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-10">
                 {[
-                  { title: "Strategic Audit", icon: <Target className="text-oakivo-secondary" />, desc: "Deep operational forensics before any code is written." },
-                  { title: "Ecosystem Design", icon: <Workflow className="text-oakivo-secondary" />, desc: "Architecting Odoo as the central nervous system of your firm." },
-                  { title: "Continuous Scaling", icon: <Database className="text-oakivo-secondary" />, desc: "Ongoing advisory to ensure your tech stays ahead of the curve." }
+                  { title: "Agentic AI Workflows", icon: <BrainCircuit className="text-oakivo-secondary" />, desc: "Deploy autonomous AI agents that execute complex business logic across your Odoo ERP ecosystem." },
+                  { title: "Next-Gen Odoo 18", icon: <Database className="text-oakivo-secondary" />, desc: "Architecting unified environments that utilize native ML for predictive inventory and cash flow modeling." },
+                  { title: "Cybersecurity First", icon: <ShieldCheck className="text-oakivo-secondary" />, desc: "Zero-trust frameworks and SOC2-ready security audits to protect your most critical intellectual assets." }
                 ].map((item, i) => (
-                  <div key={i} className="bg-oakivo-surface p-10 rounded-3xl border border-transparent hover:border-oakivo-secondary/20 hover:bg-white hover:shadow-2xl transition-all duration-500 group">
-                    <div className="flex gap-8 items-start">
-                      <div className="shrink-0 p-4 bg-white rounded-2xl shadow-sm group-hover:bg-oakivo-primary group-hover:text-white transition-all">
+                  <div key={i} className="bg-oakivo-surface p-12 rounded-[48px] border border-transparent hover:border-oakivo-secondary/20 hover:bg-white hover:shadow-4xl transition-all duration-700 group">
+                    <div className="flex gap-10 items-start">
+                      <div className="shrink-0 p-6 bg-white rounded-3xl shadow-sm group-hover:bg-oakivo-primary group-hover:text-white transition-all duration-500">
                         {item.icon}
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold font-serif-display mb-3 text-oakivo-primary">{item.title}</h3>
-                        <p className="text-gray-500 leading-relaxed">{item.desc}</p>
+                        <h3 className="text-3xl font-bold font-serif-display mb-4 text-oakivo-primary leading-tight">{item.title}</h3>
+                        <p className="text-gray-500 leading-relaxed text-lg font-light">{item.desc}</p>
                       </div>
                     </div>
                   </div>
@@ -155,119 +181,23 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Core Capabilities - Expert Grid with Interactions */}
-      <section className="bg-white py-0 border-t border-gray-100">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-            {[
-              { 
-                title: t('home.cap_auto_title'), 
-                desc: t('home.cap_auto_desc'), 
-                img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop",
-                icon: <Cpu size={48} />
-              },
-              { 
-                title: t('home.cap_eco_title'), 
-                desc: t('home.cap_eco_desc'), 
-                img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
-                icon: <Layers size={48} />
-              },
-              { 
-                title: t('home.cap_mod_title'), 
-                desc: t('home.cap_mod_desc'), 
-                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
-                icon: <TrendingUp size={48} />
-              },
-              { 
-                title: t('home.cap_sec_title'), 
-                desc: t('home.cap_sec_desc'), 
-                img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
-                icon: <ShieldCheck size={48} />
-              },
-            ].map((item, idx) => (
-              <Link to={NavRoute.SERVICES} key={idx} className="relative group min-h-[550px] flex flex-col justify-end p-16 overflow-hidden border-b border-r border-gray-100 transition-all duration-700">
-                 <img 
-                  src={item.img} 
-                  alt={item.title} 
-                  className="absolute inset-0 w-full h-full object-cover transition-all duration-[2s] group-hover:scale-110 opacity-60 group-hover:opacity-100" 
-                  loading="lazy"
-                 />
-                 <div className="absolute inset-0 bg-gradient-to-t from-oakivo-primary/95 via-oakivo-primary/40 to-transparent"></div>
-                 
-                 <div className="relative z-10 translate-y-6 group-hover:translate-y-0 transition-all duration-700">
-                    <div className="mb-8 text-oakivo-secondary group-hover:scale-110 transition-transform origin-left">
-                      {item.icon}
-                    </div>
-                    <h3 className="text-4xl md:text-5xl font-serif-display font-bold text-white mb-6 leading-tight">{item.title}</h3>
-                    <p className="text-gray-300 text-xl max-w-md mb-10 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                      {item.desc}
-                    </p>
-                    <div className="flex items-center gap-4 text-white font-bold uppercase tracking-widest text-xs">
-                      <span className="border-b-2 border-oakivo-secondary pb-1">{t('home.explore')}</span>
-                      <ArrowRight size={20} className="group-hover:translate-x-3 transition-transform" />
-                    </div>
-                 </div>
-              </Link>
-            ))}
-        </div>
-      </section>
-
-      {/* Blog Highlight - Thought Leadership */}
-      <section className="bg-gray-50 py-32">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-10">
-            <div className="max-w-2xl">
-              <h2 className="text-5xl md:text-7xl font-serif-display font-bold text-oakivo-primary tracking-tighter">
-                {t('home.perspectives_title')}
-              </h2>
-              <p className="text-xl text-gray-500 font-light mt-4">Expert analysis on ERP orchestration and the industrial digital economy.</p>
-            </div>
-            <Link to={NavRoute.BLOG} className="text-oakivo-primary font-bold group flex items-center gap-3 bg-white px-8 py-4 rounded-full border border-gray-200 hover:border-oakivo-secondary transition-all">
-              {t('home.view_insights')} <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-             {blogPosts.map((post: any, i: number) => (
-                <Link key={i} to={`/perspectives/${post.id}`} className="group flex flex-col h-full">
-                  <div className="bg-white p-12 rounded-3xl border border-gray-100 group-hover:shadow-2xl transition-all duration-700 h-full flex flex-col">
-                     <div className="flex items-center justify-between mb-10">
-                        <span className="text-[10px] font-bold text-oakivo-secondary uppercase tracking-[0.25em]">{post.category}</span>
-                        <div className="w-10 h-10 rounded-full bg-oakivo-surface flex items-center justify-center text-oakivo-primary group-hover:bg-oakivo-secondary group-hover:text-black transition-all">
-                          <Zap size={16} />
-                        </div>
-                     </div>
-                     <h3 className="text-2xl font-bold font-serif-display mb-8 group-hover:text-oakivo-secondary transition-colors flex-grow leading-tight">{post.title}</h3>
-                     <p className="text-gray-500 line-clamp-3 mb-10 text-lg font-light leading-relaxed">{post.excerpt}</p>
-                     <div className="flex items-center justify-between pt-10 border-t border-gray-50">
-                        <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">{post.date}</span>
-                        <div className="flex items-center gap-2 text-oakivo-primary font-bold text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all">
-                          Read Strategy <ArrowRight size={14} />
-                        </div>
-                     </div>
-                  </div>
-                </Link>
-             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Global CTA */}
-      <section className="bg-oakivo-secondary py-40 text-center relative overflow-hidden group">
+      {/* Global Conversion Bar */}
+      <section className="bg-oakivo-secondary py-40 text-center relative overflow-hidden group cv-auto">
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-1000"></div>
         <div className="container mx-auto px-6 relative z-10">
-          <h2 className="text-6xl md:text-[9rem] font-bold text-oakivo-primary mb-12 font-serif-display tracking-tighter leading-[0.75]">{t('home.cta_footer_title')}</h2>
-          <p className="text-2xl md:text-4xl text-oakivo-primary/80 mb-20 max-w-4xl mx-auto font-light leading-relaxed">
+          <h2 className="text-6xl md:text-[10rem] font-bold text-oakivo-primary mb-12 font-serif-display tracking-tighter leading-[0.75]">{t('home.cta_footer_title')}</h2>
+          <p className="text-2xl md:text-5xl text-oakivo-primary/80 mb-24 max-w-5xl mx-auto font-light leading-relaxed tracking-tight">
             {t('home.cta_footer_text')}
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-8">
+          <div className="flex flex-col sm:flex-row justify-center gap-10">
             <Link to={NavRoute.CONTACT}>
-              <Button variant="black" size="lg" className="px-20 py-7 text-2xl shadow-2xl transition-all hover:scale-105">
-                {t('home.cta_footer_btn')}
+              <Button variant="black" size="lg" className="px-24 py-8 text-3xl shadow-4xl transition-all hover:scale-110 active:scale-95">
+                {t('nav.contact')}
               </Button>
             </Link>
             <Link to={NavRoute.SERVICES}>
-              <Button variant="outline" size="lg" className="px-20 py-7 text-2xl text-oakivo-primary border-oakivo-primary hover:bg-oakivo-primary hover:text-white transition-all">
-                The Solution Matrix
+              <Button variant="outline" size="lg" className="px-24 py-8 text-3xl text-oakivo-primary border-oakivo-primary hover:bg-oakivo-primary hover:text-white transition-all">
+                Solution Matrix
               </Button>
             </Link>
           </div>

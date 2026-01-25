@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
     <!-- Production SEO & EEAT Signals -->
-    <meta name="description" content="Oakivo Solutions Inc. is Canada's premier digital transformation consultancy. We specialize in Odoo ERP implementation, intelligent business automation (AI/RPA), and cybersecurity audits for high-growth enterprises." />
-    <meta name="keywords" content="Odoo ERP Canada, Odoo Implementation New Brunswick, Business Process Automation Canada, Cybersecurity Audit SOC2, Digital Transformation Strategy Atlantic Canada, RPA Consultants Dieppe" />
+    <meta name="description" content="Oakivo Solutions Inc. is Canada's premier digital transformation consultancy. We specialize in AI Automation, Odoo ERP implementation, and cybersecurity audits." />
+    <meta name="keywords" content="AI Automation Canada, Odoo ERP New Brunswick, Digital Transformation Strategy, Cybersecurity Audit SOC2, Business Process Automation" />
     <meta name="author" content="Oakivo Solutions Inc." />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     
@@ -15,25 +15,23 @@
     <meta name="geo.region" content="CA-NB" />
     <meta name="geo.placename" content="Dieppe" />
     <meta name="geo.position" content="46.0945;-64.7477" />
-    <meta name="ICBM" content="46.0945, -64.7477" />
 
     <!-- Open Graph (Social SEO) -->
-    <meta property="og:title" content="Oakivo Solutions | Orchestrating the Digital Future" />
-    <meta property="og:description" content="Odoo Partners & Digital Strategy experts helping Canadian businesses scale through automation and security." />
+    <meta property="og:title" content="Oakivo Solutions | Orchestrating AI & Digital Futures" />
+    <meta property="og:description" content="AI Automation & Odoo ERP experts helping Canadian businesses scale with efficiency and security." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.oakivo.com" />
     <meta property="og:site_name" content="Oakivo Solutions Inc." />
     <meta property="og:locale" content="en_CA" />
-    <meta property="og:locale:alternate" content="fr_CA" />
 
-    <!-- Precise Favicon SVG matching the refined Oakivo tree emblem -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cg fill='white'%3E%3Ccircle cx='50' cy='38' r='16'/%3E%3Ccircle cx='35' cy='46' r='13'/%3E%3Ccircle cx='65' cy='46' r='13'/%3E%3Ccircle cx='42' cy='58' r='11'/%3E%3Ccircle cx='58' cy='58' r='11'/%3E%3Crect x='47' y='52' width='6' height='35' rx='0.5'/%3E%3Cpath d='M51 68 L68 46 L73 50 L56 72 Z'/%3E%3C/g%3E%3C/svg%3E" />
+    <!-- Refined Favicon SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cg fill='white'%3E%3Ccircle cx='50' cy='36' r='17'/%3E%3Ccircle cx='34' cy='45' r='14'/%3E%3Ccircle cx='66' cy='45' r='14'/%3E%3Ccircle cx='41' cy='57' r='12'/%3E%3Ccircle cx='58' cy='57' r='12'/%3E%3Crect x='47' y='52' width='6' height='36' rx='1'/%3E%3Cpath d='M51 68 L70 45 L76 50 L57 73 Z'/%3E%3C/g%3E%3C/svg%3E" />
     
-    <title>Oakivo Solutions | Orchestrating the Digital Future</title>
+    <title>Oakivo Solutions | Orchestrating AI & Digital Futures</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -60,6 +58,10 @@
             container: {
               center: true,
               padding: '1.5rem',
+            },
+            boxShadow: {
+              '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+              '4xl': '0 50px 100px -20px rgba(0, 0, 0, 0.4)',
             }
           }
         }
@@ -77,16 +79,18 @@
       }
       .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       
-      /* Smooth marquee animation for industry vertical logos/text */
       @keyframes scroll {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
       }
       .animate-marquee {
-        animation: scroll 30s linear infinite;
+        animation: scroll 40s linear infinite;
         display: flex;
         width: max-content;
       }
+
+      /* Performance Optimization: Content Visibility */
+      .cv-auto { content-visibility: auto; contain-intrinsic-size: 1px 1000px; }
     </style>
     
   <script type="importmap">
@@ -107,6 +111,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
-    <noscript>Please enable JavaScript to view the Oakivo Solutions Inc. website.</noscript>
   </body>
 </html>

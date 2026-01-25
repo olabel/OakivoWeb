@@ -1,52 +1,61 @@
 import React from 'react';
 import Section from '../components/Section';
-import { Factory, ShoppingBag, Briefcase, Truck, Landmark, Zap } from 'lucide-react';
+import { Factory, ShoppingBag, Briefcase, Truck, Landmark, Zap, ArrowRight, Cog, Globe, Database, Shield } from 'lucide-react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import { useLanguage, translations } from '../context/LanguageContext';
+import SEO from '../components/SEO';
 
 const Verticals: React.FC = () => {
   const { t, language } = useLanguage();
-  
-  // Get cards from translation object based on current language
   const cards = translations[language].verticals.cards;
-
   const icons = [Factory, ShoppingBag, Briefcase, Truck, Landmark, Zap];
 
   return (
     <>
+      <SEO 
+        title="Industry Solutions | Oakivo Digital Transformation"
+        description="Specialized AI and ERP solutions for Manufacturing, Retail, Logistics, and more. Orchestrating digital growth across Canada's key sectors."
+        keywords="Industry 4.0 Canada, Manufacturing ERP, Retail Automation, Public Sector Digitalization"
+      />
+
       {/* Hero */}
-      <section className="bg-black text-white pt-40 pb-20">
-         <div className="container mx-auto px-6">
+      <section className="bg-[#020504] text-white pt-40 pb-24 relative overflow-hidden">
+         <div className="absolute inset-0 bg-gradient-to-br from-oakivo-primary via-black to-black"></div>
+         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-oakivo-secondary/5 rounded-full blur-[140px] -mr-40 -mt-40"></div>
+         <div className="container mx-auto px-6 relative z-10">
             <div className="flex items-center gap-4 mb-8">
                <div className="h-[1px] w-12 bg-oakivo-secondary"></div>
-               <span className="text-oakivo-secondary font-bold tracking-widest uppercase">{t('nav.verticals')}</span>
+               <span className="text-oakivo-secondary font-black tracking-[0.3em] uppercase text-[10px]">{t('nav.verticals')}</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-serif-display font-bold max-w-4xl leading-tight mb-8">
-              {t('verticals.hero_title')}
+            <h1 className="text-6xl md:text-[8rem] font-serif-display font-bold max-w-5xl leading-[0.85] mb-12 tracking-tighter">
+              The Industry <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-oakivo-secondary to-white">Standard.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl font-light leading-relaxed">
-              {t('verticals.hero_subtitle')}
+            <p className="text-2xl md:text-3xl text-gray-400 max-w-3xl font-light leading-relaxed">
+              Tailored ERP and AI automation strategies engineered for the complexities of Canada's most critical sectors.
             </p>
          </div>
       </section>
 
-      {/* Grid */}
-      <section className="bg-white py-24">
+      {/* Industry Matrix Grid */}
+      <section className="bg-white py-32">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {cards.map((card: any, idx: number) => {
               const Icon = icons[idx];
               return (
-                <div key={idx} className="group p-8 border border-gray-200 hover:border-oakivo-secondary/50 hover:shadow-2xl transition-all duration-300 rounded-xl bg-white">
-                   <div className="w-16 h-16 rounded-full bg-oakivo-surface flex items-center justify-center text-oakivo-primary mb-8 group-hover:bg-oakivo-secondary group-hover:text-black transition-colors duration-300">
-                      <Icon size={28} />
+                <div key={idx} className="group p-12 border border-gray-100 hover:border-oakivo-secondary/30 hover:shadow-4xl transition-all duration-700 rounded-[40px] bg-white flex flex-col cv-auto">
+                   <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center text-oakivo-primary mb-10 group-hover:bg-oakivo-secondary group-hover:text-oakivo-primary transition-all duration-500 shadow-sm">
+                      <Icon size={32} strokeWidth={1.5} />
                    </div>
-                   <h3 className="text-2xl font-bold font-serif-display mb-4 group-hover:text-oakivo-blue transition-colors">{card.title}</h3>
-                   <p className="text-gray-600 leading-relaxed">
+                   <h3 className="text-3xl font-bold font-serif-display mb-6 group-hover:text-oakivo-secondary transition-colors tracking-tight">{card.title}</h3>
+                   <p className="text-gray-500 leading-relaxed text-lg font-light mb-10 flex-grow">
                      {card.desc}
                    </p>
+                   <Link to={NavRoute.SERVICES} className="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-oakivo-primary group-hover:text-oakivo-secondary transition-all">
+                     Explore Matrix <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+                   </Link>
                 </div>
               );
             })}
@@ -54,16 +63,72 @@ const Verticals: React.FC = () => {
         </div>
       </section>
 
+      {/* Sector Authority Section */}
+      <section className="bg-oakivo-surface py-32 border-y border-gray-100">
+         <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+               <div>
+                  <h2 className="text-5xl md:text-7xl font-serif-display font-bold mb-10 tracking-tighter leading-none">Cross-Sector <br/> <span className="text-oakivo-secondary">Intelligence.</span></h2>
+                  <p className="text-xl text-gray-600 font-light leading-relaxed mb-12">
+                     Our engineers don't just understand software; they understand your industry's specific regulatory and operational headwinds. We bring a vCISO and vCIO perspective to every deployment.
+                  </p>
+                  <div className="space-y-6">
+                     {[
+                        { title: "Compliance Ready", desc: "Native support for Canadian GST/HST, payroll, and privacy laws.", icon: <Shield size={20} /> },
+                        { title: "Scalable Architecture", desc: "Engineered to handle multi-company, multi-currency, and global growth.", icon: <Globe size={20} /> },
+                        { title: "Data Driven", desc: "Advanced telemetry and predictive BI built into every industry portal.", icon: <Database size={20} /> }
+                     ].map((item, i) => (
+                        <div key={i} className="flex gap-6 items-start p-6 bg-white rounded-2xl border border-gray-100 shadow-sm group hover:border-oakivo-secondary/20 transition-all">
+                           <div className="text-oakivo-secondary mt-1 group-hover:scale-110 transition-transform">{item.icon}</div>
+                           <div>
+                              <h4 className="font-bold text-lg mb-1">{item.title}</h4>
+                              <p className="text-gray-500 text-sm font-light">{item.desc}</p>
+                           </div>
+                        </div>
+                     ))}
+                  </div>
+               </div>
+               <div className="relative">
+                  <div className="aspect-square rounded-[60px] overflow-hidden shadow-4xl group">
+                     <img 
+                        src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop" 
+                        alt="Industrial Engineering" 
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
+                        loading="lazy"
+                     />
+                     <div className="absolute inset-0 bg-oakivo-primary/20 group-hover:bg-transparent transition-all duration-500"></div>
+                  </div>
+                  <div className="absolute -bottom-10 -left-10 bg-white p-10 rounded-[40px] shadow-4xl border border-gray-50 hidden md:block animate-bounce-slow">
+                     <Cog className="text-oakivo-secondary mb-4 animate-spin-slow" size={40} />
+                     <p className="font-bold text-3xl font-serif-display text-oakivo-primary">100%</p>
+                     <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Sector Accuracy</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
       {/* CTA */}
-      <Section bg="light" className="text-center">
-          <h2 className="text-4xl font-serif-display font-bold mb-6">{t('services.cta_title')}</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8 text-lg">
-            {t('services.cta_text')}
+      <section className="bg-white py-40 text-center">
+        <div className="container mx-auto px-6">
+          <h2 className="text-5xl md:text-8xl font-serif-display font-bold mb-10 tracking-tighter">Ready to Orchestrate?</h2>
+          <p className="text-gray-500 max-w-2xl mx-auto mb-16 text-2xl font-light leading-relaxed">
+            Stop struggling with software that doesn't speak your industry's language.
           </p>
           <Link to={NavRoute.CONTACT}>
-            <Button variant="primary" size="lg">{t('services.cta_btn')}</Button>
+            <Button variant="black" size="lg" className="px-16 py-7 text-xl shadow-4xl hover:scale-105 active:scale-95 transition-all">Start Your Sector Audit</Button>
           </Link>
-      </Section>
+        </div>
+      </section>
+      
+      <style>{`
+        @keyframes bounce-slow {
+          0%, 100% { transform: translateY(-5%); }
+          50% { transform: translateY(0); }
+        }
+        .animate-bounce-slow { animation: bounce-slow 4s infinite ease-in-out; }
+        .animate-spin-slow { animation: spin 8s linear infinite; }
+      `}</style>
     </>
   );
 };
