@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Menu, X, ShieldCheck, ChevronRight, Globe } from 'lucide-react';
 import { NavRoute } from '../types';
 import Button from './Button';
 import Logo from './Logo';
@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -24,9 +24,12 @@ const Navbar: React.FC = () => {
     setIsOpen(false);
   }, [location]);
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'fr' : 'en');
-  };
+  const toggleLanguage = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const nextLang = language === 'en' ? 'fr' : 'en';
+    setLanguage(nextLang);
+  }, [language, setLanguage]);
 
   const navLinks = [
     { name: t('nav.home'), path: NavRoute.HOME },
@@ -80,9 +83,12 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-6">
             <button 
               onClick={toggleLanguage}
-              className="text-[10px] font-black text-gray-300 hover:text-oakivo-primary transition-all border border-gray-100 px-3 py-1 rounded-full bg-white shadow-sm flex items-center gap-1"
+              className="group flex items-center gap-3 bg-gray-50 hover:bg-oakivo-primary hover:text-white px-4 py-2 rounded-full transition-all duration-300"
             >
-              {language === 'en' ? 'EN' : 'FR'}
+              <Globe size={14} className="text-oakivo-secondary" />
+              <span className="text-[10px] font-black uppercase tracking-widest">
+                {language === 'en' ? 'EN' : 'FR'}
+              </span>
             </button>
 
             <NavLink to={NavRoute.CONTACT}>
@@ -121,8 +127,9 @@ const Navbar: React.FC = () => {
           <div className="h-[1px] w-20 bg-gray-100"></div>
           <button 
             onClick={toggleLanguage}
-            className="text-sm font-bold text-gray-400 hover:text-oakivo-primary uppercase tracking-widest"
+            className="flex items-center gap-3 bg-gray-50 px-6 py-3 rounded-full text-sm font-bold text-oakivo-primary hover:bg-oakivo-secondary transition-all uppercase tracking-widest"
           >
+            <Globe size={18} className="text-oakivo-secondary" />
             {language === 'en' ? 'Switch to French' : 'Passer en Anglais'}
           </button>
           <NavLink to={NavRoute.CONTACT} className="w-full">

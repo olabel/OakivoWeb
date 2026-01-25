@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Section from '../components/Section';
-import { ArrowRight, Quote, Play, X, Video, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, Quote, Plus, X, BarChart3, Database, ShieldCheck, Zap, Activity, ChevronRight, FileText, Cpu } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
 import Button from '../components/Button';
 import { NavRoute } from '../types';
@@ -39,31 +39,97 @@ const ParallaxImage: React.FC<{ src: string; alt: string; speed?: number }> = ({
   );
 };
 
-const VideoModal: React.FC<{ isOpen: boolean; onClose: () => void; videoUrl: string; title: string }> = ({ isOpen, onClose, videoUrl, title }) => {
+const BlueprintDrawer: React.FC<{ 
+  isOpen: boolean; 
+  onClose: () => void; 
+  data: any;
+}> = ({ isOpen, onClose, data }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-10 animate-in fade-in duration-300">
-      <div className="relative w-full max-w-6xl aspect-video bg-black rounded-3xl overflow-hidden shadow-4xl animate-in zoom-in duration-500">
-        <button 
-          onClick={onClose}
-          className="absolute top-6 right-6 z-50 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all backdrop-blur-md"
-        >
-          <X size={24} />
-        </button>
-        <div className="absolute top-6 left-6 z-50">
-           <div className="bg-oakivo-secondary text-oakivo-primary px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
-             Case Study Film: {title}
-           </div>
+    <div className="fixed inset-0 z-[100] flex items-center justify-end bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+      <div 
+        className="h-full w-full max-w-4xl bg-white shadow-4xl animate-in slide-in-from-right duration-500 overflow-y-auto"
+      >
+        <div className="p-10 md:p-16">
+          <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center gap-4">
+               <div className="w-12 h-12 bg-oakivo-primary text-oakivo-secondary rounded-2xl flex items-center justify-center">
+                  <FileText size={24} />
+               </div>
+               <div>
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Tactical Case File</span>
+                  <h2 className="text-3xl font-serif-display font-bold text-oakivo-primary">{data.title}</h2>
+               </div>
+            </div>
+            <button 
+              onClick={onClose}
+              className="p-3 hover:bg-gray-100 rounded-full transition-all text-oakivo-primary"
+            >
+              <X size={32} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+             <div className="p-8 bg-oakivo-surface rounded-3xl border border-gray-100">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-oakivo-secondary mb-6 flex items-center gap-2">
+                  <Activity size={14} /> Performance Index
+                </h4>
+                <div className="space-y-8">
+                   <div>
+                      <div className="flex justify-between items-end mb-2">
+                         <span className="text-sm font-bold text-oakivo-primary">Operational Speed</span>
+                         <span className="text-sm font-black text-oakivo-secondary">+88%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+                         <div className="h-full bg-oakivo-secondary w-[88%]"></div>
+                      </div>
+                   </div>
+                   <div>
+                      <div className="flex justify-between items-end mb-2">
+                         <span className="text-sm font-bold text-oakivo-primary">Error Reduction</span>
+                         <span className="text-sm font-black text-oakivo-secondary">99.2%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+                         <div className="h-full bg-oakivo-secondary w-[99%]"></div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+             <div className="p-8 bg-oakivo-primary text-white rounded-3xl">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-oakivo-secondary mb-6 flex items-center gap-2">
+                  <Cpu size={14} /> AI Core Logic
+                </h4>
+                <p className="text-sm font-light text-gray-300 leading-relaxed italic mb-8">
+                  "The Agentic workflow implemented here utilized a multi-stage reasoning engine to bridge the gap between Odoo's core data and the industrial shop-floor sensors."
+                </p>
+                <div className="flex flex-wrap gap-3">
+                   {['Agentic AI', 'Odoo 18', 'Real-time Sync'].map(tag => (
+                     <span key={tag} className="px-3 py-1 bg-white/10 rounded-lg text-[9px] font-bold uppercase tracking-widest">
+                       {tag}
+                     </span>
+                   ))}
+                </div>
+             </div>
+          </div>
+
+          <div className="prose prose-lg max-w-none text-gray-600 font-light leading-relaxed mb-16">
+             <h3 className="text-2xl font-serif-display font-bold text-oakivo-primary">The Orchestration Blueprint</h3>
+             <p>Our engineering team identified a critical bottleneck in the manual reconciliation process. By deploying a custom Odoo 18 automation layer, we de-coupled the finance team from routine tasks, allowing them to focus on high-level strategic advisory.</p>
+             <p>The resulting architecture is fully scalable, supporting multi-region growth with native Canadian compliance built-in.</p>
+          </div>
+
+          <div className="pt-10 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-8">
+             <div className="flex items-center gap-4">
+                <ShieldCheck className="text-oakivo-secondary" size={32} />
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Project Certified SOC2 Ready</span>
+             </div>
+             <Link to={NavRoute.CONTACT}>
+               <Button variant="black" className="px-12">Request Blueprint Audit</Button>
+             </Link>
+          </div>
         </div>
-        <video 
-          src={videoUrl} 
-          controls 
-          autoPlay 
-          className="w-full h-full object-contain"
-        >
-          Your browser does not support the video tag.
-        </video>
       </div>
     </div>
   );
@@ -72,7 +138,7 @@ const VideoModal: React.FC<{ isOpen: boolean; onClose: () => void; videoUrl: str
 const CaseStudies: React.FC = () => {
   const { t, language } = useLanguage();
   const casesData = translations[language].caseStudies.cases;
-  const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
+  const [activeBlueprint, setActiveBlueprint] = useState<any | null>(null);
   
   const casesMeta = [
     {
@@ -81,7 +147,6 @@ const CaseStudies: React.FC = () => {
       category: "Industrial Automation",
       img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop",
       size: "large",
-      videoUrl: "https://v.ftcdn.net/04/81/25/67/700_F_481256728_DqYx8P08O6qH6PjV7A3Z4hX5G1n6vH0h_ST.mp4"
     },
     {
       id: 2,
@@ -103,21 +168,6 @@ const CaseStudies: React.FC = () => {
       category: "Generative AI",
       img: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=1200&auto=format&fit=crop",
       size: "large",
-      videoUrl: "https://v.ftcdn.net/05/17/57/58/700_F_517575822_GvN6E9YvMvH7vX8Z6n7vX9G1n6vH0h_ST.mp4"
-    },
-    {
-      id: 5,
-      client: "City Services Dept",
-      category: "Public Sector",
-      img: "https://images.unsplash.com/photo-1476900966801-4861c85025a6?q=80&w=800&auto=format&fit=crop",
-      size: "small",
-    },
-    {
-      id: 6,
-      client: "Maritime Energy",
-      category: "Critical Infrastructure",
-      img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=800&auto=format&fit=crop",
-      size: "small",
     },
   ];
 
@@ -143,7 +193,7 @@ const CaseStudies: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-32">
             {casesMeta.map((project, idx) => {
-              const data = casesData[idx] || {};
+              const data = casesData[idx] || { title: 'Pending Case', summary: '', quote: '', impact: 'N/A' };
               const isLarge = project.size === 'large';
               
               return (
@@ -151,9 +201,9 @@ const CaseStudies: React.FC = () => {
                   key={project.id} 
                   className={`group relative flex flex-col ${isLarge ? 'md:col-span-2' : ''} ${idx % 3 === 0 ? 'md:mt-0' : 'md:mt-24'} cv-auto`}
                 >
-                  {/* Image/Video Container */}
+                  {/* Image Container */}
                   <div className={`relative overflow-hidden mb-8 shadow-2xl rounded-3xl ${isLarge ? 'aspect-[21/9]' : 'aspect-[4/5] md:aspect-[3/4]'}`}>
-                    <div className="absolute inset-0 bg-oakivo-primary/10 group-hover:bg-transparent transition-colors z-20 duration-500"></div>
+                    <div className="absolute inset-0 bg-oakivo-primary/20 group-hover:bg-transparent transition-colors z-20 duration-500"></div>
                     
                     {isLarge ? (
                       <ParallaxImage src={project.img} alt={data.title} speed={0.12} />
@@ -166,18 +216,16 @@ const CaseStudies: React.FC = () => {
                       />
                     )}
 
-                    {/* Video Overlay Badge */}
-                    {project.videoUrl && (
-                      <button 
-                        onClick={() => setActiveVideo({ url: project.videoUrl!, title: data.title })}
-                        className="absolute top-6 right-6 z-30 group/badge"
-                      >
-                        <div className="flex items-center gap-3 bg-white/95 backdrop-blur-md px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-[0.2em] text-oakivo-primary shadow-2xl transition-all group-hover/badge:bg-oakivo-secondary group-hover/badge:scale-105">
-                          <Play size={14} className="fill-oakivo-primary group-hover/badge:fill-oakivo-primary" /> 
-                          Video Story
-                        </div>
-                      </button>
-                    )}
+                    {/* Technical Blueprint Badge */}
+                    <button 
+                      onClick={() => setActiveBlueprint(data)}
+                      className="absolute top-6 right-6 z-30 group/badge"
+                    >
+                      <div className="flex items-center gap-3 bg-white/95 backdrop-blur-md px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-[0.2em] text-oakivo-primary shadow-2xl transition-all group-hover/badge:bg-oakivo-secondary group-hover/badge:scale-105">
+                        <Plus size={14} className="group-hover/badge:rotate-90 transition-transform" /> 
+                        View Blueprint
+                      </div>
+                    </button>
                   </div>
                   
                   {/* Content Lockup */}
@@ -199,30 +247,39 @@ const CaseStudies: React.FC = () => {
                         {data.summary}
                       </p>
                       
-                      <Link to={NavRoute.CONTACT} className="inline-flex items-center gap-4 font-black uppercase tracking-[0.2em] text-[10px] text-oakivo-primary border-b-2 border-transparent hover:border-oakivo-secondary transition-all pb-2 group/link">
-                        {language === 'en' ? 'Review Technical Strategy' : 'Réviser la Stratégie'} 
+                      <button 
+                        onClick={() => setActiveBlueprint(data)}
+                        className="inline-flex items-center gap-4 font-black uppercase tracking-[0.2em] text-[10px] text-oakivo-primary border-b-2 border-transparent hover:border-oakivo-secondary transition-all pb-2 group/link"
+                      >
+                        Review Architectural Impact 
                         <ArrowRight size={16} className="group-hover/link:translate-x-2 transition-transform" />
-                      </Link>
+                      </button>
                     </div>
 
-                    {/* Client Quote Column */}
+                    {/* Impact Stats / Quote Column */}
                     <div className={`${isLarge ? 'lg:col-span-5' : ''}`}>
                       <div className="bg-oakivo-surface p-12 rounded-[40px] border border-gray-100 relative group-hover:shadow-4xl transition-all duration-700 group/quote overflow-hidden">
-                        <div className="absolute top-0 right-0 p-8 opacity-5 text-oakivo-secondary group-hover/quote:opacity-10 transition-opacity">
-                           <Quote size={80} />
+                        <div className="absolute top-0 right-0 p-8 opacity-10 text-oakivo-secondary group-hover/quote:opacity-20 transition-opacity">
+                           <BarChart3 size={80} />
                         </div>
-                        <p className="text-2xl font-serif-display italic text-gray-800 mb-10 leading-relaxed relative z-10 font-medium">
+                        <div className="relative z-10 mb-8">
+                           <span className="text-[10px] font-black uppercase tracking-[0.3em] text-oakivo-secondary mb-2 block">Measurable ROI</span>
+                           <div className="text-5xl font-serif-display font-bold text-oakivo-primary tracking-tighter">
+                              {data.impact}
+                           </div>
+                        </div>
+                        <p className="text-xl font-serif-display italic text-gray-800 mb-10 leading-relaxed relative z-10 font-medium border-t border-gray-100 pt-8">
                           "{data.quote}"
                         </p>
                         <div className="flex items-center gap-5 relative z-10">
-                           <div className="w-12 h-12 rounded-2xl bg-oakivo-primary flex items-center justify-center text-white text-sm font-bold shadow-lg">
-                              {data.author ? data.author.charAt(0) : 'C'}
+                           <div className="w-10 h-10 rounded-xl bg-oakivo-primary flex items-center justify-center text-white text-xs font-bold shadow-lg">
+                              {data.author ? data.author.charAt(0) : 'P'}
                            </div>
                            <div>
-                              <p className="text-sm font-black uppercase tracking-widest text-oakivo-primary">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-oakivo-primary">
                                 {data.author}
                               </p>
-                              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter mt-1 opacity-70">Strategic Partner Success</p>
+                              <p className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter mt-1 opacity-70">Strategic Partner Success</p>
                            </div>
                         </div>
                       </div>
@@ -254,7 +311,7 @@ const CaseStudies: React.FC = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                  {[
-                   { val: "23%", label: "Average OpEx Reduction", icon: <TrendingUp size={24} className="text-oakivo-secondary mb-4 mx-auto" /> },
+                   { val: "23%", label: "Average OpEx Reduction", icon: <BarChart3 size={24} className="text-oakivo-secondary mb-4 mx-auto" /> },
                    { val: "500k+", label: "Reclaimed Human Hours", icon: <ShieldCheck size={24} className="text-oakivo-secondary mb-4 mx-auto" /> },
                    { val: "98%", label: "System Uptime Standard", icon: <Zap size={24} className="text-oakivo-secondary mb-4 mx-auto" /> }
                  ].map((stat, i) => (
@@ -269,35 +326,14 @@ const CaseStudies: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-white py-48 text-center cv-auto">
-        <div className="container mx-auto px-6">
-           <h2 className="text-5xl md:text-[9rem] font-serif-display font-bold mb-12 text-black tracking-tighter leading-none">Ready to Lead?</h2>
-           <p className="text-2xl text-gray-500 mb-16 max-w-3xl mx-auto font-light leading-relaxed">
-             Blueprint your digital evolution with Canada's premier AI & ERP orchestrators.
-           </p>
-           <Link to={NavRoute.CONTACT}>
-              <Button variant="black" size="lg" className="px-20 py-8 text-2xl shadow-4xl hover:scale-105 active:scale-95 transition-all">Book Strategic Discovery Call</Button>
-           </Link>
-        </div>
-      </section>
-
-      {/* Video Modal Component */}
-      <VideoModal 
-        isOpen={!!activeVideo} 
-        onClose={() => setActiveVideo(null)} 
-        videoUrl={activeVideo?.url || ''} 
-        title={activeVideo?.title || ''} 
+      {/* Blueprint Drawer Component */}
+      <BlueprintDrawer 
+        isOpen={!!activeBlueprint} 
+        onClose={() => setActiveBlueprint(null)} 
+        data={activeBlueprint} 
       />
     </>
   );
 };
-
-const TrendingUp = ({ size, className }: { size: number; className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-    <polyline points="17 6 23 6 23 12"></polyline>
-  </svg>
-);
 
 export default CaseStudies;
