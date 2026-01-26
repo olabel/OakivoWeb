@@ -56,7 +56,6 @@ export const translations: Record<Language, Record<string, any>> = {
       standard_p1: "Founded in Atlantic Canada, Oakivo was born from a simple realization: traditional software implementation fails because it ignores the human element of orchestration.",
       standard_p2: "We don't just sell software. We architect ecosystems where AI handles the mundane and humans drive the strategy.",
       standard_p3: "Our mission is to ensure every Canadian SME has access to the same level of digital sovereignty and automation as global giants.",
-      journey_title: "Our Trajectory",
       leadership_title: "Architectural Leadership",
       leadership_subtitle: "The minds orchestrating Canada's autonomous future.",
       values: [

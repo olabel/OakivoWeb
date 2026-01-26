@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { db, DatabaseEntry } from '../utils/database';
-// Added missing Info icon to lucide-react imports
-import { Shield, Trash2, CheckCircle, Clock, Search, Download, Trash, LayoutDashboard, Mail, Users, Briefcase, Lock, Key, AlertCircle, Eye, X, Terminal, Code, User, Building, MessageSquare, Link as LinkIcon, Info } from 'lucide-react';
+import { Shield, Trash2, CheckCircle, Clock, Search, Download, Trash, LayoutDashboard, Mail, Users, Briefcase, Lock, Key, AlertCircle, Eye, X, Terminal, Code, User, Building, MessageSquare, Link as LinkIcon, Info, Fingerprint } from 'lucide-react';
 import Button from '../components/Button';
 import Logo from '../components/Logo';
 
@@ -18,7 +17,7 @@ const AdminPortal: React.FC = () => {
   const [passcode, setPasscode] = useState('');
   const [authError, setAuthError] = useState(false);
 
-  // The "Tactical Access Code" - updated as per security protocol
+  // The "Tactical Access Code" - updated for security protocol
   const VAULT_KEY = "OakivoP@ssword1209";
 
   useEffect(() => {
@@ -47,18 +46,10 @@ const AdminPortal: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Permanently delete this entry from the Strategy Vault?')) {
+    if (confirm('Permanently wipe this intelligence asset from the Vault?')) {
       db.deleteEntry(id);
       setEntries(db.getAllEntries());
       if (selectedEntry?.id === id) setSelectedEntry(null);
-    }
-  };
-
-  const handleClearAll = () => {
-    if (confirm('CRITICAL: This will wipe the entire Strategy Vault. Proceed?')) {
-      db.clear();
-      setEntries([]);
-      setSelectedEntry(null);
     }
   };
 
@@ -69,57 +60,50 @@ const AdminPortal: React.FC = () => {
     return matchesFilter && matchesSearch;
   });
 
-  const exportData = () => {
-    const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `oakivo_strategy_vault_${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-  };
-
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-oakivo-primary flex items-center justify-center p-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-oakivo-secondary/10 rounded-full blur-[100px] -mr-40 -mt-40"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-oakivo-blue/10 rounded-full blur-[100px] -ml-40 -mb-40"></div>
+      <div className="min-h-screen bg-[#020504] flex items-center justify-center p-6 relative overflow-hidden font-sans">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-oakivo-secondary/10 rounded-full blur-[160px] -mr-40 -mt-40"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-oakivo-blue/5 rounded-full blur-[140px] -ml-40 -mb-40"></div>
         
-        <div className="max-w-md w-full bg-white rounded-3xl p-10 shadow-2xl relative z-10 border border-white/10">
-           <div className="flex flex-col items-center mb-10">
-              <Logo className="w-16 h-16 mb-6" withText={false} />
-              <h1 className="text-2xl font-serif-display font-bold text-oakivo-primary">Strategy Vault</h1>
-              <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] mt-2">Classified Access Only</p>
+        <div className="max-w-md w-full bg-white rounded-[48px] p-12 shadow-[0_50px_100px_rgba(0,0,0,0.5)] relative z-10 border border-white/10 animate-fade-in-up">
+           <div className="flex flex-col items-center mb-12">
+              <div className="w-20 h-20 bg-oakivo-primary rounded-3xl flex items-center justify-center mb-8 shadow-2xl">
+                <Logo className="w-12 h-12" withText={false} light={true} />
+              </div>
+              <h1 className="text-3xl font-serif-display font-bold text-oakivo-primary">Strategy Vault</h1>
+              <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.4em] mt-3">Tactical Access Required</p>
            </div>
 
-           <form onSubmit={handleAuth} className="space-y-6">
-              <div className="relative">
-                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                    <Lock size={18} />
+           <form onSubmit={handleAuth} className="space-y-8">
+              <div className="relative group">
+                 <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-oakivo-secondary transition-colors">
+                    <Fingerprint size={24} />
                  </div>
                  <input 
                     type="password" 
                     value={passcode}
                     onChange={(e) => setPasscode(e.target.value)}
-                    placeholder="Enter Access Key"
-                    className={`w-full bg-gray-50 border py-4 pl-12 pr-4 rounded-xl focus:outline-none transition-all ${authError ? 'border-red-500 bg-red-50' : 'border-gray-200 focus:border-oakivo-primary'}`}
+                    placeholder="Security Keyphrase"
+                    className={`w-full bg-gray-50 border py-5 pl-14 pr-6 rounded-2xl focus:outline-none transition-all text-sm font-bold tracking-widest ${authError ? 'border-red-500 bg-red-50' : 'border-gray-100 focus:border-oakivo-primary focus:bg-white'}`}
                  />
               </div>
 
               {authError && (
-                 <div className="flex items-center gap-2 text-red-600 text-[10px] font-bold uppercase tracking-widest animate-shake">
-                    <AlertCircle size={14} /> Unauthorized credentials detected
+                 <div className="flex items-center gap-3 text-red-600 text-[10px] font-black uppercase tracking-widest animate-shake">
+                    <AlertCircle size={16} /> Access denied: Unauthorized key
                  </div>
               )}
 
-              <Button type="submit" variant="black" className="w-full flex items-center justify-center gap-2">
-                 <Key size={16} /> Authenticate Session
+              <Button type="submit" variant="black" size="lg" className="w-full flex items-center justify-center gap-4 py-5 shadow-2xl">
+                 <Shield size={20} className="text-oakivo-secondary" /> Authenticate Vault
               </Button>
            </form>
 
-           <div className="mt-8 pt-8 border-t border-gray-100 flex flex-col items-center">
-              <div className="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                 <Shield size={14} className="text-oakivo-secondary" /> AES-256 Encrypted Portal
-              </div>
+           <div className="mt-12 pt-8 border-t border-gray-100 text-center">
+              <p className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-3">
+                 <Lock size={12} /> Institutional Grade AES-256 Encryption
+              </p>
            </div>
         </div>
       </div>
@@ -127,110 +111,100 @@ const AdminPortal: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-oakivo-surface pt-32 pb-20">
+    <div className="min-h-screen bg-oakivo-surface pt-36 pb-24 font-sans">
       <div className="container mx-auto px-6">
         
-        {/* Header Dashboard */}
-        <div className="bg-oakivo-primary rounded-3xl p-8 md:p-12 text-white shadow-2xl mb-12 relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-oakivo-secondary/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        {/* Dynamic Dashboard */}
+        <div className="bg-oakivo-primary rounded-[56px] p-12 md:p-16 text-white shadow-4xl mb-12 relative overflow-hidden group">
+           <div className="absolute top-0 right-0 w-96 h-96 bg-oakivo-secondary/10 rounded-full blur-[120px] -mr-32 -mt-32 group-hover:bg-oakivo-secondary/20 transition-all duration-1000"></div>
            
-           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
-              <div>
-                 <div className="flex items-center gap-3 mb-4">
-                    <Logo className="w-10 h-10" />
-                    <span className="text-2xl font-bold font-serif-display">Strategy Vault <span className="text-oakivo-secondary font-sans text-sm ml-2 px-2 py-0.5 border border-oakivo-secondary/30 rounded uppercase tracking-widest">Admin</span></span>
+           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 relative z-10">
+              <div className="max-w-2xl">
+                 <div className="flex items-center gap-5 mb-8">
+                    <Logo className="w-14 h-14" light={true} />
+                    <div className="h-10 w-[2px] bg-white/10"></div>
+                    <span className="text-[11px] font-black uppercase tracking-[0.4em] text-oakivo-secondary bg-oakivo-secondary/10 px-4 py-1.5 rounded-lg border border-oakivo-secondary/20">Operations Command</span>
                  </div>
-                 <h1 className="text-4xl font-serif-display font-bold">Inbound Asset Intelligence</h1>
-                 <p className="text-gray-400 mt-2 max-w-lg">Monitoring real-time leads, applications, and tactical subscriptions from across the Oakivo digital ecosystem.</p>
+                 <h1 className="text-5xl md:text-7xl font-serif-display font-bold leading-tight tracking-tighter">Strategic Vault Intelligence</h1>
+                 <p className="text-gray-400 mt-4 text-xl font-light leading-relaxed">Active monitoring of Canadian enterprise leads and engineering talent acquisition.</p>
               </div>
               
-              <div className="flex gap-4">
-                 <Button variant="outline" size="sm" onClick={exportData} className="flex items-center gap-2 bg-white/5 border-white/20 hover:bg-white/10">
-                    <Download size={14} /> Export Insight
-                 </Button>
-                 <Button variant="outline" size="sm" onClick={handleClearAll} className="border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white flex items-center gap-2">
-                    <Trash size={14} /> Wipe Vault
+              <div className="flex flex-wrap gap-5">
+                 <Button variant="outline" size="md" onClick={() => window.print()} className="flex items-center gap-3 bg-white/5 border-white/20 hover:bg-white/10 transition-all font-bold">
+                    <Download size={18} /> Export Telemetry
                  </Button>
               </div>
            </div>
 
-           {/* Stats Strip */}
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-white/10">
+           {/* Metrics Grid */}
+           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-12 border-t border-white/10">
               {[
-                { label: 'Total Assets', value: entries.length, icon: <LayoutDashboard size={18} /> },
-                { label: 'Market Leads', value: entries.filter(e => e.type === 'lead').length, icon: <Users size={18} /> },
-                { label: 'Candidate Pool', value: entries.filter(e => e.type === 'applicant').length, icon: <Briefcase size={18} /> },
-                { label: 'Tactical Subs', value: entries.filter(e => e.type === 'subscriber').length, icon: <Mail size={18} /> },
+                { label: 'Total Inbound', value: entries.length, icon: <LayoutDashboard /> },
+                { label: 'Qualified Leads', value: entries.filter(e => e.type === 'lead').length, icon: <Users /> },
+                { label: 'Elite Applicants', value: entries.filter(e => e.type === 'applicant').length, icon: <Briefcase /> },
+                { label: 'Intelligence Subs', value: entries.filter(e => e.type === 'subscriber').length, icon: <Mail /> },
               ].map((stat, i) => (
-                <div key={i} className="bg-white/5 p-4 rounded-xl border border-white/5">
-                   <div className="flex items-center gap-2 text-oakivo-secondary text-[10px] font-bold uppercase tracking-widest mb-1">
-                      {stat.icon} {stat.label}
+                <div key={i} className="bg-white/5 p-8 rounded-3xl border border-white/5 backdrop-blur-md group hover:bg-white/10 transition-all duration-500">
+                   <div className="flex items-center gap-3 text-oakivo-secondary text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+                      {/* Fix: Use React.ReactElement<any> to allow dynamic prop 'size' when cloning icon elements */}
+                      {React.cloneElement(stat.icon as React.ReactElement<any>, { size: 18 })} {stat.label}
                    </div>
-                   <div className="text-2xl font-bold">{stat.value}</div>
+                   <div className="text-5xl font-bold font-serif-display tracking-tight">{stat.value}</div>
                 </div>
               ))}
            </div>
         </div>
 
-        {/* Filters & Actions */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
-           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+        {/* Filter Matrix */}
+        <div className="bg-white rounded-[32px] p-6 shadow-sm border border-gray-100 mb-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+           <div className="flex items-center gap-4 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 scrollbar-hide">
               {(['all', 'lead', 'applicant', 'subscriber'] as const).map(t => (
                 <button 
                   key={t}
                   onClick={() => setFilter(t)}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${filter === t ? 'bg-oakivo-primary text-white shadow-lg' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
+                  className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap ${filter === t ? 'bg-oakivo-primary text-white shadow-2xl scale-105' : 'bg-gray-50 text-gray-500 hover:bg-gray-100 hover:scale-105'}`}
                 >
-                  {t === 'all' ? 'All Operations' : t === 'lead' ? 'Leads' : t === 'applicant' ? 'Careers' : 'Newsletter'}
+                  {t === 'all' ? 'All Operations' : t === 'lead' ? 'Leads' : t === 'applicant' ? 'Talent' : 'Strategic Subs'}
                 </button>
               ))}
            </div>
 
-           <div className="relative w-full md:w-64">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+           <div className="relative w-full lg:w-96 group">
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-oakivo-secondary transition-colors" size={20} />
               <input 
                 type="text" 
-                placeholder="Search vault..." 
+                placeholder="Query Vault Intelligence..." 
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-oakivo-primary"
+                className="w-full bg-gray-50 border border-gray-100 rounded-[20px] pl-14 pr-6 py-4 text-sm font-medium focus:outline-none focus:border-oakivo-primary focus:bg-white transition-all shadow-inner"
               />
            </div>
         </div>
 
-        {/* Data Table */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-           <table className="w-full text-left border-collapse">
-              <thead>
-                 <tr className="bg-gray-50 border-b border-gray-100">
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Timestamp</th>
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Asset Type</th>
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Identity / Payload</th>
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Status</th>
-                    <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-gray-400 text-right">Strategic Action</th>
-                 </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                 {filteredEntries.length === 0 ? (
-                   <tr>
-                      <td colSpan={5} className="px-6 py-20 text-center">
-                         <div className="flex flex-col items-center opacity-30">
-                            <Shield size={48} className="mb-4" />
-                            <p className="font-bold text-lg">No tactical assets located.</p>
-                         </div>
-                      </td>
+        {/* Tactical Data Grid */}
+        <div className="bg-white rounded-[40px] shadow-sm border border-gray-100 overflow-hidden">
+           <div className="overflow-x-auto">
+             <table className="w-full text-left">
+                <thead>
+                   <tr className="bg-gray-50/50 border-b border-gray-100">
+                      <th className="px-10 py-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Tactical Timestamp</th>
+                      <th className="px-10 py-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Asset Vector</th>
+                      <th className="px-10 py-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Identity Payload</th>
+                      <th className="px-10 py-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Lifecycle</th>
+                      <th className="px-10 py-6 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 text-right">Strategic Action</th>
                    </tr>
-                 ) : (
-                   filteredEntries.map(entry => (
-                     <tr key={entry.id} className="hover:bg-gray-50 transition-colors group cursor-pointer" onClick={() => setSelectedEntry(entry)}>
-                        <td className="px-6 py-4">
-                           <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
-                              <Clock size={12} className="text-oakivo-secondary" />
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                   {filteredEntries.map(entry => (
+                     <tr key={entry.id} className="hover:bg-gray-50/80 transition-all group cursor-pointer" onClick={() => setSelectedEntry(entry)}>
+                        <td className="px-10 py-6">
+                           <div className="flex items-center gap-3 text-xs font-bold text-gray-500">
+                              <Clock size={16} className="text-oakivo-secondary" />
                               {new Date(entry.createdAt).toLocaleString()}
                            </div>
                         </td>
-                        <td className="px-6 py-4">
-                           <span className={`text-[9px] font-extrabold px-2 py-1 rounded border uppercase tracking-tighter ${
+                        <td className="px-10 py-6">
+                           <span className={`text-[10px] font-black px-4 py-2 rounded-xl border uppercase tracking-widest ${
                              entry.type === 'lead' ? 'bg-blue-50 text-blue-600 border-blue-100' :
                              entry.type === 'applicant' ? 'bg-purple-50 text-purple-600 border-purple-100' :
                              'bg-green-50 text-green-600 border-green-100'
@@ -238,88 +212,90 @@ const AdminPortal: React.FC = () => {
                              {entry.type}
                            </span>
                         </td>
-                        <td className="px-6 py-4">
-                           <div className="max-w-md">
-                              <p className="font-bold text-sm text-oakivo-primary">
+                        <td className="px-10 py-6">
+                           <div className="max-w-lg">
+                              <p className="font-bold text-lg text-oakivo-primary tracking-tight">
                                 {entry.data.name || entry.data.email}
                               </p>
-                              <p className="text-xs text-gray-500 line-clamp-1 opacity-70">
-                                {Object.entries(entry.data).map(([k, v]) => `${k}: ${v}`).join(' | ')}
+                              <p className="text-xs text-gray-400 font-light truncate max-w-sm mt-1">
+                                {Object.values(entry.data).join(' • ')}
                               </p>
                            </div>
                         </td>
-                        <td className="px-6 py-4">
-                           <div className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest ${entry.status === 'new' ? 'text-oakivo-secondary' : 'text-gray-400'}`}>
-                              {entry.status === 'new' ? <div className="w-1.5 h-1.5 rounded-full bg-oakivo-secondary animate-pulse" /> : <CheckCircle size={12} />}
+                        <td className="px-10 py-6">
+                           <div className={`flex items-center gap-2.5 text-[11px] font-black uppercase tracking-widest ${entry.status === 'new' ? 'text-oakivo-secondary' : 'text-gray-400'}`}>
+                              {entry.status === 'new' ? <div className="w-2 h-2 rounded-full bg-oakivo-secondary animate-pulse" /> : <CheckCircle size={14} />}
                               {entry.status}
                            </div>
                         </td>
-                        <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
-                           <button className="p-2 text-gray-400 hover:text-oakivo-primary transition-colors">
-                              <Eye size={16} />
-                           </button>
-                           <button 
-                             onClick={(e) => { e.stopPropagation(); handleDelete(entry.id); }}
-                             className="p-2 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                           >
-                              <Trash2 size={16} />
-                           </button>
+                        <td className="px-10 py-6 text-right">
+                           <div className="flex items-center justify-end gap-3">
+                              <button className="p-3 text-gray-300 hover:text-oakivo-primary transition-all hover:bg-white rounded-xl shadow-sm">
+                                 <Eye size={20} />
+                              </button>
+                              <button 
+                                onClick={(e) => { e.stopPropagation(); handleDelete(entry.id); }}
+                                className="p-3 text-gray-200 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100"
+                              >
+                                 <Trash2 size={20} />
+                              </button>
+                           </div>
                         </td>
                      </tr>
-                   ))
-                 )}
-              </tbody>
-           </table>
+                   ))}
+                </tbody>
+             </table>
+           </div>
         </div>
 
-        {/* Enhanced Detail Modal (Asset Inspector) */}
-        {selectedEntry && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-oakivo-primary/90 backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden relative animate-in zoom-in slide-in-from-bottom-8 duration-500 flex flex-col">
-              
-              {/* Modal Header */}
-              <div className="bg-oakivo-primary p-8 text-white flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-2xl ${
-                    selectedEntry.type === 'lead' ? 'bg-blue-500/20 text-blue-400' :
-                    selectedEntry.type === 'applicant' ? 'bg-purple-500/20 text-purple-400' :
-                    'bg-green-500/20 text-green-400'
-                  }`}>
-                    {selectedEntry.type === 'lead' ? <Users size={24} /> : selectedEntry.type === 'applicant' ? <Briefcase size={24} /> : <Mail size={24} />}
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold font-serif-display leading-tight">Asset Intelligence Inspector</h2>
-                    <p className="text-[10px] text-white/50 font-bold uppercase tracking-[0.2em] mt-1">Unique Identifier: {selectedEntry.id}</p>
-                  </div>
-                </div>
-                <button 
-                  onClick={() => { setSelectedEntry(null); setShowRaw(false); }}
-                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                >
-                  <X size={24} />
-                </button>
-              </div>
+        <div className="mt-12 p-10 bg-white border border-dashed border-gray-200 rounded-[40px] flex flex-col md:flex-row items-center justify-between gap-8 text-gray-400">
+           <div className="flex items-center gap-4 text-xs font-black uppercase tracking-[0.3em]">
+              <Shield size={24} className="text-oakivo-secondary" /> Data Sovereign Infrastructure (v5.1)
+           </div>
+           <p className="text-[10px] font-bold text-center md:text-right max-w-md uppercase tracking-[0.15em] leading-relaxed">
+             All strategic assets are managed under Canadian data residency protocols. Access sessions are logged and cryptographically signed.
+           </p>
+        </div>
+      </div>
 
-              {/* Inspector Content */}
-              <div className="p-8 overflow-y-auto max-h-[60vh]">
-                 
-                 {/* Metadata Strip */}
-                 <div className="grid grid-cols-2 gap-8 mb-12 pb-8 border-b border-gray-100">
-                    <div>
-                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Session Creation</label>
-                       <div className="flex items-center gap-2 text-sm font-medium text-oakivo-primary">
-                          <Clock size={14} className="text-oakivo-secondary" />
-                          {new Date(selectedEntry.createdAt).toLocaleString()}
+      {/* Detail Modal */}
+      {selectedEntry && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-xl animate-in fade-in duration-500">
+           <div className="bg-white w-full max-w-3xl rounded-[48px] shadow-[0_60px_120px_rgba(0,0,0,0.6)] overflow-hidden relative animate-in zoom-in slide-in-from-bottom-12 duration-700">
+              <div className="bg-oakivo-primary p-12 text-white relative">
+                 <div className="absolute top-0 right-0 p-12 opacity-5">
+                    <Terminal size={120} />
+                 </div>
+                 <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center gap-6">
+                       <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
+                          <Eye size={32} className="text-oakivo-secondary" />
+                       </div>
+                       <div>
+                          <h2 className="text-3xl font-serif-display font-bold">Asset Analysis</h2>
+                          <p className="text-[10px] text-oakivo-secondary font-black uppercase tracking-[0.4em] mt-2">Vault Reference: {selectedEntry.id.substring(0, 13)}</p>
                        </div>
                     </div>
+                    <button onClick={() => setSelectedEntry(null)} className="p-3 hover:bg-white/10 rounded-full transition-all">
+                       <X size={32} />
+                    </button>
+                 </div>
+              </div>
+
+              <div className="p-12 space-y-12 max-h-[60vh] overflow-y-auto">
+                 <div className="grid grid-cols-2 gap-12 border-b border-gray-100 pb-12">
                     <div>
-                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Lifecycle Status</label>
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] block mb-2">Acquisition Hub</label>
+                       <p className="text-xl font-bold text-oakivo-primary font-serif-display tracking-tight">Dieppe Engineering Portal</p>
+                    </div>
+                    <div>
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] block mb-2">Asset Lifecycle</label>
                        <div className="flex gap-2">
                           {(['new', 'processed', 'archived'] as const).map(s => (
                             <button
                               key={s}
                               onClick={() => handleUpdateStatus(selectedEntry.id, s)}
-                              className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${selectedEntry.status === s ? 'bg-oakivo-secondary text-oakivo-primary shadow-lg shadow-oakivo-secondary/20' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`}
+                              className={`px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedEntry.status === s ? 'bg-oakivo-secondary text-oakivo-primary shadow-xl scale-105' : 'bg-gray-50 text-gray-400 hover:bg-gray-100'}`}
                             >
                               {s}
                             </button>
@@ -328,80 +304,30 @@ const AdminPortal: React.FC = () => {
                     </div>
                  </div>
 
-                 {/* Information Payload */}
-                 <div className="space-y-10">
-                    <div className="flex items-center justify-between">
-                       <h3 className="text-xs font-bold text-oakivo-primary uppercase tracking-[0.2em] flex items-center gap-2">
-                          <Terminal size={14} className="text-oakivo-secondary" /> Content Analysis
-                       </h3>
-                       <button 
-                         onClick={() => setShowRaw(!showRaw)}
-                         className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-colors ${showRaw ? 'text-oakivo-blue' : 'text-gray-400'}`}
-                       >
-                         {showRaw ? <Eye size={14} /> : <Code size={14} />} 
-                         {showRaw ? 'Render Structured View' : 'View Source JSON'}
-                       </button>
+                 <div className="space-y-8">
+                    <h3 className="text-[10px] font-black text-oakivo-primary uppercase tracking-[0.4em] flex items-center gap-3">
+                       <Code size={18} className="text-oakivo-secondary" /> Information Payload
+                    </h3>
+                    <div className="grid grid-cols-1 gap-6">
+                       {Object.entries(selectedEntry.data).map(([key, value]) => (
+                          <div key={key} className="bg-gray-50 p-6 rounded-3xl group hover:bg-oakivo-surface transition-all duration-500 border border-transparent hover:border-gray-100">
+                             <label className="text-[9px] font-black text-gray-400 uppercase tracking-[0.25em] block mb-2">{key}</label>
+                             <p className="text-lg font-bold text-oakivo-primary leading-relaxed break-words">{String(value)}</p>
+                          </div>
+                       ))}
                     </div>
-
-                    {showRaw ? (
-                       <pre className="bg-oakivo-primary text-green-400 p-6 rounded-2xl text-xs font-mono overflow-x-auto shadow-inner leading-relaxed">
-                          {JSON.stringify(selectedEntry, null, 2)}
-                       </pre>
-                    ) : (
-                       <div className="space-y-6">
-                          {Object.entries(selectedEntry.data).map(([key, value]) => {
-                             // Icon Mapping
-                             let FieldIcon = Info;
-                             if (key.toLowerCase().includes('name')) FieldIcon = User;
-                             if (key.toLowerCase().includes('company')) FieldIcon = Building;
-                             if (key.toLowerCase().includes('email')) FieldIcon = Mail;
-                             if (key.toLowerCase().includes('message')) FieldIcon = MessageSquare;
-                             if (key.toLowerCase().includes('link')) FieldIcon = LinkIcon;
-
-                             return (
-                                <div key={key} className="flex gap-6 group">
-                                   <div className="shrink-0 w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-300 group-hover:bg-oakivo-surface group-hover:text-oakivo-secondary transition-all">
-                                      <FieldIcon size={20} />
-                                   </div>
-                                   <div className="flex-grow pt-1">
-                                      <label className="text-[9px] font-bold text-gray-400 uppercase tracking-widest block mb-1">{key.replace(/([A-Z])/g, ' $1').trim()}</label>
-                                      <div className="text-base font-medium text-oakivo-primary leading-relaxed break-words">
-                                         {typeof value === 'string' && (value.startsWith('http') || value.includes('@')) ? (
-                                            <a href={value.includes('@') && !value.startsWith('http') ? `mailto:${value}` : value} target="_blank" rel="noopener noreferrer" className="text-oakivo-blue underline decoration-oakivo-blue/30 hover:decoration-oakivo-blue transition-all">
-                                               {value}
-                                            </a>
-                                         ) : String(value)}
-                                      </div>
-                                   </div>
-                                </div>
-                             );
-                          })}
-                       </div>
-                    )}
                  </div>
               </div>
 
-              {/* Modal Footer Actions */}
-              <div className="p-8 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-                 <button 
-                   onClick={() => handleDelete(selectedEntry.id)}
-                   className="text-red-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 hover:bg-red-50 px-4 py-2 rounded-lg transition-all"
-                 >
-                    <Trash2 size={16} /> Permanently Wipe Asset
+              <div className="p-12 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+                 <button onClick={() => handleDelete(selectedEntry.id)} className="text-red-500 text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-all">
+                    <Trash2 size={20} /> Secure Wipe
                  </button>
-                 <Button variant="black" onClick={() => { setSelectedEntry(null); setShowRaw(false); }}>Close Inspector</Button>
+                 <Button variant="black" size="lg" onClick={() => setSelectedEntry(null)}>Close Inspector</Button>
               </div>
-            </div>
-          </div>
-        )}
-
-        <div className="mt-8 p-6 border border-dashed border-gray-200 rounded-2xl flex items-center justify-between text-gray-400">
-           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em]">
-              <Shield size={16} /> Data Encryption Standard: Oakivo-Vault-AES-256
            </div>
-           <p className="text-[10px]">Administrative session is secured and logs are captured for audit compliance.</p>
         </div>
-      </div>
+      )}
     </div>
   );
 };

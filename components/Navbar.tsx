@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -26,7 +26,6 @@ const Navbar: React.FC = () => {
 
   const toggleLanguage = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation();
     const nextLang = language === 'en' ? 'fr' : 'en';
     setLanguage(nextLang);
   }, [language, setLanguage]);
@@ -41,27 +40,27 @@ const Navbar: React.FC = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-700 font-sans ${
         isScrolled 
-          ? 'bg-white/95 backdrop-blur-md py-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-b border-gray-100' 
-          : 'bg-white py-6'
+          ? 'bg-white/80 backdrop-blur-3xl py-4 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border-b border-gray-100' 
+          : 'bg-white py-8'
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between px-6">
-        {/* Logo Lockup */}
-        <NavLink to="/" className="flex items-center group transition-transform active:scale-95">
-          <Logo className="h-10 md:h-12" />
+      <div className="container mx-auto flex items-center justify-between px-8">
+        {/* Brand Lockup */}
+        <NavLink to="/" className="flex items-center group transition-all active:scale-95 duration-500">
+          <Logo className="h-11 md:h-13" />
         </NavLink>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-10">
-          <div className="flex items-center gap-8">
+        {/* Tactical Nav */}
+        <nav className="hidden lg:flex items-center gap-14">
+          <div className="flex items-center gap-10">
             {navLinks.map((link) => (
               <NavLink 
                 key={link.path} 
                 to={link.path}
                 className={({ isActive }) => 
-                  `text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-300 relative py-2 ${
+                  `text-[10px] font-black tracking-[0.25em] uppercase transition-all duration-500 relative py-3 group ${
                     isActive 
                       ? 'text-oakivo-primary' 
                       : 'text-gray-400 hover:text-oakivo-primary'
@@ -71,69 +70,69 @@ const Navbar: React.FC = () => {
                 {({ isActive }) => (
                   <span className="relative flex flex-col items-center">
                     {link.name}
-                    <span className={`absolute -bottom-1 w-0 h-[2px] bg-oakivo-secondary transition-all duration-300 ${isActive ? 'w-full' : 'group-hover:w-full'}`}></span>
+                    <span className={`absolute -bottom-1 h-[2px] bg-oakivo-secondary transition-all duration-700 ease-out ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                   </span>
                 )}
               </NavLink>
             ))}
           </div>
 
-          <div className="h-6 w-[1px] bg-gray-100 mx-2"></div>
+          <div className="h-8 w-[1px] bg-gray-100 mx-4 opacity-50"></div>
       
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
             <button 
               onClick={toggleLanguage}
-              className="group flex items-center gap-3 bg-gray-50 hover:bg-oakivo-primary hover:text-white px-4 py-2 rounded-full transition-all duration-300"
+              className="group flex items-center gap-4 bg-gray-50 hover:bg-oakivo-primary hover:text-white px-5 py-2.5 rounded-2xl transition-all duration-700 border border-gray-100"
             >
-              <Globe size={14} className="text-oakivo-secondary" />
-              <span className="text-[10px] font-black uppercase tracking-widest">
+              <Globe size={16} className="text-oakivo-secondary group-hover:rotate-12 transition-transform" />
+              <span className="text-[10px] font-black uppercase tracking-[0.15em]">
                 {language === 'en' ? 'EN' : 'FR'}
               </span>
             </button>
 
             <NavLink to={NavRoute.CONTACT}>
-              <Button variant="black" size="sm" className="font-bold flex items-center gap-2 group px-6 hover:shadow-xl hover:shadow-oakivo-primary/20">
-                <ShieldCheck size={14} className="text-oakivo-secondary" />
-                {t('nav.contact')}
-                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              <Button variant="black" size="sm" className="font-black flex items-center gap-3 group px-8 py-3.5 hover:shadow-2xl hover:shadow-oakivo-primary/20 hover:scale-105 duration-700">
+                <ShieldCheck size={16} className="text-oakivo-secondary" />
+                <span className="text-[9px] uppercase tracking-[0.2em]">{t('nav.contact')}</span>
+                <ChevronRight size={16} className="group-hover:translate-x-2 transition-transform duration-500" />
               </Button>
             </NavLink>
           </div>
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Matrix Toggle */}
         <button 
-          className="md:hidden text-oakivo-primary focus:outline-none p-2 rounded-xl bg-gray-50"
+          className="lg:hidden text-oakivo-primary focus:outline-none p-3 rounded-2xl bg-gray-50 border border-gray-100 hover:scale-110 active:scale-95 transition-all duration-500"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-2xl transition-all duration-500 ease-in-out overflow-hidden ${
-        isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+      {/* Mobile Matrix Interface */}
+      <div className={`lg:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-4xl transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden ${
+        isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
       }`}>
-        <div className="flex flex-col p-10 gap-8 items-center text-center bg-white">
+        <div className="flex flex-col p-12 gap-10 items-center text-center bg-white/50 backdrop-blur-xl">
           {navLinks.map((link) => (
             <NavLink 
               key={link.path} 
               to={link.path}
-              className="text-2xl font-serif-display font-bold text-oakivo-primary hover:text-oakivo-secondary transition-colors"
+              className="text-3xl font-serif-display font-bold text-oakivo-primary hover:text-oakivo-secondary transition-all hover:scale-110 duration-500 tracking-tight"
             >
               {link.name}
             </NavLink>
           ))}
-          <div className="h-[1px] w-20 bg-gray-100"></div>
+          <div className="h-[1px] w-32 bg-gray-100 opacity-50"></div>
           <button 
             onClick={toggleLanguage}
-            className="flex items-center gap-3 bg-gray-50 px-6 py-3 rounded-full text-sm font-bold text-oakivo-primary hover:bg-oakivo-secondary transition-all uppercase tracking-widest"
+            className="flex items-center gap-4 bg-gray-50 px-10 py-5 rounded-3xl text-xs font-black text-oakivo-primary hover:bg-oakivo-secondary hover:text-white transition-all uppercase tracking-[0.2em] shadow-sm"
           >
-            <Globe size={18} className="text-oakivo-secondary" />
+            <Globe size={20} className="text-oakivo-secondary" />
             {language === 'en' ? 'Switch to French' : 'Passer en Anglais'}
           </button>
           <NavLink to={NavRoute.CONTACT} className="w-full">
-            <Button variant="black" size="lg" className="w-full text-lg">
+            <Button variant="black" size="lg" className="w-full text-xl py-6 rounded-3xl shadow-xl">
               {t('nav.contact')}
             </Button>
           </NavLink>
