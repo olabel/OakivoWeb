@@ -130,9 +130,9 @@ const About: React.FC = () => {
                       <div className="flex items-center gap-3 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
                          <GraduationCap size={16} className="text-oakivo-secondary" /> Verified Board Member
                       </div>
-                      <div className="text-oakivo-primary font-bold text-xs uppercase tracking-widest group-hover:translate-x-2 transition-transform cursor-pointer flex items-center gap-2">
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-oakivo-primary font-bold text-xs uppercase tracking-widest group-hover:translate-x-2 transition-transform cursor-pointer flex items-center gap-2 hover:text-oakivo-secondary">
                         View Strategic Portfolio <ChevronRight size={14} />
-                      </div>
+                      </a>
                    </div>
                 </div>
               </div>

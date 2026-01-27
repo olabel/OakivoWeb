@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'en' | 'fr';
@@ -18,32 +19,30 @@ export const translations: Record<Language, Record<string, any>> = {
       services: 'Services', 
       work: 'Case Studies', 
       about: 'About', 
-      contact: "Request Technical Blueprint", 
+      contact: "Request Blueprint", 
       careers: "Careers" 
     },
     home: {
       hero_title_1: "Orchestrating",
-      hero_title_2: "Autonomous Growth.",
-      hero_subtitle: "Oakivo Solutions Inc. empowers Canadian enterprises with Agentic AI Automation, Expert Odoo Orchestration, and Zero-Trust Cybersecurity.",
-      cta_primary: "Request Technical Blueprint",
-      insight_title: "AI & Automation is the new survival standard.",
-      insight_text_1: "Legacy systems and manual workflows cost Canadian SMEs an average of 18% in lost margins every year. The future belongs to the autonomous.",
-      insight_text_2: "At Oakivo, we build the digital infrastructure that handles the routine, so your team can focus on the extraordinary. AI-driven Odoo ERP is just the beginning.",
-      cap_auto_title: "Agentic AI Automation",
-      cap_auto_desc: "We deploy autonomous AI agents that execute complex business logic directly within your Odoo environment.",
-      cap_eco_title: "Odoo 18 Orchestration",
-      cap_eco_desc: "The world's most flexible ERP, supercharged with native AI for inventory and cash flow prediction.",
-      cap_mod_title: "Autonomous Ecosystems",
-      cap_mod_desc: "We bridge your existing stack with AI-driven pipelines that modernize operations overnight.",
-      cap_sec_title: "Cyber Resilience",
-      cap_sec_desc: "Zero-trust security frameworks that protect your AI assets and enterprise data with SOC2 standards.",
-      explore: "Explore Solution Matrix",
-      impact_title: "Measured Impact",
-      view_portfolio: "Review Strategy Vault",
-      read_case: "Review Success Story",
+      hero_title_2: "Digital Growth.",
+      hero_subtitle: "Oakivo Solutions Inc. is Canada's premier engineering force for Agentic AI, Odoo 18 Orchestration, and Zero-Trust Cybersecurity. We turn technical debt into operational equity.",
+      cta_primary: "Start Transformation Audit",
+      stats_label: "Engineering Impact",
+      stats_1_val: "482K+",
+      stats_1_lbl: "Hours Reclaimed",
+      stats_2_val: "99.9%",
+      stats_2_lbl: "Uptime Standard",
+      stats_3_val: "SOC2",
+      stats_3_lbl: "Security Standard",
+      matrix_title: "Transformation Matrix",
+      matrix_subtitle: "Our core engineering pillars for modern Canadian enterprises.",
+      transformation_title: "The Transformation Journey",
+      transformation_subtitle: "A surgical, data-driven approach to reclaiming business agility.",
+      maturity_title: "Digital Maturity Index",
+      maturity_subtitle: "Where does your organization stand in the autonomous economy?",
       cta_footer_title: "Blueprint Your Future.",
       cta_footer_text: "Join the top 5% of Canadian companies leveraging Agentic AI and Odoo Orchestration.",
-      cta_footer_btn: "Request Technical Blueprint",
+      cta_footer_btn: "Request Strategic Audit",
       trusted_by: "Engineering Success Across Canada",
       perspectives_title: "Expert Perspectives",
       view_insights: "Access Intel Vault"
@@ -51,7 +50,7 @@ export const translations: Record<Language, Record<string, any>> = {
     about: {
       dna_label: "Corporate DNA",
       hero_title: "Re-Engineering the Canadian Enterprise.",
-      hero_subtitle: "We are a strategic engineering force dedicated to reclaiming business agility through AI and unified systems.",
+      hero_subtitle: "We reclaim business agility through surgical AI integration and unified data ecosystems.",
       standard_title: "The Oakivo Standard",
       standard_p1: "Founded in Atlantic Canada, Oakivo was born from a simple realization: traditional software implementation fails because it ignores the human element of orchestration.",
       standard_p2: "We don't just sell software. We architect ecosystems where AI handles the mundane and humans drive the strategy.",
@@ -69,14 +68,16 @@ export const translations: Record<Language, Record<string, any>> = {
           credentials: "MBA, Odoo Certified Architect", 
           role: "CEO & Senior Systems Orchestrator", 
           bio: "With over 15 years in enterprise resource planning, Ahmed specializes in de-coupling legacy systems and integrating high-performance AI agents into industrial workflows.",
-          expertise: ["Strategic AI", "ERP Orchestration", "Operational Scaling"]
+          expertise: ["Strategic AI", "ERP Orchestration", "Operational Scaling"],
+          linkedin: "https://linkedin.com/company/oakivo"
         },
         { 
           name: "Sarah Jenkins", 
           credentials: "MSc Computer Science, CISSP", 
           role: "Director of Cyber Resilience", 
           bio: "Sarah leads our security audit division, ensuring every automation pipeline adheres to Zero-Trust principles and the highest Canadian data privacy standards.",
-          expertise: ["Zero-Trust", "Data Sovereignty", "SOC2 Compliance"]
+          expertise: ["Zero-Trust Architecture", "Data Sovereignty", "SOC2 Compliance"],
+          linkedin: "https://linkedin.com/company/oakivo"
         }
       ]
     },
@@ -87,7 +88,7 @@ export const translations: Record<Language, Record<string, any>> = {
         { title: "Agentic AI Automation", desc: "Autonomous workflows that process data and trigger actions without human intervention.", insight: "Automation isn't just about speed; it's about consistency and reliability." },
         { title: "Odoo 18 Orchestration", desc: "The foundational nervous system for your entire organization, unified and powerful.", insight: "A unified system is the only way to achieve true enterprise visibility." },
         { title: "Cyber-Security Audits", desc: "Hardening your digital perimeter with Zero-Trust principles and SOC2 readiness.", insight: "Security is a strategic feature, not a technical afterthought." },
-        { title: "Digital Modernization", desc: "24/7 technical monitoring and managed infrastructure support.", insight: "Uptime is the heartbeat of modern commerce." }
+        { title: "Modernization Strategy", desc: "24/7 technical monitoring and managed infrastructure support.", insight: "Uptime is the heartbeat of modern commerce." }
       ],
       method_title: "The Oakivo Method",
       method_subtitle: "A four-phase approach to total digital transformation.",
@@ -99,8 +100,8 @@ export const translations: Record<Language, Record<string, any>> = {
       ],
       faq_title: "Technical Inquiries",
       faq: [
-        { q: "How long is a typical Odoo implementation?", a: "Standard mid-market deployments take 3-6 months depending on data complexity and integration requirements." },
-        { q: "What is 'Agentic AI'?", a: "Unlike standard AI that just chats, Agentic AI can execute tasks like updating inventory, reconciling invoices, or triggering supply chain orders directly in your ERP." }
+        { q: "How long is a typical Odoo implementation?", a: "Standard mid-market deployments take 3-6 months depending on data complexity." },
+        { q: "What is 'Agentic AI'?", a: "AI capable of executing tasks (e.g., reconciling invoices) directly in your ERP." }
       ],
       cta_title: "Start Your Blueprint",
       cta_text: "Don't settle for legacy limitations. Let's build your autonomous future.",
@@ -133,20 +134,6 @@ export const translations: Record<Language, Record<string, any>> = {
           quote: "Finally, a security partner that understands the business bottom line.", 
           author: "S. Chen, CTO",
           impact: "Zero Breaches in 24 Months"
-        },
-        { 
-          title: "Retail AI Integration", 
-          summary: "Deploying predictive stock models that reduced waste by 22% in 6 months.", 
-          quote: "The ROI was clear within the first quarter of deployment.", 
-          author: "R. Thompson, CEO",
-          impact: "22% Waste Reduction"
-        },
-        { 
-          title: "Agentic Support Hub", 
-          summary: "Automating 70% of support tickets with native Odoo-AI integration.", 
-          quote: "Our team is finally doing high-value work instead of resetting passwords.", 
-          author: "L. Green, CS Lead",
-          impact: "70% Auto-Resolution"
         }
       ]
     },
@@ -173,7 +160,7 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     careers: {
       hero_title: "Join the Elite.",
-      hero_subtitle: "We are hiring the next generation of Odoo architects and AI engineers to lead Canada's digital future.",
+      hero_subtitle: "We are shaping the future of Canadian enterprise. No open roles? We still want to hear from elite talent.",
       culture_title: "Our Ecosystem",
       values: [
         { title: "Remote-First", desc: "Work from anywhere in Canada with our async-first culture." },
@@ -181,10 +168,10 @@ export const translations: Record<Language, Record<string, any>> = {
         { title: "Infinite Learning", desc: "Generous budget for Odoo and AI certifications." },
         { title: "High Impact", desc: "See your code transform real-world industrial output." }
       ],
-      apply_title: "Start Your Mission",
-      apply_text: "We are always looking for senior Odoo developers and AI automation specialists.",
-      apply_btn: "Submit Application",
-      email_link: "careers@oakivo.com"
+      apply_title: "Spontaneous Applications",
+      apply_text: "We are always seeking senior Odoo architects and AI automation specialists.",
+      apply_btn: "Submit Technical Profile",
+      email_link: "hr@oakivo.com"
     },
     blog: {
       hero_title: "The Intel Vault",
@@ -195,16 +182,18 @@ export const translations: Record<Language, Record<string, any>> = {
           date: "January 15, 2026", 
           title: "The AI Revolution in Odoo 18", 
           category: "AI & ERP", 
+          author: "Ahmed Bello",
           excerpt: "How Odoo 18's native AI and Oakivo's agentic workflows are reshaping mid-market productivity.", 
-          content: `### The AI Paradigm Shift
-Odoo 18 has fundamentally integrated AI into the core user experience. At Oakivo, we've taken this further by deploying **Agentic Workflows** that automate entire departments.
-
-**Why AI-Driven ERP?**
-*   **Predictive Procurement:** Machine learning that anticipates stock-outs.
-*   **Autonomous Accounting:** AI that reconciles 95% of bank statements without human touch.
-*   **Conversational Logic:** Querying your enterprise data using natural language.
-
-*Review our [Solution Matrix](#/services) to see how we deploy autonomous logic.*`
+          sections: {
+            introduction: "Odoo 18 marks a fundamental shift from a simple record-keeping system to an active participant in business operations.",
+            takeaways: [
+              "Agentic AI moves beyond 'chatting' to executing complex transactional logic.",
+              "Odoo 18 provides 30% faster data entry through intelligent OCR.",
+              "Autonomous procurement is now a reality for mid-market manufacturing."
+            ],
+            discussion: "At Oakivo, we've observed that the true power of Odoo 18 lies in its orchestration of data across departments.",
+            conclusion: "The transition to an AI-first ERP is no longer optional for businesses looking to scale in 2026."
+          }
         }
       ]
     },
@@ -229,27 +218,25 @@ Odoo 18 has fundamentally integrated AI into the core user experience. At Oakivo
     },
     home: {
       hero_title_1: "Orchestrer la",
-      hero_title_2: "Croissance Autonome.",
-      hero_subtitle: "Oakivo Solutions Inc. propulse les entreprises canadiennes avec l'automatisation IA, l'orchestration Odoo et la cybersécurité.",
-      cta_primary: "Audit Stratégique",
-      insight_title: "L'IA et l'automatisation sont les nouveaux standards.",
-      insight_text_1: "Les systèmes hérités et les flux de travail manuels coûtent aux PME canadiennes en moyenne 18% de marges perdues chaque année.",
-      insight_text_2: "Chez Oakivo, nous construisons l'infrastructure numérique qui gère la routine, pour que votre équipe puisse se concentrer sur l'extraordinaire.",
-      cap_auto_title: "Automatisation par Agents IA",
-      cap_auto_desc: "Nous déployons des agents IA autonomes qui exécutent une logique métier complexe directement dans Odoo.",
-      cap_eco_title: "Orchestration Odoo 18",
-      cap_eco_desc: "L'ERP le plus flexible au monde, boosté par l'IA native pour l'inventaire et les flux de trésorerie.",
-      cap_mod_title: "Écosystèmes Autonomes",
-      cap_mod_desc: "Nous relions votre pile existante à des pipelines pilotés par l'IA qui modernisent vos opérations.",
-      cap_sec_title: "Cyber-Résilience",
-      cap_sec_desc: "Cadres de sécurité Zero-Trust qui protègent vos actifs IA et vos données d'entreprise.",
-      explore: "Explorer la Matrice",
-      impact_title: "Impact Mesuré",
-      view_portfolio: "Voir le Coffre-fort",
-      read_case: "Lire le Succès",
+      hero_title_2: "Transformation Numérique.",
+      hero_subtitle: "Oakivo Solutions Inc. est la force d'ingénierie numéro 1 au Canada pour l'IA, Odoo 18 et la cybersécurité. Nous transformons la dette technique en capital opérationnel.",
+      cta_primary: "Audit de Transformation",
+      stats_label: "Impact Ingénierie",
+      stats_1_val: "482K+",
+      stats_1_lbl: "Heures Récupérées",
+      stats_2_val: "99.9%",
+      stats_2_lbl: "Standard Disponibilité",
+      stats_3_val: "SOC2",
+      stats_3_lbl: "Standard Sécurité",
+      matrix_title: "Matrice de Transformation",
+      matrix_subtitle: "Nos piliers centraux pour les entreprises canadiennes modernes.",
+      transformation_title: "Le Parcours de Transformation",
+      transformation_subtitle: "Une approche chirurgicale basée sur les données pour restaurer l'agilité commerciale.",
+      maturity_title: "Indice de Maturité Numérique",
+      maturity_subtitle: "Où se situe votre organisation dans l'économie autonome ?",
       cta_footer_title: "Planifiez Votre Futur.",
-      cta_footer_text: "Rejoignez le top 5% des entreprises canadiennes utilisant l'IA et l'orchestration Odoo.",
-      cta_footer_btn: "Audit Stratégique",
+      cta_footer_text: "Rejoignez le top 5% des entreprises canadiennes utilisant l'IA et Odoo.",
+      cta_footer_btn: "Demander l'Audit Stratégique",
       trusted_by: "Ingénierie de succès au Canada",
       perspectives_title: "Perspectives d'Experts",
       view_insights: "Accéder au Coffre-fort"
@@ -257,12 +244,11 @@ Odoo 18 has fundamentally integrated AI into the core user experience. At Oakivo
     about: {
       dna_label: "ADN Corporatif",
       hero_title: "Ré-ingénierie de l'Entreprise Canadienne.",
-      hero_subtitle: "Nous sommes une force d'ingénierie stratégique dédiée à restaurer l'agilité commerciale.",
+      hero_subtitle: "Nous restaurons l'agilité commerciale par l'intégration chirurgicale de l'IA.",
       standard_title: "Le Standard Oakivo",
-      standard_p1: "Fondé au Canada atlantique, Oakivo est né d'un constat simple : l'implémentation logicielle traditionnelle échoue car elle ignore l'élément humain.",
+      standard_p1: "Fondé au Canada atlantique, Oakivo est né d'un constat simple : l'implémentation logicielle traditionnelle échoue.",
       standard_p2: "Nous n'installons pas juste des logiciels. Nous architecturons des écosystèmes.",
       standard_p3: "Notre mission est d'assurer la souveraineté numérique des PME canadiennes.",
-      journey_title: "Notre Trajectoire",
       leadership_title: "Direction Architecturale",
       leadership_subtitle: "Les esprits orchestrant le futur autonome du Canada.",
       values: [
@@ -275,15 +261,9 @@ Odoo 18 has fundamentally integrated AI into the core user experience. At Oakivo
           name: "Ahmed Bello", 
           credentials: "MBA, Architecte Certifié Odoo", 
           role: "PDG et Orchestrateur de Systèmes Senior", 
-          bio: "Avec plus de 15 ans d'expérience, Ahmed se spécialise dans le découplage des systèmes hérités et l'intégration d'agents IA.",
-          expertise: ["IA Stratégique", "Orchestration ERP", "Croissance Opérationnelle"]
-        },
-        { 
-          name: "Sarah Jenkins", 
-          credentials: "MSc Informatique, CISSP", 
-          role: "Directrice de la Cyber-Résilience", 
-          bio: "Sarah dirige notre division d'audit de sécurité, garantissant que chaque pipeline respecte les principes Zero-Trust.",
-          expertise: ["Zero-Trust", "Souveraineté", "Conformité SOC2"]
+          bio: "Avec plus de 15 ans d'expérience, Ahmed se spécialise dans le découplage des systèmes hérités.",
+          expertise: ["IA Stratégique", "Orchestration ERP", "Croissance Opérationnelle"],
+          linkedin: "https://linkedin.com/company/oakivo"
         }
       ]
     },
@@ -294,24 +274,24 @@ Odoo 18 has fundamentally integrated AI into the core user experience. At Oakivo
         { title: "Automatisation IA", desc: "Workflows intelligents qui agissent sans intervention humaine.", insight: "L'automatisation, c'est la cohérence." },
         { title: "Odoo 18 ERP", desc: "Le système nerveux central de votre organisation.", insight: "Un système unifié est la seule voie vers la visibilité." },
         { title: "Cyber-Sécurité", desc: "Protection de votre périmètre avec le Zero-Trust.", insight: "La sécurité est une priorité stratégique." },
-        { title: "Modernisation Numérique", desc: "Support technique et surveillance infrastructure 24/7.", insight: "La disponibilité est le coeur du commerce." }
+        { title: "Modernisation Stratégique", desc: "Support technique et surveillance infrastructure 24/7.", insight: "La disponibilité est le coeur du commerce." }
       ],
       method_title: "La Méthode Oakivo",
-      method_subtitle: "Une approche en quatre phases pour la transformation numérique.",
+      method_subtitle: "Une approche en quatre phases.",
       steps: [
-        { title: "Audit", desc: "Cartographie profonde des silos et de la dette manuelle." },
-        { title: "Architecture", desc: "Conception d'un plan personnalisé d'IA et d'ERP." },
-        { title: "Implémentation", desc: "Déploiement chirurgical sans interruption de service." },
-        { title: "Optimisation", desc: "Amélioration continue par la télémétrie." }
+        { title: "Audit", desc: "Cartographie profonde des silos." },
+        { title: "Architecture", desc: "Conception d'un plan personnalisé." },
+        { title: "Implémentation", desc: "Déploiement chirurgical." },
+        { title: "Optimisation", desc: "Amélioration continue." }
       ],
       faq_title: "Questions Techniques",
       faq: [
-        { q: "Combien de temps prend une implémentation ?", a: "Généralement de 3 à 6 mois selon la complexité des données." },
-        { q: "C'est quoi l'IA Agente ?", a: "C'est une IA capable d'exécuter des tâches réelles comme facturer ou commander du stock directement dans votre ERP." }
+        { q: "Combien de temps prend une implémentation ?", a: "Généralement de 3 à 6 mois." },
+        { q: "C'est quoi l'IA Agente ?", a: "Une IA capable d'exécuter des tâches réelles dans votre ERP." }
       ],
       cta_title: "Commencez Votre Plan",
       cta_text: "Bâtissons votre futur autonome dès aujourd'hui.",
-      cta_btn: "Audit Stratégique"
+      cta_btn: "Demander l'Audit"
     },
     verticals: {
       cards: [
@@ -333,27 +313,6 @@ Odoo 18 has fundamentally integrated AI into the core user experience. At Oakivo
           quote: "Oakivo a réparé le pouls de notre entreprise.", 
           author: "J. Miller, Dir Opérations",
           impact: "Gain d'Efficacité de 40%"
-        },
-        { 
-          title: "FinTrust Cyber Hardening", 
-          summary: "Implémentation du Zero-Trust pour une firme financière.", 
-          quote: "Enfin un partenaire qui comprend les résultats nets.", 
-          author: "S. Chen, CTO",
-          impact: "Zéro Brèche en 24 Mois"
-        },
-        { 
-          title: "Retail AI Integration", 
-          summary: "Réduction des pertes de 22% via l'IA prédictive.", 
-          quote: "Le ROI était clair dès le premier trimestre.", 
-          author: "R. Thompson, CEO",
-          impact: "Réduction des Pertes de 22%"
-        },
-        { 
-          title: "Agentic Support Hub", 
-          summary: "Automatisation de 70% des tickets via l'IA native Odoo.", 
-          quote: "Notre équipe fait enfin du travail à haute valeur.", 
-          author: "L. Green, Support",
-          impact: "70% de Résolution Auto"
         }
       ]
     },
@@ -380,18 +339,18 @@ Odoo 18 has fundamentally integrated AI into the core user experience. At Oakivo
     },
     careers: {
       hero_title: "Rejoignez l'Élite.",
-      hero_subtitle: "Nous recrutons les futurs architectes Odoo et ingénieurs IA.",
+      hero_subtitle: "Nous façonnons l'avenir de l'entreprise canadienne.",
       culture_title: "Notre Écosystème",
       values: [
-        { title: "Télétravail", desc: "Travaillez de n'importe où au Canada." },
+        { title: "Remote-First", desc: "Travaillez de n'importe où au Canada." },
         { title: "Responsabilité", desc: "Chaque ingénieur a un rôle dans le résultat stratégique." },
         { title: "Apprentissage", desc: "Budget généreux pour les certifications Odoo et IA." },
         { title: "Impact", desc: "Voyez votre code transformer l'industrie réelle." }
       ],
-      apply_title: "Commencez Votre Mission",
-      apply_text: "Nous cherchons des experts Odoo et des spécialistes de l'automatisation IA.",
+      apply_title: "Candidatures Spontanées",
+      apply_text: "Nous cherchons toujours des experts Odoo et des spécialistes de l'automatisation IA.",
       apply_btn: "Soumettre ma candidature",
-      email_link: "careers@oakivo.com"
+      email_link: "hr@oakivo.com"
     },
     blog: {
       hero_title: "Le Coffre-fort d'Intelligence",
@@ -402,11 +361,18 @@ Odoo 18 has fundamentally integrated AI into the core user experience. At Oakivo
           date: "15 Janvier 2026", 
           title: "La Révolution IA dans Odoo 18", 
           category: "IA et ERP", 
+          author: "Ahmed Bello",
           excerpt: "Comment l'IA native d'Odoo 18 et les agents d'Oakivo transforment la productivité.", 
-          content: `### Le Changement de Paradigme IA
-Odoo 18 a intégré l'IA au coeur de l'expérience utilisateur. Chez Oakivo, nous allons plus loin avec des agents autonomes.
-
-*Découvrez notre [Matrice de Solutions](#/services) pour en savoir plus.*`
+          sections: {
+            introduction: "Odoo 18 marque un tournant fondamental...",
+            takeaways: [
+              "L'IA Agente exécute une logique transactionnelle.",
+              "Saisie 30% plus rapide.",
+              "Approvisionnement autonome."
+            ],
+            discussion: "La véritable puissance d'Odoo 18...",
+            conclusion: "La transition vers un ERP axé sur l'IA n'est plus optionnelle."
+          }
         }
       ]
     },
@@ -435,6 +401,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   return (
+    /* Fix: Wrap Provider in JSX tags */
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>

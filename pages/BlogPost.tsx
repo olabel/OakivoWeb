@@ -39,12 +39,26 @@ const BlogPost: React.FC = () => {
     "datePublished": post.date,
     "publisher": {
       "@type": "Organization",
-      "name": "Oakivo Solutions Inc"
+      "name": "Oakivo Solutions Inc",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.oakivo.com/logo.png"
+      }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://www.oakivo.com/perspectives/${id}`
     }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.oakivo.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Perspectives", "item": "https://www.oakivo.com/perspectives" },
+      { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://www.oakivo.com/perspectives/${id}` }
+    ]
   };
 
   return (
@@ -53,7 +67,7 @@ const BlogPost: React.FC = () => {
         title={`${post.title} | Oakivo Intelligence Vault`}
         description={post.excerpt}
         type="article"
-        schema={blogSchema}
+        schema={[blogSchema, breadcrumbSchema]}
         canonical={`/perspectives/${id}`}
       />
 
@@ -103,50 +117,50 @@ const BlogPost: React.FC = () => {
               <div className="lg:col-span-8 space-y-16">
                  
                  {/* Introduction */}
-                 <div className="prose prose-2xl prose-headings:font-serif-display prose-headings:tracking-tighter">
-                    <h2 className="text-oakivo-primary flex items-center gap-4 mb-8">
-                       <BookOpen size={28} className="text-oakivo-secondary" /> Introduction
+                 <article className="prose prose-2xl prose-headings:font-serif-display prose-headings:tracking-tighter max-w-none">
+                    <h2 className="text-3xl md:text-5xl font-serif-display font-bold text-oakivo-primary flex items-center gap-4 mb-8">
+                       <BookOpen size={28} className="text-oakivo-secondary" /> 1. Introduction
                     </h2>
-                    <p className="text-xl text-gray-700 leading-relaxed font-light italic border-l-4 border-oakivo-secondary pl-8">
+                    <p className="text-xl text-gray-700 leading-relaxed font-light italic border-l-4 border-oakivo-secondary pl-8 mb-12">
                        {post.sections.introduction}
                     </p>
-                 </div>
 
-                 {/* Key Takeaways Grid */}
-                 <div className="bg-oakivo-surface p-12 rounded-[40px] border border-gray-100">
-                    <h3 className="text-sm font-black text-oakivo-primary uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
-                       <Target size={20} className="text-oakivo-secondary" /> Key Strategic Takeaways
-                    </h3>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                       {post.sections.takeaways.map((item: string, i: number) => (
-                          <li key={i} className="flex gap-4">
-                             <div className="w-6 h-6 rounded-full bg-oakivo-secondary/20 flex items-center justify-center text-oakivo-secondary shrink-0 mt-1">
-                                <Activity size={12} />
-                             </div>
-                             <span className="text-gray-600 text-sm font-medium">{item}</span>
-                          </li>
-                       ))}
-                    </ul>
-                 </div>
-
-                 {/* Discussion */}
-                 <div className="prose prose-xl text-gray-600 font-light leading-relaxed">
-                    <h2 className="text-oakivo-primary flex items-center gap-4 mb-8 font-serif-display">
-                       <MessageSquare size={28} className="text-oakivo-secondary" /> Strategic Discussion
-                    </h2>
-                    <p>{post.sections.discussion}</p>
-                 </div>
-
-                 {/* Conclusion */}
-                 <div className="p-12 bg-oakivo-primary text-white rounded-[40px] relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8 opacity-5">
-                       <ShieldCheck size={100} />
+                    {/* Key Takeaways Grid */}
+                    <div className="bg-oakivo-surface p-12 rounded-[40px] border border-gray-100 my-16 not-prose">
+                        <h3 className="text-sm font-black text-oakivo-primary uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
+                           <Target size={20} className="text-oakivo-secondary" /> Key Strategic Takeaways
+                        </h3>
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 list-none p-0">
+                           {post.sections.takeaways.map((item: string, i: number) => (
+                              <li key={i} className="flex gap-4">
+                                 <div className="w-6 h-6 rounded-full bg-oakivo-secondary/20 flex items-center justify-center text-oakivo-secondary shrink-0 mt-1">
+                                    <Activity size={12} />
+                                 </div>
+                                 <span className="text-gray-600 text-sm font-medium">{item}</span>
+                              </li>
+                           ))}
+                        </ul>
                     </div>
-                    <h3 className="text-2xl font-serif-display font-bold mb-6">The Path Forward</h3>
-                    <p className="text-gray-300 font-light leading-relaxed">
-                       {post.sections.conclusion}
-                    </p>
-                 </div>
+
+                    {/* Discussion */}
+                    <h2 className="text-3xl md:text-5xl font-serif-display font-bold text-oakivo-primary flex items-center gap-4 mb-8 mt-16">
+                       <MessageSquare size={28} className="text-oakivo-secondary" /> 2. Strategic Discussion
+                    </h2>
+                    <div className="text-xl text-gray-600 font-light leading-relaxed mb-16">
+                        {post.sections.discussion}
+                    </div>
+
+                    {/* Conclusion */}
+                    <div className="p-12 bg-oakivo-primary text-white rounded-[40px] relative overflow-hidden not-prose">
+                        <div className="absolute top-0 right-0 p-8 opacity-5">
+                           <ShieldCheck size={100} />
+                        </div>
+                        <h3 className="text-3xl font-serif-display font-bold mb-6">3. The Path Forward</h3>
+                        <p className="text-gray-300 font-light leading-relaxed text-lg">
+                           {post.sections.conclusion}
+                        </p>
+                    </div>
+                 </article>
               </div>
 
               {/* Sticky Sidebar */}
