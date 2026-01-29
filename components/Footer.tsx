@@ -8,7 +8,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { db } from '../utils/database';
 
 const Footer: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [localTime, setLocalTime] = useState('');
@@ -47,60 +47,8 @@ const Footer: React.FC = () => {
     }
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.oakivo.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.oakivo.com/services" },
-      { "@type": "ListItem", "position": 3, "name": "Verticals", "item": "https://www.oakivo.com/verticals" }
-    ]
-  };
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Oakivo Solutions Inc",
-    "image": "https://www.oakivo.com/logo.png",
-    "@id": "https://www.oakivo.com",
-    "url": "https://www.oakivo.com",
-    "telephone": "+1-506-857-4000",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "21 Delta St.",
-      "addressLocality": "Dieppe",
-      "addressRegion": "NB",
-      "postalCode": "E1A 3R5",
-      "addressCountry": "CA"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 46.0945,
-      "longitude": -64.7477
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "09:00",
-      "closes": "17:00"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/company/oakivo",
-      "https://twitter.com/oakivo"
-    ]
-  };
-
   return (
     <footer className="bg-[#020504] text-white pt-32 pb-12 relative overflow-hidden border-t border-white/5">
-      <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-      <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
-      
       {/* Decorative Gradients */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-oakivo-secondary to-transparent opacity-30"></div>
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-oakivo-secondary/5 rounded-full blur-[120px] -mr-40 -mb-40"></div>
@@ -231,8 +179,8 @@ const Footer: React.FC = () => {
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-wrap items-center gap-8 text-xs font-medium text-gray-500">
              <span>&copy; {new Date().getFullYear()} Oakivo Solutions Inc.</span>
-             <Link to={NavRoute.CONTACT} className="hover:text-white transition-colors">Privacy & Sovereignty</Link>
-             <Link to={NavRoute.CONTACT} className="hover:text-white transition-colors">Compliance Matrix</Link>
+             <Link to={NavRoute.PRIVACY} className="hover:text-white transition-colors">Privacy & Sovereignty</Link>
+             <Link to={NavRoute.COMPLIANCE} className="hover:text-white transition-colors">Compliance Matrix</Link>
              <Link to="/admin-portal" className="text-white/20 hover:text-oakivo-secondary flex items-center gap-2 transition-all">
                 <Lock size={12} /> Vault Access
              </Link>

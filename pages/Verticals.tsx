@@ -21,19 +21,19 @@ const Verticals: React.FC = () => {
       />
 
       {/* Hero */}
-      <section className="bg-[#020504] text-white pt-40 pb-24 relative overflow-hidden">
+      <section className="bg-[#020504] text-white pt-48 pb-24 relative overflow-hidden">
          <div className="absolute inset-0 bg-gradient-to-br from-oakivo-primary via-black to-black"></div>
          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-oakivo-secondary/5 rounded-full blur-[140px] -mr-40 -mt-40"></div>
          <div className="container mx-auto px-6 relative z-10">
             <div className="flex items-center gap-4 mb-8">
                <div className="h-[1px] w-12 bg-oakivo-secondary"></div>
-               <span className="text-oakivo-secondary font-black tracking-[0.3em] uppercase text-[10px]">{t('nav.verticals')}</span>
+               <span className="text-oakivo-secondary font-black tracking-[0.4em] uppercase text-[10px]">{t('nav.verticals')}</span>
             </div>
-            <h1 className="text-6xl md:text-[8rem] font-serif-display font-bold max-w-5xl leading-[0.85] mb-12 tracking-tighter">
-              The Industry <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-oakivo-secondary to-white">Standard.</span>
+            <h1 className="text-6xl md:text-[9rem] font-serif-display font-bold max-w-5xl leading-[0.8] mb-12 tracking-tighter">
+              Verticals.
             </h1>
-            <p className="text-2xl md:text-3xl text-gray-400 max-w-3xl font-light leading-relaxed">
-              Tailored ERP and AI automation strategies engineered for the complexities of Canada's most critical sectors.
+            <p className="text-2xl md:text-4xl text-gray-400 max-w-3xl font-light leading-relaxed">
+              Tailored digital strategies engineered for the structural complexities of Canada's most critical sectors.
             </p>
          </div>
       </section>
@@ -45,16 +45,16 @@ const Verticals: React.FC = () => {
             {cards.map((card: any, idx: number) => {
               const Icon = icons[idx];
               return (
-                <div key={idx} className="group p-12 border border-gray-100 hover:border-oakivo-secondary/30 hover:shadow-4xl transition-all duration-700 rounded-[40px] bg-white flex flex-col cv-auto">
-                   <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center text-oakivo-primary mb-10 group-hover:bg-oakivo-secondary group-hover:text-oakivo-primary transition-all duration-500 shadow-sm">
+                <div key={idx} className="group p-14 border border-gray-100 hover:border-oakivo-secondary/30 hover:shadow-4xl transition-all duration-700 rounded-[48px] bg-white flex flex-col cv-auto">
+                   <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center text-oakivo-primary mb-12 group-hover:bg-oakivo-secondary group-hover:text-oakivo-primary transition-all duration-500 shadow-sm">
                       <Icon size={32} strokeWidth={1.5} />
                    </div>
-                   <h3 className="text-3xl font-bold font-serif-display mb-6 group-hover:text-oakivo-secondary transition-colors tracking-tight">{card.title}</h3>
-                   <p className="text-gray-500 leading-relaxed text-lg font-light mb-10 flex-grow">
+                   <h3 className="text-3xl font-bold font-serif-display mb-8 group-hover:text-oakivo-secondary transition-colors tracking-tight">{card.title}</h3>
+                   <p className="text-gray-500 leading-relaxed text-lg font-light mb-12 flex-grow">
                      {card.desc}
                    </p>
-                   <Link to={NavRoute.SERVICES} className="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-oakivo-primary group-hover:text-oakivo-secondary transition-all">
-                     Explore Matrix <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+                   <Link to={NavRoute.SERVICES} className="inline-flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-oakivo-primary group-hover:text-oakivo-secondary transition-all">
+                     EXPLORE MATRIX <ArrowRight size={18} className="group-hover:translate-x-3 transition-transform" />
                    </Link>
                 </div>
               );
@@ -64,63 +64,51 @@ const Verticals: React.FC = () => {
       </section>
 
       {/* Sector Authority Section */}
-      <section className="bg-oakivo-surface py-32 border-y border-gray-100">
+      <section className="bg-oakivo-surface py-40 border-y border-gray-100">
          <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                <div>
-                  <h2 className="text-5xl md:text-7xl font-serif-display font-bold mb-10 tracking-tighter leading-none">Cross-Sector <br/> <span className="text-oakivo-secondary">Intelligence.</span></h2>
-                  <p className="text-xl text-gray-600 font-light leading-relaxed mb-12">
-                     Our engineers don't just understand software; they understand your industry's specific regulatory and operational headwinds. We bring a vCISO and vCIO perspective to every deployment.
+                  <h2 className="text-5xl md:text-8xl font-serif-display font-bold mb-12 tracking-tighter leading-none">Cross-Sector <br/> <span className="text-oakivo-secondary">Mastery.</span></h2>
+                  <p className="text-xl text-gray-600 font-light leading-relaxed mb-16">
+                     Our architects don't just understand code; they understand industrial logic. We bring a vCISO perspective to every vertical deployment in Atlantic Canada and beyond.
                   </p>
-                  <div className="space-y-6">
+                  <div className="space-y-8">
                      {[
-                        { title: "Compliance Ready", desc: "Native support for Canadian GST/HST, payroll, and privacy laws.", icon: <Shield size={20} /> },
-                        { title: "Scalable Architecture", desc: "Engineered to handle multi-company, multi-currency, and global growth.", icon: <Globe size={20} /> },
-                        { title: "Data Driven", desc: "Advanced telemetry and predictive BI built into every industry portal.", icon: <Database size={20} /> }
+                        { title: "Compliance Ready", desc: "Native support for Canadian GST/HST, payroll, and privacy laws.", icon: <Shield size={24} /> },
+                        { title: "Scalable Architecture", desc: "Engineered to handle multi-company, multi-currency growth.", icon: <Globe size={24} /> },
+                        { title: "Data Driven", desc: "Advanced telemetry and predictive BI built into every industry portal.", icon: <Database size={24} /> }
                      ].map((item, i) => (
-                        <div key={i} className="flex gap-6 items-start p-6 bg-white rounded-2xl border border-gray-100 shadow-sm group hover:border-oakivo-secondary/20 transition-all">
+                        <div key={i} className="flex gap-8 items-start p-8 bg-white rounded-3xl border border-gray-100 shadow-sm group hover:border-oakivo-secondary/30 transition-all duration-500">
                            <div className="text-oakivo-secondary mt-1 group-hover:scale-110 transition-transform">{item.icon}</div>
                            <div>
-                              <h4 className="font-bold text-lg mb-1">{item.title}</h4>
-                              <p className="text-gray-500 text-sm font-light">{item.desc}</p>
+                              <h4 className="font-bold text-xl mb-2">{item.title}</h4>
+                              <p className="text-gray-500 text-base font-light">{item.desc}</p>
                            </div>
                         </div>
                      ))}
                   </div>
                </div>
                <div className="relative">
-                  <div className="aspect-square rounded-[60px] overflow-hidden shadow-4xl group">
+                  <div className="aspect-square rounded-[64px] overflow-hidden shadow-4xl group">
                      <img 
-                        src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop" 
-                        alt="Industrial Engineering" 
+                        src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1600&auto=format&fit=crop" 
+                        alt="Advanced Manufacturing Logic" 
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
                         loading="lazy"
+                        decoding="async"
                      />
                      <div className="absolute inset-0 bg-oakivo-primary/20 group-hover:bg-transparent transition-all duration-500"></div>
                   </div>
-                  <div className="absolute -bottom-10 -left-10 bg-white p-10 rounded-[40px] shadow-4xl border border-gray-50 hidden md:block animate-bounce-slow">
-                     <Cog className="text-oakivo-secondary mb-4 animate-spin-slow" size={40} />
-                     <p className="font-bold text-3xl font-serif-display text-oakivo-primary">100%</p>
-                     <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Sector Accuracy</p>
+                  <div className="absolute -bottom-10 -left-10 bg-white p-12 rounded-[48px] shadow-4xl border border-gray-50 hidden md:block animate-bounce-slow">
+                     <Cog className="text-oakivo-secondary mb-4 animate-spin-slow" size={48} />
+                     <p className="font-bold text-4xl font-serif-display text-oakivo-primary">100%</p>
+                     <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Sector Precision</p>
                   </div>
                </div>
             </div>
          </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-white py-40 text-center">
-        <div className="container mx-auto px-6">
-          <h2 className="text-5xl md:text-8xl font-serif-display font-bold mb-10 tracking-tighter">Ready to Orchestrate?</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto mb-16 text-2xl font-light leading-relaxed">
-            Stop struggling with software that doesn't speak your industry's language.
-          </p>
-          <Link to={NavRoute.CONTACT}>
-            <Button variant="black" size="lg" className="px-16 py-7 text-xl shadow-4xl hover:scale-105 active:scale-95 transition-all">Start Your Sector Audit</Button>
-          </Link>
-        </div>
-      </section>
-      
       <style>{`
         @keyframes bounce-slow {
           0%, 100% { transform: translateY(-5%); }

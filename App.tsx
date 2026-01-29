@@ -13,6 +13,8 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Careers from './pages/Careers';
 import AdminPortal from './pages/AdminPortal';
+import Privacy from './pages/Privacy';
+import ComplianceMatrix from './pages/ComplianceMatrix';
 import Chatbot from './components/Chatbot';
 import { LanguageProvider } from './context/LanguageContext';
 
@@ -45,6 +47,8 @@ const App: React.FC = () => {
                 <Route path="/perspectives/:id" element={<BlogPost />} />
                 <Route path="/careers" element={<Careers />} />
                 <Route path="/admin-portal" element={<AdminPortal />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/compliance-matrix" element={<ComplianceMatrix />} />
               </Routes>
             </main>
             <Footer />

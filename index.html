@@ -24,13 +24,14 @@
     <meta property="og:site_name" content="Oakivo Solutions Inc." />
     <meta property="og:locale" content="en_CA" />
 
-    <!-- Refined Favicon SVG -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cg fill='white'%3E%3Ccircle cx='50' cy='36' r='17'/%3E%3Ccircle cx='34' cy='45' r='14'/%3E%3Ccircle cx='66' cy='45' r='14'/%3E%3Ccircle cx='41' cy='57' r='12'/%3E%3Ccircle cx='58' cy='57' r='12'/%3E%3Crect x='47' y='52' width='6' height='36' rx='1'/%3E%3Cpath d='M51 68 L70 45 L76 50 L57 73 Z'/%3E%3C/g%3E%3C/svg%3E" />
+    <!-- Brand Favicon - Precision Refined Emblem (5-lobe canopy, 45-deg branch) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cg fill='white'%3E%3Ccircle cx='50' cy='36' r='15'/%3E%3Ccircle cx='36' cy='43' r='13'/%3E%3Ccircle cx='64' cy='43' r='13'/%3E%3Ccircle cx='41' cy='56' r='11'/%3E%3Ccircle cx='59' cy='56' r='11'/%3E%3Crect x='47.5' y='52' width='5' height='36' rx='1'/%3E%3Cpath d='M50 70 L72 46 L78 51 L56 75 Z'/%3E%3C/g%3E%3C/svg%3E" />
     
     <title>Oakivo Solutions | Orchestrating AI & Digital Futures</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -77,23 +78,22 @@
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .animate-fade-in-up { animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       
       @keyframes scroll {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
       }
       .animate-marquee {
-        animation: scroll 40s linear infinite;
+        animation: scroll 30s linear infinite;
         display: flex;
         width: max-content;
       }
 
-      /* Performance Optimization: Content Visibility */
       .cv-auto { content-visibility: auto; contain-intrinsic-size: 1px 1000px; }
-      
-      /* Accessibility: Focus Rings */
       *:focus-visible { outline: 2px solid #2ECC71; outline-offset: 4px; }
+      .page-enter { opacity: 0; transform: scale(0.99); }
+      .page-enter-active { opacity: 1; transform: scale(1); transition: opacity 500ms, transform 500ms; }
     </style>
     
   <script type="importmap">

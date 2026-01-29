@@ -106,7 +106,7 @@ const Chatbot: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
         className={`w-18 h-18 rounded-full flex items-center justify-center shadow-[0_20px_60px_rgba(0,0,0,0.3)] transition-all duration-700 transform hover:scale-110 active:scale-95 ${isOpen ? 'bg-white text-oakivo-primary rotate-90' : 'bg-oakivo-primary text-white'}`}
       >
-        {isOpen ? <X size={32} /> : <Bot size={32} />}
+        {isOpen ? <X size={32} /> : <BrainCircuit size={32} />}
       </button>
 
       <div className={`absolute bottom-24 right-0 w-[450px] max-w-[92vw] h-[700px] bg-white rounded-[40px] shadow-4xl border border-gray-100 flex flex-col transition-all duration-700 origin-bottom-right ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 pointer-events-none translate-y-12'}`}>

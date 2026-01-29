@@ -40,5 +40,7 @@ export enum NavRoute {
   CASE_STUDIES = '/case-studies',
   CONTACT = '/contact',
   BLOG = '/perspectives',
-  CAREERS = '/careers'
+  CAREERS = '/careers',
+  PRIVACY = '/privacy',
+  COMPLIANCE = '/compliance-matrix'
 }

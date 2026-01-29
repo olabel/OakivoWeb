@@ -7,18 +7,17 @@ interface LogoProps {
 }
 
 /**
- * Oakivo - Official Brand Mark (Refined Precision)
- * Emblem: Solid Teal #123530 circle, negative space white tree.
- * Geometry: Five-lobed canopy, straight trunk, 45-degree branch on right.
+ * Oakivo - Official Brand Mark (Precision Calibration)
+ * Emblem: Solid Teal #123530 circle, white negative space tree.
+ * Geometry: Five-lobed canopy, vertical trunk, 45-degree upward branch on right.
  */
 const Logo: React.FC<LogoProps> = ({ className = "h-10", withText = true, light = false }) => {
   const brandTeal = "#123530"; 
-  const accentColor = "#2ECC71"; // Oakivo Secondary Green
+  const accentColor = "#2ECC71"; 
   const primaryColor = light ? "#FFFFFF" : brandTeal;
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      {/* Exact Vector Replica of the Uploaded Emblem */}
       <svg 
         viewBox="0 0 100 100" 
         fill="none" 
@@ -29,18 +28,18 @@ const Logo: React.FC<LogoProps> = ({ className = "h-10", withText = true, light 
       >
         <circle cx="50" cy="50" r="50" fill={brandTeal} />
         <g fill="white">
-          {/* Canopy: Five distinctive lobes arranged in an oak-like cloud shape */}
-          <circle cx="50" cy="36" r="17" />
-          <circle cx="34" cy="45" r="14" />
-          <circle cx="66" cy="45" r="14" />
-          <circle cx="41" cy="57" r="12" />
-          <circle cx="59" cy="57" r="12" />
+          {/* Canopy: Five balanced lobes */}
+          <circle cx="50" cy="36" r="15" />
+          <circle cx="36" cy="43" r="13" />
+          <circle cx="64" cy="43" r="13" />
+          <circle cx="41" cy="56" r="11" />
+          <circle cx="59" cy="56" r="11" />
           
-          {/* Trunk: Straight, solid vertical support */}
-          <rect x="47" y="52" width="6" height="36" rx="1" />
+          {/* Trunk: Straight vertical support */}
+          <rect x="47.5" y="52" width="5" height="36" rx="1" />
           
           {/* The signature 45-degree upward branch on the right */}
-          <path d="M51 68 L70 45 L76 50 L57 73 Z" />
+          <path d="M50 70 L72 46 L78 51 L56 75 Z" />
         </g>
       </svg>
 
