@@ -1,7 +1,7 @@
 import React from 'react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
-import { Target, Heart, Award, ShieldCheck, Briefcase, GraduationCap, ChevronRight, Activity, Zap, Cpu } from 'lucide-react';
+import { Target, Heart, Award, ShieldCheck, Briefcase, GraduationCap, ChevronRight, Activity, Zap, Cpu, ShieldAlert } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
 
 const About: React.FC = () => {
@@ -32,15 +32,16 @@ const About: React.FC = () => {
       />
 
       {/* Header */}
-      <section className="bg-oakivo-primary text-white pt-40 pb-24">
-        <div className="container mx-auto px-6">
+      <section className="bg-oakivo-primary text-white pt-40 pb-24 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-oakivo-secondary/5 blur-3xl rounded-full -mr-32 -mt-32"></div>
+        <div className="container mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
              <div>
                 <div className="flex items-center gap-4 mb-6">
                    <div className="h-[1px] w-12 bg-oakivo-secondary"></div>
                    <span className="text-oakivo-secondary font-bold tracking-widest uppercase">{t('about.dna_label')}</span>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-serif-display font-bold mb-6 tracking-tighter">{t('about.hero_title')}</h1>
+                <h1 className="text-5xl md:text-8xl font-serif-display font-bold mb-6 tracking-tighter leading-[0.95]">{t('about.hero_title')}</h1>
              </div>
              <div className="flex items-end">
                 <p className="text-xl md:text-3xl text-gray-300 leading-relaxed font-light">
@@ -55,7 +56,7 @@ const About: React.FC = () => {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl md:text-6xl font-serif-display font-bold mb-10 text-black tracking-tighter">{t('about.standard_title')}</h2>
+              <h2 className="text-4xl md:text-6xl font-serif-display font-bold mb-10 text-black tracking-tighter leading-none">{t('about.standard_title')}</h2>
               <div className="prose prose-xl text-gray-600 font-light leading-relaxed max-w-none">
                 <p className="mb-8">
                   {t('about.standard_p1')}
@@ -73,15 +74,15 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Leadership Section - Prestige Redesign */}
-      <Section className="bg-white border-t border-gray-100">
+      {/* Leadership Section - Expanded for 3 Members */}
+      <Section className="bg-white border-t border-gray-100 pb-40">
         <div className="mb-24">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
              <div className="max-w-3xl">
                 <div className="inline-flex items-center gap-3 text-oakivo-secondary font-black uppercase text-[10px] tracking-[0.4em] mb-6">
                    <Zap size={14} /> Intelligence Hub
                 </div>
-                <h2 className="text-5xl md:text-[5.5rem] font-serif-display font-bold text-oakivo-primary mb-6 tracking-tighter leading-none">
+                <h2 className="text-5xl md:text-8xl font-serif-display font-bold text-oakivo-primary mb-6 tracking-tighter leading-none">
                    {t('about.leadership_title')}
                 </h2>
                 <p className="text-xl md:text-2xl text-gray-500 font-light leading-relaxed">{t('about.leadership_subtitle')}</p>
@@ -93,45 +94,47 @@ const About: React.FC = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {team.map((member: any, idx: number) => (
-            <div key={idx} className="group flex flex-col p-10 md:p-14 border border-gray-100 hover:border-oakivo-secondary/30 hover:bg-gray-50/30 transition-all duration-700 rounded-[48px] relative overflow-hidden bg-white shadow-sm hover:shadow-4xl">
+            <div key={idx} className="group flex flex-col p-10 border border-gray-100 hover:border-oakivo-secondary/30 hover:bg-gray-50/30 transition-all duration-700 rounded-[48px] relative overflow-hidden bg-white shadow-sm hover:shadow-vise-lg">
               {/* Monogram Overlay */}
-              <div className="absolute top-0 right-0 p-8 opacity-[0.03] text-[15rem] font-serif-display font-bold pointer-events-none group-hover:opacity-[0.06] transition-all duration-1000">
+              <div className="absolute top-0 right-0 p-6 opacity-[0.03] text-8xl font-serif-display font-bold pointer-events-none group-hover:opacity-[0.06] transition-all duration-1000">
                 {member.name.split(' ').map((n: string) => n[0]).join('')}
               </div>
 
-              <div className="relative z-10">
-                <div className="flex flex-wrap items-center gap-4 mb-8">
-                   <h3 className="text-4xl font-serif-display font-bold text-oakivo-primary tracking-tight">{member.name}</h3>
-                   <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-oakivo-primary text-white px-4 py-1.5 rounded-full shadow-lg">
-                      {member.credentials}
-                   </span>
+              <div className="relative z-10 h-full flex flex-col">
+                <div className="flex flex-col gap-2 mb-8">
+                   <h3 className="text-3xl font-serif-display font-bold text-oakivo-primary tracking-tight">{member.name}</h3>
+                   <div className="flex">
+                    <span className="text-[9px] font-black uppercase tracking-[0.2em] bg-oakivo-primary text-white px-3 py-1 rounded-lg">
+                        {member.credentials}
+                    </span>
+                   </div>
                 </div>
                 
-                <p className="text-xs text-oakivo-secondary font-black uppercase tracking-[0.25em] mb-10 flex items-center gap-3">
-                  <div className="w-8 h-[1px] bg-oakivo-secondary"></div> {member.role}
+                <p className="text-[10px] text-oakivo-secondary font-black uppercase tracking-[0.25em] mb-8 flex items-center gap-3">
+                  <div className="w-6 h-[1px] bg-oakivo-secondary"></div> {member.role}
                 </p>
 
-                <p className="text-gray-500 leading-loose mb-12 text-xl font-light">
+                <p className="text-gray-500 leading-relaxed mb-10 text-base font-light flex-grow">
                   {member.bio}
                 </p>
                 
-                <div className="space-y-8">
-                   <div className="flex flex-wrap gap-3">
+                <div className="space-y-6 mt-auto">
+                   <div className="flex flex-wrap gap-2">
                       {member.expertise.map((exp: string) => (
-                         <span key={exp} className="px-4 py-1.5 bg-oakivo-primary/5 text-oakivo-primary rounded-lg text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 border border-oakivo-primary/10">
-                            <Activity size={12} className="text-oakivo-secondary" /> {exp}
+                         <span key={exp} className="px-3 py-1 bg-oakivo-primary/5 text-oakivo-primary rounded-lg text-[9px] font-bold uppercase tracking-widest flex items-center gap-1.5 border border-oakivo-primary/10">
+                            {idx === 2 ? <ShieldAlert size={10} className="text-oakivo-secondary" /> : <Activity size={10} className="text-oakivo-secondary" />} {exp}
                          </span>
                       ))}
                    </div>
 
-                   <div className="pt-8 border-t border-gray-100 flex items-center justify-between">
-                      <div className="flex items-center gap-3 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                         <GraduationCap size={16} className="text-oakivo-secondary" /> Verified Board Member
+                   <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-[9px] text-gray-400 font-bold uppercase tracking-widest">
+                         <GraduationCap size={14} className="text-oakivo-secondary" /> Board Member
                       </div>
-                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-oakivo-primary font-bold text-xs uppercase tracking-widest group-hover:translate-x-2 transition-transform cursor-pointer flex items-center gap-2 hover:text-oakivo-secondary">
-                        View Strategic Portfolio <ChevronRight size={14} />
+                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-oakivo-primary font-bold text-[10px] uppercase tracking-widest hover:text-oakivo-secondary transition-colors flex items-center gap-1.5">
+                        Portfolio <ChevronRight size={12} />
                       </a>
                    </div>
                 </div>
@@ -146,8 +149,8 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
           {values.map((val: any, idx: number) => (
             <div key={idx} className="flex flex-col group">
-              <div className="text-oakivo-secondary font-bold text-8xl mb-6 opacity-20 font-serif-display group-hover:opacity-100 transition-opacity duration-700">0{idx + 1}</div>
-              <h3 className="text-3xl font-bold font-serif-display text-oakivo-primary mb-6 tracking-tight">{val.title}</h3>
+              <div className="text-oakivo-secondary font-bold text-7xl mb-6 opacity-20 font-serif-display group-hover:opacity-100 transition-opacity duration-700">0{idx + 1}</div>
+              <h3 className="text-2xl font-bold font-serif-display text-oakivo-primary mb-6 tracking-tight">{val.title}</h3>
               <p className="text-gray-500 leading-relaxed text-lg font-light">{val.text}</p>
             </div>
           ))}

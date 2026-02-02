@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, ShieldCheck, Calendar, User, Tag, ChevronRight, Activity, BookOpen, Target, MessageSquare, PlayCircle, Share2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ShieldCheck, Calendar, User, Tag, ChevronRight, Activity, BookOpen, Target, MessageSquare, PlayCircle, Share2, Lock } from 'lucide-react';
 import Section from '../components/Section';
 import { useLanguage, translations } from '../context/LanguageContext';
 import Button from '../components/Button';
@@ -26,17 +26,19 @@ const BlogPost: React.FC = () => {
     );
   }
 
-  const blogSchema = {
+  // Improved institutional schema
+  const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": "Article",
     "headline": post.title,
     "description": post.excerpt,
+    "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200",
     "author": {
       "@type": "Person",
-      "name": post.author || "Ahmed Bello",
-      "url": "https://www.oakivo.com/about"
+      "name": post.author,
+      "jobTitle": "Principal Strategy Architect",
+      "url": "https://www.oakivo.com/#/about"
     },
-    "datePublished": post.date,
     "publisher": {
       "@type": "Organization",
       "name": "Oakivo Solutions Inc",
@@ -45,9 +47,11 @@ const BlogPost: React.FC = () => {
         "url": "https://www.oakivo.com/logo.png"
       }
     },
+    "datePublished": post.date.includes(',') ? new Date(post.date).toISOString() : "2026-01-01T00:00:00Z",
+    "dateModified": new Date().toISOString(),
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://www.oakivo.com/perspectives/${id}`
+      "@id": `https://www.oakivo.com/#/perspectives/${id}`
     }
   };
 
@@ -57,7 +61,7 @@ const BlogPost: React.FC = () => {
         title={`${post.title} | Oakivo Intelligence Vault`}
         description={post.excerpt}
         type="article"
-        schema={blogSchema}
+        schema={articleSchema}
         canonical={`/perspectives/${id}`}
       />
 
@@ -114,10 +118,15 @@ const BlogPost: React.FC = () => {
                  {/* Cinematic Video Integration */}
                  {post.videoUrl && (
                    <div className="mb-16 animate-fade-in-up">
-                      <div className="inline-flex items-center gap-3 text-oakivo-secondary font-black uppercase text-[10px] tracking-[0.4em] mb-6">
-                        <PlayCircle size={16} /> Technical Executive Briefing
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="inline-flex items-center gap-3 text-oakivo-secondary font-black uppercase text-[10px] tracking-[0.4em]">
+                          <PlayCircle size={16} /> Executive Video Briefing
+                        </div>
+                        <div className="flex items-center gap-2 text-[9px] font-black text-gray-400 uppercase tracking-widest">
+                           <Lock size={12} className="text-oakivo-secondary" /> SECURE STREAM
+                        </div>
                       </div>
-                      <div className="aspect-video w-full rounded-[48px] overflow-hidden shadow-4xl bg-oakivo-primary border border-gray-100 relative group">
+                      <div className="aspect-video w-full rounded-[48px] overflow-hidden shadow-vise-xl bg-oakivo-primary border border-gray-100 relative group">
                          <iframe 
                            className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000"
                            src={post.videoUrl} 
@@ -126,7 +135,11 @@ const BlogPost: React.FC = () => {
                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                            allowFullScreen
                          ></iframe>
-                         <div className="absolute inset-0 pointer-events-none border-[12px] border-white/5 group-hover:border-transparent transition-all duration-500 rounded-[48px]"></div>
+                         {/* Institutional Overlay Grid */}
+                         <div className="absolute inset-0 pointer-events-none border-[1px] border-white/5 group-hover:border-transparent transition-all duration-500 rounded-[48px]"></div>
+                         <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl text-[8px] font-bold text-white tracking-[0.3em] flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Activity size={10} className="text-oakivo-secondary animate-pulse" /> LIVE TELEMETRY FEED
+                         </div>
                       </div>
                    </div>
                  )}

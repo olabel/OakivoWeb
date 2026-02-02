@@ -11,28 +11,14 @@
     <meta name="author" content="Oakivo Solutions Inc." />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     
-    <!-- Geo-tagging for Local SEO -->
-    <meta name="geo.region" content="CA-NB" />
-    <meta name="geo.placename" content="Dieppe" />
-    <meta name="geo.position" content="46.0945;-64.7477" />
-
-    <!-- Open Graph (Social SEO) -->
-    <meta property="og:title" content="Oakivo Solutions | Orchestrating AI & Digital Futures" />
-    <meta property="og:description" content="AI Automation & Odoo ERP experts helping Canadian businesses scale with efficiency and security." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.oakivo.com" />
-    <meta property="og:site_name" content="Oakivo Solutions Inc." />
-    <meta property="og:locale" content="en_CA" />
-
-    <!-- Brand Favicon - Precision Refined Emblem (5-lobe canopy, 45-deg branch) -->
+    <!-- Brand Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cg fill='white'%3E%3Ccircle cx='50' cy='36' r='15'/%3E%3Ccircle cx='36' cy='43' r='13'/%3E%3Ccircle cx='64' cy='43' r='13'/%3E%3Ccircle cx='41' cy='56' r='11'/%3E%3Ccircle cx='59' cy='56' r='11'/%3E%3Crect x='47.5' y='52' width='5' height='36' rx='1'/%3E%3Cpath d='M50 70 L72 46 L78 51 L56 75 Z'/%3E%3C/g%3E%3C/svg%3E" />
     
-    <title>Oakivo Solutions | Orchestrating AI & Digital Futures</title>
+    <title>Oakivo Solutions | The Platform for Institutional Agility</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://images.unsplash.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,400&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -43,74 +29,60 @@
               oakivo: {
                 primary: '#123530', 
                 secondary: '#2ECC71',
-                blue: '#0078FF', 
+                accent: '#005AC1',
                 bg: '#FFFFFF',
-                surface: '#F8FAFC',
-                text: '#0F172A',
-                muted: '#64748B',
-                border: '#E2E8F0',
+                surface: '#F9FAFB',
+                text: '#111827',
+                muted: '#6B7280',
+                border: '#E5E7EB',
               }
             },
             fontFamily: {
               sans: ['Inter', 'system-ui', 'sans-serif'],
               serif: ['Playfair Display', 'serif'],
-              funky: ['Quicksand', 'sans-serif'],
-            },
-            container: {
-              center: true,
-              padding: '1.5rem',
             },
             boxShadow: {
-              '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
-              '4xl': '0 50px 100px -20px rgba(0, 0, 0, 0.4)',
+              'vise': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+              'vise-lg': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+              'vise-xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
             }
           }
         }
       }
     </script>
     <style>
-      body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #0F172A; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+      body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #111827; -webkit-font-smoothing: antialiased; }
       .font-serif-display { font-family: 'Playfair Display', serif; }
-      .font-funky { font-family: 'Quicksand', sans-serif; }
-      html { scroll-behavior: smooth; }
       
       @keyframes fade-in-up {
-        from { opacity: 0; transform: translateY(20px); }
+        from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      .animate-fade-in-up { animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .animate-fade-in-up { animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       
-      @keyframes scroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-      .animate-marquee {
-        animation: scroll 30s linear infinite;
-        display: flex;
-        width: max-content;
-      }
-
-      .cv-auto { content-visibility: auto; contain-intrinsic-size: 1px 1000px; }
-      *:focus-visible { outline: 2px solid #2ECC71; outline-offset: 4px; }
-      .page-enter { opacity: 0; transform: scale(0.99); }
-      .page-enter-active { opacity: 1; transform: scale(1); transition: opacity 500ms, transform 500ms; }
+      .text-balance { text-wrap: balance; }
+      
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      
+      a, button { transition: all 0.25s ease; }
     </style>
-    
-  <script type="importmap">
+    <script type="importmap">
 {
   "imports": {
-    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
-    "react-dom": "https://esm.sh/react-dom@18.2.0",
-    "lucide-react": "https://esm.sh/lucide-react@0.263.1?external=react,react-dom",
-    "react/": "https://esm.sh/react@18.2.0/",
-    "react": "https://esm.sh/react@18.2.0",
-    "react-router-dom": "https://esm.sh/react-router-dom@6.14.2?external=react,react-dom",
-    "react-helmet-async": "https://esm.sh/react-helmet-async@1.3.0?external=react,react-dom",
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0"
+    "react": "https://esm.sh/react@18.3.1",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0?external=react",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom",
+    "react-helmet-async": "https://esm.sh/react-helmet-async@2.0.5?external=react",
+    "@google/genai": "https://esm.sh/@google/genai@1.39.0"
   }
 }
 </script>
-</head>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>

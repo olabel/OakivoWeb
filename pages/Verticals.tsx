@@ -22,7 +22,7 @@ const Verticals: React.FC = () => {
 
       {/* Hero */}
       <section className="bg-[#020504] text-white pt-48 pb-24 relative overflow-hidden">
-         <div className="absolute inset-0 bg-gradient-to-br from-oakivo-primary via-black to-black"></div>
+         <div className="absolute inset-0 bg-gradient-to-br from-oakivo-primary via-black to-black opacity-90"></div>
          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-oakivo-secondary/5 rounded-full blur-[140px] -mr-40 -mt-40"></div>
          <div className="container mx-auto px-6 relative z-10">
             <div className="flex items-center gap-4 mb-8">
@@ -45,11 +45,11 @@ const Verticals: React.FC = () => {
             {cards.map((card: any, idx: number) => {
               const Icon = icons[idx];
               return (
-                <div key={idx} className="group p-14 border border-gray-100 hover:border-oakivo-secondary/30 hover:shadow-4xl transition-all duration-700 rounded-[48px] bg-white flex flex-col cv-auto">
+                <div key={idx} className="group p-14 border border-gray-100 hover:border-oakivo-secondary/30 hover:shadow-vise-lg transition-all duration-700 rounded-[48px] bg-white flex flex-col h-full">
                    <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center text-oakivo-primary mb-12 group-hover:bg-oakivo-secondary group-hover:text-oakivo-primary transition-all duration-500 shadow-sm">
                       <Icon size={32} strokeWidth={1.5} />
                    </div>
-                   <h3 className="text-3xl font-bold font-serif-display mb-8 group-hover:text-oakivo-secondary transition-colors tracking-tight">{card.title}</h3>
+                   <h3 className="text-3xl font-bold font-serif-display mb-8 group-hover:text-oakivo-secondary transition-colors tracking-tight leading-none">{card.title}</h3>
                    <p className="text-gray-500 leading-relaxed text-lg font-light mb-12 flex-grow">
                      {card.desc}
                    </p>
@@ -68,7 +68,7 @@ const Verticals: React.FC = () => {
          <div className="container mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                <div>
-                  <h2 className="text-5xl md:text-8xl font-serif-display font-bold mb-12 tracking-tighter leading-none">Cross-Sector <br/> <span className="text-oakivo-secondary">Mastery.</span></h2>
+                  <h2 className="text-5xl md:text-8xl font-serif-display font-bold mb-12 tracking-tighter leading-[0.9]">Cross-Sector <br/> <span className="text-oakivo-secondary">Mastery.</span></h2>
                   <p className="text-xl text-gray-600 font-light leading-relaxed mb-16">
                      Our architects don't just understand code; they understand industrial logic. We bring a vCISO perspective to every vertical deployment in Atlantic Canada and beyond.
                   </p>
@@ -89,7 +89,7 @@ const Verticals: React.FC = () => {
                   </div>
                </div>
                <div className="relative">
-                  <div className="aspect-square rounded-[64px] overflow-hidden shadow-4xl group">
+                  <div className="aspect-square rounded-[64px] overflow-hidden shadow-vise-xl group">
                      <img 
                         src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1600&auto=format&fit=crop" 
                         alt="Advanced Manufacturing Logic" 
@@ -99,7 +99,7 @@ const Verticals: React.FC = () => {
                      />
                      <div className="absolute inset-0 bg-oakivo-primary/20 group-hover:bg-transparent transition-all duration-500"></div>
                   </div>
-                  <div className="absolute -bottom-10 -left-10 bg-white p-12 rounded-[48px] shadow-4xl border border-gray-50 hidden md:block animate-bounce-slow">
+                  <div className="absolute -bottom-10 -left-10 bg-white p-12 rounded-[48px] shadow-vise-lg border border-gray-50 hidden md:block animate-bounce-slow">
                      <Cog className="text-oakivo-secondary mb-4 animate-spin-slow" size={48} />
                      <p className="font-bold text-4xl font-serif-display text-oakivo-primary">100%</p>
                      <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Sector Precision</p>

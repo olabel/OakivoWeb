@@ -51,9 +51,6 @@ export const translations: Record<Language, Record<string, any>> = {
       hero_title: "Re-Engineering the Canadian Enterprise.",
       hero_subtitle: "We reclaim business agility through surgical AI integration and unified data ecosystems.",
       standard_title: "The Oakivo Standard",
-      standard_p1: "Founded in Atlantic Canada, Oakivo was born from a simple realization: traditional software implementation fails because it ignores the human element of orchestration.",
-      standard_p2: "We don't just sell software. We architect ecosystems where AI handles the mundane and humans drive the strategy.",
-      standard_p3: "Our mission is to ensure every Canadian SME has access to the same level of digital sovereignty and automation as global giants.",
       leadership_title: "Architectural Leadership",
       leadership_subtitle: "The minds orchestrating Canada's autonomous future.",
       values: [
@@ -77,6 +74,14 @@ export const translations: Record<Language, Record<string, any>> = {
           bio: "Sarah leads our security audit division, ensuring every automation pipeline adheres to Zero-Trust principles and the highest Canadian data privacy standards.",
           expertise: ["Zero-Trust Architecture", "Data Sovereignty", "SOC2 Compliance"],
           linkedin: "https://linkedin.com/company/oakivo"
+        },
+        { 
+          name: "Fawaz Bello", 
+          credentials: "OSCP", 
+          role: "Cyber Security Specialist", 
+          bio: "Fawaz leads Oakivo's offensive security research, specializing in penetration testing for automated ERP environments and securing high-risk agentic AI interfaces.",
+          expertise: ["Offensive Security", "Penetration Testing", "AI Interface Hardening"],
+          linkedin: "https://linkedin.com/company/oakivo"
         }
       ]
     },
@@ -88,32 +93,6 @@ export const translations: Record<Language, Record<string, any>> = {
         { title: "Odoo 18 Orchestration", desc: "The foundational nervous system for your entire organization, unified and powerful.", insight: "A unified system is the only way to achieve true enterprise visibility." },
         { title: "Cyber-Security Audits", desc: "Hardening your digital perimeter with Zero-Trust principles and SOC2 readiness.", insight: "Security is a strategic feature, not a technical afterthought." },
         { title: "Modernization Strategy", desc: "24/7 technical monitoring and managed infrastructure support.", insight: "Uptime is the heartbeat of modern commerce." }
-      ],
-      method_title: "The Oakivo Method",
-      method_subtitle: "A four-phase approach to total digital transformation.",
-      steps: [
-        { title: "Audit", desc: "Deep-dive mapping of existing silos and manual technical debt." },
-        { title: "Architect", desc: "Designing a custom blueprint of AI and ERP synergy." },
-        { title: "Implement", desc: "Surgical deployment with zero operational downtime." },
-        { title: "Scale", desc: "Continuous optimization through data telemetry and BI." }
-      ],
-      faq_title: "Technical Inquiries",
-      faq: [
-        { q: "How long is a typical Odoo implementation?", a: "Standard mid-market deployments take 3-6 months depending on data complexity." },
-        { q: "What is 'Agentic AI'?", a: "AI capable of executing tasks (e.g., reconciling invoices) directly in your ERP." }
-      ],
-      cta_title: "Start Your Blueprint",
-      cta_text: "Don't settle for legacy limitations. Let's build your autonomous future.",
-      cta_btn: "Request Technical Blueprint"
-    },
-    verticals: {
-      cards: [
-        { title: "Manufacturing", desc: "Predictive maintenance and real-time shop floor synchronization." },
-        { title: "Retail", desc: "Unified commerce and AI-driven inventory replenishment." },
-        { title: "Distribution", desc: "Logistics automation and multi-warehouse optimization." },
-        { title: "Finance", desc: "Automated reconciliation and Zero-Trust data vaults." },
-        { title: "Public Sector", desc: "Digital citizen portals and legacy system migration." },
-        { title: "Healthcare", desc: "Secure data pipelines and automated patient scheduling." }
       ]
     },
     caseStudies: {
@@ -123,58 +102,33 @@ export const translations: Record<Language, Record<string, any>> = {
         { 
           title: "Atlantic Distribution Sync", 
           summary: "Automating 30,000 monthly SKUs across 5 locations using Odoo 18.", 
+          problem: "Fragmented inventory tracking leading to 15% stock variance and significant operational lag.",
+          solution: "Orchestrated Odoo 18 multi-warehouse logic with real-time AI inventory agents for predictive replenishment.",
+          impact: "40% Efficiency Gain",
           quote: "Oakivo didn't just install software; they fixed our company's pulse.", 
-          author: "James Miller, Operations Director",
-          impact: "40% Efficiency Gain"
+          author: "James Miller, Operations Director"
         },
         { 
           title: "FinTrust Cyber Hardening", 
           summary: "Implementing Zero-Trust identity management for a national finance firm.", 
+          problem: "Legacy perimeter security protocols unable to withstand modern lateral-movement ransomware attacks.",
+          solution: "Deployment of a Zero-Trust identity mesh and SOC2-compliant data isolation layers with automated threat detection.",
+          impact: "Zero Breaches in 24 Months",
           quote: "Finally, a security partner that understands the business bottom line.", 
-          author: "S. Chen, CTO",
-          impact: "Zero Breaches in 24 Months"
+          author: "S. Chen, CTO"
+        },
+        { 
+          title: "Northern Retail Automation", 
+          summary: "AI-driven customer experience and supply chain replenishment.", 
+          problem: "Manual re-ordering processes causing frequent stockouts and significant customer churn.",
+          solution: "Integrated Agentic AI forecasting with automated Odoo purchasing workflows to stabilize retail margins.",
+          impact: "25% Revenue Growth",
+          quote: "The AI doesn't just predict; it acts. We have regained our operational focus.", 
+          author: "L. Thompson, VP Retail"
         }
       ]
     },
-    contact: {
-      hero_title: "Begin Your Audit.",
-      hero_subtitle: "Connect with our senior engineers to map your digital trajectory.",
-      form_title: "Project Inquiry",
-      form_response: "Expect a response from a technical lead within 24 hours.",
-      label_name: "Full Name",
-      label_email: "Work Email",
-      label_company: "Organization",
-      label_message: "Operational Overview",
-      btn_send: "Request Blueprint",
-      btn_sending: "Processing...",
-      success_title: "Inquiry Captured",
-      success_message: "Your operational overview is being reviewed by our engineering lead.",
-      hq_title: "Regional Presence",
-      hq_visit: "Visit Our Hub",
-      hq_address_1: "21 Delta St.",
-      hq_address_2: "Dieppe, NB E1A 3R5",
-      hq_email: "Intelligence Inquiries",
-      hq_call: "Direct Line",
-      hq_phone: "+1 (506) 857-4000"
-    },
-    careers: {
-      hero_title: "Join the Elite.",
-      hero_subtitle: "We are shaping the future of Canadian enterprise. No open roles? We still want to hear from elite talent.",
-      culture_title: "Our Ecosystem",
-      values: [
-        { title: "Remote-First", desc: "Work from anywhere in Canada with our async-first culture." },
-        { title: "Deep Ownership", desc: "Every engineer has a stake in the project's strategic outcome." },
-        { title: "Infinite Learning", desc: "Generous budget for Odoo and AI certifications." },
-        { title: "High Impact", desc: "See your code transform real-world industrial output." }
-      ],
-      apply_title: "Spontaneous Applications",
-      apply_text: "We are always seeking senior Odoo architects and AI automation specialists.",
-      apply_btn: "Submit Technical Profile",
-      email_link: "hr@oakivo.com"
-    },
     blog: {
-      hero_title: "The Intel Vault",
-      hero_subtitle: "Expert analysis on AI orchestration, ERP trends, and Cybersecurity for the Canadian market.",
       posts: [
         { 
           id: 1, 
@@ -182,6 +136,7 @@ export const translations: Record<Language, Record<string, any>> = {
           title: "The AI Revolution in Odoo 18", 
           category: "AI & ERP", 
           author: "Ahmed Bello",
+          videoUrl: "https://www.youtube.com/embed/N6j6x0qJbYk", 
           excerpt: "How Odoo 18's native AI and Oakivo's agentic workflows are reshaping mid-market productivity.", 
           sections: {
             introduction: "Odoo 18 marks a fundamental shift from record-keeping to active participant. We explore the architectural impact of AI in the ERP ecosystem.",
@@ -200,6 +155,7 @@ export const translations: Record<Language, Record<string, any>> = {
           title: "Zero-Trust: The Identity Perimeter", 
           category: "Cybersecurity", 
           author: "Sarah Jenkins",
+          videoUrl: "https://www.youtube.com/embed/fD_hV6GzK1Y", 
           excerpt: "Securing the perimeter isn't enough. Why Zero-Trust is the only defense against modern ransomware targeting industrial sectors.", 
           sections: {
             introduction: "Identity is the new perimeter. Traditional firewalls are a relic of the past in a distributed workforce.",
@@ -213,30 +169,22 @@ export const translations: Record<Language, Record<string, any>> = {
           }
         }
       ]
-    },
-    footer: {
-      tagline_1: "Orchestrating AI.", tagline_2: "Building Futures.",
-      newsletter_text: "Get actionable technical intelligence on AI Automation and Odoo delivered to your inbox.",
-      newsletter_placeholder: "Corporate email address",
-      newsletter_btn: "Subscribe",
-      col_capabilities: "Solutions Matrix", col_company: "Oakivo Inc.", col_global: "Regional Presence",
-      privacy: "Privacy Policy", terms: "Terms of Service", back_to_top: "Top"
     }
   },
   fr: {
-    // ... Simplified French translations (truncated for brevity in this example but would be full in production)
     nav: { home: 'Accueil', verticals: 'Secteurs', services: 'Services', work: 'Réalisations', about: 'À Propos', contact: "Demander le Plan", careers: "Carrières" },
     home: {
       hero_title_1: "Orchestrer",
       hero_title_2: "la Croissance.",
-      hero_subtitle: "Oakivo Solutions Inc. est la force d'ingénierie numéro 1 au Canada pour l'IA, Odoo 18 et la cybersécurité. Nous transformons la dette technique en capital opérationnel.",
-      cta_primary: "Audit de Transformation",
-      stats_label: "Impact Ingénierie",
-      stats_1_val: "482K+", stats_1_lbl: "Heures Récupérées",
-      stats_2_val: "99.9%", stats_2_lbl: "Disponibilité",
-      stats_3_val: "SOC2", stats_3_lbl: "Standard Sécurité"
+      hero_subtitle: "Oakivo Solutions Inc. est la force d'ingénierie numéro 1 au Canada pour l'IA, Odoo 18 et la cybersécurité. Nous transformons la deet technique en capital opérationnel."
+    },
+    about: {
+      team: [
+        { name: "Ahmed Bello", role: "PDG et Orchestrateur Principal" },
+        { name: "Sarah Jenkins", role: "Directrice de la Cyber-résilience" },
+        { name: "Fawaz Bello", role: "Spécialiste en Cyber-sécurité" }
+      ]
     }
-    // ... remaining FR
   }
 };
 
