@@ -185,10 +185,10 @@ const CaseStudies: React.FC = () => {
                   style={{ animationDelay: `${(idx % 2) * 200}ms` }}
                 >
                   <div className={`relative overflow-hidden mb-12 shadow-4xl rounded-[56px] transition-all duration-1000 ${isLarge ? 'aspect-[21/9]' : 'aspect-[4/5]'} bg-oakivo-primary`}>
-                    {/* Cinematic Overlay Stack */}
+                    {/* Cinematic Overlay Stack with darkening on hover */}
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-oakivo-primary/70 transition-colors z-20 duration-1000"></div>
                     
-                    {/* Zooming Image Asset */}
+                    {/* Zooming Image Asset with zoom effect on hover */}
                     <img 
                       src={project.img} 
                       alt={data.title} 
@@ -222,7 +222,7 @@ const CaseStudies: React.FC = () => {
                         {data.title}
                       </h3>
 
-                      {/* Delineated Problem / Solution / Impact blocks */}
+                      {/* Delineated Problem / Solution / Impact blocks for technical clarity */}
                       <div className="grid grid-cols-1 gap-8 mb-12">
                          <div className="flex gap-6 items-start">
                             <div className="w-10 h-10 rounded-2xl bg-red-50 flex items-center justify-center text-red-500 shrink-0 border border-red-100">

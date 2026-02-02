@@ -42,7 +42,7 @@ const Home: React.FC = () => {
       tag: "ORCHESTRATION",
       title: "Intelligence that acts.",
       desc: "We go beyond simple automation. Our Agentic AI layers integrate directly into your environment, reconciling data and making decisions without human lag.",
-      img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop", // Illustrative dynamic graphic for 'Intelligence that acts'
+      img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop", // Dynamic graphic for autonomous AI decision-making
       reverse: true
     }
   ];
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
 
       {/* Hero Section - Refined with subtle architectural overlay */}
       <section className="pt-32 pb-24 md:pt-52 md:pb-48 bg-white border-b border-oakivo-border relative overflow-hidden">
-        {/* Subtle architectural overlay for texture and depth */}
+        {/* Subtle architectural overlay for depth and context */}
         <div className="absolute inset-0 z-0 opacity-[0.08] pointer-events-none">
           <img 
             src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop" 

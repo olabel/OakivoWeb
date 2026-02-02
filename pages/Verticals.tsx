@@ -15,9 +15,9 @@ const Verticals: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Industry Solutions | Oakivo Digital Transformation"
-        description="Specialized AI and ERP solutions for Manufacturing, Retail, Logistics, and more. Orchestrating digital growth across Canada's key sectors."
-        keywords="Industry 4.0 Canada, Manufacturing ERP, Retail Automation, Public Sector Digitalization"
+        title="Industrial Transformation Canada | Odoo 18 Sector Solutions"
+        description="Specialized Odoo ERP and AI solutions for Manufacturing, Logistics, and Retail. Orchestrating digital growth across Canada's key sectors."
+        keywords="Manufacturing ERP Canada, Odoo Logistics Automation, Retail AI Solutions, Industry 4.0 Canada"
       />
 
       {/* Hero */}
@@ -63,60 +63,20 @@ const Verticals: React.FC = () => {
         </div>
       </section>
 
-      {/* Sector Authority Section */}
-      <section className="bg-oakivo-surface py-40 border-y border-gray-100">
-         <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-               <div>
-                  <h2 className="text-5xl md:text-8xl font-serif-display font-bold mb-12 tracking-tighter leading-[0.9]">Cross-Sector <br/> <span className="text-oakivo-secondary">Mastery.</span></h2>
-                  <p className="text-xl text-gray-600 font-light leading-relaxed mb-16">
-                     Our architects don't just understand code; they understand industrial logic. We bring a vCISO perspective to every vertical deployment in Atlantic Canada and beyond.
-                  </p>
-                  <div className="space-y-8">
-                     {[
-                        { title: "Compliance Ready", desc: "Native support for Canadian GST/HST, payroll, and privacy laws.", icon: <Shield size={24} /> },
-                        { title: "Scalable Architecture", desc: "Engineered to handle multi-company, multi-currency growth.", icon: <Globe size={24} /> },
-                        { title: "Data Driven", desc: "Advanced telemetry and predictive BI built into every industry portal.", icon: <Database size={24} /> }
-                     ].map((item, i) => (
-                        <div key={i} className="flex gap-8 items-start p-8 bg-white rounded-3xl border border-gray-100 shadow-sm group hover:border-oakivo-secondary/30 transition-all duration-500">
-                           <div className="text-oakivo-secondary mt-1 group-hover:scale-110 transition-transform">{item.icon}</div>
-                           <div>
-                              <h4 className="font-bold text-xl mb-2">{item.title}</h4>
-                              <p className="text-gray-500 text-base font-light">{item.desc}</p>
-                           </div>
-                        </div>
-                     ))}
-                  </div>
-               </div>
-               <div className="relative">
-                  <div className="aspect-square rounded-[64px] overflow-hidden shadow-vise-xl group">
-                     <img 
-                        src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1600&auto=format&fit=crop" 
-                        alt="Advanced Manufacturing Logic" 
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
-                        loading="lazy"
-                        decoding="async"
-                     />
-                     <div className="absolute inset-0 bg-oakivo-primary/20 group-hover:bg-transparent transition-all duration-500"></div>
-                  </div>
-                  <div className="absolute -bottom-10 -left-10 bg-white p-12 rounded-[48px] shadow-vise-lg border border-gray-50 hidden md:block animate-bounce-slow">
-                     <Cog className="text-oakivo-secondary mb-4 animate-spin-slow" size={48} />
-                     <p className="font-bold text-4xl font-serif-display text-oakivo-primary">100%</p>
-                     <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Sector Precision</p>
-                  </div>
-               </div>
-            </div>
-         </div>
+      {/* Closer CTA */}
+      <section className="py-32 bg-oakivo-surface border-t border-gray-100 text-center">
+        <div className="container mx-auto px-6">
+           <h2 className="text-4xl md:text-7xl font-serif-display font-bold text-oakivo-primary mb-10 tracking-tighter">Sector-specific excellence.</h2>
+           <p className="text-xl md:text-2xl text-gray-500 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
+             Request a technical audit focused on your specific industrial logic and operational bottlenecks.
+           </p>
+           <Link to={NavRoute.CONTACT}>
+              <Button variant="visa" size="lg" className="px-16 py-5 text-xl">
+                 {t('common.cta_audit')}
+              </Button>
+           </Link>
+        </div>
       </section>
-
-      <style>{`
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(-5%); }
-          50% { transform: translateY(0); }
-        }
-        .animate-bounce-slow { animation: bounce-slow 4s infinite ease-in-out; }
-        .animate-spin-slow { animation: spin 8s linear infinite; }
-      `}</style>
     </>
   );
 };

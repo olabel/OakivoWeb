@@ -26,7 +26,7 @@ const BlogPost: React.FC = () => {
     );
   }
 
-  // Improved institutional schema
+  // Improved institutional schema for SEO/EEAT
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",

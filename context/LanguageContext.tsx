@@ -21,11 +21,16 @@ export const translations: Record<Language, Record<string, any>> = {
       contact: "Request Blueprint", 
       careers: "Careers" 
     },
+    common: {
+      cta_audit: "Initiate Strategic Audit",
+      cta_blueprint: "Request Technical Blueprint",
+      cta_meet: "Meet the Architects"
+    },
     home: {
       hero_title_1: "Orchestrating",
       hero_title_2: "Digital Growth.",
       hero_subtitle: "Oakivo Solutions Inc. is Canada's premier engineering force for Agentic AI, Odoo 18 Orchestration, and Zero-Trust Cybersecurity. We turn technical debt into operational equity.",
-      cta_primary: "Start Transformation Audit",
+      cta_primary: "Initiate Strategic Audit",
       stats_label: "Engineering Impact",
       stats_1_val: "482K+",
       stats_1_lbl: "Hours Reclaimed",
@@ -41,7 +46,7 @@ export const translations: Record<Language, Record<string, any>> = {
       maturity_subtitle: "Where does your organization stand in the autonomous economy?",
       cta_footer_title: "Blueprint Your Future.",
       cta_footer_text: "Join the top 5% of Canadian companies leveraging Agentic AI and Odoo Orchestration.",
-      cta_footer_btn: "Request Strategic Audit",
+      cta_footer_btn: "Initiate Strategic Audit",
       trusted_by: "Engineering Success Across Canada",
       perspectives_title: "Expert Perspectives",
       view_insights: "Access Intel Vault"
@@ -51,11 +56,14 @@ export const translations: Record<Language, Record<string, any>> = {
       hero_title: "Re-Engineering the Canadian Enterprise.",
       hero_subtitle: "We reclaim business agility through surgical AI integration and unified data ecosystems.",
       standard_title: "The Oakivo Standard",
+      standard_p1: "Founded in Atlantic Canada, Oakivo was born from a realization that traditional software implementation fails because it ignores the orchestration layer.",
+      standard_p2: "We don't just sell software. We architect ecosystems where Agentic AI handles the mundane and humans drive the strategy.",
+      standard_p3: "Our mission is to ensure every Canadian industrial leader has access to the same level of digital sovereignty and automation as global tech giants.",
       leadership_title: "Architectural Leadership",
       leadership_subtitle: "The minds orchestrating Canada's autonomous future.",
       values: [
         { title: "Precision First", text: "We measure twice and cut once. Every deployment is a surgical improvement of your business logic." },
-        { title: "Data Sovereignty", text: "Your data stays in Canada. We prioritize SOC2 compliance and local residency." },
+        { title: "Data Sovereignty", text: "Your data stays in Canada. We prioritize SOC2 compliance and native residency." },
         { title: "Radical Automation", text: "If a task can be automated, it should be. We push the boundaries of agentic AI." }
       ],
       team: [
@@ -93,7 +101,10 @@ export const translations: Record<Language, Record<string, any>> = {
         { title: "Odoo 18 Orchestration", desc: "The foundational nervous system for your entire organization, unified and powerful.", insight: "A unified system is the only way to achieve true enterprise visibility." },
         { title: "Cyber-Security Audits", desc: "Hardening your digital perimeter with Zero-Trust principles and SOC2 readiness.", insight: "Security is a strategic feature, not a technical afterthought." },
         { title: "Modernization Strategy", desc: "24/7 technical monitoring and managed infrastructure support.", insight: "Uptime is the heartbeat of modern commerce." }
-      ]
+      ],
+      cta_title: "Start Your Blueprint",
+      cta_text: "Don't settle for legacy limitations. Let's build your autonomous future.",
+      cta_btn: "Initiate Strategic Audit"
     },
     caseStudies: {
       hero_title: "Proven Outcomes.",
@@ -102,8 +113,8 @@ export const translations: Record<Language, Record<string, any>> = {
         { 
           title: "Atlantic Distribution Sync", 
           summary: "Automating 30,000 monthly SKUs across 5 locations using Odoo 18.", 
-          problem: "Fragmented inventory tracking leading to 15% stock variance and significant operational lag.",
-          solution: "Orchestrated Odoo 18 multi-warehouse logic with real-time AI inventory agents for predictive replenishment.",
+          problem: "Fragmented inventory tracking leading to 15% stock variance and operational lag.",
+          solution: "Orchestrated Odoo 18 multi-warehouse logic with real-time AI inventory agents.",
           impact: "40% Efficiency Gain",
           quote: "Oakivo didn't just install software; they fixed our company's pulse.", 
           author: "James Miller, Operations Director"
@@ -111,8 +122,8 @@ export const translations: Record<Language, Record<string, any>> = {
         { 
           title: "FinTrust Cyber Hardening", 
           summary: "Implementing Zero-Trust identity management for a national finance firm.", 
-          problem: "Legacy perimeter security protocols unable to withstand modern lateral-movement ransomware attacks.",
-          solution: "Deployment of a Zero-Trust identity mesh and SOC2-compliant data isolation layers with automated threat detection.",
+          problem: "Legacy perimeter security unable to withstand modern lateral-movement ransomware.",
+          solution: "Deployment of a Zero-Trust identity mesh and SOC2-compliant data isolation layers.",
           impact: "Zero Breaches in 24 Months",
           quote: "Finally, a security partner that understands the business bottom line.", 
           author: "S. Chen, CTO"
@@ -120,15 +131,17 @@ export const translations: Record<Language, Record<string, any>> = {
         { 
           title: "Northern Retail Automation", 
           summary: "AI-driven customer experience and supply chain replenishment.", 
-          problem: "Manual re-ordering processes causing frequent stockouts and significant customer churn.",
-          solution: "Integrated Agentic AI forecasting with automated Odoo purchasing workflows to stabilize retail margins.",
+          problem: "Manual re-ordering processes causing frequent stockouts and customer churn.",
+          solution: "Integrated Agentic AI forecasting with automated Odoo purchasing workflows.",
           impact: "25% Revenue Growth",
-          quote: "The AI doesn't just predict; it acts. We have regained our operational focus.", 
+          quote: "The AI doesn't just predict; it acts. We have regained our weekends.", 
           author: "L. Thompson, VP Retail"
         }
       ]
     },
     blog: {
+      hero_title: "The Intel Vault",
+      hero_subtitle: "Expert analysis on AI orchestration, ERP trends, and Cybersecurity for the Canadian market.",
       posts: [
         { 
           id: 1, 
@@ -169,21 +182,27 @@ export const translations: Record<Language, Record<string, any>> = {
           }
         }
       ]
+    },
+    footer: {
+      tagline_1: "Orchestrating AI.", tagline_2: "Building Futures.",
+      newsletter_text: "Get actionable technical intelligence on AI Automation and Odoo delivered to your inbox.",
+      newsletter_placeholder: "Corporate email address",
+      newsletter_btn: "Subscribe",
+      col_capabilities: "Solutions Matrix", col_company: "Oakivo Inc.", col_global: "Regional Presence",
+      privacy: "Privacy Policy", terms: "Terms of Service", back_to_top: "Top"
     }
   },
   fr: {
     nav: { home: 'Accueil', verticals: 'Secteurs', services: 'Services', work: 'Réalisations', about: 'À Propos', contact: "Demander le Plan", careers: "Carrières" },
+    common: {
+      cta_audit: "Initier l'audit stratégique",
+      cta_blueprint: "Demander le plan technique",
+      cta_meet: "Rencontrez les architectes"
+    },
     home: {
       hero_title_1: "Orchestrer",
       hero_title_2: "la Croissance.",
       hero_subtitle: "Oakivo Solutions Inc. est la force d'ingénierie numéro 1 au Canada pour l'IA, Odoo 18 et la cybersécurité. Nous transformons la deet technique en capital opérationnel."
-    },
-    about: {
-      team: [
-        { name: "Ahmed Bello", role: "PDG et Orchestrateur Principal" },
-        { name: "Sarah Jenkins", role: "Directrice de la Cyber-résilience" },
-        { name: "Fawaz Bello", role: "Spécialiste en Cyber-sécurité" }
-      ]
     }
   }
 };

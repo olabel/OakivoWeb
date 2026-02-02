@@ -1,8 +1,11 @@
 import React from 'react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
-import { Target, Heart, Award, ShieldCheck, Briefcase, GraduationCap, ChevronRight, Activity, Zap, Cpu, ShieldAlert } from 'lucide-react';
+import { Target, Heart, Award, ShieldCheck, Briefcase, GraduationCap, ChevronRight, Activity, Zap, Cpu, ShieldAlert, ArrowRight } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
+import Button from '../components/Button';
+import { Link } from 'react-router-dom';
+import { NavRoute } from '../types';
 
 const About: React.FC = () => {
   const { t, language } = useLanguage();
@@ -24,9 +27,9 @@ const About: React.FC = () => {
   return (
     <>
       <SEO 
-        title="About Oakivo | Leadership in Canadian Digital Transformation"
-        description="Discover Oakivo's mission to re-engineer Canadian businesses through intelligent automation, Odoo ERP expertise, and strategic digital consulting."
-        keywords="Oakivo Team, Ahmed Bello CEO, Digital Strategy Canada, Odoo Partners Atlantic Canada, IT Consulting Dieppe"
+        title="About Oakivo | Odoo 18 & AI Automation Experts Canada"
+        description="Oakivo Solutions is an engineering-led consultancy focused on Odoo ERP orchestration and Agentic AI. Learn about our mission for industrial agility."
+        keywords="Oakivo Leadership, Ahmed Bello, Odoo Partner Moncton, AI Automation Canada, ERP Strategy"
         schema={aboutSchema}
         canonical="/about"
       />
@@ -74,7 +77,7 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Leadership Section - Expanded for 3 Members */}
+      {/* Leadership Section */}
       <Section className="bg-white border-t border-gray-100 pb-40">
         <div className="mb-24">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
@@ -144,18 +147,23 @@ const About: React.FC = () => {
         </div>
       </Section>
 
-      {/* Values Section */}
-      <Section bg="light" className="py-40">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-          {values.map((val: any, idx: number) => (
-            <div key={idx} className="flex flex-col group">
-              <div className="text-oakivo-secondary font-bold text-7xl mb-6 opacity-20 font-serif-display group-hover:opacity-100 transition-opacity duration-700">0{idx + 1}</div>
-              <h3 className="text-2xl font-bold font-serif-display text-oakivo-primary mb-6 tracking-tight">{val.title}</h3>
-              <p className="text-gray-500 leading-relaxed text-lg font-light">{val.text}</p>
-            </div>
-          ))}
+      {/* CTA Closer */}
+      <section className="py-32 bg-oakivo-primary text-white text-center relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-oakivo-secondary"></div>
+        <div className="container mx-auto px-6 relative z-10">
+           <h2 className="text-4xl md:text-7xl font-serif-display font-bold mb-10 tracking-tighter">Ready for institutional excellence?</h2>
+           <p className="text-xl md:text-2xl text-gray-400 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
+             Orchestrate your entire business logic with the architects of Canada's autonomous future.
+           </p>
+           <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <Link to={NavRoute.CONTACT}>
+                 <Button variant="visa" size="lg" className="px-16 shadow-vise-xl group">
+                    {t('common.cta_audit')} <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                 </Button>
+              </Link>
+           </div>
         </div>
-      </Section>
+      </section>
     </>
   );
 };
