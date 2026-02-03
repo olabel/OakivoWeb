@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, ShieldCheck, Calendar, User, Tag, ChevronRight, Activity, BookOpen, Target, MessageSquare, PlayCircle, Share2, Lock } from 'lucide-react';
@@ -26,13 +27,20 @@ const BlogPost: React.FC = () => {
     );
   }
 
-  // Improved institutional schema for SEO/EEAT
+  // Enhanced institutional schema for SEO/EEAT
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.oakivo.com/#/perspectives/${id}`
+    },
     "headline": post.title,
     "description": post.excerpt,
-    "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200",
+    "image": [
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200"
+    ],
     "author": {
       "@type": "Person",
       "name": post.author,
@@ -47,12 +55,8 @@ const BlogPost: React.FC = () => {
         "url": "https://www.oakivo.com/logo.png"
       }
     },
-    "datePublished": post.date.includes(',') ? new Date(post.date).toISOString() : "2026-01-01T00:00:00Z",
-    "dateModified": new Date().toISOString(),
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://www.oakivo.com/#/perspectives/${id}`
-    }
+    "datePublished": "2026-01-01T08:00:00+08:00",
+    "dateModified": new Date().toISOString()
   };
 
   return (

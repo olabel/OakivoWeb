@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
     <!-- Production SEO & EEAT Signals -->
-    <meta name="description" content="Oakivo Solutions Inc. is Canada's premier Odoo 18 Partner and Agentic AI consultancy. We orchestrate digital transformation, ERP automation, and Zero-Trust cybersecurity for industrial leaders." />
-    <meta name="keywords" content="Odoo 18 Partner Canada, Agentic AI Automation, ERP Orchestration SME, Industrial Digital Transformation, Cybersecurity Audit SOC2, AI Workflow Automation, Odoo New Brunswick" />
+    <meta name="description" content="Oakivo Solutions Inc. is Canada's premier Odoo 18 Partner and Agentic AI consultancy. We orchestrate digital transformation, ERP resilience, and Zero-Trust industrial cybersecurity." />
+    <meta name="keywords" content="Odoo 18 Partner Canada, Agentic AI Automation, ERP Orchestration SME, Industrial Digital Transformation Canada, Cybersecurity Audit SOC2, AI Workflow Engineering, Odoo Implementation Atlantic Canada, Enterprise AI Strategy" />
     <meta name="author" content="Oakivo Solutions Inc." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     
     <!-- Brand Favicon -->
     <link rel="icon" type="image/png" href="/logo.png" />
     
-    <title>Odoo 18 Partner Canada | Oakivo Solutions | AI & ERP Orchestration</title>
+    <title>Odoo 18 Partner Canada | Oakivo Solutions | Agentic AI & ERP Orchestration</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,23 +45,44 @@
               'vise': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
               'vise-lg': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
               'vise-xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              'premium': '0 30px 60px -12px rgba(18, 53, 48, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3)',
             }
           }
         }
       }
     </script>
     <style>
-      body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #111827; -webkit-font-smoothing: antialiased; }
+      body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; color: #111827; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
       .font-serif-display { font-family: 'Playfair Display', serif; }
       
       @keyframes fade-in-up {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(15px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      .animate-fade-in-up { animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       
+      @keyframes scan {
+        0% { top: 0%; opacity: 0; }
+        10% { opacity: 0.3; }
+        90% { opacity: 0.3; }
+        100% { top: 100%; opacity: 0; }
+      }
+      .animate-scan { animation: scan 8s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+
+      @keyframes slide-reveal {
+        from { clip-path: inset(0 100% 0 0); }
+        to { clip-path: inset(0 0 0 0); }
+      }
+      .animate-slide-reveal { animation: slide-reveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
+
+      @keyframes icon-pop {
+        0% { transform: scale(0.6) translateY(20px); opacity: 0; }
+        60% { transform: scale(1.08) translateY(-5px); }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+      }
+      .animate-icon-pop { animation: icon-pop 0.9s cubic-bezier(0.25, 1.25, 0.5, 1) forwards; }
+
       .text-balance { text-wrap: balance; }
-      
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       
@@ -73,12 +94,12 @@
     "react": "https://esm.sh/react@18.3.1",
     "react/": "https://esm.sh/react@18.3.1/",
     "react-dom": "https://esm.sh/react-dom@18.3.1",
-    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
     "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
     "lucide-react": "https://esm.sh/lucide-react@0.460.0?external=react",
     "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom",
     "react-helmet-async": "https://esm.sh/react-helmet-async@2.0.5?external=react",
-    "@google/genai": "https://esm.sh/@google/genai@1.39.0"
+    "@google/genai": "https://esm.sh/@google/genai@1.39.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
   }
 }
 </script>

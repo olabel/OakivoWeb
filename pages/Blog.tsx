@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, User, Tag, ChevronRight, Activity } from 'lucide-react';
 import Section from '../components/Section';
-// Import missing Button component
 import Button from '../components/Button';
 import { useLanguage, translations } from '../context/LanguageContext';
 import { NavRoute } from '../types';
@@ -13,12 +12,39 @@ const Blog: React.FC = () => {
   const { t, language } = useLanguage();
   const blogData = translations[language].blog;
 
+  // JSON-LD for the blog listing page
+  const blogListSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": blogData.hero_title,
+    "description": blogData.hero_subtitle,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Oakivo Solutions Inc",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.oakivo.com/logo.png"
+      }
+    },
+    "blogPost": blogData.posts.map((post: any) => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "url": `https://www.oakivo.com/#/perspectives/${post.id}`,
+      "datePublished": "2026-01-01T00:00:00Z", // Ideally dynamic from post.date
+      "author": {
+        "@type": "Person",
+        "name": post.author
+      }
+    }))
+  };
+
   return (
     <>
       <SEO 
         title="Intel Vault | Strategic AI & ERP Perspectives"
         description="Deep-dive analysis on Odoo 18, Agentic AI, and Zero-Trust Cybersecurity for the Canadian market."
         keywords="Odoo 18 Trends Canada, AI Automation Strategy, Cybersecurity Best Practices 2026"
+        schema={blogListSchema}
         canonical="/perspectives"
       />
 

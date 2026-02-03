@@ -17,6 +17,7 @@ import Privacy from './pages/Privacy';
 import ComplianceMatrix from './pages/ComplianceMatrix';
 import Chatbot from './components/Chatbot';
 import { LanguageProvider } from './context/LanguageContext';
+import { NavRoute } from './types';
 
 // Scroll to top component
 const ScrollToTop = () => {
@@ -37,18 +38,18 @@ const App: React.FC = () => {
             <Navbar />
             <main className="flex-grow pt-16"> 
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/verticals" element={<Verticals />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/case-studies" element={<CaseStudies />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/perspectives" element={<Blog />} />
-                <Route path="/perspectives/:id" element={<BlogPost />} />
-                <Route path="/careers" element={<Careers />} />
-                <Route path="/admin-portal" element={<AdminPortal />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/compliance-matrix" element={<ComplianceMatrix />} />
+                <Route path={NavRoute.HOME} element={<Home />} />
+                <Route path={NavRoute.ABOUT} element={<About />} />
+                <Route path={NavRoute.VERTICALS} element={<Verticals />} />
+                <Route path={NavRoute.SERVICES} element={<Services />} />
+                <Route path={NavRoute.CASE_STUDIES} element={<CaseStudies />} />
+                <Route path={NavRoute.CONTACT} element={<Contact />} />
+                <Route path={NavRoute.BLOG} element={<Blog />} />
+                <Route path={`${NavRoute.BLOG}/:id`} element={<BlogPost />} />
+                <Route path={NavRoute.CAREERS} element={<Careers />} />
+                <Route path={NavRoute.ADMIN_PORTAL} element={<AdminPortal />} />
+                <Route path={NavRoute.PRIVACY} element={<Privacy />} />
+                <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
               </Routes>
             </main>
             <Footer />

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Section from '../components/Section';
 import Button from '../components/Button';
-// Added Activity to the imports
 import { Mail, Phone, MapPin, Send, CheckCircle, Loader2, ShieldCheck, Clock, Info, AlertCircle, Sparkles, Building, User, Target, Activity } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
 import { NavRoute } from '../types';
@@ -183,7 +182,7 @@ const Contact: React.FC = () => {
                          {[
                             { icon: <MapPin />, title: "Headquarters Hub", detail: "21 Delta St., Dieppe, NB E1A 3R5" },
                             { icon: <Mail />, title: "Strategic Intelligence", detail: "hello@oakivo.com", isLink: true, href: "mailto:hello@oakivo.com" },
-                            { icon: <Phone />, title: "Direct Orchestration", detail: "+1 (506) 857-4000" }
+                            { icon: <Phone />, title: "Direct Orchestration", detail: "+1506899941" }
                          ].map((item, i) => (
                            <div key={i} className="flex gap-10 group">
                               <div className="w-20 h-20 bg-oakivo-surface rounded-2xl flex items-center justify-center text-oakivo-primary group-hover:bg-oakivo-primary group-hover:text-white transition-all duration-700 shadow-sm border border-gray-50">

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 
 interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackClassName?: string;
+  fetchpriority?: "high" | "low" | "auto";
 }
 
 const SafeImage: React.FC<SafeImageProps> = ({ 
@@ -10,10 +11,21 @@ const SafeImage: React.FC<SafeImageProps> = ({
   alt, 
   className = "", 
   fallbackClassName = "",
+  fetchpriority = "auto",
   ...props 
 }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // Pre-fetch check
+  useEffect(() => {
+    if (src) {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => setIsLoaded(true);
+      img.onerror = () => setHasError(true);
+    }
+  }, [src]);
 
   if (hasError || !src) {
     return (
@@ -30,13 +42,15 @@ const SafeImage: React.FC<SafeImageProps> = ({
       <img
         src={src}
         alt={alt}
-        className={`w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-        onLoad={() => setIsLoaded(true)}
-        onError={() => setHasError(true)}
-        loading="eager"
+        className={`w-full h-full object-cover transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        fetchpriority={fetchpriority}
         decoding="async"
+        loading={fetchpriority === 'high' ? 'eager' : 'lazy'}
         {...props}
       />
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-oakivo-primary/5 animate-pulse" />
+      )}
     </div>
   );
 };

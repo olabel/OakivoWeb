@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'black' | 'visa';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'black' | 'visa' | 'white' | 'dark';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
 }
@@ -13,21 +13,23 @@ const Button: React.FC<ButtonProps> = ({
   children, 
   ...props 
 }) => {
-  const baseStyles = "font-sans font-semibold transition-all duration-200 ease-in-out focus:outline-none flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyles = "font-sans font-bold transition-all duration-500 ease-in-out focus:outline-none flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-95 whitespace-nowrap";
   
   const variants = {
-    primary: "bg-oakivo-primary text-white hover:bg-black rounded-full shadow-vise",
-    visa: "bg-oakivo-primary text-white hover:bg-[#000] rounded-full px-8 py-3 font-bold shadow-vise", 
-    black: "bg-oakivo-primary text-white hover:bg-gray-900 rounded-full shadow-vise",
-    secondary: "bg-white text-oakivo-primary border border-oakivo-border hover:border-oakivo-primary rounded-full shadow-vise",
-    outline: "bg-transparent border border-oakivo-primary text-oakivo-primary hover:bg-oakivo-primary hover:text-white rounded-full",
+    primary: "bg-oakivo-primary text-white hover:bg-black rounded-full shadow-lg border border-transparent",
+    visa: "bg-oakivo-primary text-white hover:bg-black rounded-full shadow-premium border border-transparent", 
+    black: "bg-[#020504] text-white hover:bg-gray-800 rounded-full shadow-xl border border-white/10",
+    secondary: "bg-white text-oakivo-primary border border-gray-200 hover:border-oakivo-secondary hover:bg-gray-50 rounded-full shadow-sm",
+    outline: "bg-transparent border-2 border-oakivo-primary text-oakivo-primary hover:bg-oakivo-primary hover:text-white rounded-full",
     ghost: "bg-transparent text-oakivo-primary hover:text-oakivo-secondary p-0 shadow-none rounded-none border-b-2 border-transparent hover:border-oakivo-secondary",
+    white: "bg-white text-oakivo-primary hover:bg-oakivo-secondary hover:text-black rounded-full shadow-xl border border-transparent",
+    dark: "bg-oakivo-primary/10 text-oakivo-primary hover:bg-oakivo-primary hover:text-white border border-oakivo-primary/20 rounded-full",
   };
 
   const sizes = {
-    sm: "px-5 py-2 text-xs",
-    md: "px-7 py-3 text-sm",
-    lg: "px-10 py-4 text-base",
+    sm: "px-6 py-2.5 text-xs uppercase tracking-widest",
+    md: "px-8 py-3.5 text-sm uppercase tracking-widest",
+    lg: "px-12 py-5 text-base lg:text-xl",
   };
 
   const activeSize = variant === 'ghost' ? 'pb-1' : sizes[size];

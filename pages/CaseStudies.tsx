@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import Section from '../components/Section';
 import { ArrowRight, Plus, X, BarChart3, ShieldCheck, Zap, Activity, FileText, Cpu, Search, Layers, TrendingUp, AlertTriangle, Workflow, Target, CheckCircle } from 'lucide-react';
@@ -15,7 +16,7 @@ const BlueprintDrawer: React.FC<{
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-end bg-black/90 backdrop-blur-xl animate-in fade-in duration-500">
+    <div className="fixed inset-0 z-[100] flex items-center justify-end bg-black/95 backdrop-blur-2xl animate-in fade-in duration-500">
       <div 
         className="h-full w-full max-w-4xl bg-white shadow-4xl animate-in slide-in-from-right duration-700 overflow-y-auto"
       >
@@ -128,21 +129,21 @@ const CaseStudies: React.FC = () => {
       id: 1,
       client: "Atlantic Distribution",
       category: "Industrial Orchestration",
-      img: "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=1600&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=90&w=1600&auto=format&fit=crop",
       size: "large",
     },
     {
       id: 2,
       client: "FinTrust Canada",
       category: "Cyber Resilience",
-      img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=90&w=1200&auto=format&fit=crop",
       size: "small",
     },
     {
       id: 3,
       client: "Northern Retail",
       category: "ERP Modernization",
-      img: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e12?q=80&w=1200&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=90&w=1200&auto=format&fit=crop",
       size: "small",
     },
   ];
@@ -181,32 +182,31 @@ const CaseStudies: React.FC = () => {
               return (
                 <div 
                   key={project.id} 
-                  className={`group relative flex flex-col ${isLarge ? 'md:col-span-2' : ''} cv-auto animate-fade-in-up`}
+                  className={`group relative flex flex-col ${isLarge ? 'md:col-span-2' : ''} cv-auto animate-fade-in-up transform transition-all duration-700 hover:-translate-y-4`}
                   style={{ animationDelay: `${(idx % 2) * 200}ms` }}
                 >
-                  <div className={`relative overflow-hidden mb-12 shadow-4xl rounded-[56px] transition-all duration-1000 ${isLarge ? 'aspect-[21/9]' : 'aspect-[4/5]'} bg-oakivo-primary`}>
-                    {/* Cinematic Overlay Stack with darkening on hover */}
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-oakivo-primary/70 transition-colors z-20 duration-1000"></div>
-                    
-                    {/* Zooming Image Asset with zoom effect on hover */}
+                  <div className={`relative overflow-hidden mb-12 shadow-vise-xl group-hover:shadow-4xl rounded-[56px] transition-all duration-1000 ${isLarge ? 'aspect-[21/9]' : 'aspect-[4/5]'} bg-oakivo-primary`}>
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-oakivo-primary/60 transition-colors z-20 duration-700"></div>
                     <img 
                       src={project.img} 
                       alt={data.title} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[2000ms] transform group-hover:scale-110" 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[2000ms] transform group-hover:scale-105" 
                       loading="lazy"
                     />
-
                     <button 
                       onClick={() => setActiveBlueprint(data)}
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-700"
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-700 scale-90 group-hover:scale-100"
                     >
-                      <div className="flex items-center gap-4 bg-white px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em] text-oakivo-primary shadow-2xl hover:scale-110 active:scale-95 transition-transform">
+                      <div className="flex items-center gap-4 bg-white px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em] text-oakivo-primary shadow-vise-xl hover:bg-oakivo-secondary transition-colors">
                         <Search size={18} /> Inspect Blueprint
                       </div>
                     </button>
+                    <div className="absolute bottom-10 left-10 z-30 opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0 text-white/50 text-[10px] font-black uppercase tracking-[0.4em]">
+                       Oakivo Intelligence Case #{project.id.toString().padStart(3, '0')}
+                    </div>
                   </div>
                   
-                  <div className={`grid grid-cols-1 ${isLarge ? 'lg:grid-cols-12' : ''} gap-12 lg:gap-20 items-start`}>
+                  <div className={`grid grid-cols-1 ${isLarge ? 'lg:grid-cols-12' : ''} gap-12 lg:gap-20 items-start px-4`}>
                     <div className={`${isLarge ? 'lg:col-span-7' : ''}`}>
                       <div className="flex items-center gap-5 mb-10">
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] bg-oakivo-primary text-white px-5 py-2 rounded-xl shadow-xl">
@@ -221,37 +221,6 @@ const CaseStudies: React.FC = () => {
                       <h3 className={`font-serif-display font-bold leading-tight mb-12 tracking-tighter transition-colors group-hover:text-oakivo-secondary ${isLarge ? 'text-5xl md:text-7xl' : 'text-3xl md:text-5xl'}`}>
                         {data.title}
                       </h3>
-
-                      {/* Delineated Problem / Solution / Impact blocks for technical clarity */}
-                      <div className="grid grid-cols-1 gap-8 mb-12">
-                         <div className="flex gap-6 items-start">
-                            <div className="w-10 h-10 rounded-2xl bg-red-50 flex items-center justify-center text-red-500 shrink-0 border border-red-100">
-                               <AlertTriangle size={20} />
-                            </div>
-                            <div>
-                               <p className="text-[10px] font-black uppercase tracking-widest text-red-500 mb-2">The Critical Problem</p>
-                               <p className="text-gray-600 font-light leading-relaxed">{data.problem}</p>
-                            </div>
-                         </div>
-                         <div className="flex gap-6 items-start">
-                            <div className="w-10 h-10 rounded-2xl bg-oakivo-surface flex items-center justify-center text-oakivo-secondary shrink-0 border border-gray-100">
-                               <Workflow size={20} />
-                            </div>
-                            <div>
-                               <p className="text-[10px] font-black uppercase tracking-widest text-oakivo-secondary mb-2">The Oakivo Solution</p>
-                               <p className="text-gray-600 font-light leading-relaxed">{data.solution}</p>
-                            </div>
-                         </div>
-                         <div className="flex gap-6 items-start">
-                            <div className="w-10 h-10 rounded-2xl bg-oakivo-primary/5 flex items-center justify-center text-oakivo-primary shrink-0 border border-oakivo-primary/10">
-                               <Target size={20} />
-                            </div>
-                            <div>
-                               <p className="text-[10px] font-black uppercase tracking-widest text-oakivo-primary mb-2">Institutional Impact</p>
-                               <p className="text-gray-600 font-bold leading-relaxed">{data.impact}</p>
-                            </div>
-                         </div>
-                      </div>
                       
                       <button 
                         onClick={() => setActiveBlueprint(data)}
@@ -263,7 +232,7 @@ const CaseStudies: React.FC = () => {
                     </div>
 
                     <div className={`${isLarge ? 'lg:col-span-5' : ''}`}>
-                      <div className="bg-oakivo-surface p-12 rounded-[56px] border border-gray-100 relative hover:shadow-4xl transition-all duration-700 group/quote overflow-hidden">
+                      <div className="bg-oakivo-surface p-12 rounded-[56px] border border-gray-100 relative hover:shadow-vise-lg transition-all duration-700 group/quote overflow-hidden">
                         <div className="absolute top-0 right-0 p-8 opacity-10 text-oakivo-secondary group-hover/quote:opacity-20 transition-opacity">
                            <TrendingUp size={120} />
                         </div>
@@ -271,7 +240,7 @@ const CaseStudies: React.FC = () => {
                           "{data.quote}"
                         </p>
                         <div className="flex items-center gap-6 relative z-10 pt-10 border-t border-gray-100">
-                           <div className="w-16 h-16 rounded-[20px] bg-oakivo-primary flex items-center justify-center text-white text-xl font-bold shadow-2xl">
+                           <div className="w-16 h-16 rounded-[20px] bg-oakivo-primary flex items-center justify-center text-white text-xl font-bold shadow-2xl group-hover:bg-oakivo-secondary transition-colors">
                               {data.author ? data.author.charAt(0) : 'P'}
                            </div>
                            <div>
