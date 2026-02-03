@@ -8,49 +8,41 @@ interface LogoProps {
 
 /**
  * Oakivo - Official Brand Mark
- * Prioritizes the high-fidelity logo.png asset from /public/
- * Fallback to standard SVG emblem if asset fails.
+ * Recreated exactly from the provided brand image using optimized SVG paths.
  */
 const Logo: React.FC<LogoProps> = ({ className = "h-10", withText = true, light = false }) => {
   const brandTeal = "#123530"; 
-  const accentColor = "#2ECC71"; 
   const primaryColor = light ? "#FFFFFF" : brandTeal;
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      {/* Primary Logo Image Component */}
-      <img 
-        src="/logo.png" 
-        alt="Oakivo Official Logo"
-        className="h-full w-auto flex-shrink-0 object-contain"
-        onError={(e) => {
-          // Fallback logic handled by parent if needed, 
-          // but SVG is kept here as an inline fallback
-          e.currentTarget.style.display = 'none';
-          const next = e.currentTarget.nextElementSibling as HTMLElement;
-          if (next) next.style.display = 'block';
-        }}
-      />
-      
-      {/* High-Performance SVG Fallback (Hidden by default, shown if image fails) */}
+      {/* High-Fidelity Stylized Tree Emblem */}
       <svg 
         viewBox="0 0 100 100" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg" 
         className="h-full w-auto flex-shrink-0"
-        style={{ display: 'none' }}
         role="img"
-        aria-label="Oakivo Emblem Fallback"
+        aria-label="Oakivo Tree Emblem"
       >
-        <circle cx="50" cy="50" r="50" fill={brandTeal} />
-        <g fill="white">
-          <circle cx="50" cy="36" r="15" />
-          <circle cx="36" cy="43" r="13" />
-          <circle cx="64" cy="43" r="13" />
-          <circle cx="41" cy="56" r="11" />
-          <circle cx="59" cy="56" r="11" />
-          <rect x="47.5" y="52" width="5" height="36" rx="1" />
-          <path d="M50 70 L72 46 L78 51 L56 75 Z" />
+        {/* Background Circle */}
+        <circle cx="50" cy="50" r="50" fill={light ? "rgba(255,255,255,0.15)" : brandTeal} />
+        
+        {/* White Tree Silhouette */}
+        <g>
+          {/* Tree Trunk & Branch */}
+          <path 
+            d="M44.5 86.5L53.5 50.5 M42.5 53.5L50.5 61.5" 
+            stroke="white" 
+            strokeWidth="7" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          />
+          {/* Tree Crown (Organic Cluster Shape) */}
+          <path 
+            d="M34 68C26 68 20 62 20 54C20 46 26 40 33 39C34 31 41 25 50 25C59 25 66 31 67 39C74 40 80 46 80 54C80 62 74 68 66 68H34Z" 
+            fill="white" 
+          />
         </g>
       </svg>
 
@@ -63,7 +55,7 @@ const Logo: React.FC<LogoProps> = ({ className = "h-10", withText = true, light 
               letterSpacing: '-0.04em'
             }}
           >
-            Oakivo<span style={{ color: light ? 'white' : accentColor }}>.</span>
+            Oakivo<span className="text-oakivo-secondary">.</span>
           </span>
         </div>
       )}

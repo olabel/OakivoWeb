@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, Globe, Search, ChevronRight } from 'lucide-react';
+import { Menu, X, Globe, ChevronRight } from 'lucide-react';
 import { NavRoute } from '../types';
 import Button from './Button';
 import Logo from './Logo';
@@ -35,61 +35,69 @@ const Navbar: React.FC = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-md py-3 shadow-vise' : 'bg-white py-5 border-b border-oakivo-border'
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${
+        isScrolled ? 'py-4' : 'py-6'
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between px-6">
-        <div className="flex items-center gap-12">
-          <NavLink to="/" className="flex items-center">
-            <Logo className="h-9 md:h-10" />
-          </NavLink>
+      <div className="container mx-auto px-6">
+        <div className={`flex items-center justify-between transition-all duration-500 rounded-full px-8 py-3 ${
+          isScrolled ? 'bg-white/80 backdrop-blur-xl shadow-soft border border-white/20' : 'bg-transparent'
+        }`}>
+          <div className="flex items-center gap-12">
+            <NavLink to="/" className="flex items-center group">
+              <Logo className="h-8 lg:h-9 group-hover:scale-105 transition-transform" />
+            </NavLink>
 
-          <nav className="hidden xl:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <NavLink 
-                key={link.path} 
-                to={link.path}
-                className={({ isActive }) => 
-                  `text-[14px] font-bold tracking-tight transition-colors py-1 border-b-2 ${
-                    isActive ? 'text-oakivo-primary border-oakivo-primary' : 'text-oakivo-text border-transparent hover:text-oakivo-accent'
-                  }`
-                }
-              >
-                {link.name}
-              </NavLink>
-            ))}
-          </nav>
-        </div>
+            <nav className="hidden xl:flex items-center gap-10">
+              {navLinks.map((link) => (
+                <NavLink 
+                  key={link.path} 
+                  to={link.path}
+                  className={({ isActive }) => 
+                    `text-[13px] font-bold tracking-tight transition-all relative group ${
+                      isActive ? 'text-oakivo-primary' : 'text-gray-400 hover:text-oakivo-primary'
+                    }`
+                  }
+                >
+                  {link.name}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-oakivo-secondary transition-all duration-300 ${
+                    location.pathname === link.path ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}></span>
+                </NavLink>
+              ))}
+            </nav>
+          </div>
 
-        <div className="hidden lg:flex items-center gap-8">
-          <button onClick={toggleLanguage} className="flex items-center gap-2 text-[13px] font-bold text-oakivo-text hover:text-oakivo-accent">
-            <Globe size={15} />
-            <span>{language.toUpperCase()}</span>
+          <div className="hidden lg:flex items-center gap-8">
+            <button onClick={toggleLanguage} className="flex items-center gap-2 text-[11px] font-black text-gray-400 hover:text-oakivo-primary tracking-widest uppercase">
+              <Globe size={14} />
+              <span>{language}</span>
+            </button>
+
+            <NavLink to={NavRoute.CONTACT}>
+              <Button variant="black" size="sm" className="rounded-full px-6 shadow-soft">
+                {t('nav.contact')}
+              </Button>
+            </NavLink>
+          </div>
+
+          <button className="xl:hidden p-2 text-oakivo-primary" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-
-          <NavLink to={NavRoute.CONTACT}>
-            <Button variant="visa" size="sm">
-              {t('nav.contact')}
-            </Button>
-          </NavLink>
         </div>
-
-        <button className="xl:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
 
       {/* Mobile Drawer */}
-      <div className={`xl:hidden fixed inset-0 top-[65px] bg-white z-[59] transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex flex-col p-8 gap-6 h-full">
+      <div className={`xl:hidden fixed inset-0 top-0 bg-white z-[59] transition-transform duration-500 pt-24 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="flex flex-col p-8 gap-8 h-full">
           {navLinks.map((link) => (
-            <NavLink key={link.path} to={link.path} className="text-2xl font-serif-display font-bold text-oakivo-text border-b border-oakivo-border pb-4">
+            <NavLink key={link.path} to={link.path} className="text-3xl font-serif-display font-bold text-oakivo-primary border-b border-gray-50 pb-6 flex justify-between items-center">
               {link.name}
+              <ChevronRight size={24} className="text-oakivo-secondary" />
             </NavLink>
           ))}
           <NavLink to={NavRoute.CONTACT} className="mt-auto">
-            <Button variant="visa" className="w-full py-5 text-lg">
+            <Button variant="black" className="w-full py-6 text-xl rounded-3xl">
               {t('nav.contact')}
             </Button>
           </NavLink>
