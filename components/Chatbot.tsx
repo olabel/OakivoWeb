@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
-import { X, Loader2, Sparkles, ArrowRight, ShieldCheck, HelpCircle, ChevronRight, Mail, User, Send, CheckCircle, Bot, BrainCircuit, MessageCircleQuestion, LifeBuoy, Activity, Terminal, ShieldAlert, Cpu, Database } from 'lucide-react';
+import { 
+  X, Loader2, Sparkles, ArrowRight, ShieldCheck, 
+  ChevronRight, User, Send, CheckCircle, 
+  BrainCircuit, Activity, Terminal, ShieldAlert, 
+  Cpu, Database, MessageSquareText, Lightbulb, 
+  Wand2, Zap
+} from 'lucide-react';
 import Logo from './Logo';
 import { useLanguage } from '../context/LanguageContext';
 import { db } from '../utils/database';
@@ -9,7 +15,7 @@ const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage } = useLanguage();
   
-  const [messages, setMessages] = useState<{role: 'user' | 'model', text: string}[]>([]);
+  const [messages, setMessages] = useState<{role: 'user' | 'model', text: string, isAction?: boolean}[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
@@ -24,8 +30,8 @@ const Chatbot: React.FC = () => {
       setMessages([{ 
         role: 'model', 
         text: language === 'en' 
-          ? 'Welcome to the Oakivo Strategy Portal. I am your specialized Support Architect. I can provide technical help with Odoo 18 migrations, Agentic AI implementations, and Zero-Trust infrastructure audits. How can I assist your organization today?' 
-          : 'Bienvenue sur le Portail Stratégique Oakivo. Je suis votre architecte de support spécialisé. Je peux vous aider techniquement avec les migrations Odoo 18, les implémentations d\'IA Agente et les audits d\'infrastructure Zero-Trust. Comment puis-je aider votre organisation aujourd\'hui ?' 
+          ? "I am the Oakivo Support Agent. I'm here to help you orchestrate Odoo 18 ecosystems, architect Agentic AI workflows, or audit your industrial cybersecurity. \n\nHow can I help you scale today?" 
+          : "Je suis l'agent de support Oakivo. Je suis ici pour vous aider à orchestrer les écosystèmes Odoo 18, concevoir des flux d'IA Agente ou auditer votre cybersécurité industrielle. \n\nComment puis-je vous aider à évoluer aujourd'hui ?" 
       }]);
     }
   }, [language]);
@@ -56,24 +62,32 @@ const Chatbot: React.FC = () => {
         })),
         config: {
           thinkingConfig: { thinkingBudget: 16000 },
-          systemInstruction: `You are the "Oakivo Support Intelligence", the official technical support and strategy assistant for Oakivo Solutions Inc.
-          HQ: Dieppe, New Brunswick, Canada.
-          CORE FOCUS: Providing technical help, ROI analysis for Odoo 18, and architectural guidance for Agentic AI.
-          TONE: Professional, sophisticated, highly helpful, and reassuring. Use terms like "Operational Resiliency", "Strategic Blueprinting", and "Technical Sovereignty".
+          systemInstruction: `You are the "Oakivo Strategic Architect", an elite AI concierge for Oakivo Solutions Inc.
+          HQ: Dieppe, NB.
+          CORE MISSION: Guide users through industrial digital transformation.
+          EXPERTISE: Odoo 18 (ERP), Agentic AI (reasoning engines), Zero-Trust Cybersecurity (industrial resilience).
           
-          RESPONSE PROTOCOL:
-          - Respond in ${language === 'en' ? 'English' : 'French'}.
-          - Always offer clear technical insights first.
-          - ESCALATION MONITORING: If the user asks a very difficult engineering question, or asks about pricing, complex integration blueprints, or a human meeting, or if you find yourself repeating the same technical concepts without resolution, EXPLICITLY RECOMMEND clicking the "Human Expert Handoff" option.
-          - If the user seems frustrated or requires surgical precision that an AI cannot provide, guide them to the handoff form immediately.`,
+          TONE: Institutional, precise, and visionary. 
+          
+          RULES:
+          - If the user asks about pricing, complex bespoke engineering, or scheduling a meeting, provide a brief helpful overview then EXPLICITLY say "This request requires an Architectural Handoff. Would you like to connect with a human lead?".
+          - Keep answers concise but high-fidelity. Use bullet points for technical steps.
+          - Respond in ${language === 'en' ? 'English' : 'French'}.`,
         },
       });
 
-      const text = response.text || "Technical handshake failed. Please refresh or contact support@oakivo.com.";
+      const text = response.text || "Transmission failed. Re-initiating handshake...";
       setMessages(prev => [...prev, { role: 'model', text }]);
+
+      // Auto-trigger handoff suggestion if keywords detected
+      const keywords = ['price', 'cost', 'hire', 'meeting', 'audit', 'specific', 'quote', 'prix', 'embaucher', 'rendez-vous'];
+      if (keywords.some(k => text.toLowerCase().includes(k))) {
+         setMessages(prev => [...prev, { role: 'model', text: "Ready for a deep-dive? Request a human architect to get a customized roadmap.", isAction: true }]);
+      }
+
     } catch (error) {
-      console.error("Gemini Support Error:", error);
-      setMessages(prev => [...prev, { role: 'model', text: language === 'en' ? "Secure gateway timeout. Please retry or contact our technical hub directly." : "Délai d'attente dépassé. Veuillez réessayer ou contacter notre centre technique directement." }]);
+      console.error("Agentic Error:", error);
+      setMessages(prev => [...prev, { role: 'model', text: "Logic gateway timeout. Please refresh or use the contact portal." }]);
     } finally {
       setIsTyping(false);
     }
@@ -81,11 +95,10 @@ const Chatbot: React.FC = () => {
 
   const handleLeadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Include the conversation history in the lead submission
     const escalationPayload = {
       ...leadForm,
-      source: 'Human Handoff (Support Chat)',
-      chatHistory: messages.map(m => `[${m.role.toUpperCase()}]: ${m.text}`).join('\n\n')
+      source: 'Agentic Chat Handoff',
+      transcript: messages.map(m => `[${m.role.toUpperCase()}]: ${m.text}`).join('\n\n')
     };
     
     db.saveEntry('lead', escalationPayload);
@@ -95,126 +108,134 @@ const Chatbot: React.FC = () => {
       setShowLeadForm(false);
       setLeadStatus('idle');
       setLeadForm({ name: '', email: '', company: '' });
-      setMessages(prev => [...prev, { role: 'model', text: language === 'en' ? 'Your case has been packaged and escalated to our Human Engineering team. A lead architect will contact you shortly via email for a deep-dive session.' : 'Votre dossier a été packagé et transmis à notre équipe d\'ingénierie humaine. Un architecte principal vous contactera sous peu par e-mail pour une session approfondie.' }]);
+      setMessages(prev => [...prev, { role: 'model', text: language === 'en' ? 'Handoff complete. A human architect has been assigned to your case.' : 'Handoff terminé. Un architecte humain a été affecté à votre dossier.' }]);
     }, 2000);
   };
 
   const renderMarkdown = (text: string) => {
     return text.split('\n').map((line, idx) => {
-      let processed = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-oakivo-primary">$1</strong>');
-      if (line.trim().startsWith('### ')) return <h3 key={idx} className="text-lg font-bold text-oakivo-primary mt-6 mb-2 font-serif-display" dangerouslySetInnerHTML={{ __html: processed.substring(4) }} />;
-      if (line.trim().startsWith('* ') || line.trim().startsWith('- ')) return <div key={idx} className="flex gap-2 ml-2 mb-2"><ChevronRight size={14} className="text-oakivo-secondary mt-1 shrink-0" /><span className="text-gray-700" dangerouslySetInnerHTML={{ __html: processed.substring(2) }} /></div>;
-      return <p key={idx} className="mb-2 text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: processed }} />;
+      let processed = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>');
+      if (line.trim().startsWith('* ') || line.trim().startsWith('- ')) return <div key={idx} className="flex gap-2 ml-2 mb-2"><div className="w-1.5 h-1.5 rounded-full bg-oakivo-secondary mt-2 shrink-0" /><span dangerouslySetInnerHTML={{ __html: processed.substring(2) }} /></div>;
+      return <p key={idx} className="mb-2" dangerouslySetInnerHTML={{ __html: processed }} />;
     });
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-[100] font-sans">
+      {/* Floating Agent Orb */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-16 h-16 lg:w-20 lg:h-20 rounded-full flex items-center justify-center shadow-[0_30px_90px_rgba(0,0,0,0.3)] transition-all duration-700 transform hover:scale-110 active:scale-95 ${isOpen ? 'bg-white text-oakivo-primary rotate-90' : 'bg-oakivo-primary text-white'}`}
-        aria-label="Toggle Support Center"
+        className={`w-16 h-16 lg:w-20 lg:h-20 rounded-full flex items-center justify-center shadow-premium transition-all duration-700 transform hover:scale-110 active:scale-95 group relative ${isOpen ? 'bg-white text-oakivo-primary' : 'bg-[#020504] text-white'}`}
       >
-        {isOpen ? <X size={36} /> : <LifeBuoy size={36} className="animate-pulse" />}
+        <div className={`absolute inset-0 rounded-full border-2 border-oakivo-secondary/30 ${!isOpen && 'animate-spin-slow'}`} />
+        {isOpen ? <X size={32} /> : <Sparkles size={32} className="group-hover:text-oakivo-secondary transition-colors" />}
+        {!isOpen && <div className="absolute -top-1 -right-1 w-5 h-5 bg-oakivo-secondary rounded-full border-4 border-white animate-pulse" />}
       </button>
 
-      <div className={`absolute bottom-20 lg:bottom-24 right-0 w-[500px] max-w-[92vw] h-[750px] bg-white rounded-[32px] lg:rounded-[48px] shadow-4xl border border-gray-100 flex flex-col transition-all duration-700 origin-bottom-right ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 pointer-events-none translate-y-12'}`}>
+      {/* Chat Window */}
+      <div className={`absolute bottom-20 lg:bottom-24 right-0 w-[480px] max-w-[95vw] h-[720px] bg-white rounded-[40px] shadow-vise-xl border border-gray-100 flex flex-col transition-all duration-700 origin-bottom-right ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 pointer-events-none translate-y-10'}`}>
         
-        {/* Header */}
-        <div className="p-8 lg:p-10 bg-oakivo-primary text-white rounded-t-[32px] lg:rounded-t-[48px] flex items-center justify-between relative overflow-hidden">
-           <div className="absolute top-0 right-0 p-12 opacity-[0.03] text-oakivo-secondary pointer-events-none">
-              <LifeBuoy size={200} />
+        {/* Header: Institutional Grade */}
+        <div className="p-8 bg-oakivo-primary text-white rounded-t-[40px] relative overflow-hidden">
+           <div className="absolute top-0 right-0 p-10 opacity-5 text-oakivo-secondary">
+              <BrainCircuit size={180} />
            </div>
-           <div className="flex items-center gap-4 lg:gap-6 relative z-10">
-              <div className="w-12 h-12 lg:w-16 lg:h-16 bg-white/10 rounded-xl lg:rounded-2xl flex items-center justify-center backdrop-blur-xl border border-white/10 shadow-2xl">
-                 <Logo className="w-8 h-8 lg:w-10 lg:h-10" withText={false} light={true} />
+           <div className="flex items-center justify-between relative z-10">
+              <div className="flex items-center gap-4">
+                 <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/10">
+                    <Logo withText={false} light={true} className="h-7" />
+                 </div>
+                 <div>
+                    <h3 className="font-bold text-lg tracking-tight">Oakivo Agent</h3>
+                    <div className="flex items-center gap-2">
+                       <div className="w-1.5 h-1.5 rounded-full bg-oakivo-secondary animate-pulse" />
+                       <span className="text-[9px] font-black uppercase tracking-[0.3em] text-oakivo-secondary">Orchestrator Online</span>
+                    </div>
+                 </div>
               </div>
-              <div>
-                <h3 className="font-bold text-xl lg:text-2xl tracking-tighter">Support Portal</h3>
-                <span className="text-[10px] text-oakivo-secondary font-black uppercase tracking-[0.4em] flex items-center gap-2 mt-1">
-                  <span className="w-2 h-2 rounded-full bg-oakivo-secondary animate-pulse"></span> SYSTEM_LIVE
-                </span>
-              </div>
-           </div>
-           <button onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')} className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] relative z-10 border border-white/10 shadow-sm">
-              {language.toUpperCase()}
-           </button>
-        </div>
-
-        {/* Audit Compliance & Telemetry */}
-        <div className="bg-oakivo-surface px-8 lg:px-10 py-3 lg:py-4 border-b border-gray-100 flex items-center justify-between text-[9px] lg:text-[10px] text-gray-400 font-black uppercase tracking-[0.3em]">
-           <div className="flex items-center gap-3"><ShieldCheck size={16} className="text-oakivo-secondary" /> INSTITUTIONAL ENCRYPTION</div>
-           <div className="flex items-center gap-4">
-              <span className="flex items-center gap-2"><Activity size={14} className="text-oakivo-secondary" /> 24ms</span>
+              <button onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[9px] font-black uppercase tracking-widest">
+                {language}
+              </button>
            </div>
         </div>
 
-        {/* Chat Feed */}
-        <div ref={scrollRef} className="flex-grow overflow-y-auto p-6 lg:p-10 space-y-8 lg:space-y-10 bg-gray-50/20 scroll-smooth no-scrollbar">
+        {/* System Telemetry */}
+        <div className="px-8 py-2.5 bg-oakivo-surface border-b border-gray-100 flex items-center justify-between text-[9px] text-gray-400 font-black uppercase tracking-[0.3em]">
+           <div className="flex items-center gap-2"><ShieldCheck size={14} className="text-oakivo-secondary" /> AES-256 SECURED</div>
+           <div className="flex items-center gap-3"><Activity size={14} /> Latency: 42ms</div>
+        </div>
+
+        {/* Message Interface */}
+        <div ref={scrollRef} className="flex-grow overflow-y-auto p-8 space-y-8 bg-white no-scrollbar scroll-smooth">
            {messages.map((msg, i) => (
-             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in duration-500`}>
-                <div className={`max-w-[90%] p-6 lg:p-8 rounded-[24px] lg:rounded-[32px] text-sm lg:text-[16px] leading-relaxed shadow-sm transition-all hover:shadow-vise-lg ${msg.role === 'user' ? 'bg-oakivo-primary text-white rounded-br-none shadow-2xl' : 'bg-white text-gray-800 rounded-bl-none border border-gray-100'}`}>
+             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[85%] p-6 rounded-[28px] text-[15px] leading-relaxed transition-all ${
+                  msg.role === 'user' 
+                    ? 'bg-oakivo-primary text-white rounded-br-none shadow-vise' 
+                    : msg.isAction
+                      ? 'bg-oakivo-secondary/10 border border-oakivo-secondary/30 text-oakivo-primary rounded-bl-none'
+                      : 'bg-oakivo-cloud/50 text-gray-800 rounded-bl-none border border-gray-100'
+                }`}>
                    {msg.role === 'model' ? renderMarkdown(msg.text) : msg.text}
+                   
+                   {msg.isAction && (
+                     <button 
+                       onClick={() => setShowLeadForm(true)}
+                       className="mt-4 w-full bg-oakivo-primary text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm hover:bg-black transition-all"
+                     >
+                       <User size={16} className="text-oakivo-secondary" /> Request Handoff
+                     </button>
+                   )}
                 </div>
              </div>
            ))}
+
            {isTyping && (
-             <div className="flex justify-start animate-in fade-in slide-in-from-left-4">
-                <div className="bg-white p-6 lg:p-8 rounded-[24px] lg:rounded-[32px] rounded-bl-none border border-gray-100 flex items-center gap-5 shadow-sm">
-                   <div className="flex gap-2">
-                      <div className="w-2.5 h-2.5 bg-oakivo-secondary rounded-full animate-bounce"></div>
-                      <div className="w-2.5 h-2.5 bg-oakivo-secondary rounded-full animate-bounce [animation-delay:150ms]"></div>
-                      <div className="w-2.5 h-2.5 bg-oakivo-secondary rounded-full animate-bounce [animation-delay:300ms]"></div>
+             <div className="flex justify-start">
+                <div className="bg-oakivo-cloud/50 p-6 rounded-[28px] rounded-bl-none border border-gray-100 flex items-center gap-4">
+                   <div className="flex gap-1.5">
+                      <div className="w-2 h-2 bg-oakivo-secondary rounded-full animate-bounce" />
+                      <div className="w-2 h-2 bg-oakivo-secondary rounded-full animate-bounce [animation-delay:0.2s]" />
+                      <div className="w-2 h-2 bg-oakivo-secondary rounded-full animate-bounce [animation-delay:0.4s]" />
                    </div>
-                   <span className="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em]">Reasoning...</span>
+                   <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Architect Reasoning...</span>
                 </div>
              </div>
            )}
 
            {showLeadForm && (
-             <div className="bg-white p-8 lg:p-10 rounded-[32px] lg:rounded-[40px] border border-oakivo-secondary/40 shadow-[0_40px_100px_rgba(0,0,0,0.1)] animate-in slide-in-from-bottom-12 duration-1000">
+             <div className="bg-white p-8 rounded-[32px] border border-oakivo-secondary/30 shadow-vise-xl animate-fade-in-up">
                 {leadStatus === 'success' ? (
-                   <div className="text-center py-10 lg:py-12">
-                      <div className="w-20 h-20 lg:w-24 lg:h-24 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-8 text-oakivo-secondary shadow-inner">
-                        <CheckCircle size={56} />
+                   <div className="text-center py-8">
+                      <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 text-oakivo-secondary shadow-inner">
+                        <CheckCircle size={32} />
                       </div>
-                      <h4 className="font-bold text-xl lg:text-2xl text-oakivo-primary mb-3 tracking-tight">Escalation Confirmed</h4>
-                      <p className="text-sm text-gray-500 font-light">Redirecting to primary intelligence stream...</p>
+                      <h4 className="font-bold text-xl text-oakivo-primary mb-2">Escalated</h4>
+                      <p className="text-sm text-gray-500 font-light">An architect will contact you via email.</p>
                    </div>
                 ) : (
-                   <form onSubmit={handleLeadSubmit} className="space-y-6 lg:space-y-8">
-                      <div className="flex items-center gap-4 border-b border-gray-100 pb-6 mb-8">
-                        <div className="w-12 h-12 bg-oakivo-surface rounded-xl flex items-center justify-center text-oakivo-secondary">
-                          <User size={24} />
+                   <form onSubmit={handleLeadSubmit} className="space-y-6">
+                      <div className="flex items-center gap-4 border-b border-gray-50 pb-6">
+                        <div className="w-10 h-10 bg-oakivo-primary rounded-xl flex items-center justify-center text-oakivo-secondary">
+                          <ShieldAlert size={20} />
                         </div>
-                        <div>
-                          <h4 className="font-bold text-lg text-oakivo-primary tracking-tight">Human Architect Handoff</h4>
-                          <p className="text-[9px] lg:text-[10px] text-gray-400 font-black uppercase tracking-widest">Complex Inquiry Routing</p>
-                        </div>
+                        <h4 className="font-bold text-oakivo-primary">Human Handoff Form</h4>
                       </div>
-                      <div className="space-y-4 lg:space-y-6">
-                        <div className="space-y-2">
-                           <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 ml-2">Identify Full Name</label>
-                           <input 
-                             type="text" required placeholder="John Doe" 
-                             value={leadForm.name} onChange={e => setLeadForm({...leadForm, name: e.target.value})}
-                             className="w-full bg-gray-50 border border-gray-200 p-4 lg:p-5 rounded-xl lg:rounded-2xl text-base focus:outline-none focus:border-oakivo-primary focus:bg-white transition-all shadow-inner" 
-                           />
-                        </div>
-                        <div className="space-y-2">
-                           <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 ml-2">Organizational Email</label>
-                           <input 
-                             type="email" required placeholder="work@company.com" 
-                             value={leadForm.email} onChange={e => setLeadForm({...leadForm, email: e.target.value})}
-                             className="w-full bg-gray-50 border border-gray-200 p-4 lg:p-5 rounded-xl lg:rounded-2xl text-base focus:outline-none focus:border-oakivo-primary focus:bg-white transition-all shadow-inner" 
-                           />
-                        </div>
-                      </div>
-                      <button type="submit" className="w-full bg-oakivo-primary text-white py-5 lg:py-6 rounded-xl lg:rounded-2xl text-base font-bold hover:bg-black transition-all flex items-center justify-center gap-4 shadow-2xl group">
-                        <ShieldAlert size={20} className="text-oakivo-secondary group-hover:scale-110 transition-transform" /> Initiate Human Audit
+                      <input 
+                        type="text" required placeholder="Full Name" 
+                        value={leadForm.name} onChange={e => setLeadForm({...leadForm, name: e.target.value})}
+                        className="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm focus:outline-none focus:border-oakivo-primary transition-all" 
+                      />
+                      <input 
+                        type="email" required placeholder="Work Email" 
+                        value={leadForm.email} onChange={e => setLeadForm({...leadForm, email: e.target.value})}
+                        className="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm focus:outline-none focus:border-oakivo-primary transition-all" 
+                      />
+                      <button type="submit" className="w-full bg-[#020504] text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition-all flex items-center justify-center gap-3">
+                         Submit Request <ArrowRight size={18} className="text-oakivo-secondary" />
                       </button>
-                      <button type="button" onClick={() => setShowLeadForm(false)} className="w-full text-[10px] text-gray-400 font-black uppercase tracking-[0.3em] hover:text-oakivo-primary transition-all">
-                        Return to Autonomous AI
+                      <button type="button" onClick={() => setShowLeadForm(false)} className="w-full text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                        Return to AI Agent
                       </button>
                    </form>
                 )}
@@ -222,23 +243,23 @@ const Chatbot: React.FC = () => {
            )}
         </div>
 
-        {/* Input Matrix */}
-        <div className="p-6 lg:p-10 border-t border-gray-100 bg-white rounded-b-[32px] lg:rounded-b-[48px]">
-           {!isTyping && !showLeadForm && (
-             <div className="flex flex-wrap gap-2 lg:gap-3 mb-6 lg:mb-8">
-                {language === 'en' ? (
-                  <>
-                    <button onClick={() => handleSend("Tell me about Odoo 18 Migration Support")} className="text-[9px] lg:text-[11px] font-black border border-gray-100 px-4 py-2 lg:px-6 lg:py-2.5 rounded-xl hover:border-oakivo-secondary hover:text-oakivo-secondary transition-all uppercase tracking-widest flex items-center gap-2"><Database size={12}/> Migration Help</button>
-                    <button onClick={() => handleSend("How can Agentic AI improve my ROI?")} className="text-[9px] lg:text-[11px] font-black border border-gray-100 px-4 py-2 lg:px-6 lg:py-2.5 rounded-xl hover:border-oakivo-secondary hover:text-oakivo-secondary transition-all uppercase tracking-widest flex items-center gap-2"><Cpu size={12}/> AI ROI Help</button>
-                    <button onClick={() => setShowLeadForm(true)} className="text-[9px] lg:text-[11px] font-black bg-oakivo-secondary/10 border border-oakivo-secondary/30 text-oakivo-secondary px-4 py-2 lg:px-6 lg:py-2.5 rounded-xl hover:bg-oakivo-secondary hover:text-white transition-all uppercase tracking-widest flex items-center gap-2"><ShieldAlert size={12}/> Human Expert</button>
-                  </>
-                ) : (
-                  <>
-                    <button onClick={() => handleSend("Aide à la migration Odoo 18")} className="text-[9px] lg:text-[11px] font-black border border-gray-100 px-4 py-2 lg:px-6 lg:py-2.5 rounded-xl hover:border-oakivo-secondary hover:text-oakivo-secondary transition-all uppercase tracking-widest flex items-center gap-2">Aide Migration</button>
-                    <button onClick={() => handleSend("Aide à l'IA Agente")} className="text-[9px] lg:text-[11px] font-black border border-gray-100 px-4 py-2 lg:px-6 lg:py-2.5 rounded-xl hover:border-oakivo-secondary hover:text-oakivo-secondary transition-all uppercase tracking-widest flex items-center gap-2">Aide IA</button>
-                    <button onClick={() => setShowLeadForm(true)} className="text-[9px] lg:text-[11px] font-black bg-oakivo-secondary/10 border border-oakivo-secondary/30 text-oakivo-secondary px-4 py-2 lg:px-6 lg:py-2.5 rounded-xl hover:bg-oakivo-secondary hover:text-white transition-all uppercase tracking-widest">Expert Humain</button>
-                  </>
-                )}
+        {/* Input & Context Chips */}
+        <div className="p-8 border-t border-gray-100 bg-white rounded-b-[40px]">
+           {!isTyping && !showLeadForm && messages.length < 5 && (
+             <div className="flex gap-2 overflow-x-auto no-scrollbar mb-6">
+                {[
+                  { label: "Odoo 18 Migration", icon: <Database size={12}/> },
+                  { label: "Agentic AI ROI", icon: <BrainCircuit size={12}/> },
+                  { label: "Security Audit", icon: <ShieldCheck size={12}/> }
+                ].map((chip, idx) => (
+                  <button 
+                    key={idx} 
+                    onClick={() => handleSend(chip.label)}
+                    className="flex items-center gap-2 whitespace-nowrap bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-[10px] font-bold text-gray-500 hover:bg-oakivo-secondary/10 hover:text-oakivo-primary transition-all uppercase tracking-widest"
+                  >
+                    {chip.icon} {chip.label}
+                  </button>
+                ))}
              </div>
            )}
            <div className="relative group">
@@ -247,14 +268,14 @@ const Chatbot: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder={language === 'en' ? "Query specialized support..." : "Poser une question technique..."}
-                className="w-full bg-gray-50 border border-gray-200 rounded-[24px] lg:rounded-[32px] py-4 lg:py-6 pl-6 lg:pl-8 pr-16 lg:pr-20 text-sm lg:text-[17px] focus:outline-none focus:border-oakivo-primary focus:bg-white focus:shadow-inner transition-all duration-700 font-light"
+                placeholder={language === 'en' ? "Query specialized intelligence..." : "Poser une question..."}
+                className="w-full bg-gray-50 border border-gray-100 rounded-[20px] py-5 pl-6 pr-16 text-[15px] focus:outline-none focus:border-oakivo-primary focus:bg-white transition-all shadow-inner font-light"
                 disabled={showLeadForm}
               />
               <button 
                 onClick={() => handleSend()}
                 disabled={!input.trim() || isTyping || showLeadForm}
-                className="absolute right-2 lg:right-3 top-2 lg:top-3 bottom-2 lg:bottom-3 w-10 h-10 lg:w-14 lg:h-14 bg-oakivo-primary text-white rounded-xl lg:rounded-2xl flex items-center justify-center hover:bg-black transition-all disabled:opacity-30 shadow-2xl active:scale-90"
+                className="absolute right-2 top-2 bottom-2 w-12 h-12 bg-oakivo-primary text-white rounded-xl flex items-center justify-center hover:bg-black transition-all disabled:opacity-30 active:scale-90"
               >
                 <ArrowRight size={24} />
               </button>

@@ -179,6 +179,7 @@ export const translations: Record<Language, Record<string, any>> = {
           author: "Ahmed Bello",
           videoUrl: "https://www.youtube.com/embed/N6j6x0qJbYk", 
           excerpt: "Moving beyond passive ERPs: How Agentic AI in Odoo 18 is automating the mid-market decision loop.", 
+          keyTakeawaysSummary: "Odoo 18 is transitioning from a record-keeping system to an active decision engine. By leveraging Agentic AI, organizations can automate complex reconciliation and fulfillment tasks that previously required human oversight, effectively de-coupling labor from operational scale.",
           sections: {
             introduction: "Odoo 18 represents the first true 'Thinking ERP'. By integrating agentic logic, we are removing human latency from core business processes.",
             takeaways: [
@@ -198,6 +199,7 @@ export const translations: Record<Language, Record<string, any>> = {
           author: "Sarah Jenkins",
           videoUrl: "https://www.youtube.com/embed/fD_hV6GzK1Y", 
           excerpt: "Why the perimeter is dead: Building a Zero-Trust identity mesh for the Canadian industrial sector.", 
+          keyTakeawaysSummary: "Modern industrial security requires moving beyond firewalls. A Zero-Trust identity mesh ensures that every interaction within your ERP and automation stack is verified, significantly reducing the risk of lateral movement attacks and ensuring 100% data sovereignty.",
           sections: {
             introduction: "Perimeter security is obsolete. In a world of distributed assets, identity is the only reliable security boundary.",
             takeaways: [
@@ -279,6 +281,52 @@ export const translations: Record<Language, Record<string, any>> = {
       apply_text: "Transmettez votre profil technique pour une future orchestration.",
       apply_btn: "Transmettre le Profil",
       email_link: "careers@oakivo.com"
+    },
+    blog: {
+      hero_title: "Intelligence Vault",
+      hero_subtitle: "Analyse approfondie sur l'orchestration de l'IA, de l'ERP et de la cybersécurité au Canada.",
+      posts: [
+        { 
+          id: 1, 
+          date: "15 janv. 2026", 
+          title: "Le virage agentique d'Odoo 18", 
+          category: "Stratégie IA", 
+          author: "Ahmed Bello",
+          videoUrl: "https://www.youtube.com/embed/N6j6x0qJbYk", 
+          excerpt: "Au-delà des ERP passifs : comment l'IA agente d'Odoo 18 automatise la boucle de décision du marché intermédiaire.", 
+          keyTakeawaysSummary: "Odoo 18 passe d'un système d'enregistrement à un moteur de décision actif. En tirant parti de l'IA agente, les organisations peuvent automatiser des tâches complexes de rapprochement et d'exécution, découplant efficacement le travail de l'échelle opérationnelle.",
+          sections: {
+            introduction: "Odoo 18 représente le premier véritable 'ERP pensant'.",
+            takeaways: [
+              "L'IA agente agit comme un travailleur autonome.",
+              "Les outils d'IA natifs réduisent considérablement les frais administratifs.",
+              "L'orchestration stratégique est le différenciateur."
+            ],
+            discussion: "Oakivo se concentre sur la couche logique de l'ERP.",
+            conclusion: "L'entreprise de 2026 sera définie par sa capacité à découpler le travail humain."
+          }
+        },
+        { 
+          id: 2, 
+          date: "02 fév. 2026", 
+          title: "Protocoles industriels Zero-Trust", 
+          category: "Résilience", 
+          author: "Sarah Jenkins",
+          videoUrl: "https://www.youtube.com/embed/fD_hV6GzK1Y", 
+          excerpt: "Pourquoi le périmètre est mort : Bâtir un maillage d'identité Zero-Trust pour le secteur industriel canadien.", 
+          keyTakeawaysSummary: "La sécurité industrielle moderne exige d'aller au-delà des pare-feu. Un maillage d'identité Zero-Trust garantit que chaque interaction est vérifiée, réduisant ainsi les risques d'attaques latérales.",
+          sections: {
+            introduction: "La sécurité périmétrale est obsolète.",
+            takeaways: [
+              "La micro-segmentation est le remède.",
+              "L'authentification continue assure l'intégrité.",
+              "La conformité est un sous-produit de l'ingénierie."
+            ],
+            discussion: "Nous implémentons Zero-Trust comme une fonctionnalité native.",
+            conclusion: "La véritable résilience se mesure par la rapidité de récupération."
+          }
+        }
+      ]
     },
     footer: {
       tagline_1: "Orchestrer l'IA.", 

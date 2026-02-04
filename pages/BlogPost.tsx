@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, ShieldCheck, Calendar, User, Tag, ChevronRight, Activity, BookOpen, Target, MessageSquare, PlayCircle, Share2, Lock } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ShieldCheck, Calendar, User, Tag, ChevronRight, Activity, BookOpen, Target, MessageSquare, PlayCircle, Share2, Lock, Zap, Clock } from 'lucide-react';
 import Section from '../components/Section';
 import { useLanguage, translations } from '../context/LanguageContext';
 import Button from '../components/Button';
@@ -119,6 +118,50 @@ const BlogPost: React.FC = () => {
               {/* Primary Report Data */}
               <div className="lg:col-span-8 space-y-16">
                  
+                 {/* Intelligence Briefing: Key Takeaways Summary */}
+                 <div className="animate-fade-in-up bg-oakivo-secondary/5 border border-oakivo-secondary/20 rounded-[48px] p-8 md:p-12 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-8 opacity-[0.03] text-oakivo-secondary group-hover:opacity-[0.07] transition-opacity">
+                       <Zap size={140} />
+                    </div>
+                    
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10 relative z-10">
+                       <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 bg-oakivo-secondary/10 rounded-2xl flex items-center justify-center text-oakivo-secondary shadow-sm">
+                             <Zap size={24} />
+                          </div>
+                          <div>
+                             <h4 className="text-[10px] font-black text-oakivo-secondary uppercase tracking-[0.4em] mb-1">Intelligence Briefing</h4>
+                             <h3 className="text-2xl font-serif-display font-bold text-oakivo-primary">Key Takeaways</h3>
+                          </div>
+                       </div>
+                       <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-100 rounded-lg text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                             <Clock size={12} className="text-oakivo-secondary" /> 4m Read
+                          </div>
+                          <div className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-100 rounded-lg text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                             <ShieldCheck size={12} className="text-oakivo-secondary" /> Strategic Depth
+                          </div>
+                       </div>
+                    </div>
+
+                    <div className="space-y-8 relative z-10">
+                       <p className="text-xl md:text-2xl font-serif-display italic text-oakivo-primary/80 leading-relaxed border-l-4 border-oakivo-secondary/30 pl-6 mb-8">
+                          {post.keyTakeawaysSummary}
+                       </p>
+                       
+                       <div className="grid grid-cols-1 gap-6">
+                          {post.sections.takeaways.map((item: string, i: number) => (
+                             <div key={i} className="flex gap-4 items-start bg-white/40 p-5 rounded-2xl border border-white group/item hover:border-oakivo-secondary/20 transition-all">
+                                <div className="w-8 h-8 rounded-xl bg-oakivo-secondary/10 flex items-center justify-center text-oakivo-secondary shrink-0 group-hover/item:scale-110 transition-transform">
+                                   <Activity size={16} />
+                                </div>
+                                <span className="text-gray-700 text-[15px] font-medium leading-snug">{item}</span>
+                             </div>
+                          ))}
+                       </div>
+                    </div>
+                 </div>
+
                  {/* Cinematic Video Integration */}
                  {post.videoUrl && (
                    <div className="mb-16 animate-fade-in-up">
@@ -155,25 +198,6 @@ const BlogPost: React.FC = () => {
                     <p className="text-2xl text-oakivo-primary font-light italic border-l-[10px] border-oakivo-secondary/40 pl-8 mb-16 leading-snug">
                        {post.sections.introduction}
                     </p>
-
-                    <div className="bg-oakivo-surface p-12 rounded-[56px] border border-gray-100 my-16 not-prose shadow-sm relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-8 opacity-5">
-                          <Target size={120} />
-                        </div>
-                        <h3 className="text-[11px] font-black text-oakivo-primary uppercase tracking-[0.4em] mb-10 flex items-center gap-3">
-                           Strategic Objectives
-                        </h3>
-                        <ul className="grid grid-cols-1 md:grid-cols-1 gap-8 list-none p-0 relative z-10">
-                           {post.sections.takeaways.map((item: string, i: number) => (
-                              <li key={i} className="flex gap-6 items-start">
-                                 <div className="w-10 h-10 rounded-2xl bg-white border border-gray-100 flex items-center justify-center text-oakivo-secondary shrink-0 shadow-sm">
-                                    <Activity size={18} />
-                                 </div>
-                                 <span className="text-gray-700 text-lg font-medium pt-1 leading-snug">{item}</span>
-                              </li>
-                           ))}
-                        </ul>
-                    </div>
 
                     <h2 className="text-3xl md:text-5xl font-serif-display font-bold text-oakivo-primary flex items-center gap-4 mb-10 mt-16">
                        <MessageSquare size={28} className="text-oakivo-secondary" /> Tactical Discussion
