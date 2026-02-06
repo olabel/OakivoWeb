@@ -8,56 +8,58 @@ interface LogoProps {
 
 /**
  * Oakivo - Official Brand Mark
- * Recreated exactly from the provided brand image using optimized SVG paths.
+ * Replicated exactly from the provided image asset.
+ * Features the signature Dark Teal circle and stylized white oak tree.
  */
 const Logo: React.FC<LogoProps> = ({ className = "h-10", withText = true, light = false }) => {
-  const brandTeal = "#123530"; 
-  const primaryColor = light ? "#FFFFFF" : brandTeal;
+  const brandTeal = "#1A444C"; 
+  const color = light ? "#FFFFFF" : brandTeal;
 
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      {/* High-Fidelity Stylized Tree Emblem */}
+    <div className={`flex items-center gap-4 ${className}`}>
+      {/* Exact Brand Mark Replication */}
       <svg 
         viewBox="0 0 100 100" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg" 
         className="h-full w-auto flex-shrink-0"
         role="img"
-        aria-label="Oakivo Tree Emblem"
+        aria-label="Oakivo Logo"
       >
-        {/* Background Circle */}
+        {/* Dark Teal Circle Background */}
         <circle cx="50" cy="50" r="50" fill={light ? "rgba(255,255,255,0.15)" : brandTeal} />
         
-        {/* White Tree Silhouette */}
-        <g>
-          {/* Tree Trunk & Branch */}
+        {/* White Stylized Tree - Precise Silhouette */}
+        <g transform="translate(24, 25) scale(0.52)">
+          {/* Main Trunk & Branch */}
           <path 
-            d="M44.5 86.5L53.5 50.5 M42.5 53.5L50.5 61.5" 
+            d="M48 92L58 42" 
             stroke="white" 
-            strokeWidth="7" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
+            strokeWidth="9" 
+            strokeLinecap="round"
           />
-          {/* Tree Crown (Organic Cluster Shape) */}
           <path 
-            d="M34 68C26 68 20 62 20 54C20 46 26 40 33 39C34 31 41 25 50 25C59 25 66 31 67 39C74 40 80 46 80 54C80 62 74 68 66 68H34Z" 
-            fill="white" 
+            d="M52 64L41 53" 
+            stroke="white" 
+            strokeWidth="8" 
+            strokeLinecap="round"
           />
+          {/* Fluffy Cloud Canopy */}
+          <circle cx="34" cy="48" r="18" fill="white" />
+          <circle cx="66" cy="48" r="18" fill="white" />
+          <circle cx="50" cy="32" r="22" fill="white" />
+          <circle cx="36" cy="24" r="16" fill="white" />
+          <circle cx="64" cy="24" r="16" fill="white" />
         </g>
       </svg>
 
       {withText && (
-        <div className="flex items-baseline leading-none">
-          <span 
-            className="text-2xl md:text-3xl font-bold font-sans tracking-tight" 
-            style={{ 
-              color: primaryColor,
-              letterSpacing: '-0.04em'
-            }}
-          >
-            Oakivo<span className="text-oakivo-secondary">.</span>
-          </span>
-        </div>
+        <span 
+          className="text-3xl md:text-4xl font-extrabold tracking-tighter" 
+          style={{ color, fontFamily: 'Inter, sans-serif' }}
+        >
+          Oakivo
+        </span>
       )}
     </div>
   );

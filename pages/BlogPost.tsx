@@ -1,6 +1,10 @@
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, ShieldCheck, Calendar, User, Tag, ChevronRight, Activity, BookOpen, Target, MessageSquare, PlayCircle, Share2, Lock, Zap, Clock } from 'lucide-react';
+import { 
+  ArrowLeft, CheckCircle, ShieldCheck, Calendar, User, Tag, 
+  ChevronRight, Activity, BookOpen, Target, MessageSquare, 
+  PlayCircle, Share2, Lock, Zap, Clock, BrainCircuit 
+} from 'lucide-react';
 import Section from '../components/Section';
 import { useLanguage, translations } from '../context/LanguageContext';
 import Button from '../components/Button';
@@ -54,6 +58,14 @@ const BlogPost: React.FC = () => {
         "url": "https://www.oakivo.com/logo.png"
       }
     },
+    "video": post.videoUrl ? {
+      "@type": "VideoObject",
+      "name": post.title,
+      "description": post.keyTakeawaysSummary,
+      "thumbnailUrl": "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200",
+      "uploadDate": "2026-01-01T08:00:00+08:00",
+      "embedUrl": post.videoUrl
+    } : undefined,
     "datePublished": "2026-01-01T08:00:00+08:00",
     "dateModified": new Date().toISOString()
   };
@@ -134,14 +146,6 @@ const BlogPost: React.FC = () => {
                              <h3 className="text-2xl font-serif-display font-bold text-oakivo-primary">Key Takeaways</h3>
                           </div>
                        </div>
-                       <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-100 rounded-lg text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                             <Clock size={12} className="text-oakivo-secondary" /> 4m Read
-                          </div>
-                          <div className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-100 rounded-lg text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                             <ShieldCheck size={12} className="text-oakivo-secondary" /> Strategic Depth
-                          </div>
-                       </div>
                     </div>
 
                     <div className="space-y-8 relative z-10">
@@ -162,32 +166,32 @@ const BlogPost: React.FC = () => {
                     </div>
                  </div>
 
-                 {/* Cinematic Video Integration */}
+                 {/* Cinematic Video Integration (SEO Optimized Embed) */}
                  {post.videoUrl && (
                    <div className="mb-16 animate-fade-in-up">
                       <div className="flex items-center justify-between mb-6">
                         <div className="inline-flex items-center gap-3 text-oakivo-secondary font-black uppercase text-[10px] tracking-[0.4em]">
-                          <PlayCircle size={16} /> Executive Video Briefing
+                          <PlayCircle size={16} /> Technical Intelligence Feed
                         </div>
-                        <div className="flex items-center gap-2 text-[9px] font-black text-gray-400 uppercase tracking-widest">
-                           <Lock size={12} className="text-oakivo-secondary" /> SECURE STREAM
+                        <div className="flex items-center gap-2 text-[9px] font-black text-gray-400 uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-lg">
+                           <Lock size={12} className="text-oakivo-secondary" /> PRIVATE CDN ENCRYPTED
                         </div>
                       </div>
                       <div className="aspect-video w-full rounded-[48px] overflow-hidden shadow-vise-xl bg-oakivo-primary border border-gray-100 relative group">
                          <iframe 
                            className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-1000"
                            src={post.videoUrl} 
-                           title="Oakivo Strategic Intelligence Video"
+                           title={`${post.title} - Strategic Intelligence Feed`}
+                           loading="lazy"
                            frameBorder="0" 
                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                            allowFullScreen
                          ></iframe>
-                         {/* Institutional Overlay Grid */}
                          <div className="absolute inset-0 pointer-events-none border-[1px] border-white/5 group-hover:border-transparent transition-all duration-500 rounded-[48px]"></div>
-                         <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl text-[8px] font-bold text-white tracking-[0.3em] flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Activity size={10} className="text-oakivo-secondary animate-pulse" /> LIVE TELEMETRY FEED
-                         </div>
                       </div>
+                      <p className="mt-4 text-[10px] text-gray-400 font-bold text-center uppercase tracking-widest opacity-60 italic">
+                        All technical intelligence is streamed via native Canadian infrastructure.
+                      </p>
                    </div>
                  )}
 

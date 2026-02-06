@@ -9,10 +9,11 @@
     <meta name="description" content="Oakivo Solutions Inc. is Canada's premier Odoo 18 Partner and Agentic AI consultancy. We orchestrate digital transformation, ERP resilience, and Zero-Trust industrial cybersecurity." />
     <meta name="keywords" content="Odoo 18 Partner Canada, Agentic AI Automation, ERP Orchestration SME, Industrial Digital Transformation Canada, Cybersecurity Audit SOC2, AI Workflow Engineering, Odoo Implementation Atlantic Canada, Enterprise AI Strategy" />
     <meta name="author" content="Oakivo Solutions Inc." />
+    <meta name="theme-color" content="#1A444C" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     
-    <!-- Inline SVG Favicon to match new official tree brand icon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23123530'/%3E%3Cpath d='M44.5 86.5L53.5 50.5 M42.5 53.5L50.5 61.5' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M34 68C26 68 20 62 20 54C20 46 26 40 33 39C34 31 41 25 50 25C59 25 66 31 67 39C74 40 80 46 80 54C80 62 74 68 66 68H34Z' fill='white'/%3E%3C/svg%3E" />
+    <!-- Brand Exact Logo Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%231A444C'/%3E%3Cpath d='M44.5 83L51.5 44' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M48.5 61.5L41.5 53.5' stroke='white' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='34' r='20' fill='white'/%3E%3Ccircle cx='36' cy='46' r='18' fill='white'/%3E%3Ccircle cx='64' cy='46' r='18' fill='white'/%3E%3C/svg%3E" />
     
     <title>Oakivo Solutions | The Operating System for Growth</title>
 
@@ -27,7 +28,7 @@
           extend: {
             colors: {
               oakivo: {
-                primary: '#123530', 
+                primary: '#1A444C', 
                 secondary: '#2ECC71',
                 accent: '#005AC1',
                 bg: '#FFFFFF',
@@ -51,7 +52,7 @@
               'vise': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
               'vise-lg': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
               'vise-xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-              'premium': '0 30px 60px -12px rgba(18, 53, 48, 0.2), 0 18px 36px -18px rgba(0, 0, 0, 0.2)',
+              'premium': '0 30px 60px -12px rgba(26, 68, 76, 0.2), 0 18px 36px -18px rgba(0, 0, 0, 0.2)',
               'soft': '0 10px 40px rgba(0, 0, 0, 0.04)',
             }
           }
@@ -74,6 +75,12 @@
       }
       .animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
+      @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .animate-spin-slow { animation: spin-slow 12s linear infinite; }
+
       .stagger-1 { animation-delay: 0.1s; }
       .stagger-2 { animation-delay: 0.2s; }
       .stagger-3 { animation-delay: 0.3s; }
@@ -82,9 +89,18 @@
       .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
       .text-balance { text-wrap: balance; }
       
-      /* Bento Grid Helper */
       .bento-card { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border-radius: 2.5rem; overflow: hidden; background: white; border: 1px solid #F3F4F6; }
       .bento-card:hover { transform: translateY(-5px); box-shadow: 0 40px 80px rgba(0,0,0,0.08); border-color: rgba(46, 204, 113, 0.2); }
+      
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #1A444C; border-radius: 10px; }
+      
+      @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .animate-marquee { animation: marquee 40s linear infinite; }
     </style>
     <script type="importmap">
 {

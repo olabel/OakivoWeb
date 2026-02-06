@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calendar, User, Tag, ChevronRight, Activity } from 'lucide-react';
+import { ArrowRight, Calendar, User, Tag, ChevronRight, Activity, PlayCircle } from 'lucide-react';
 import Section from '../components/Section';
 import Button from '../components/Button';
 import { useLanguage, translations } from '../context/LanguageContext';
@@ -30,7 +29,7 @@ const Blog: React.FC = () => {
       "@type": "BlogPosting",
       "headline": post.title,
       "url": `https://www.oakivo.com/#/perspectives/${post.id}`,
-      "datePublished": "2026-01-01T00:00:00Z", // Ideally dynamic from post.date
+      "datePublished": "2026-01-01T00:00:00Z",
       "author": {
         "@type": "Person",
         "name": post.author
@@ -79,6 +78,11 @@ const Blog: React.FC = () => {
                       <span className="text-[10px] font-black text-oakivo-secondary uppercase tracking-[0.3em] border border-oakivo-secondary/20 px-4 py-1.5 rounded-full">
                          {post.category}
                       </span>
+                      {post.videoUrl && (
+                        <div className="flex items-center gap-2 text-[9px] font-black text-oakivo-primary uppercase tracking-widest bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
+                          <PlayCircle size={14} className="text-oakivo-secondary" /> Video Briefing
+                        </div>
+                      )}
                       <div className="h-px flex-grow bg-gray-50"></div>
                    </div>
 
