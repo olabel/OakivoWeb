@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "echo 'No build step required for this ESM-native configuration'"
+    "build": "mkdir -p dist && cp -r index.html index.tsx App.tsx types.ts metadata.json sitemap.xml robots.txt components pages context utils dist/"
   },
   "dependencies": {
     "react": "18.3.1",
