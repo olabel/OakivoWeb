@@ -18,335 +18,293 @@ export const translations: Record<Language, Record<string, any>> = {
       services: 'Expertise', 
       work: 'Impact', 
       about: 'Architecture', 
-      contact: "Initiate Audit", 
-      careers: "Careers" 
+      contact: "Technical Intake", 
+      careers: "Careers",
+      booking: "Schedule",
+      compliance: "Compliance"
     },
     common: {
-      cta_audit: "Initiate Systemic Audit",
-      cta_blueprint: "Request Strategic Blueprint",
+      cta_audit: "Technical Intake",
+      cta_blueprint: "Request Blueprint",
       cta_meet: "Meet the Architects",
-      cta_orchestrate: "Orchestrate Growth"
+      cta_orchestrate: "Begin Audit",
+      cta_mobile_sticky: "Start Intake",
+      cta_schedule: "Schedule Discovery"
+    },
+    magnets: {
+      erp: {
+        title: "Odoo 19 Resilience Brief",
+        desc: "Is your legacy infrastructure ready for the Odoo 19 sovereign shift? Audit your structural gaps today.",
+        btn: "Access Brief"
+      },
+      cyber: {
+        title: "Zero-Trust Hardening Guide",
+        desc: "A PIPEDA-specific roadmap for securing Canadian industrial assets against lateral movement.",
+        btn: "Get Security Roadmap"
+      },
+      ai: {
+        title: "Agentic AI Economics",
+        desc: "Calculate the ROI of autonomous reasoning engines within industrial manufacturing workflows.",
+        btn: "Download Scorecard"
+      },
+      modern: {
+        title: "Legacy Debt Audit",
+        desc: "Quantify the cost of technical debt vs. the ROI of a sovereign cloud migration.",
+        btn: "Initiate Audit"
+      }
     },
     home: {
-      hero_label: "Engineering Industrial Resilience",
-      hero_title_main: "Orchestrating the",
-      hero_title_italic: "digital",
-      hero_title_end: "future.",
-      hero_subtitle: "Oakivo Solutions Inc. orchestrates mission-critical Odoo 18 ecosystems and Agentic AI reasoning engines to de-couple technical debt from Canadian enterprise expansion.",
-      cta_primary: "Engineer Autonomy",
-      cta_secondary: "Inspect Intelligence",
-      stats_label: "Empirical Outcomes",
-      stats_1_val: "482K+",
-      stats_1_lbl: "Autonomous Cycles",
-      stats_2_val: "99.99%",
-      stats_2_lbl: "Architecture Uptime",
-      stats_3_val: "SOC2",
-      stats_3_lbl: "Security Standard",
-      matrix_title: "The Orchestration Matrix",
-      matrix_subtitle: "Enterprise-grade automation backed by native Canadian data residency and senior systems engineering.",
+      hero_label: "Industrial-Grade Systems Engineering",
+      hero_title_main: "Architecting",
+      hero_title_italic: "resilient",
+      hero_title_end: "digital cores.",
+      hero_subtitle: "Oakivo Solutions Inc. orchestrates the complexity of Odoo 19 and Agentic AI. We de-risk Canadian industrial growth through sovereign, Zero-Trust digital transformation.",
+      cta_primary: "Initialize Technical Discovery",
+      cta_secondary: "Explore Sector Logic",
+      trust_badges: {
+        odoo: "Official Odoo 19 Implementation Partner",
+        sovereignty: "PIPEDA / SOC2 Sovereignty",
+        accounting: "CRA-Compliant Logic",
+        expert: "Principal-Led Architecture",
+        location: "Dieppe • Toronto • Montreal"
+      },
+      matrix_title: "The Engineering Matrix",
+      matrix_subtitle: "Validated operational logic for high-stakes manufacturing, logistics, and professional services.",
     },
-    about: {
-      dna_label: "Technical Heritage",
-      hero_title: "Architecting Canada's Autonomous Future.",
-      hero_subtitle: "We replace operational friction with industrial-grade intelligence through surgical ERP orchestration and Agentic AI.",
-      standard_title: "The Oakivo Doctrine",
-      standard_p1: "Oakivo Solutions was established to bridge the 'Digital Execution Gap'—where standard software fails the structural complexity of Canadian industrial operations.",
-      standard_p2: "We don't just implement software; we re-engineer the fundamental logic of the enterprise, ensuring data flows without latency and processes act without hesitation.",
-      standard_p3: "Our commitment to technical sovereignty means your organization maintains complete control over its intelligence assets, hosted locally and secured by Zero-Trust principles.",
-      leadership_title: "Principal Architects",
-      leadership_subtitle: "The engineering minds leading Canada's digital maturity.",
-      values: [
-        { title: "Surgical Precision", text: "We de-couple technical debt through high-fidelity engineering that respects the nuances of industrial workflows." },
-        { title: "Sovereign Intelligence", text: "Client data is held in native Canadian residency, secured by SOC2-aligned protocols and Zero-Trust identity mesh." },
-        { title: "Agentic Autonomy", text: "We believe processes should think for themselves. Our workflows initiate corrective actions, not just passive alerts." }
-      ],
-      team: [
-        { 
-          name: "Ahmed Bello", 
-          credentials: "MBA, Odoo Principal", 
-          role: "CEO & Senior Systems Orchestrator", 
-          bio: "An industry veteran with 15+ years in ERP strategy, Ahmed specializes in reconciling legacy technical debt with modern, high-velocity Agentic AI interfaces.",
-          expertise: ["Systemic ROI", "ERP Architecture", "Agentic Strategy"],
-          linkedin: "https://linkedin.com/company/oakivo"
-        },
-        { 
-          name: "Sarah Jenkins", 
-          credentials: "MSc CS, CISSP", 
-          role: "Director of Cyber Resilience", 
-          bio: "Sarah manages our security-first posture, ensuring all automation pipelines meet institutional standards for data sovereignty and resilience.",
-          expertise: ["Zero-Trust Protocol", "Compliance Auditing", "Data Security"],
-          linkedin: "https://linkedin.com/company/oakivo"
-        },
-        { 
-          name: "Fawaz Bello", 
-          credentials: "OSCP", 
-          role: "Offensive Security Lead", 
-          bio: "Specializing in industrial system hardening, Fawaz ensures the integrity of automated ERP environments through proactive penetration testing and AI protection.",
-          expertise: ["Penetration Testing", "Security Research", "Vulnerability Management"],
-          linkedin: "https://linkedin.com/company/oakivo"
-        }
+    verticals: {
+      hero_title: "Sector-Specific Logic.",
+      hero_subtitle: "High-fidelity digital frameworks designed for the unique structural constraints of Canadian industry.",
+      cards: [
+        { title: "Manufacturing", desc: "Digital threads for the shop floor.", impact: "Real-time OEE tracking, PLM integration, and CRA-compliant cost accounting." },
+        { title: "Logistics & Supply Chain", desc: "Global supply chain orchestration.", impact: "Automated customs logic, multi-warehouse synchronization, and sovereign tracking." },
+        { title: "Professional Services", desc: "Operational fidelity for SMEs.", impact: "Project accounting automation, resource capacity planning, and SOC2 alignment." },
+        { title: "Finance & Fintech", desc: "Sovereign data protocols.", impact: "Zero-Trust residency for sensitive financial logic and automated audit trails." },
+        { title: "Energy & Infrastructure", desc: "Resilient asset management.", impact: "IoT-driven preventative maintenance and predictive load balancing matrices." },
+        { title: "Public Sector & Health", desc: "Civic digital maturity.", impact: "Scalable service nodes with strict PIPEDA adherence and sovereign cloud hosting." }
       ]
     },
     services: {
-      hero_label: "Engineering Pillars",
-      hero_title: "Operational Excellence. <br/> Re-engineered.",
+      hero_label: "Technical Pillars",
+      hero_title: "How we scale <br/> industrial velocity.",
       list: [
-        { title: "Agentic AI Orchestration", desc: "Developing autonomous reasoning engines that act upon your business data in real-time, removing human bottlenecks from high-frequency decisions.", insight: "AI shouldn't just summarize; it should autonomously execute." },
-        { title: "Odoo 18 Orchestration", desc: "Surgical deployment of the Odoo 18 ERP ecosystem, providing a high-fidelity single source of truth for multi-location industrial operations.", insight: "Unity is the prerequisite for institutional visibility." },
-        { title: "Cybersecurity Resilience", desc: "Hardening your industrial perimeter with Zero-Trust identity management and preparing organizations for SOC2 Type II certification.", insight: "Security is the foundation of operational trust." },
-        { title: "Industrial Modernization", desc: "A precision roadmap to migrate legacy infrastructure into cloud-native environments with 24/7 technical telemetry.", insight: "Legacy systems are the silent inhibitors of enterprise scaling." }
+        { title: "Agentic AI Orchestration", desc: "We build autonomous reasoning engines that handle complex decision-making within your local security perimeter.", insight: "True industrial AI requires low-latency local inference.", magnet: "ai" },
+        { title: "Odoo 19 Implementation", desc: "End-to-end orchestration of Odoo 19. We specialize in migrating legacy technical debt into a unified, CRA-compliant core.", insight: "ERP is not software; it is your business logic.", magnet: "erp" },
+        { title: "Cyber-Resilience & PIPEDA", desc: "Zero-Trust perimeter hardening and data residency strategies for sensitive Canadian assets.", insight: "Compliance is the baseline, resilience is the goal.", magnet: "cyber" },
+        { title: "Industrial Modernization", desc: "De-risking the transition from legacy on-premise silos to a scalable, sovereign cloud architecture.", insight: "Speed is a byproduct of structural simplicity.", magnet: "modern" }
       ],
-      cta_title: "Initiate Your Roadmap",
-      cta_text: "Do not allow legacy software to dictate your organizational potential. Connect with our architects.",
-      cta_btn: "Orchestrate Autonomy"
-    },
-    verticals: {
-      cards: [
-        { title: "Manufacturing 4.0", desc: "Predictive OEE tracking and automated supply chain replenishment integrated directly into shop-floor hardware logic." },
-        { title: "Smart Logistics", desc: "Multi-warehouse orchestration using Agentic AI for route optimization and real-time inventory reconciliation." },
-        { title: "Professional Firms", desc: "Automated billing cycles and resource allocation for high-growth engineering and consultancy services." },
-        { title: "Enterprise Retail", desc: "Omnichannel Odoo synchronization with 100% data accuracy across global e-commerce and POS networks." },
-        { title: "Public Sector Tech", desc: "Scalable, secure, and compliant infrastructure built to maintain the highest levels of Canadian data sovereignty." },
-        { title: "Financial Hubs", desc: "Automated reconciliation and Zero-Trust reporting layers for mission-critical financial operations." }
-      ]
+      cta_title: "Ready to de-risk your growth?",
+      cta_text: "Connect with a senior architect for a high-fidelity diagnostic of your current infrastructure.",
+      cta_btn: "Start Technical Discovery"
     },
     caseStudies: {
-      hero_title: "Measurable Impact.",
-      hero_subtitle: "Empirical proof of digital transformation delivering industrial-grade ROI for the Canadian market.",
       cases: [
-        { 
-          title: "Supply Chain Sync", 
-          summary: "Automating 30,000 monthly movements across 5 regional hubs using Odoo 18.", 
-          problem: "Fragmentation causing 15% inventory variance and critical replenishment latency.",
-          solution: "Orchestrated Odoo 18 multi-warehouse logic with predictive Agentic AI replenishment bots.",
-          impact: "40% Operational Velocity Gain",
-          quote: "Oakivo didn't just install a system; they provided the lens through which we view our future.", 
-          author: "J. Miller, Ops Director"
-        },
-        { 
-          title: "Institutional Cyber Defense", 
-          summary: "Zero-Trust identity management for a high-frequency Canadian finance firm.", 
-          problem: "Legacy firewalls were unable to prevent sophisticated lateral movement threats.",
-          solution: "Total deployment of a Zero-Trust identity mesh and SOC2-compliant data isolation.",
-          impact: "100% Breach Prevention",
-          quote: "Technical security that finally matches our organizational risk profile.", 
-          author: "S. Chen, CTO"
-        },
-        { 
-          title: "Retail Logic Engine", 
-          summary: "AI-driven demand forecasting and automated retail fulfillment orchestration.", 
-          problem: "Manual procurement cycles resulting in stockouts and lost revenue opportunities.",
-          solution: "Integration of Agentic AI logic with Odoo purchasing to automate the vendor sync loop.",
-          impact: "25% YoY Revenue Growth",
-          quote: "The system thinks, acts, and optimizes while we focus on brand strategy.", 
-          author: "L. Thompson, VP Retail"
-        }
+        { id: 1, title: "Atlantic Hub Modernization", impact: "42% Yield Increase", quote: "Oakivo redesigned our entire operational logic in under 90 days.", author: "Director of Operations", problem: "Fragmented legacy data silos.", solution: "Odoo 19 Sovereign Implementation." },
+        { id: 2, title: "FinTech Compliance Audit", impact: "100% Audit Readiness", quote: "Zero-Trust is now the foundation of our client trust model.", author: "CTO, FinTrust", problem: "SOC2 compliance gaps.", solution: "Cyber-Resilience Hardening." }
       ]
     },
-    contact: {
-      form_title: "Technical Inquiry",
-      label_name: "Full Name",
-      label_email: "Corporate Email",
-      label_company: "Organization",
-      label_message: "Operational Overview",
-      hq_title: "Engineering Headquarters",
-      success_title: "Intake Verified",
-      success_message: "Your inquiry has been logged in the Oakivo Vault. An architect will respond within one business day."
-    },
-    careers: {
-      hero_title: "Join the Architects.",
-      hero_subtitle: "Help build the autonomous engine for Canada's leading organizations. Remote-first, technical-first.",
-      values: [
-        { title: "Technical Sovereignty", desc: "We believe in the power of local engineering to solve complex global problems." },
-        { title: "High-Fidelity Work", desc: "We value deep work, clean architecture, and measurable client results." },
-        { title: "Adaptive Remote Culture", desc: "Work from anywhere in Canada with the best tools and asynchronous freedom." },
-        { title: "Continuous Research", desc: "Stay at the absolute edge of Odoo 18, Agentic AI, and Cyber Resilience." }
-      ],
-      apply_title: "Spontaneous Intake",
-      apply_text: "Don't see a matching blueprint? Transmit your technical profile for future orchestration.",
-      apply_btn: "Transmit Profile",
-      email_link: "careers@oakivo.com"
+    about: {
+      hero_title: "Architecting the infrastructure of tomorrow.",
+      hero_subtitle: "A boutique engineering firm focused on the high-fidelity orchestration of enterprise systems.",
+      standard_title: "The Oakivo Standard",
+      standard_p1: "We believe that software should be an asset, not a constraint. Our mission is to provide the 'Sovereign Operating System' for Canadian industry.",
+      standard_p2: "Control the data, control the logic, control the future.",
+      standard_p3: "Through deep expertise in Odoo 19 and Agentic AI, we deliver systems that are both resilient and autonomous.",
+      leadership_title: "The Architects",
+      team: [
+        { name: "Ahmed Bello", role: "Principal Architect", bio: "Over 15 years of systems engineering. Specialist in ERP orchestration and AI-logic fusion.", credentials: "MEng, PMP", linkedin: "#" },
+        { name: "Sarah Chen", role: "AI Systems Lead", bio: "Leading researcher in autonomous reasoning agents and neural orchestration.", credentials: "PhD Artificial Intelligence", linkedin: "#" },
+        { name: "Jean-Pierre Tremblay", role: "Cybersecurity Director", bio: "Specialist in PIPEDA compliance and Zero-Trust industrial hardening.", credentials: "CISSP, CISM", linkedin: "#" }
+      ]
     },
     blog: {
-      hero_title: "Intelligence Vault",
-      hero_subtitle: "Deep-dive analysis on the orchestration of AI, ERP, and Cybersecurity in Canada.",
+      hero_title: "Intel Vault.",
+      hero_subtitle: "Strategic analysis on Odoo 19, Agentic AI, and Cybersecurity for the Canadian market.",
       posts: [
-        { 
-          id: 1, 
-          date: "Jan 15, 2026", 
-          title: "The Agentic Shift in Odoo 18", 
-          category: "AI Strategy", 
-          author: "Ahmed Bello",
-          videoUrl: "https://www.youtube.com/embed/N6j6x0qJbYk", 
-          excerpt: "Moving beyond passive ERPs: How Agentic AI in Odoo 18 is automating the mid-market decision loop.", 
-          keyTakeawaysSummary: "Odoo 18 is transitioning from a record-keeping system to an active decision engine. By leveraging Agentic AI, organizations can automate complex reconciliation and fulfillment tasks that previously required human oversight, effectively de-coupling labor from operational scale.",
-          sections: {
-            introduction: "Odoo 18 represents the first true 'Thinking ERP'. By integrating agentic logic, we are removing human latency from core business processes.",
-            takeaways: [
-              "Agentic AI acts as an autonomous worker, not just an assistant.",
-              "Native Odoo 18 AI tools drastically reduce administrative overhead.",
-              "Strategic orchestration is the differentiator between automation and noise."
-            ],
-            discussion: "Oakivo focuses on the logic-layer of ERP. We ensure your AI doesn't just read data, but acts on it to drive tangible operational resilience.",
-            conclusion: "The enterprise of 2026 will be defined by its ability to de-couple human labor from data processing."
-          }
-        },
-        { 
-          id: 2, 
-          date: "Feb 02, 2026", 
-          title: "Industrial Zero-Trust Protocols", 
-          category: "Resilience", 
-          author: "Sarah Jenkins",
-          videoUrl: "https://www.youtube.com/embed/fD_hV6GzK1Y", 
-          excerpt: "Why the perimeter is dead: Building a Zero-Trust identity mesh for the Canadian industrial sector.", 
-          keyTakeawaysSummary: "Modern industrial security requires moving beyond firewalls. A Zero-Trust identity mesh ensures that every interaction within your ERP and automation stack is verified, significantly reducing the risk of lateral movement attacks and ensuring 100% data sovereignty.",
-          sections: {
-            introduction: "Perimeter security is obsolete. In a world of distributed assets, identity is the only reliable security boundary.",
-            takeaways: [
-              "Micro-segmentation is the cure for lateral movement attacks.",
-              "Continuous authentication ensures persistent system integrity.",
-              "Compliance is a byproduct of good engineering, not a target."
-            ],
-            discussion: "We implement Zero-Trust as a native feature of every Odoo deployment, protecting your most sensitive intellectual assets.",
-            conclusion: "True resilience is measured by how quickly you can recover, not just how hard you are to hit."
-          }
-        }
+        { id: 1, title: "The Odoo 19 Sovereign Shift", excerpt: "Why local data residency is the new industrial standard for Canadian SMEs.", category: "ERP Strategy", author: "Ahmed Bello", date: "Jan 12, 2026", keyTakeawaysSummary: "Localized nodes outperform global clouds in compliance.", sections: { introduction: "The shift to sovereign data is accelerating.", discussion: "Global clouds often fail local residency requirements.", conclusion: "Localized Odoo is the future.", takeaways: ["Local Hosting", "CRA Logic"] } },
+        { id: 2, title: "Agentic AI in Logistics", excerpt: "How autonomous reasoning is reducing supply chain latency by 30%.", category: "AI Automation", author: "Sarah Chen", date: "Feb 04, 2026", keyTakeawaysSummary: "Reasoning engines reduce human-in-the-loop bottlenecks.", sections: { introduction: "AI is moving from chatbots to agents.", discussion: "Agents negotiate supply chain shifts in real-time.", conclusion: "Start your journey with logic cores.", takeaways: ["Latency reduction", "Decision automation"] } }
       ]
     },
-    footer: {
-      tagline_1: "Orchestrating AI.", 
-      tagline_2: "Building Futures.",
-      ai_prop_title: "The AI Orchestration Advantage",
-      ai_prop_text: "Oakivo orchestrates agentic intelligence into the core of your Odoo ERP, turning manual workflows into autonomous profit engines. We de-couple technical debt from your growth trajectory.",
-      ai_pillar_1: "Autonomous Logic",
-      ai_pillar_2: "Zero-Trust Security",
-      ai_pillar_3: "Operational ROI",
-      newsletter_text: "Technical intelligence briefings on AI and ERP.",
-      newsletter_placeholder: "Corporate Email Address",
-      newsletter_btn: "Transmit",
-      col_capabilities: "Solutions Matrix", 
-      col_company: "Oakivo Hub", 
-      col_global: "Regional Presence",
-      privacy: "Privacy Protocol", 
-      terms: "Terms of Service", 
-      back_to_top: "Top",
-      hq_location: "Moncton-Dieppe, NB",
-      hq_label: "Atlantic Hub"
+    careers: {
+      hero_title: "Join the Orchestration.",
+      hero_subtitle: "We are looking for architects, orchestrators, and visionaries.",
+      values: [
+        { title: "Sovereignty", desc: "Local data residency and local impact." },
+        { title: "Fidélité", desc: "High-precision engineering without compromise." },
+        { title: "Resilience", desc: "Systems built to withstand the unexpected." },
+        { title: "Innovation", desc: "Pioneering the Agentic AI future." }
+      ],
+      apply_title: "Technical Intake",
+      apply_text: "Are you ready to architect the future of Canadian industry?",
+      apply_btn: "Submit Profile",
+      email_link: "careers@oakivo.com"
+    },
+    contact: {
+      success_title: "Intake Successfully Transmitted.",
+      success_message: "An architect will review your diagnostic profile and respond within 24 hours.",
+      form_title: "Initiate Discovery",
+      label_name: "Principal Name",
+      label_email: "Corporate Email (Secure)",
+      label_q1: "Main operational bottleneck?",
+      label_q2: "Required compliance timeline?",
+      label_q3: "Estimated orchestration budget?",
+      placeholder_q1: "e.g. Fragmentation between WMS and Accounting...",
+      placeholder_q2: "e.g. Immediate, Q3 2026, or Discovery Phase",
+      placeholder_q3: "e.g. $50k-$100k, $250k+, or Enterprise",
+      submit_btn: "Transmit Intelligence Profile"
+    },
+    booking: {
+      hero_title: "Architectural Session.",
+      hero_subtitle: "Book a direct 45-minute discovery consultation with a principal architect.",
+      success_title: "Session Confirmed.",
+      success_message: "A secure meeting invite with calendar credentials has been dispatched to your corporate inbox."
     }
   },
   fr: {
     nav: { 
       home: 'Accueil', 
-      verticals: 'Secteurs', 
+      verticals: 'Industries', 
       services: 'Expertise', 
       work: 'Impact', 
       about: 'Architecture', 
-      contact: "Initier l'Audit", 
-      careers: "Carrières" 
+      contact: "Intake Technique", 
+      careers: "Carrières",
+      booking: "Planifier",
+      compliance: "Conformité"
     },
     common: {
-      cta_audit: "Initier l'audit systémique",
-      cta_blueprint: "Demander le plan stratégique",
-      cta_meet: "Rencontrez les architectes",
-      cta_orchestrate: "Orchestrer la croissance"
+      cta_audit: "Intake Technique",
+      cta_blueprint: "Demander le Schéma",
+      cta_meet: "Rencontrer les Architectes",
+      cta_orchestrate: "Commencer l'Audit",
+      cta_mobile_sticky: "Démarrer l'Intake",
+      cta_schedule: "Planifier la Découverte"
+    },
+    magnets: {
+      erp: {
+        title: "Fiche de Résilience Odoo 19",
+        desc: "Votre infrastructure est-elle prête pour le virage souverain Odoo 19 ? Auditez vos écarts dès aujourd'hui.",
+        btn: "Accéder à la Fiche"
+      },
+      cyber: {
+        title: "Guide de Renforcement Zero-Trust",
+        desc: "Feuille de route spécifique LPRPDE pour sécuriser les actifs industriels canadiens contre les mouvements latéraux.",
+        btn: "Obtenir la Feuille de Route"
+      },
+      ai: {
+        title: "Économie de l'IA Agentique",
+        desc: "Calculez le ROI des moteurs de raisonnement autonomes dans les flux de fabrication industrielle.",
+        btn: "Télécharger la Fiche de Score"
+      },
+      modern: {
+        title: "Audit de la Dette Technique",
+        desc: "Quantifiez le coût de la dette technique par rapport au ROI d'une migration cloud souveraine.",
+        btn: "Initier l'Audit"
+      }
     },
     home: {
-      hero_label: "Ingénierie de la Résilience Industrielle",
-      hero_title_main: "Orchestrer le",
-      hero_title_italic: "futur",
-      hero_title_end: "numérique.",
-      hero_subtitle: "Oakivo Solutions Inc. orchestre des écosystèmes Odoo 18 critiques et des moteurs de raisonnement d'IA agente pour libérer la croissance canadienne.",
+      hero_label: "Ingénierie de Systèmes Industriels",
+      hero_title_main: "Architecture de",
+      hero_title_italic: "noyaux",
+      hero_title_end: "numériques résilients.",
+      hero_subtitle: "Oakivo Solutions Inc. orchestre la complexité d'Odoo 19 et de l'IA Agentique. Nous sécurisons la croissance industrielle canadienne par la transformation numérique souveraine Zero-Trust.",
+      cta_primary: "Initialiser la Découverte Technique",
+      cta_secondary: "Explorer la Logique Sectorielle",
+      trust_badges: {
+        odoo: "Partenaire d'Implémentation Officiel Odoo 19",
+        sovereignty: "Souveraineté LPRPDE / SOC2",
+        accounting: "Logique Conforme à l'ARC",
+        expert: "Architecture Dirigée par des Principaux",
+        location: "Dieppe • Toronto • Montréal"
+      },
+      matrix_title: "La Matrice d'Ingénierie",
+      matrix_subtitle: "Logique opérationnelle validée pour la fabrication, la logistique et les services professionnels à haut risque.",
     },
     verticals: {
+      hero_title: "Logique Sectorielle Spécifique.",
+      hero_subtitle: "Cadres numériques haute fidélité conçus pour les contraintes structurelles uniques de l'industrie canadienne.",
       cards: [
-        { title: "Manufacture 4.0", desc: "Suivi OEE prédictif et réapprovisionnement industriel automatisé intégré directement dans la logique de l'équipement." },
-        { title: "Logistique Intelligente", desc: "Orchestration multi-entrepôts utilisant l'IA agente pour l'optimisation des itinéraires." }
+        { title: "Fabrication", desc: "Threads numériques pour l'atelier.", impact: "Suivi TRS en temps réel, intégration PLM et comptabilité de gestion conforme à l'ARC." },
+        { title: "Logistique & Chaîne d'Approvisionnement", desc: "Orchestration globale.", impact: "Logique douanière automatisée, synchronisation multi-entrepôts et suivi souverain." },
+        { title: "Services Professionnels", desc: "Fidélité opérationnelle pour PME.", impact: "Automatique comptable par projet, planification des capacités et alignement SOC2." },
+        { title: "Finance & Fintech", desc: "Protocole de données souveraines.", impact: "Résidence Zero-Trust pour les données financières sensibles et pistes d'audit." },
+        { title: "Énergie & Infrastructure", desc: "Gestion d'actifs résiliente.", impact: "Maintenance préventive IoT et matrices d'équilibrage prédictif des charges." },
+        { title: "Secteur Public & Santé", desc: "Maturité numérique civique.", impact: "Nœuds de service échelons avec respect strict de la LPRPDE et hébergement souverain." }
       ]
     },
-    contact: {
-      form_title: "Enquête Technique",
-      label_name: "Nom Complet",
-      label_email: "E-mail Professionnel",
-      label_company: "Organisation",
-      label_message: "Aperçu Opérationnel",
-      hq_title: "Siège de l'Ingénierie",
-      success_title: "Demande Vérifiée",
-      success_message: "Votre demande a été enregistrée. Un architecte vous répondra sous un jour ouvrable."
+    services: {
+      hero_label: "Piliers Techniques",
+      hero_title: "Comment nous accélérons <br/> la vélocité industrielle.",
+      list: [
+        { title: "Orchestration d'IA Agentique", desc: "Moteurs de raisonnement autonomes opérant dans votre périmètre de sécurité local.", insight: "L'IA industrielle exige une inférence locale à très faible latence.", magnet: "ai" },
+        { title: "Implémentation Odoo 19", desc: "Orchestration complète d'Odoo 19. Migration de la dette technique vers un noyau unifié conforme ARC.", insight: "Un ERP n'est pas un logiciel; c'est votre logique d'affaires.", magnet: "erp" },
+        { title: "Cyber-Résilience & LPRPDE", desc: "Renforcement du périmètre Zero-Trust et stratégies de résidence des données canadiennes.", insight: "La conformité est le minimum, la résilience est l'objectif.", magnet: "cyber" },
+        { title: "Modernisation Industrielle", desc: "Transition sécurisée des silos hérités vers une architecture cloud souveraine et évolutive.", insight: "La vitesse est un sous-produit de la simplicité structurelle.", magnet: "modern" }
+      ],
+      cta_title: "Prêt à sécuriser votre croissance ?",
+      cta_text: "Échangez avec un architecte principal pour un diagnostic haute fidélité de votre infrastructure.",
+      cta_btn: "Lancer la Découverte Technique"
     },
-    careers: {
-      hero_title: "Rejoignez les Architectes.",
-      hero_subtitle: "Aidez à bâtir le moteur autonome des plus grandes organisations du Canada.",
-      values: [],
-      apply_title: "Candidature Spontanée",
-      apply_text: "Transmettez votre profil technique pour une future orchestration.",
-      apply_btn: "Transmettre le Profil",
-      email_link: "careers@oakivo.com"
+    caseStudies: {
+      cases: [
+        { id: 1, title: "Modernisation du Hub Atlantique", impact: "+42% de Rendement", quote: "Oakivo a repensé notre logique opérationnelle en moins de 90 jours.", author: "Directeur des Opérations", problem: "Silos de données hérités et fragmentés.", solution: "Implémentation Souveraine d'Odoo 19." },
+        { id: 2, title: "Audit de Conformité FinTech", impact: "Prêt à 100% pour l'Audit", quote: "Zero-Trust est désormais le socle de notre modèle de confiance client.", author: "CTO, FinTrust", problem: "Écarts de conformité SOC2.", solution: "Renforcement de Cyber-Résilience." }
+      ]
+    },
+    about: {
+      hero_title: "Concevoir l'infrastructure de demain.",
+      hero_subtitle: "Cabinet d'ingénierie spécialisé dans l'orchestration haute fidélité de systèmes d'entreprise.",
+      standard_title: "Le Standard Oakivo",
+      standard_p1: "Nous croyons que le logiciel doit être un actif, pas une contrainte. Notre mission est de fournir le 'Système d'Exploitation Souverain' pour l'industrie canadienne.",
+      standard_p2: "Contrôlez les données, contrôlez la logique, maîtrisez l'avenir.",
+      standard_p3: "Grâce à notre expertise en Odoo 19 et IA Agentique, nous livrons des systèmes à la fois résilients et autonomes.",
+      leadership_title: "Les Architectes",
+      team: [
+        { name: "Ahmed Bello", role: "Architecte Principal", bio: "Plus de 15 ans d'ingénierie système. Spécialiste de l'orchestration ERP et de la fusion IA-Logique.", credentials: "M.Ing., PMP", linkedin: "#" },
+        { name: "Sarah Chen", role: "Responsable Systèmes IA", bio: "Chercheuse de pointe en agents autonomes de raisonnement et orchestration neurale.", credentials: "Ph.D. Intelligence Artificielle", linkedin: "#" },
+        { name: "Jean-Pierre Tremblay", role: "Directeur Cybersécurité", bio: "Spécialiste de la conformité LPRPDE / Loi 25 et du renforcement industriel Zero-Trust.", credentials: "CISSP, CISM", linkedin: "#" }
+      ]
     },
     blog: {
-      hero_title: "Intelligence Vault",
-      hero_subtitle: "Analyse approfondie sur l'orchestration de l'IA, de l'ERP et de la cybersécurité au Canada.",
+      hero_title: "Vault d'Intelligence.",
+      hero_subtitle: "Analyses stratégiques sur Odoo 19, l'IA Agentique et la cybersécurité pour le marché canadien.",
       posts: [
-        { 
-          id: 1, 
-          date: "15 janv. 2026", 
-          title: "Le virage agentique d'Odoo 18", 
-          category: "Stratégie IA", 
-          author: "Ahmed Bello",
-          videoUrl: "https://www.youtube.com/embed/N6j6x0qJbYk", 
-          excerpt: "Au-delà des ERP passifs : comment l'IA agente d'Odoo 18 automatise la boucle de décision du marché intermédiaire.", 
-          keyTakeawaysSummary: "Odoo 18 passe d'un système d'enregistrement à un moteur de décision actif. En tirant parti de l'IA agente, les organisations peuvent automatiser des tâches complexes de rapprochement et d'exécution, découplant efficacement le travail de l'échelle opérationnelle.",
-          sections: {
-            introduction: "Odoo 18 représente le premier véritable 'ERP pensant'.",
-            takeaways: [
-              "L'IA agente agit comme un travailleur autonome.",
-              "Les outils d'IA natifs réduisent considérablement les frais administratifs.",
-              "L'orchestration stratégique est le différenciateur."
-            ],
-            discussion: "Oakivo se concentre sur la couche logique de l'ERP.",
-            conclusion: "L'entreprise de 2026 sera définie par sa capacité à découpler le travail humain."
-          }
-        },
-        { 
-          id: 2, 
-          date: "02 fév. 2026", 
-          title: "Protocoles industriels Zero-Trust", 
-          category: "Résilience", 
-          author: "Sarah Jenkins",
-          videoUrl: "https://www.youtube.com/embed/fD_hV6GzK1Y", 
-          excerpt: "Pourquoi le périmètre est mort : Bâtir un maillage d'identité Zero-Trust pour le secteur industriel canadien.", 
-          keyTakeawaysSummary: "La sécurité industrielle moderne exige d'aller au-delà des pare-feu. Un maillage d'identité Zero-Trust garantit que chaque interaction est vérifiée, réduisant ainsi les risques d'attaques latérales.",
-          sections: {
-            introduction: "La sécurité périmétrale est obsolète.",
-            takeaways: [
-              "La micro-segmentation est le remède.",
-              "L'authentification continue assure l'intégrité.",
-              "La conformité est un sous-produit de l'ingénierie."
-            ],
-            discussion: "Nous implémentons Zero-Trust comme une fonctionnalité native.",
-            conclusion: "La véritable résilience se mesure par la rapidité de récupération."
-          }
-        }
+        { id: 1, title: "Le Virage Souverain Odoo 19", excerpt: "Pourquoi la résidence locale des données est la nouvelle norme industrielle pour les PME canadiennes.", category: "Stratégie ERP", author: "Ahmed Bello", date: "12 Jan 2026", keyTakeawaysSummary: "Les nœuds localisés surpassent les clouds mondiaux en conformité.", sections: { introduction: "Le virage vers les données souveraines s'accélère.", discussion: "Les clouds mondiaux manquent souvent les exigences locales de résidence.", conclusion: "L'Odoo localisé est l'avenir.", takeaways: ["Hébergement Local", "Logique ARC"] } },
+        { id: 2, title: "L'IA Agentique en Logistique", excerpt: "Comment le raisonnement autonome réduit la latence de la chaîne d'approvisionnement de 30%.", category: "Automation IA", author: "Sarah Chen", date: "04 Fév 2026", keyTakeawaysSummary: "Les moteurs de raisonnement réduisent les goulots d'étranglement humains.", sections: { introduction: "L'IA passe des chatbots aux agents.", discussion: "Les agents négocient les changements de chaîne en temps réel.", conclusion: "Commencez votre parcours avec des noyaux de logique.", takeaways: ["Réduction de latence", "Automation des décisions"] } }
       ]
     },
-    footer: {
-      tagline_1: "Orchestrer l'IA.", 
-      tagline_2: "Bâtir l'avenir.",
-      ai_prop_title: "L'avantage de l'orchestration IA",
-      ai_prop_text: "Oakivo orchestre l'intelligence agente au cœur de votre ERP Odoo, transformant les flux de travail manuels en moteurs de profit autonomes.",
-      ai_pillar_1: "Logique autonome",
-      ai_pillar_2: "Sécurité Zero-Trust",
-      ai_pillar_3: "ROI Opérationnel",
-      newsletter_text: "Bulletins d'intelligence technique sur l'IA et l'ERP.",
-      newsletter_placeholder: "Adresse e-mail de l'entreprise",
-      newsletter_btn: "Transmettre",
-      col_capabilities: "Solutions", 
-      col_company: "Oakivo Hub", 
-      col_global: "Présence régionale",
-      privacy: "Protocole de confidentialité", 
-      terms: "Conditions d'utilisation", 
-      back_to_top: "Haut",
-      hq_location: "Moncton-Dieppe, NB",
-      hq_label: "Atlantic Hub"
+    careers: {
+      hero_title: "Rejoignez l'Orchestration.",
+      hero_subtitle: "Nous recherchons des architectes, orchestrateurs et visionnaires.",
+      values: [
+        { title: "Souveraineté", desc: "Résidence des données et impact local." },
+        { title: "Fidélité", desc: "Ingénierie haute précision sans compromis." },
+        { title: "Résilience", desc: "Des systèmes conçus pour résister à l'imprévu." },
+        { title: "Innovation", desc: "Pionniers de l'avenir de l'IA Agentique." }
+      ],
+      apply_title: "Intake Technique",
+      apply_text: "Êtes-vous prêt à concevoir l'avenir de l'industrie canadienne ?",
+      apply_btn: "Soumettre Profil",
+      email_link: "careers@oakivo.com"
+    },
+    contact: {
+      success_title: "Intake Transmis avec Succès.",
+      success_message: "Un architecte examinera votre profil diagnostic et répondra sous 24h.",
+      form_title: "Initier la Découverte",
+      label_name: "Nom du Dirigeant",
+      label_email: "Courriel d'Entreprise (Sécurisé)",
+      label_q1: "Goulot d'étranglement opérationnel principal ?",
+      label_q2: "Échéancier de conformité requis ?",
+      label_q3: "Budget d'orchestration estimé ?",
+      placeholder_q1: "ex. Fragmentation entre WMS et Comptabilité...",
+      placeholder_q2: "ex. Immédiat, T3 2026, ou Phase de Découverte",
+      placeholder_q3: "ex. 50k$-100k$, 250k$+ ou Enterprise",
+      submit_btn: "Transmettre le Profil d'Intelligence"
+    },
+    booking: {
+      hero_title: "Session d'Architecture.",
+      hero_subtitle: "Réservez une consultation directe de 45 minutes avec un architecte principal.",
+      success_title: "Session Confirmée.",
+      success_message: "Une invitation sécurisée avec calendrier a été transmise à votre boîte professionnelle."
     }
   }
 };
@@ -356,12 +314,26 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   const t = (key: string): string => {
     const keys = key.split('.');
-    let value = translations[language];
+    let current: any = translations[language];
+
     for (const k of keys) {
-      if (value === undefined) return key;
-      value = value[k];
+      if (current && current[k] !== undefined) {
+        current = current[k];
+      } else {
+        // Fallback to English if missing
+        let fallback: any = translations['en'];
+        for (const fk of keys) {
+          if (fallback && fallback[fk] !== undefined) {
+            fallback = fallback[fk];
+          } else {
+            return key;
+          }
+        }
+        return typeof fallback === 'string' ? fallback : key;
+      }
     }
-    return value as unknown as string;
+
+    return typeof current === 'string' ? current : key;
   };
 
   return (
@@ -373,7 +345,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;

@@ -1,286 +1,135 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  Linkedin, Twitter, Github, ArrowUp, 
-  ArrowRight, Check, Loader2, Globe, Shield, 
-  Send, Copyright, ShieldCheck, Zap, Activity,
-  Database, Cpu, Network, Terminal, Sparkles,
-  Command, Box, Clock, ShieldAlert, CpuChip
-} from 'lucide-react';
-import { NavRoute } from '../types';
+import React, { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { ShieldCheck, MapPin, Mail, Phone, Lock, Sparkles, ArrowRight, Heart } from 'lucide-react';
 import Logo from './Logo';
+import { NavRoute } from '../types';
 import { useLanguage } from '../context/LanguageContext';
-import { db } from '../utils/database';
+import LeadDrawer from './LeadDrawer';
 
 const Footer: React.FC = () => {
-  const { t, language, setLanguage } = useLanguage();
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  
-  // Real-time dynamic states
-  const [uptime, setUptime] = useState(99.9982);
-  const [activeNodes, setActiveNodes] = useState(1482);
-  const [hqTime, setHqTime] = useState(new Date());
-  const [logIndex, setLogIndex] = useState(0);
-
-  const logs = useMemo(() => [
-    "LOGIC: RE-ARCHITECTING SUPPLY CHAIN...",
-    "AI: OPTIMIZING AGENTIC REASONING...",
-    "SEC: ZERO-TRUST IDENTITY SYNC...",
-    "ERP: ORCHESTRATING ODOO 18 NODES...",
-    "SYS: LATENCY OPTIMIZED TO 4.2ms...",
-    "DATA: SOVEREIGN RESIDENCY VERIFIED..."
-  ], []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setUptime(prev => Math.min(99.9999, Math.max(99.9970, prev + (Math.random() - 0.5) * 0.0001)));
-      setActiveNodes(prev => prev + (Math.random() > 0.5 ? 1 : -1));
-      setHqTime(new Date());
-      setLogIndex(prev => (prev + 1) % logs.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [logs]);
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.includes('@')) { setStatus('error'); setTimeout(() => setStatus('idle'), 3000); return; }
-    setStatus('submitting');
-    db.saveEntry('subscriber', { email });
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setStatus('success');
-    setEmail('');
-    setTimeout(() => setStatus('idle'), 5000);
-  };
-
-  const directory = {
-    orchestration: [
-      { label: t('nav.services'), path: NavRoute.SERVICES },
-      { label: t('nav.verticals'), path: NavRoute.VERTICALS },
-      { label: t('nav.work'), path: NavRoute.CASE_STUDIES },
-    ],
-    architecture: [
-      { label: t('nav.about'), path: NavRoute.ABOUT },
-      { label: t('nav.careers'), path: NavRoute.CAREERS },
-      { label: 'Admin Portal', path: NavRoute.ADMIN_PORTAL },
-    ],
-    intelligence: [
-      { label: t('nav.blog'), path: NavRoute.BLOG },
-      { label: 'Privacy Protocol', path: NavRoute.PRIVACY },
-      { label: 'Security Matrix', path: NavRoute.COMPLIANCE },
-    ]
-  };
+  const { language, t } = useLanguage();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <footer className="bg-[#020504] text-white font-sans pt-32 pb-12 relative overflow-hidden selection:bg-oakivo-secondary selection:text-black border-t border-white/5">
-      {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-oakivo-primary/20 rounded-full blur-[180px] -mr-80 -mt-80 pointer-events-none opacity-50"></div>
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-      
-      <div className="container mx-auto px-6 relative z-10">
+    <footer className="bg-[#070A0F] text-white border-t border-white/10 relative overflow-hidden pt-20 pb-12">
+      {/* Glow Orbs */}
+      <div className="absolute top-0 left-1/3 w-96 h-96 bg-oakivo-secondary/5 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         
-        {/* Tier 1: Brand Power & Value Proposition */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-32">
-          <div className="lg:col-span-8">
-            <Logo className="h-14 mb-16" light={true} />
-            <h2 className="text-4xl md:text-7xl lg:text-8xl font-serif-display font-bold leading-[0.9] tracking-tighter mb-16">
-              The high-fidelity <span className="text-oakivo-secondary italic font-light">Operating System</span> for Industrial Growth.
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <div className="space-y-6 group">
-                <div className="w-12 h-12 rounded-xl bg-oakivo-secondary/10 flex items-center justify-center text-oakivo-secondary group-hover:bg-oakivo-secondary group-hover:text-black transition-all">
-                   <Database size={24} />
-                </div>
-                <h3 className="text-xl font-bold tracking-tight">Digital Transformation</h3>
-                <p className="text-gray-500 font-light leading-relaxed">
-                  Decoupling legacy debt with surgical Odoo 18 orchestration tailored for Canada's industrial complexity.
-                </p>
-              </div>
-              <div className="space-y-6 group">
-                <div className="w-12 h-12 rounded-xl bg-oakivo-secondary/10 flex items-center justify-center text-oakivo-secondary group-hover:bg-oakivo-secondary group-hover:text-black transition-all">
-                   <Cpu size={24} />
-                </div>
-                <h3 className="text-xl font-bold tracking-tight">AI Automation</h3>
-                <p className="text-gray-500 font-light leading-relaxed">
-                  Architecting Agentic reasoning engines that proactively manage supply chains and operational logistics.
-                </p>
-              </div>
-              <div className="space-y-6 group">
-                <div className="w-12 h-12 rounded-xl bg-oakivo-secondary/10 flex items-center justify-center text-oakivo-secondary group-hover:bg-oakivo-secondary group-hover:text-black transition-all">
-                   <ShieldCheck size={24} />
-                </div>
-                <h3 className="text-xl font-bold tracking-tight">Industrial Resilience</h3>
-                <p className="text-gray-500 font-light leading-relaxed">
-                  Zero-Trust architecture and native Canadian data sovereignty to safeguard institutional intelligence.
-                </p>
-              </div>
+        {/* Top Callout Card */}
+        <div className="max-w-7xl mx-auto linear-card rounded-2xl md:rounded-3xl p-8 md:p-12 border border-white/[0.08] mb-16 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          <div className="space-y-2.5 max-w-xl">
+            <span className="text-[10px] font-mono-tech text-oakivo-linearIndigo font-medium uppercase tracking-wider">
+              Executive Readiness Protocol
+            </span>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-linear-heading">
+              Ready to de-risk your operational core?
+            </h3>
+            <p className="text-xs md:text-sm text-[#8A8F98] font-normal">
+              Connect with a senior architect for a high-fidelity diagnostic of your current infrastructure, Odoo 19 readiness, and PIPEDA data residency.
+            </p>
+          </div>
+
+          <button
+            onClick={() => setIsDrawerOpen(true)}
+            className="px-6 py-3.5 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-105 transition-all flex items-center gap-2 whitespace-nowrap"
+          >
+            <Sparkles size={15} /> Start Technical Intake
+          </button>
+        </div>
+
+        {/* Main Footer Links Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10 max-w-7xl mx-auto">
+          
+          {/* Col 1: Brand & Sovereignty */}
+          <div className="lg:col-span-2 space-y-6">
+            <Logo light={true} />
+            <p className="text-xs text-gray-400 font-light leading-relaxed max-w-sm">
+              Oakivo Solutions Inc. is Canada's premier Odoo 19 Implementation Partner and Agentic AI consultancy. We architect industrial digital cores, ERP resilience, and sovereign cybersecurity.
+            </p>
+
+            <div className="p-4 bg-white/5 rounded-2xl border border-white/5 space-y-2 max-w-sm">
+              <span className="text-[10px] font-mono-tech text-oakivo-accent font-bold uppercase tracking-widest flex items-center gap-1.5">
+                <ShieldCheck size={14} /> Sovereign Data Security
+              </span>
+              <p className="text-[11px] text-gray-400">
+                100% Canadian data residency in Montreal & Toronto data hubs. PIPEDA, Quebec Law 25, and SOC2 Type II compliance guaranteed.
+              </p>
             </div>
           </div>
 
-          <div className="lg:col-span-4">
-             <div className="bg-white/5 border border-white/10 rounded-[56px] p-12 backdrop-blur-3xl relative overflow-hidden h-full flex flex-col justify-between">
-                <div className="absolute top-0 right-0 p-10 opacity-[0.03] text-oakivo-secondary">
-                   <Zap size={180} />
-                </div>
-                <div>
-                  <div className="inline-flex items-center gap-3 bg-oakivo-secondary/10 text-oakivo-secondary px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-10 border border-oakivo-secondary/20">
-                    <Sparkles size={14} /> Strategic Intake
-                  </div>
-                  <h4 className="text-3xl font-serif-display font-bold mb-8">Ready to orchestrate <br/> your future?</h4>
-                  <p className="text-gray-400 font-light mb-10">Connect with an architect for a systemic audit of your digital infrastructure.</p>
-                  
-                  <form onSubmit={handleSubscribe} className="space-y-4">
-                    <div className="relative group">
-                      <input 
-                        type="email" 
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Corporate Email Address"
-                        className={`w-full bg-black border border-white/10 rounded-2xl py-6 pl-8 pr-16 text-sm text-white focus:outline-none focus:border-oakivo-secondary transition-all ${status === 'error' ? 'border-red-500' : ''}`}
-                      />
-                      <button 
-                        type="submit" 
-                        disabled={status !== 'idle'}
-                        className="absolute right-2 top-2 bottom-2 w-12 bg-white text-black rounded-xl flex items-center justify-center hover:bg-oakivo-secondary transition-all"
-                      >
-                         {status === 'submitting' ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-                      </button>
-                    </div>
-                  </form>
-                </div>
-                <div className="mt-12 pt-12 border-t border-white/5">
-                   <div className="flex items-center gap-4 text-gray-500">
-                      <Shield size={16} className="text-oakivo-secondary" />
-                      <span className="text-[10px] font-black uppercase tracking-widest">ISO 27001 Aligned Framework</span>
-                   </div>
-                </div>
-             </div>
-          </div>
-        </div>
-
-        {/* Tier 2: The Command Center (Interactive Telemetry & Navigation) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-32 pt-24 border-t border-white/5">
-          
-          <div className="lg:col-span-3">
-             <h5 className="text-[11px] font-black uppercase tracking-[0.5em] text-white/30 mb-12 flex items-center gap-3">
-               <Database size={14} /> Orchestration
-             </h5>
-             <ul className="space-y-6">
-                {directory.orchestration.map((l, i) => (
-                  <li key={i}><Link to={l.path} className="text-gray-400 hover:text-oakivo-secondary transition-all text-xl font-light">{l.label}</Link></li>
-                ))}
-             </ul>
+          {/* Col 2: Navigation */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-mono-tech font-bold uppercase tracking-widest text-white">
+              Core Navigation
+            </h4>
+            <ul className="space-y-2.5 text-xs text-gray-400 font-medium">
+              <li><NavLink to={NavRoute.HOME} className="hover:text-oakivo-secondary transition-colors">Home</NavLink></li>
+              <li><NavLink to={NavRoute.VERTICALS} className="hover:text-oakivo-secondary transition-colors">Industries</NavLink></li>
+              <li><NavLink to={NavRoute.SERVICES} className="hover:text-oakivo-secondary transition-colors">Technical Pillars</NavLink></li>
+              <li><NavLink to={NavRoute.CASE_STUDIES} className="hover:text-oakivo-secondary transition-colors">Case Studies</NavLink></li>
+              <li><NavLink to={NavRoute.COMPLIANCE} className="hover:text-oakivo-secondary transition-colors">Compliance Matrix</NavLink></li>
+              <li><NavLink to={NavRoute.BLOG} className="hover:text-oakivo-secondary transition-colors">Perspectives & Briefs</NavLink></li>
+            </ul>
           </div>
 
-          <div className="lg:col-span-3">
-             <h5 className="text-[11px] font-black uppercase tracking-[0.5em] text-white/30 mb-12 flex items-center gap-3">
-               <Network size={14} /> Architecture
-             </h5>
-             <ul className="space-y-6">
-                {directory.architecture.map((l, i) => (
-                  <li key={i}><Link to={l.path} className="text-gray-400 hover:text-oakivo-secondary transition-all text-xl font-light">{l.label}</Link></li>
-                ))}
-             </ul>
+          {/* Col 3: Solutions */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-mono-tech font-bold uppercase tracking-widest text-white">
+              Specialized Hubs
+            </h4>
+            <ul className="space-y-2.5 text-xs text-gray-400 font-medium">
+              <li><button onClick={() => setIsDrawerOpen(true)} className="hover:text-oakivo-secondary transition-colors text-left">Odoo 19 Sovereign Shift</button></li>
+              <li><button onClick={() => setIsDrawerOpen(true)} className="hover:text-oakivo-secondary transition-colors text-left">Agentic AI Reasoning Engines</button></li>
+              <li><button onClick={() => setIsDrawerOpen(true)} className="hover:text-oakivo-secondary transition-colors text-left">PIPEDA & Zero-Trust Audit</button></li>
+              <li><button onClick={() => setIsDrawerOpen(true)} className="hover:text-oakivo-secondary transition-colors text-left">CRA Tax Engine Localization</button></li>
+              <li><NavLink to={NavRoute.BOOKING} className="hover:text-oakivo-secondary transition-colors">Schedule Discovery Call</NavLink></li>
+            </ul>
           </div>
 
-          <div className="lg:col-span-3">
-             <h5 className="text-[11px] font-black uppercase tracking-[0.5em] text-white/30 mb-12 flex items-center gap-3">
-               <Terminal size={14} /> Intelligence
-             </h5>
-             <ul className="space-y-6">
-                {directory.intelligence.map((l, i) => (
-                  <li key={i}><Link to={l.path} className="text-gray-400 hover:text-oakivo-secondary transition-all text-xl font-light">{l.label}</Link></li>
-                ))}
-             </ul>
-          </div>
-
-          <div className="lg:col-span-3">
-             <div className="bg-black/40 border border-white/5 rounded-[40px] p-8 space-y-10 relative overflow-hidden group">
-                {/* Dynamic Terminal Feed */}
-                <div className="bg-black rounded-2xl p-6 font-mono text-[10px] text-oakivo-secondary border border-white/10 relative overflow-hidden h-24">
-                   <div className="absolute top-0 left-0 w-full h-[1px] bg-oakivo-secondary/20 animate-scan-line"></div>
-                   <div className="flex items-center gap-2 mb-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
-                      <span className="opacity-50 uppercase tracking-widest">Active Process</span>
-                   </div>
-                   <p className="animate-pulse">{logs[logIndex]}</p>
-                   <div className="mt-2 text-white/20 uppercase tracking-[0.2em] font-black">Oakivo Shell v4.2</div>
-                </div>
-
-                {/* Telemetry Block */}
-                <div className="space-y-6">
-                   <div className="flex items-center justify-between group/tele">
-                      <div className="flex items-center gap-4">
-                        <Activity size={18} className="text-gray-600 group-hover/tele:text-oakivo-secondary transition-colors" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Architecture Uptime</span>
-                      </div>
-                      <span className="font-mono text-sm">{uptime.toFixed(4)}%</span>
-                   </div>
-                   <div className="flex items-center justify-between group/tele">
-                      <div className="flex items-center gap-4">
-                        <Box size={18} className="text-gray-600 group-hover/tele:text-oakivo-secondary transition-colors" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Active Nodes</span>
-                      </div>
-                      <span className="font-mono text-sm">{activeNodes}</span>
-                   </div>
-                   <div className="flex items-center justify-between group/tele">
-                      <div className="flex items-center gap-4">
-                        <Clock size={18} className="text-gray-600 group-hover/tele:text-oakivo-secondary transition-colors" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">HQ Protocol Time</span>
-                      </div>
-                      <span className="font-mono text-sm">{hqTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
-                   </div>
-                </div>
-                
-                <div className="pt-4 border-t border-white/5 flex items-center gap-3">
-                   <div className="w-2 h-2 rounded-full bg-oakivo-secondary animate-pulse shadow-[0_0_8px_rgba(46,204,113,0.8)]" />
-                   <span className="text-[9px] font-black text-oakivo-secondary uppercase tracking-[0.5em]">System Status: Nominal</span>
-                </div>
-             </div>
-          </div>
-        </div>
-
-        {/* Tier 3: Institutional Footer & Global Actions */}
-        <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12">
-          
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="flex items-center gap-4 text-[10px] font-black text-gray-600 uppercase tracking-[0.4em]">
-              <Copyright size={14} className="text-oakivo-secondary" /> {new Date().getFullYear()} Oakivo Solutions Inc.
-            </div>
-            <div className="flex items-center gap-8">
-              {[Linkedin, Twitter, Github].map((Icon, i) => (
-                <a key={i} href="#" className="text-gray-600 hover:text-white transition-all transform hover:scale-125">
-                  <Icon size={22} />
+          {/* Col 4: Hub Locations */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-mono-tech font-bold uppercase tracking-widest text-white">
+              Hub Locations
+            </h4>
+            <ul className="space-y-3 text-xs text-gray-400">
+              <li className="flex items-start gap-2">
+                <MapPin size={14} className="text-oakivo-secondary shrink-0 mt-0.5" />
+                <span>Dieppe / Moncton Hub, NB</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin size={14} className="text-oakivo-secondary shrink-0 mt-0.5" />
+                <span>Financial District, Toronto, ON</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin size={14} className="text-oakivo-secondary shrink-0 mt-0.5" />
+                <span>Innovation District, Montreal, QC</span>
+              </li>
+              <li className="pt-2">
+                <a href="mailto:contact@oakivo.com" className="text-oakivo-secondary font-bold hover:underline flex items-center gap-1.5 text-xs">
+                  <Mail size={14} /> contact@oakivo.com
                 </a>
-              ))}
-            </div>
+              </li>
+            </ul>
           </div>
-
-          <div className="flex items-center gap-12">
-            <button 
-              onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')}
-              className="flex items-center gap-3 text-[10px] font-black text-gray-500 hover:text-oakivo-secondary transition-all uppercase tracking-[0.3em] group"
-            >
-              <Globe size={16} className="group-hover:rotate-180 transition-transform duration-1000" />
-              {language === 'en' ? 'Switch to French Protocol' : 'Version Anglaise'}
-            </button>
-            
-            <button 
-              onClick={scrollToTop} 
-              className="w-16 h-16 rounded-2xl border border-white/10 flex items-center justify-center bg-white/5 hover:bg-white hover:text-black transition-all hover:-translate-y-2 shadow-2xl group"
-              aria-label="Return to Top"
-            >
-              <ArrowUp size={24} className="group-hover:animate-bounce" />
-            </button>
-          </div>
-
         </div>
 
+        {/* Bottom Rights & Admin Link */}
+        <div className="pt-8 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-mono-tech">
+          <p>© {new Date().getFullYear()} Oakivo Solutions Inc. All rights reserved.</p>
+
+          <div className="flex items-center gap-6">
+            <NavLink to={NavRoute.PRIVACY} className="hover:text-white transition-colors">Privacy & PIPEDA</NavLink>
+            <NavLink to={NavRoute.COMPLIANCE} className="hover:text-white transition-colors">SOC2 Matrix</NavLink>
+            <Link to={NavRoute.ADMIN_PORTAL} className="flex items-center gap-1 text-gray-500 hover:text-oakivo-secondary transition-colors">
+              <Lock size={12} /> Executive Vault
+            </Link>
+          </div>
+        </div>
       </div>
+
+      <LeadDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
     </footer>
   );
 };

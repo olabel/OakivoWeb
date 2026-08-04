@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 
 interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackClassName?: string;
-  fetchpriority?: "high" | "low" | "auto";
+  fetchPriority?: "high" | "low" | "auto";
 }
 
 const SafeImage: React.FC<SafeImageProps> = ({ 
@@ -11,15 +12,14 @@ const SafeImage: React.FC<SafeImageProps> = ({
   alt, 
   className = "", 
   fallbackClassName = "",
-  fetchpriority = "auto",
+  fetchPriority = "auto",
   ...props 
 }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Pre-fetch check
   useEffect(() => {
-    if (src) {
+    if (src && typeof src === 'string') {
       const img = new Image();
       img.src = src;
       img.onload = () => setIsLoaded(true);
@@ -29,9 +29,10 @@ const SafeImage: React.FC<SafeImageProps> = ({
 
   if (hasError || !src) {
     return (
-      <div className={`flex flex-col items-center justify-center bg-oakivo-surface border border-oakivo-border overflow-hidden ${className} ${fallbackClassName}`}>
+      <div className={`flex flex-col items-center justify-center bg-oakivo-surface border border-oakivo-border overflow-hidden ${className} ${fallbackClassName}`} aria-hidden="true">
         <div className="opacity-10 scale-50 grayscale">
-          <Logo withText={false} className="h-16" />
+          {/* Fix: removed unsupported 'withText' prop */}
+          <Logo className="h-16" />
         </div>
       </div>
     );
@@ -41,15 +42,15 @@ const SafeImage: React.FC<SafeImageProps> = ({
     <div className={`relative overflow-hidden bg-oakivo-surface ${className}`}>
       <img
         src={src}
-        alt={alt}
+        alt={alt || "Oakivo Industrial Visualization"}
         className={`w-full h-full object-cover transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-        fetchpriority={fetchpriority}
+        fetchPriority={fetchPriority}
         decoding="async"
-        loading={fetchpriority === 'high' ? 'eager' : 'lazy'}
+        loading={fetchPriority === 'high' ? 'eager' : 'lazy'}
         {...props}
       />
       {!isLoaded && (
-        <div className="absolute inset-0 bg-oakivo-primary/5 animate-pulse" />
+        <div className="absolute inset-0 bg-oakivo-primary/5 animate-pulse" aria-hidden="true" />
       )}
     </div>
   );

@@ -1,270 +1,220 @@
-
-import React, { useEffect, useRef, useState } from 'react';
-import Section from '../components/Section';
-import { ArrowRight, Plus, X, BarChart3, ShieldCheck, Zap, Activity, FileText, Cpu, Search, Layers, TrendingUp, AlertTriangle, Workflow, Target, CheckCircle } from 'lucide-react';
-import { useLanguage, translations } from '../context/LanguageContext';
-import Button from '../components/Button';
-import { NavRoute } from '../types';
+import React, { useState } from 'react';
+import { 
+  TrendingUp, ShieldCheck, CheckCircle2, ArrowRight, Zap, 
+  BarChart3, Cpu, Layers, Server, Activity, Lock, ArrowUpRight
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { NavRoute } from '../types';
 import SEO from '../components/SEO';
 
-const BlueprintDrawer: React.FC<{ 
-  isOpen: boolean; 
-  onClose: () => void; 
-  data: any;
-}> = ({ isOpen, onClose, data }) => {
-  if (!isOpen) return null;
+interface CaseStudyItem {
+  id: string;
+  client: string;
+  industry: string;
+  title: string;
+  challenge: string;
+  solution: string;
+  results: {
+    metric: string;
+    label: string;
+  }[];
+  testimonial: {
+    quote: string;
+    author: string;
+    role: string;
+  };
+}
 
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-end bg-black/95 backdrop-blur-2xl animate-in fade-in duration-500">
-      <div 
-        className="h-full w-full max-w-4xl bg-white shadow-4xl animate-in slide-in-from-right duration-700 overflow-y-auto"
-      >
-        <div className="p-10 md:p-20 relative">
-          <button 
-            onClick={onClose}
-            className="absolute top-10 right-10 p-4 hover:bg-gray-100 rounded-full transition-all text-oakivo-primary group"
-          >
-            <X size={32} className="group-hover:rotate-90 transition-transform duration-500" />
-          </button>
-
-          <div className="flex items-center gap-6 mb-16">
-            <div className="w-16 h-16 bg-oakivo-primary text-oakivo-secondary rounded-[20px] flex items-center justify-center shadow-2xl">
-                <FileText size={32} />
-            </div>
-            <div>
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-oakivo-secondary mb-2 block">Technical Intelligence Case</span>
-                <h2 className="text-4xl md:text-5xl font-serif-display font-bold text-oakivo-primary tracking-tighter">{data.title}</h2>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
-             <div className="p-10 bg-oakivo-surface rounded-[40px] border border-gray-100 shadow-sm relative overflow-hidden group/metric">
-                <div className="absolute top-0 right-0 p-6 opacity-5 text-oakivo-secondary group-hover/metric:opacity-10 transition-opacity">
-                   <TrendingUp size={120} />
-                </div>
-                <h4 className="text-[11px] font-black uppercase tracking-widest text-oakivo-primary mb-8 flex items-center gap-3">
-                  <Activity size={16} className="text-oakivo-secondary" /> Performance Payload
-                </h4>
-                <div className="space-y-10">
-                   <div>
-                      <div className="flex justify-between items-end mb-3">
-                         <span className="text-sm font-bold text-oakivo-primary">Operational Velocity</span>
-                         <span className="text-sm font-black text-oakivo-secondary">+88%</span>
-                      </div>
-                      <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                         <div className="h-full bg-oakivo-secondary w-[88%] transition-all duration-1000"></div>
-                      </div>
-                   </div>
-                   <div>
-                      <div className="flex justify-between items-end mb-3">
-                         <span className="text-sm font-bold text-oakivo-primary">Error Suppression</span>
-                         <span className="text-sm font-black text-oakivo-secondary">99.2%</span>
-                      </div>
-                      <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                         <div className="h-full bg-oakivo-secondary w-[99%] transition-all duration-1000"></div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-
-             <div className="p-10 bg-oakivo-primary text-white rounded-[40px] shadow-4xl relative overflow-hidden group/ai">
-                <div className="absolute top-0 right-0 p-6 opacity-10 text-oakivo-secondary">
-                   <Cpu size={100} />
-                </div>
-                <h4 className="text-[11px] font-black uppercase tracking-widest text-oakivo-secondary mb-8 flex items-center gap-3">
-                  <Layers size={16} /> Orchestration Logic
-                </h4>
-                <p className="text-lg font-light text-gray-300 leading-relaxed italic mb-10 relative z-10">
-                  "The Agentic workflow utilized a multi-stage reasoning engine to bridge the gap between Odoo's core database and real-world industrial metrics."
-                </p>
-                <div className="flex flex-wrap gap-3 relative z-10">
-                   {['Agentic AI', 'Odoo 18', 'Real-time Sync', 'SOC2 Compliant'].map(tag => (
-                     <span key={tag} className="px-4 py-1.5 bg-white/10 border border-white/5 rounded-xl text-[10px] font-bold uppercase tracking-widest">
-                       {tag}
-                     </span>
-                   ))}
-                </div>
-             </div>
-          </div>
-
-          <div className="prose prose-xl max-w-none text-gray-600 font-light leading-relaxed mb-20">
-             <h3 className="text-3xl font-serif-display font-bold text-oakivo-primary tracking-tight mb-8">The Engineering Blueprint</h3>
-             <div className="space-y-10">
-                <div className="p-8 bg-oakivo-surface border-l-4 border-red-500 rounded-r-3xl">
-                   <h4 className="text-[10px] font-black uppercase tracking-widest text-red-500 mb-2 flex items-center gap-2"><AlertTriangle size={14}/> The Problem</h4>
-                   <p className="text-oakivo-primary font-medium">{data.problem}</p>
-                </div>
-                <div className="p-8 bg-oakivo-surface border-l-4 border-oakivo-secondary rounded-r-3xl">
-                   <h4 className="text-[10px] font-black uppercase tracking-widest text-oakivo-secondary mb-2 flex items-center gap-2"><Workflow size={14}/> The Solution</h4>
-                   <p className="text-oakivo-primary font-medium">{data.solution}</p>
-                </div>
-             </div>
-          </div>
-
-          <div className="pt-12 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-10">
-             <div className="flex items-center gap-5">
-                <div className="w-14 h-14 bg-oakivo-surface rounded-2xl flex items-center justify-center text-oakivo-secondary border border-gray-100">
-                   <ShieldCheck size={32} />
-                </div>
-                <span className="text-xs font-black text-gray-400 uppercase tracking-[0.3em]">Project Certified <br/> Institutional Grade</span>
-             </div>
-             <Link to={NavRoute.CONTACT} className="w-full md:w-auto">
-               <Button variant="black" size="lg" className="w-full px-16 shadow-2xl">Request Strategic Audit</Button>
-             </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+const caseStudiesData: CaseStudyItem[] = [
+  {
+    id: 'paycore-fintech',
+    client: 'PayCore Solutions',
+    industry: 'FinTech Scale-up',
+    title: 'High-Availability Database Refactoring & Cloud Cost Optimization',
+    challenge: 'PayCore Solutions, a fast-scaling payment processor, was experiencing severe database locks during peak transaction hours, leading to sub-optimal API performance, an unsustainable $180,000/month cloud overspend, and looming PCI-DSS audit deadlines.',
+    solution: 'Oakivo refactored their monolithic MySQL setup into high-availability AWS Aurora clusters with auto-sharding. We replaced manual cloud management with automated Terraform Infrastructure as Code (IaC) and implemented real-time API monitoring with micro-second latency tracing.',
+    results: [
+      { metric: '42%', label: 'Cloud Spend Reduction' },
+      { metric: '99.99%', label: 'Core API Uptime Achieved' },
+      { metric: '0ms', label: 'Downtime During Migration' }
+    ],
+    testimonial: {
+      quote: 'Oakivo eliminated our database lockup issues in weeks while reducing our cloud bill by over $75,000 a month. Their senior engineers delivered what three previous agencies couldn’t.',
+      author: 'David Vance',
+      role: 'VP of Infrastructure, PayCore Solutions'
+    }
+  },
+  {
+    id: 'medpulse-healthtech',
+    client: 'MedPulse Data Systems',
+    industry: 'HealthTech SaaS',
+    title: 'Zero-Trust Architecture & Rapid SOC 2 / PIPEDA Compliance',
+    challenge: 'MedPulse operated a legacy monolithic medical platform preparing for Series B funding. Their deployment pipeline took 4 hours of manual effort per release, and they faced urgent HIPAA, PIPEDA, and SOC 2 Type II compliance mandates required by enterprise healthcare buyers.',
+    solution: 'Oakivo designed a zero-trust Kubernetes microservices architecture featuring automated least-privilege IAM governance, end-to-end TLS 1.3 encryption, GitOps CI/CD pipelines, and continuous vulnerability telemetry embedded directly into build pipelines.',
+    results: [
+      { metric: '45 Days', label: 'SOC 2 & PIPEDA Readiness' },
+      { metric: '8 Mins', label: 'Deploy Time (Down from 4 hrs)' },
+      { metric: '100%', label: 'Automated Security Auditing' }
+    ],
+    testimonial: {
+      quote: 'Securing SOC 2 compliance in 45 days transformed our sales pipeline. Oakivo’s zero-trust blueprint gave our enterprise clients absolute confidence in our platform security.',
+      author: 'Dr. Elena Rostova',
+      role: 'CTO & Co-Founder, MedPulse Data'
+    }
+  },
+  {
+    id: 'omnitrack-logistics',
+    client: 'OmniTrack Logistics',
+    industry: 'Global Supply Chain & IoT',
+    title: 'High-Throughput Telemetry Platform & Distributed Stream Processing',
+    challenge: 'OmniTrack processes over 50 million IoT fleet data points daily. Intermittent telemetry latency spikes (P99 > 3,500ms) caused lost tracking updates during seasonal surges, alongside vulnerability exposures across unhardened REST API endpoints.',
+    solution: 'Oakivo architected an event-driven Apache Kafka stream processing hub on AWS, established multi-region failover routing, hardened API Gateway authentication with rate-limiting, and deployed continuous automated penetration testing verification.',
+    results: [
+      { metric: '70%', label: 'P99 Latency Reduction' },
+      { metric: '3.5x', label: 'Throughput Capacity Increase' },
+      { metric: '0', label: 'Security Breaches in 18 Mos' }
+    ],
+    testimonial: {
+      quote: 'Oakivo rebuilt our core streaming data layer to handle 3.5x our previous capacity effortlessly. The responsiveness and reliability of our IoT platform has never been higher.',
+      author: 'Marcus Sterling',
+      role: 'Head of Engineering, OmniTrack'
+    }
+  }
+];
 
 const CaseStudies: React.FC = () => {
-  const { t, language } = useLanguage();
-  const casesData = translations[language].caseStudies.cases;
-  const [activeBlueprint, setActiveBlueprint] = useState<any | null>(null);
-  
-  const casesMeta = [
-    {
-      id: 1,
-      client: "Atlantic Distribution",
-      category: "Industrial Orchestration",
-      img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=90&w=1600&auto=format&fit=crop",
-      size: "large",
-    },
-    {
-      id: 2,
-      client: "FinTrust Canada",
-      category: "Cyber Resilience",
-      img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=90&w=1200&auto=format&fit=crop",
-      size: "small",
-    },
-    {
-      id: 3,
-      client: "Northern Retail",
-      category: "ERP Modernization",
-      img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=90&w=1200&auto=format&fit=crop",
-      size: "small",
-    },
-  ];
-
   return (
     <>
       <SEO 
-        title="Case Studies | Engineering Success in Canada"
-        description="Explore Oakivo's portfolio of successful digital transformations. Measurable ROI through AI automation and ERP orchestration."
-        keywords="Case Studies Odoo Canada, AI implementation ROI, ERP success stories Atlantic Canada"
-        canonical="/case-studies"
+        title="Enterprise Engineering Case Studies & Impact | Oakivo"
+        description="Explore how Oakivo engineered 99.99% uptime, reduced cloud spend by 40%, and accelerated SOC 2 compliance for enterprise clients."
+        keywords="Cloud Engineering Case Studies, SOC 2 Compliance Success, Cloud Spend Reduction, DevOps ROI, Case Studies"
       />
 
-      <section className="bg-white pt-48 pb-20">
-         <div className="container mx-auto px-6">
-            <div className="flex items-center gap-4 mb-8 animate-fade-in-up">
-               <div className="h-[1px] w-12 bg-oakivo-secondary"></div>
-               <span className="text-oakivo-secondary font-black tracking-[0.4em] uppercase text-[10px]">Strategic Portfolio</span>
+      {/* Hero Section */}
+      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 border-b border-white/[0.08] overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
+          <div className="max-w-4xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
+              <TrendingUp size={13} className="text-oakivo-linearIndigo" />
+              <span className="text-[11px] font-mono-tech font-medium text-gray-300">
+                Verified Engineering Impact & Case Studies
+              </span>
             </div>
-            <h1 className="text-6xl md:text-9xl font-serif-display font-bold mb-10 text-black tracking-tighter leading-none animate-fade-in-up [animation-delay:200ms]">
-              Results.
+
+            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
+              Quantifiable Results Delivered to <span className="text-linear-accent">Enterprise Leaders</span>
             </h1>
-            <p className="text-xl md:text-3xl text-gray-500 max-w-3xl font-light leading-relaxed animate-fade-in-up [animation-delay:400ms]">
-              Institutional-grade reports on how we transform operational friction into organizational equity.
+
+            <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
+              Explore concrete evidence of how Oakivo eliminates technical debt, optimizes cloud expenditure, and secures enterprise infrastructure.
             </p>
-         </div>
-      </section>
-
-      <section className="bg-white pb-40">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-32">
-            {casesMeta.map((project, idx) => {
-              const data = casesData[idx] || { title: 'Blueprint Pending', summary: '', problem: '', solution: '', impact: 'N/A', author: 'Oakivo Engineer' };
-              const isLarge = project.size === 'large';
-              
-              return (
-                <div 
-                  key={project.id} 
-                  className={`group relative flex flex-col ${isLarge ? 'md:col-span-2' : ''} cv-auto animate-fade-in-up transform transition-all duration-700 hover:-translate-y-4`}
-                  style={{ animationDelay: `${(idx % 2) * 200}ms` }}
-                >
-                  <div className={`relative overflow-hidden mb-12 shadow-vise-xl group-hover:shadow-4xl rounded-[56px] transition-all duration-1000 ${isLarge ? 'aspect-[21/9]' : 'aspect-[4/5]'} bg-oakivo-primary`}>
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-oakivo-primary/60 transition-colors z-20 duration-700"></div>
-                    <img 
-                      src={project.img} 
-                      alt={data.title} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[2000ms] transform group-hover:scale-105" 
-                      loading="lazy"
-                    />
-                    <button 
-                      onClick={() => setActiveBlueprint(data)}
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-700 scale-90 group-hover:scale-100"
-                    >
-                      <div className="flex items-center gap-4 bg-white px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.3em] text-oakivo-primary shadow-vise-xl hover:bg-oakivo-secondary transition-colors">
-                        <Search size={18} /> Inspect Blueprint
-                      </div>
-                    </button>
-                    <div className="absolute bottom-10 left-10 z-30 opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0 text-white/50 text-[10px] font-black uppercase tracking-[0.4em]">
-                       Oakivo Intelligence Case #{project.id.toString().padStart(3, '0')}
-                    </div>
-                  </div>
-                  
-                  <div className={`grid grid-cols-1 ${isLarge ? 'lg:grid-cols-12' : ''} gap-12 lg:gap-20 items-start px-4`}>
-                    <div className={`${isLarge ? 'lg:col-span-7' : ''}`}>
-                      <div className="flex items-center gap-5 mb-10">
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] bg-oakivo-primary text-white px-5 py-2 rounded-xl shadow-xl">
-                          {project.category}
-                        </span>
-                        <div className="h-px w-12 bg-gray-100"></div>
-                        <span className="text-xs font-black uppercase tracking-widest text-gray-400">
-                          {project.client}
-                        </span>
-                      </div>
-                      
-                      <h3 className={`font-serif-display font-bold leading-tight mb-12 tracking-tighter transition-colors group-hover:text-oakivo-secondary ${isLarge ? 'text-5xl md:text-7xl' : 'text-3xl md:text-5xl'}`}>
-                        {data.title}
-                      </h3>
-                      
-                      <button 
-                        onClick={() => setActiveBlueprint(data)}
-                        className="inline-flex items-center gap-6 font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] text-oakivo-primary border-b-2 border-transparent hover:border-oakivo-secondary transition-all pb-4 group/link"
-                      >
-                        VIEW FULL TECHNICAL BLUEPRINT 
-                        <ArrowRight size={18} className="group-hover/link:translate-x-3 transition-transform duration-500" />
-                      </button>
-                    </div>
-
-                    <div className={`${isLarge ? 'lg:col-span-5' : ''}`}>
-                      <div className="bg-oakivo-surface p-12 rounded-[56px] border border-gray-100 relative hover:shadow-vise-lg transition-all duration-700 group/quote overflow-hidden">
-                        <div className="absolute top-0 right-0 p-8 opacity-10 text-oakivo-secondary group-hover/quote:opacity-20 transition-opacity">
-                           <TrendingUp size={120} />
-                        </div>
-                        <p className="text-2xl font-serif-display italic text-gray-800 mb-12 leading-relaxed relative z-10 font-light">
-                          "{data.quote}"
-                        </p>
-                        <div className="flex items-center gap-6 relative z-10 pt-10 border-t border-gray-100">
-                           <div className="w-16 h-16 rounded-[20px] bg-oakivo-primary flex items-center justify-center text-white text-xl font-bold shadow-2xl group-hover:bg-oakivo-secondary transition-colors">
-                              {data.author ? data.author.charAt(0) : 'P'}
-                           </div>
-                           <div>
-                              <p className="text-sm font-black uppercase tracking-widest text-oakivo-primary leading-none mb-2">
-                                {data.author}
-                              </p>
-                              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter opacity-70">Project Stakeholder</p>
-                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>
 
-      <BlueprintDrawer 
-        isOpen={!!activeBlueprint} 
-        onClose={() => setActiveBlueprint(null)} 
-        data={activeBlueprint} 
-      />
+      {/* Case Studies Cards */}
+      <section className="py-20 md:py-28 relative border-b border-white/[0.08]">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+          <div className="space-y-16">
+            {caseStudiesData.map((study, idx) => (
+              <div 
+                key={study.id}
+                className="linear-card rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] relative overflow-hidden"
+              >
+                <div className="space-y-8">
+                  
+                  {/* Card Header */}
+                  <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+                    <div>
+                      <span className="text-xs font-mono-tech text-oakivo-linearIndigo uppercase tracking-wider block">
+                        Case Study 0{idx + 1} • {study.industry}
+                      </span>
+                      <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white mt-1">
+                        {study.client}: {study.title}
+                      </h2>
+                    </div>
+                  </div>
+
+                  {/* Quantitative Metric Badges */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {study.results.map((res, rIdx) => (
+                      <div key={rIdx} className="p-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-center">
+                        <span className="text-2xl md:text-3xl font-extrabold font-mono-tech text-white block">
+                          {res.metric}
+                        </span>
+                        <span className="text-xs font-mono-tech text-gray-400 mt-1 block">
+                          {res.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Challenge & Solution Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-2 p-5 rounded-xl bg-black/40 border border-white/[0.06]">
+                      <h3 className="text-xs font-mono-tech font-bold uppercase tracking-wider text-rose-400">
+                        Client Profile & Challenge
+                      </h3>
+                      <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
+                        {study.challenge}
+                      </p>
+                    </div>
+
+                    <div className="space-y-2 p-5 rounded-xl bg-black/40 border border-white/[0.06]">
+                      <h3 className="text-xs font-mono-tech font-bold uppercase tracking-wider text-emerald-400">
+                        The Oakivo Architecture Solution
+                      </h3>
+                      <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
+                        {study.solution}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Testimonial Quote */}
+                  <div className="p-6 rounded-xl bg-oakivo-linearIndigo/10 border border-oakivo-linearIndigo/20 space-y-3">
+                    <p className="text-sm md:text-base text-gray-200 italic font-normal leading-relaxed">
+                      "{study.testimonial.quote}"
+                    </p>
+                    <div className="flex items-center gap-2 text-xs font-mono-tech text-gray-400">
+                      <span className="text-white font-bold">{study.testimonial.author}</span>
+                      <span>—</span>
+                      <span>{study.testimonial.role}</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA Banner */}
+      <section className="py-20 md:py-28 relative">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+          <div className="linear-card rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
+            <div className="max-w-3xl mx-auto space-y-4">
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
+                Achieve Similar Engineering Impact
+              </h2>
+              <p className="text-sm md:text-base text-[#8A8F98] max-w-2xl mx-auto">
+                Request a custom architecture diagnostic for your infrastructure stack today.
+              </p>
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                to={NavRoute.CONTACT}
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
+              >
+                <span>Schedule Architecture Audit</span>
+                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

@@ -5,9 +5,10 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
-import Services from './pages/Services';
+import Expertise from './pages/Services'; // Renamed import for clarity
 import CaseStudies from './pages/CaseStudies';
 import Contact from './pages/Contact';
+import Booking from './pages/Booking';
 import Verticals from './pages/Verticals';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
@@ -18,12 +19,14 @@ import ComplianceMatrix from './pages/ComplianceMatrix';
 import Chatbot from './components/Chatbot';
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
+import { analytics } from './utils/analytics';
 
-// Scroll to top component
-const ScrollToTop = () => {
+// Scroll to top and track analytics
+const ScrollToTopAndTrack = () => {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+    analytics.trackPageView(pathname);
   }, [pathname]);
   return null;
 };
@@ -33,17 +36,19 @@ const App: React.FC = () => {
     <HelmetProvider>
       <LanguageProvider>
         <Router>
-          <ScrollToTop />
+          <ScrollToTopAndTrack />
           <div className="flex flex-col min-h-screen relative">
             <Navbar />
-            <main className="flex-grow pt-16"> 
+            <main className="flex-grow pt-20 lg:pt-24"> 
               <Routes>
                 <Route path={NavRoute.HOME} element={<Home />} />
                 <Route path={NavRoute.ABOUT} element={<About />} />
                 <Route path={NavRoute.VERTICALS} element={<Verticals />} />
-                <Route path={NavRoute.SERVICES} element={<Services />} />
+                <Route path={NavRoute.SERVICES} element={<Expertise />} />
                 <Route path={NavRoute.CASE_STUDIES} element={<CaseStudies />} />
+                <Route path="/work" element={<CaseStudies />} />
                 <Route path={NavRoute.CONTACT} element={<Contact />} />
+                <Route path={NavRoute.BOOKING} element={<Booking />} />
                 <Route path={NavRoute.BLOG} element={<Blog />} />
                 <Route path={`${NavRoute.BLOG}/:id`} element={<BlogPost />} />
                 <Route path={NavRoute.CAREERS} element={<Careers />} />

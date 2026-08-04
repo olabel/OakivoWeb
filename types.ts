@@ -39,6 +39,7 @@ export enum NavRoute {
   SERVICES = '/services',
   CASE_STUDIES = '/case-studies',
   CONTACT = '/contact',
+  BOOKING = '/schedule',
   BLOG = '/perspectives',
   CAREERS = '/careers',
   PRIVACY = '/privacy',

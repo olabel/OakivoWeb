@@ -1,126 +1,216 @@
-
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Database, BrainCircuit, ShieldCheck, Globe, Activity, Workflow, Lightbulb, Cpu, Layers } from 'lucide-react';
-import Button from '../components/Button';
-import SafeImage from '../components/SafeImage';
+import React from 'react';
+import { 
+  ArrowRight, ShieldCheck, Zap, Cpu, Lock, 
+  Layers, CheckCircle2, Terminal, ArrowUpRight, Sparkles, RefreshCw, BarChart2
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
-import { useLanguage, translations } from '../context/LanguageContext';
 import SEO from '../components/SEO';
 
-const AnimatedIcon: React.FC<{ icon: React.ReactNode }> = ({ icon }) => {
-  const iconRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (iconRef.current) {
-      observer.observe(iconRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div 
-      ref={iconRef} 
-      className={`w-20 h-20 lg:w-24 lg:h-24 bg-oakivo-surface border border-gray-100 rounded-[28px] lg:rounded-[32px] flex items-center justify-center text-oakivo-primary shadow-sm mb-10 lg:mb-12 transition-all duration-[1200ms] ${isVisible ? 'animate-icon-pop opacity-100' : 'opacity-0 translate-y-8 scale-90'}`}
-    >
-      {React.cloneElement(icon as React.ReactElement<any>, { size: 40, strokeWidth: 1.5 })}
-    </div>
-  );
-};
-
 const Services: React.FC = () => {
-  const { t, language } = useLanguage();
-  const servicesList = translations[language].services.list;
-
-  const serviceIcons = [
-     <BrainCircuit />, 
-     <Database />, 
-     <ShieldCheck />, 
-     <Workflow />
+  const corePillars = [
+    {
+      id: 'digital-transformation',
+      title: 'Digital Transformation',
+      tagline: 'Streamline operations & eliminate technical debt',
+      icon: <RefreshCw size={28} className="text-oakivo-linearIndigo" />,
+      problem: 'Legacy operational friction, fragmented SaaS sprawl, and bloated technical debt halting enterprise release velocity.',
+      capabilities: [
+        'Enterprise System Consolidation & Monolith Deconstruction',
+        'Legacy Architecture Refactoring & API Integration',
+        'Continuous Delivery Pipeline (CI/CD) Optimization',
+        'Developer Experience (DX) & Internal Developer Platform (IDP)'
+      ],
+      outcomeMetric: '50%+ Overhead Reduction',
+      outcomeDesc: 'Achieved 50%+ reduction in infrastructure maintenance overhead and 3x faster feature deployment velocity across engineering units.'
+    },
+    {
+      id: 'modern-platforms',
+      title: 'Modern Platforms',
+      tagline: 'Elastic, cloud-native infrastructure at scale',
+      icon: <Cpu size={28} className="text-oakivo-linearIndigo" />,
+      problem: 'Monolithic database bottlenecks, unreliable cloud auto-scaling, and unoptimized, escalating cloud expenditure.',
+      capabilities: [
+        'Multi-Cloud Infrastructure as Code (Terraform / Pulumi)',
+        'Kubernetes & Microservices Container Orchestration',
+        'Database Sharding & High-Availability Clustering (Aurora / Postgres)',
+        'Automated Multi-Region Disaster Recovery & Failover'
+      ],
+      outcomeMetric: '99.99% Guaranteed Availability',
+      outcomeDesc: 'Delivered 99.99% system availability while cutting monthly cloud spend by 35% to 45% through automated resource rightsizing.'
+    },
+    {
+      id: 'enterprise-security',
+      title: 'Enterprise Security',
+      tagline: 'Zero-trust architecture & continuous compliance',
+      icon: <Lock size={28} className="text-emerald-400" />,
+      problem: 'Pervasive attack surfaces, regulatory non-compliance risks (SOC 2, ISO 27001, PIPEDA), and vulnerable API endpoints.',
+      capabilities: [
+        'Zero-Trust Network Architecture & Micro-segmentation',
+        'Role-Based IAM Governance & Least-Privilege Enforcer',
+        'Automated Vulnerability Remediation in CI/CD Pipelines',
+        'Real-Time Threat Telemetry & SIEM / Audit Telemetry Integration'
+      ],
+      outcomeMetric: '< 60 Day Compliance',
+      outcomeDesc: 'Accelerated full SOC 2 Type II and ISO 27001 audit readiness in under 60 days with continuous security monitoring.'
+    }
   ];
 
-  const serviceImages = [
-     "https://images.unsplash.com/photo-1551434678-e076c223a692?q=90&w=1600&auto=format&fit=crop", 
-     "https://images.unsplash.com/photo-1518770660439-4636190af475?q=90&w=1600&auto=format&fit=crop", 
-     "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=90&w=1600&auto=format&fit=crop", 
-     "https://images.unsplash.com/photo-1454165833767-027eeea15c3e?q=90&w=1600&auto=format&fit=crop"
+  const processSteps = [
+    {
+      step: '01',
+      title: 'Discover',
+      subtitle: 'Technical Audit & Profiling',
+      description: 'We execute a forensic audit of your cloud codebase, infrastructure IaC, and security posture to pinpoint technical debt, bottleneck nodes, and cost leaks.'
+    },
+    {
+      step: '02',
+      title: 'Architect',
+      subtitle: 'Zero-Trust Blueprinting',
+      description: 'Our senior architects design a high-availability, zero-trust infrastructure plan customized to your target deployment velocity and compliance requirements.'
+    },
+    {
+      step: '03',
+      title: 'Automate',
+      subtitle: 'Infrastructure as Code',
+      description: 'We deploy version-controlled Infrastructure as Code (IaC) and automated CI/CD pipelines to guarantee reproducible, zero-downtime releases.'
+    },
+    {
+      step: '04',
+      title: 'Secure',
+      subtitle: 'Governance & Handoff',
+      description: 'We enforce continuous compliance monitoring, conduct penetration testing verification, and provide full hands-on operational training to your in-house engineering team.'
+    }
   ];
 
   return (
     <>
       <SEO 
-        title="Expertise | Digital Transformation & Odoo 18 Orchestration"
-        description="Examine Oakivo's engineering pillars: Agentic AI, Odoo 18 Orchestration, and Zero-Trust Cybersecurity. Architecting high-fidelity resilience for Canadian industry."
+        title="Cloud Platform Engineering & Enterprise Digital Transformation | Oakivo"
+        description="Architect resilient cloud infrastructure, eliminate technical debt, and enforce zero-trust security with Oakivo's enterprise platform engineering services."
+        keywords="Cloud Platform Engineering, Enterprise Digital Transformation, Zero-Trust Security, Infrastructure as Code, Microservices, SOC 2 Compliance"
       />
 
-      {/* Header */}
-      <section className="bg-white pt-48 pb-32 border-b border-oakivo-border relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-32 opacity-[0.03] text-oakivo-primary pointer-events-none">
-           <Cpu size={300} />
-        </div>
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl relative z-10">
-            <div className="flex items-center gap-4 mb-10">
-               <div className="h-[1px] w-12 bg-oakivo-secondary"></div>
-               <span className="text-[10px] font-black text-oakivo-secondary uppercase tracking-[0.6em] block">Expertise Hub</span>
+      {/* Hero Section */}
+      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 border-b border-white/[0.08] overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
+          <div className="max-w-4xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
+              <Sparkles size={13} className="text-oakivo-linearIndigo" />
+              <span className="text-[11px] font-mono-tech font-medium text-gray-300">
+                Enterprise Platform Engineering & Modernization
+              </span>
             </div>
-            <h1 className="text-6xl md:text-9xl font-serif-display font-bold text-oakivo-primary mb-12 tracking-tighter leading-none">
-              High-Fidelity <br/> Orchestration.
+
+            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
+              Enterprise Cloud Platform Engineering & <span className="text-linear-accent">Digital Transformation</span>
             </h1>
-            <p className="text-2xl md:text-4xl text-oakivo-muted font-light leading-snug max-w-2xl">
-              De-coupling technical debt through systemic engineering and autonomous agentic intelligence.
+
+            <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
+              We build resilient cloud environments, eliminate legacy technical debt, and enforce zero-trust security for high-growth enterprises.
             </p>
+
+            <div className="pt-4 flex flex-wrap items-center gap-4">
+              <Link
+                to={NavRoute.CONTACT}
+                className="px-6 py-3.5 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group"
+              >
+                <span>Schedule Architecture Review</span>
+                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+
+              <a
+                href="#core-pillars"
+                className="px-6 py-3.5 rounded-full linear-pill text-gray-300 hover:text-white hover:border-white/20 transition-all text-xs font-medium"
+              >
+                Explore Engineering Pillars
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-40 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="space-y-64">
-            {servicesList.map((service: any, idx: number) => (
-              <div key={idx} className={`flex flex-col lg:flex-row items-center gap-24 ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-                <div className="w-full lg:w-1/2">
-                  <div className="aspect-[16/10] rounded-[64px] overflow-hidden shadow-vise-xl relative group">
-                    <SafeImage src={serviceImages[idx]} alt={service.title} className="group-hover:scale-105 transition-transform duration-[3000ms]" />
-                    <div className="absolute inset-0 bg-oakivo-primary/10 group-hover:opacity-0 transition-opacity duration-1000"></div>
-                  </div>
-                </div>
-                <div className="w-full lg:w-1/2">
-                  <div className="flex items-start justify-between mb-8">
-                     <AnimatedIcon icon={serviceIcons[idx]} />
-                     <div className="text-7xl font-serif-display font-bold text-gray-100 italic select-none">0{idx + 1}</div>
-                  </div>
-                  <h2 className="text-4xl md:text-7xl font-serif-display font-bold text-oakivo-primary mb-10 tracking-tighter leading-none">
-                    {service.title}
-                  </h2>
-                  <p className="text-xl md:text-3xl text-gray-500 font-light leading-relaxed mb-12">
-                    {service.desc}
-                  </p>
-                  <div className="p-12 bg-oakivo-surface rounded-[48px] border border-gray-100 shadow-sm mb-12 relative overflow-hidden group/insight">
-                    <div className="absolute top-0 right-0 p-8 opacity-5 text-oakivo-secondary">
-                       <Layers size={120} />
+      {/* Core Pillar Breakdown Section */}
+      <section id="core-pillars" className="py-20 md:py-28 relative border-b border-white/[0.08]">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+          <div className="max-w-3xl mb-16 space-y-3">
+            <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-oakivo-linearIndigo">
+              Capabilities & Outcomes
+            </span>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
+              Our Core Engineering Pillars
+            </h2>
+            <p className="text-sm md:text-base text-[#8A8F98]">
+              Purpose-built solutions designed for CTOs, CISOs, and Engineering Leaders driving mission-critical scale.
+            </p>
+          </div>
+
+          <div className="space-y-12">
+            {corePillars.map((pillar) => (
+              <div 
+                key={pillar.id}
+                id={pillar.id}
+                className="linear-card rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] relative overflow-hidden"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  
+                  {/* Left Column: Title & Problem */}
+                  <div className="lg:col-span-5 space-y-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center">
+                      {pillar.icon}
                     </div>
-                    <Lightbulb className="text-oakivo-secondary mb-8 group-hover:scale-110 transition-transform" size={32} />
-                    <p className="text-2xl font-serif-display italic text-oakivo-primary font-light relative z-10">"{service.insight}"</p>
+                    <div>
+                      <span className="text-xs font-mono-tech text-gray-400 uppercase tracking-wider">
+                        {pillar.tagline}
+                      </span>
+                      <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mt-1">
+                        {pillar.title}
+                      </h3>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-black/40 border border-white/[0.06] space-y-1.5">
+                      <span className="text-[10px] font-mono-tech font-semibold text-rose-400 uppercase tracking-wider block">
+                        Problem Solved
+                      </span>
+                      <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
+                        {pillar.problem}
+                      </p>
+                    </div>
                   </div>
-                  <Link to={NavRoute.CONTACT}>
-                    <Button variant="black" size="lg" className="px-12 py-5 shadow-premium group">
-                      Orchestrate Autonomy <ArrowRight size={22} className="group-hover:translate-x-2 transition-transform" />
-                    </Button>
-                  </Link>
+
+                  {/* Right Column: Capabilities & Outcome */}
+                  <div className="lg:col-span-7 space-y-6 lg:pl-6 lg:border-l lg:border-white/[0.08]">
+                    <div>
+                      <h4 className="text-xs font-mono-tech font-medium uppercase tracking-wider text-[#8A8F98] mb-4">
+                        Key Capabilities
+                      </h4>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {pillar.capabilities.map((cap, i) => (
+                          <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm text-gray-200">
+                            <CheckCircle2 size={16} className="text-oakivo-linearIndigo shrink-0 mt-0.5" />
+                            <span>{cap}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="p-5 rounded-xl bg-oakivo-linearIndigo/10 border border-oakivo-linearIndigo/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div>
+                        <span className="text-[10px] font-mono-tech text-oakivo-linearIndigo font-bold uppercase tracking-wider block">
+                          Business Outcome
+                        </span>
+                        <p className="text-xs md:text-sm text-gray-200 mt-0.5">
+                          {pillar.outcomeDesc}
+                        </p>
+                      </div>
+                      <div className="shrink-0 bg-white/10 px-4 py-2 rounded-lg border border-white/10 text-center">
+                        <span className="text-base font-bold text-white font-mono-tech block">
+                          {pillar.outcomeMetric}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             ))}
@@ -128,25 +218,79 @@ const Services: React.FC = () => {
         </div>
       </section>
 
-      {/* Final Tactical CTA */}
-      <section className="py-48 bg-[#020504] text-white overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-oakivo-secondary/5 rounded-full blur-[160px] -mr-96 -mt-96"></div>
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <h2 className="text-6xl md:text-9xl font-serif-display font-bold mb-12 tracking-tighter leading-none">Build your roadmap.</h2>
-          <p className="text-2xl md:text-3xl text-gray-400 mb-20 max-w-3xl mx-auto font-light leading-relaxed">
-            Our principal architects are ready to audit your industrial logic and map your journey to institutional maturity.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-10">
-             <Link to={NavRoute.CONTACT}>
-               <Button variant="white" size="lg" className="px-20 py-8 text-2xl bg-white text-black hover:bg-oakivo-secondary rounded-[24px] shadow-premium">
-                 Engineer Resilience
-               </Button>
-             </Link>
-             <Link to={NavRoute.CASE_STUDIES}>
-               <Button variant="outline" size="lg" className="px-20 py-8 text-2xl border-white/20 text-white hover:border-white rounded-[24px]">
-                 View Impact
-               </Button>
-             </Link>
+      {/* 4-Step Process Framework */}
+      <section className="py-20 md:py-28 relative border-b border-white/[0.08]">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+          <div className="max-w-3xl mb-16 space-y-3">
+            <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-oakivo-linearIndigo">
+              Deployment Methodology
+            </span>
+            <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
+              Our 4-Step Process Framework
+            </h2>
+            <p className="text-sm md:text-base text-[#8A8F98]">
+              A battle-tested engineering pipeline designed to deliver predictable results without disruption to live production traffic.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {processSteps.map((proc, idx) => (
+              <div 
+                key={idx}
+                className="linear-card rounded-2xl p-6 border border-white/[0.08] relative group flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-mono-tech font-extrabold text-oakivo-linearIndigo">
+                      {proc.step}
+                    </span>
+                    <span className="text-[10px] font-mono-tech text-gray-500 uppercase tracking-widest">
+                      Phase {idx + 1}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">
+                      {proc.title}
+                    </h3>
+                    <p className="text-xs font-mono-tech text-gray-400 mt-0.5">
+                      {proc.subtitle}
+                    </p>
+                  </div>
+                  <p className="text-xs text-[#8A8F98] leading-relaxed">
+                    {proc.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA Banner */}
+      <section className="py-20 md:py-28 relative">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+          <div className="linear-card rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
+            <div className="max-w-3xl mx-auto space-y-4">
+              <span className="inline-block px-3 py-1 rounded-full linear-pill text-emerald-400 text-xs font-mono-tech uppercase">
+                High-Urgency Consultation Offer
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
+                Ready to Modernize Your Enterprise Architecture?
+              </h2>
+              <p className="text-sm md:text-base text-[#8A8F98] max-w-2xl mx-auto">
+                Eliminate infrastructure bottlenecks and achieve continuous deployment velocity with direct senior architect oversight.
+              </p>
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                to={NavRoute.CONTACT}
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
+              >
+                <span>Book a 30-Minute Architecture Audit</span>
+                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
