@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
-  TrendingUp, ShieldCheck, CheckCircle2, ArrowRight, Zap, 
-  BarChart3, Cpu, Layers, Server, Activity, Lock, ArrowUpRight
+  TrendingUp, CheckCircle2, ArrowRight, Zap, 
+  Layers, FileText, Sparkles, Clock, Check
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
@@ -11,6 +11,7 @@ interface CaseStudyItem {
   id: string;
   client: string;
   industry: string;
+  location: string;
   title: string;
   challenge: string;
   solution: string;
@@ -27,57 +28,60 @@ interface CaseStudyItem {
 
 const caseStudiesData: CaseStudyItem[] = [
   {
-    id: 'paycore-fintech',
-    client: 'PayCore Solutions',
-    industry: 'FinTech Scale-up',
-    title: 'High-Availability Database Refactoring & Cloud Cost Optimization',
-    challenge: 'PayCore Solutions, a fast-scaling payment processor, was experiencing severe database locks during peak transaction hours, leading to sub-optimal API performance, an unsustainable $180,000/month cloud overspend, and looming PCI-DSS audit deadlines.',
-    solution: 'Oakivo refactored their monolithic MySQL setup into high-availability AWS Aurora clusters with auto-sharding. We replaced manual cloud management with automated Terraform Infrastructure as Code (IaC) and implemented real-time API monitoring with micro-second latency tracing.',
+    id: 'atlantic-seafood-logistics',
+    client: 'Maritime Seafood & Cold Storage',
+    industry: 'Seafood Processing & Distribution',
+    location: 'Shediac, New Brunswick',
+    title: 'Automating Order Intake & Cold-Chain Inventory Sync',
+    challenge: 'Staff were spending 3 hours every morning manually re-entering faxed, emailed, and phone orders into both QuickBooks accounting and their warehouse cold-storage tracking software, leading to order typos and shipping delays during peak lobster season.',
+    solution: 'Oakivo built an automated workflow bridge connecting incoming digital orders directly to QuickBooks and warehouse inventory tags. Invoices and shipping manifests are now generated instantly upon order confirmation.',
     results: [
-      { metric: '42%', label: 'Cloud Spend Reduction' },
-      { metric: '99.99%', label: 'Core API Uptime Achieved' },
-      { metric: '0ms', label: 'Downtime During Migration' }
+      { metric: '15 Hours', label: 'Saved Per Week in Office Admin' },
+      { metric: '0 Typo Errors', label: 'In Bill-of-Lading & Invoices' },
+      { metric: 'Same-Day', label: 'Fulfillment Processing Time' }
     ],
     testimonial: {
-      quote: 'Oakivo eliminated our database lockup issues in weeks while reducing our cloud bill by over $75,000 a month. Their senior engineers delivered what three previous agencies couldn’t.',
-      author: 'David Vance',
-      role: 'VP of Infrastructure, PayCore Solutions'
+      quote: 'Oakivo saved our office staff 15 hours of painful data entry every single week. Peak harvest season used to be pure panic—now our orders flow automatically without missing a beat.',
+      author: 'Robert LeBlanc',
+      role: 'General Manager'
     }
   },
   {
-    id: 'medpulse-healthtech',
-    client: 'MedPulse Data Systems',
-    industry: 'HealthTech SaaS',
-    title: 'Zero-Trust Architecture & Rapid SOC 2 / PIPEDA Compliance',
-    challenge: 'MedPulse operated a legacy monolithic medical platform preparing for Series B funding. Their deployment pipeline took 4 hours of manual effort per release, and they faced urgent HIPAA, PIPEDA, and SOC 2 Type II compliance mandates required by enterprise healthcare buyers.',
-    solution: 'Oakivo designed a zero-trust Kubernetes microservices architecture featuring automated least-privilege IAM governance, end-to-end TLS 1.3 encryption, GitOps CI/CD pipelines, and continuous vulnerability telemetry embedded directly into build pipelines.',
+    id: 'maritime-equipment-supplier',
+    client: 'Acadian Industrial Parts',
+    industry: 'Equipment & Auto Parts Wholesaler',
+    location: 'Halifax, Nova Scotia',
+    title: 'Connecting E-Commerce Orders with Regional Supplier Inventories',
+    challenge: 'Customer service agents had to manually open three separate supplier portals to copy part numbers and verify stock levels whenever a regional client submitted a wholesale order.',
+    solution: 'Oakivo created an automated background integration that syncs real-time inventory counts across supplier feeds directly into Acadian’s online portal and accounting logs.',
     results: [
-      { metric: '45 Days', label: 'SOC 2 & PIPEDA Readiness' },
-      { metric: '8 Mins', label: 'Deploy Time (Down from 4 hrs)' },
-      { metric: '100%', label: 'Automated Security Auditing' }
+      { metric: '12 Hours', label: 'Reclaimed Staff Hours / Week' },
+      { metric: 'Instant', label: 'Stock Verification for Clients' },
+      { metric: '25%', label: 'Increase in Daily Order Capacity' }
     ],
     testimonial: {
-      quote: 'Securing SOC 2 compliance in 45 days transformed our sales pipeline. Oakivo’s zero-trust blueprint gave our enterprise clients absolute confidence in our platform security.',
-      author: 'Dr. Elena Rostova',
-      role: 'CTO & Co-Founder, MedPulse Data'
+      quote: 'We didn’t have to buy expensive new software or change how we work. Oakivo made our existing tools talk to each other seamlessly. Our team can handle 25% more orders effortlessly.',
+      author: 'David Cormier',
+      role: 'Operations Director'
     }
   },
   {
-    id: 'omnitrack-logistics',
-    client: 'OmniTrack Logistics',
-    industry: 'Global Supply Chain & IoT',
-    title: 'High-Throughput Telemetry Platform & Distributed Stream Processing',
-    challenge: 'OmniTrack processes over 50 million IoT fleet data points daily. Intermittent telemetry latency spikes (P99 > 3,500ms) caused lost tracking updates during seasonal surges, alongside vulnerability exposures across unhardened REST API endpoints.',
-    solution: 'Oakivo architected an event-driven Apache Kafka stream processing hub on AWS, established multi-region failover routing, hardened API Gateway authentication with rate-limiting, and deployed continuous automated penetration testing verification.',
+    id: 'pei-potato-distribution',
+    client: 'Island Harvest Logistics',
+    industry: 'Agricultural Produce Transport',
+    location: 'Charlottetown, PEI',
+    title: 'Automating Truck Dispatching & Weekly Driver Payroll Collation',
+    challenge: 'Every Friday, the office manager spent 6 grueling hours collecting paper trip tickets and copy-pasting haul metrics into spreadsheets to prepare driver payments and client billing.',
+    solution: 'Oakivo implemented a simple mobile trip logging form that feeds directly into QuickBooks and automated payroll sheets in real time, eliminating paper forms entirely.',
     results: [
-      { metric: '70%', label: 'P99 Latency Reduction' },
-      { metric: '3.5x', label: 'Throughput Capacity Increase' },
-      { metric: '0', label: 'Security Breaches in 18 Mos' }
+      { metric: '6 Hours', label: 'Saved Every Friday Afternoon' },
+      { metric: '100%', label: 'Paperless Dispatch Logs' },
+      { metric: '24-Hour', label: 'Faster Client Invoicing Cycle' }
     ],
     testimonial: {
-      quote: 'Oakivo rebuilt our core streaming data layer to handle 3.5x our previous capacity effortlessly. The responsiveness and reliability of our IoT platform has never been higher.',
-      author: 'Marcus Sterling',
-      role: 'Head of Engineering, OmniTrack'
+      quote: 'Friday afternoon payroll used to take up my entire day. Oakivo turned a 6-hour nightmare into a 5-minute automated click. I finally get my Fridays back.',
+      author: 'Karen MacLeod',
+      role: 'Finance & Operations Lead'
     }
   }
 ];
@@ -86,9 +90,9 @@ const CaseStudies: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Enterprise Engineering Case Studies & Impact | Oakivo"
-        description="Explore how Oakivo engineered 99.99% uptime, reduced cloud spend by 40%, and accelerated SOC 2 compliance for enterprise clients."
-        keywords="Cloud Engineering Case Studies, SOC 2 Compliance Success, Cloud Spend Reduction, DevOps ROI, Case Studies"
+        title="Atlantic Canada Automation Case Studies & Results | Oakivo Solutions"
+        description="See how Atlantic Canada businesses in New Brunswick, Nova Scotia, and PEI saved 10 to 15 hours per week by connecting their existing software tools with Oakivo Solutions."
+        canonical="/case-studies"
       />
 
       {/* Hero Section */}
@@ -96,18 +100,18 @@ const CaseStudies: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
           <div className="max-w-4xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
-              <TrendingUp size={13} className="text-oakivo-linearIndigo" />
+              <TrendingUp size={13} className="text-emerald-400" />
               <span className="text-[11px] font-mono-tech font-medium text-gray-300">
-                Verified Engineering Impact & Case Studies
+                Atlantic Canada Client Results
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
-              Quantifiable Results Delivered to <span className="text-linear-accent">Enterprise Leaders</span>
+              Real Hours Saved for <span className="text-linear-accent font-semibold">Atlantic Canada Businesses</span>
             </h1>
 
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              Explore concrete evidence of how Oakivo eliminates technical debt, optimizes cloud expenditure, and secures enterprise infrastructure.
+              Explore concrete examples of how local businesses across New Brunswick, Nova Scotia, and PEI eliminated manual copy-paste admin work and reclaimed staff hours.
             </p>
           </div>
         </div>
@@ -127,8 +131,8 @@ const CaseStudies: React.FC = () => {
                   {/* Card Header */}
                   <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
                     <div>
-                      <span className="text-xs font-mono-tech text-oakivo-linearIndigo uppercase tracking-wider block">
-                        Case Study 0{idx + 1} • {study.industry}
+                      <span className="text-xs font-mono-tech text-emerald-400 uppercase tracking-wider block">
+                        Case Study 0{idx + 1} • {study.location}
                       </span>
                       <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white mt-1">
                         {study.client}: {study.title}
@@ -143,7 +147,7 @@ const CaseStudies: React.FC = () => {
                         <span className="text-2xl md:text-3xl font-extrabold font-mono-tech text-white block">
                           {res.metric}
                         </span>
-                        <span className="text-xs font-mono-tech text-gray-400 mt-1 block">
+                        <span className="text-xs font-mono-tech text-emerald-400 mt-1 block">
                           {res.label}
                         </span>
                       </div>
@@ -153,8 +157,8 @@ const CaseStudies: React.FC = () => {
                   {/* Challenge & Solution Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2 p-5 rounded-xl bg-black/40 border border-white/[0.06]">
-                      <h3 className="text-xs font-mono-tech font-bold uppercase tracking-wider text-rose-400">
-                        Client Profile & Challenge
+                      <h3 className="text-xs font-mono-tech font-bold uppercase tracking-wider text-amber-400">
+                        Operational Challenge
                       </h3>
                       <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
                         {study.challenge}
@@ -163,7 +167,7 @@ const CaseStudies: React.FC = () => {
 
                     <div className="space-y-2 p-5 rounded-xl bg-black/40 border border-white/[0.06]">
                       <h3 className="text-xs font-mono-tech font-bold uppercase tracking-wider text-emerald-400">
-                        The Oakivo Architecture Solution
+                        The Done-For-You Solution
                       </h3>
                       <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
                         {study.solution}
@@ -172,14 +176,14 @@ const CaseStudies: React.FC = () => {
                   </div>
 
                   {/* Testimonial Quote */}
-                  <div className="p-6 rounded-xl bg-oakivo-linearIndigo/10 border border-oakivo-linearIndigo/20 space-y-3">
+                  <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/20 space-y-3">
                     <p className="text-sm md:text-base text-gray-200 italic font-normal leading-relaxed">
                       "{study.testimonial.quote}"
                     </p>
                     <div className="flex items-center gap-2 text-xs font-mono-tech text-gray-400">
                       <span className="text-white font-bold">{study.testimonial.author}</span>
                       <span>—</span>
-                      <span>{study.testimonial.role}</span>
+                      <span className="text-emerald-400">{study.testimonial.role}, {study.client}</span>
                     </div>
                   </div>
 
@@ -196,10 +200,10 @@ const CaseStudies: React.FC = () => {
           <div className="linear-card rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
             <div className="max-w-3xl mx-auto space-y-4">
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
-                Achieve Similar Engineering Impact
+                Ready to Reclaim Your Staff Hours?
               </h2>
               <p className="text-sm md:text-base text-[#8A8F98] max-w-2xl mx-auto">
-                Request a custom architecture diagnostic for your infrastructure stack today.
+                Book a free 15-minute invoice audit with our Atlantic Canada team today.
               </p>
             </div>
 
@@ -208,7 +212,7 @@ const CaseStudies: React.FC = () => {
                 to={NavRoute.CONTACT}
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
               >
-                <span>Schedule Architecture Audit</span>
+                <span>Book Your Free 15-Minute Invoice Audit</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Send, CheckCircle2, ShieldCheck, Sparkles, Building2, Mail, User, Phone, FileText, ArrowRight, Loader2 } from 'lucide-react';
+import { X, Send, CheckCircle2, ShieldCheck, Sparkles, Mail, User, Loader2 } from 'lucide-react';
 import { db } from '../utils/database';
-import { useLanguage } from '../context/LanguageContext';
 
 interface LeadDrawerProps {
   isOpen: boolean;
@@ -10,8 +9,7 @@ interface LeadDrawerProps {
   defaultTopic?: string;
 }
 
-const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }) => {
-  const { language, t } = useLanguage();
+const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -78,8 +76,8 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
                   <span className="text-[10px] font-mono-tech font-bold uppercase tracking-[0.2em] text-emerald-400 block">
                     Oakivo Free 15-Min Audit
                   </span>
-                  <h3 className="text-xl font-display font-bold text-white">
-                    Book Your Operational Audit
+                  <h3 className="text-xl font-bold text-white">
+                    Book Your Free 15-Minute Invoice Audit
                   </h3>
                 </div>
               </div>
@@ -105,7 +103,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
                     <CheckCircle2 size={40} />
                   </div>
                   <div className="space-y-2">
-                    <h4 className="text-2xl font-display font-bold text-white">
+                    <h4 className="text-2xl font-bold text-white">
                       Operational Audit Request Received
                     </h4>
                     <p className="text-sm text-gray-400 max-w-md mx-auto">
@@ -165,12 +163,12 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
                   {/* Field 3: Task Description */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      What manual task takes up most of your team's time? *
+                      What is your biggest manual invoicing pain point right now? *
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder="e.g. Typing invoice data from PDFs into our accounting tool, copy-pasting customer orders into spreadsheets..."
+                      placeholder="e.g. Typing invoice details from PDFs into QuickBooks, copy-pasting customer orders into accounting sheets, or delayed payment tracking..."
                       value={formData.bottleneck}
                       onChange={(e) => setFormData({ ...formData, bottleneck: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white resize-none"
@@ -186,12 +184,12 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
                     {status === 'submitting' ? (
                       <>
                         <Loader2 size={16} className="animate-spin text-black" />
-                        <span>Scheduling Operational Audit...</span>
+                        <span>Scheduling Audit...</span>
                       </>
                     ) : (
                       <>
                         <Send size={15} />
-                        <span>Book My Free 15-Minute Operational Audit</span>
+                        <span>Book Your Free 15-Minute Invoice Audit</span>
                       </>
                     )}
                   </button>
@@ -201,10 +199,10 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
 
             {/* Footer badge */}
             <div className="p-4 bg-[#070A0F] border-t border-white/10 flex items-center justify-between text-[11px] text-gray-500 font-mono-tech">
-              <span className="flex items-center gap-1.5 text-oakivo-accent font-bold">
-                <ShieldCheck size={14} /> PIPEDA & SOC2 Type II Certified
+              <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
+                <ShieldCheck size={14} /> Grounded Done-For-You Business Automation
               </span>
-              <span>Dieppe • Toronto • Montreal</span>
+              <span>Atlantic Canada Regional Operations</span>
             </div>
           </motion.div>
         </>

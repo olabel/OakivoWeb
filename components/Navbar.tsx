@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink, useLocation, Link } from 'react-router-dom';
-import { Menu, X, Globe, ChevronRight, Zap, ShieldCheck, Lock, Sparkles } from 'lucide-react';
+import { Menu, X, Globe, ChevronRight, Zap, Lock, Sparkles } from 'lucide-react';
 import { NavRoute } from '../types';
 import Logo from './Logo';
 import { useLanguage } from '../context/LanguageContext';
@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
   const location = useLocation();
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,12 +32,11 @@ const Navbar: React.FC = () => {
   }, [language, setLanguage]);
 
   const navLinks = [
-    { name: t('nav.home'), path: NavRoute.HOME },
-    { name: t('nav.verticals'), path: NavRoute.VERTICALS },
-    { name: t('nav.services'), path: NavRoute.SERVICES },
-    { name: t('nav.work'), path: NavRoute.CASE_STUDIES },
-    { name: t('nav.compliance'), path: NavRoute.COMPLIANCE },
-    { name: t('nav.about'), path: NavRoute.ABOUT },
+    { name: 'Home', path: NavRoute.HOME },
+    { name: 'Services & Process', path: NavRoute.SERVICES },
+    { name: 'Case Studies', path: NavRoute.CASE_STUDIES },
+    { name: 'About Us', path: NavRoute.ABOUT },
+    { name: 'Free Audit', path: NavRoute.CONTACT },
   ];
 
   return (
@@ -47,10 +46,10 @@ const Navbar: React.FC = () => {
           isScrolled ? 'py-3' : 'py-5'
         }`}
       >
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className={`flex items-center justify-between transition-all duration-500 rounded-full px-6 md:px-8 py-3 ${
             isScrolled 
-              ? 'glass-nav shadow-2xl border border-white/10' 
+              ? 'bg-[#0B0F17]/90 backdrop-blur-xl shadow-2xl border border-white/10' 
               : 'bg-[#070A0F]/60 backdrop-blur-md border border-white/10'
           }`}>
             <div className="flex items-center gap-8 xl:gap-10">
@@ -58,20 +57,20 @@ const Navbar: React.FC = () => {
                 <Logo className="group-hover:scale-105 transition-transform" />
               </NavLink>
 
-              <nav className="hidden xl:flex items-center gap-6">
+              <nav className="hidden lg:flex items-center gap-6">
                 {navLinks.map((link) => (
                   <NavLink 
                     key={link.path} 
                     to={link.path}
                     className={({ isActive }) => 
-                      `text-xs font-medium tracking-normal transition-all relative group py-1 ${
-                        isActive ? 'text-white font-semibold' : 'text-[#8A8F98] hover:text-white'
+                      `text-xs font-semibold tracking-normal transition-all relative group py-1 ${
+                        isActive ? 'text-white' : 'text-[#8A8F98] hover:text-white'
                       }`
                     }
                   >
                     {link.name}
-                    <span className={`absolute -bottom-1 left-0 h-[2px] bg-oakivo-linearIndigo transition-all duration-300 ${
-                      location.pathname === link.path ? 'w-full shadow-linear-glow' : 'w-0 group-hover:w-full'
+                    <span className={`absolute -bottom-1 left-0 h-[2px] bg-emerald-400 transition-all duration-300 ${
+                      location.pathname === link.path ? 'w-full shadow-[0_0_10px_#10B981]' : 'w-0 group-hover:w-full'
                     }`}></span>
                   </NavLink>
                 ))}
@@ -84,29 +83,21 @@ const Navbar: React.FC = () => {
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full linear-pill text-[11px] font-mono-tech font-medium text-gray-300 hover:text-white hover:border-white/20 transition-all uppercase"
                 title="Switch Language (EN / FR)"
               >
-                <Globe size={12} className="text-oakivo-secondary" />
+                <Globe size={12} className="text-emerald-400" />
                 <span>{language.toUpperCase()}</span>
               </button>
 
-              <NavLink to={NavRoute.BOOKING} className="hidden xl:block">
-                <button className="px-4 py-2 rounded-full linear-pill text-gray-300 hover:text-white hover:border-white/20 transition-all text-xs font-medium whitespace-nowrap flex items-center gap-1.5">
-                  <span>{t('nav.booking')}</span>
-                  <kbd className="kbd-pill">⌘B</kbd>
-                </button>
-              </NavLink>
-
               <button 
                 onClick={() => setIsDrawerOpen(true)}
-                className="px-4 py-2 rounded-full bg-white hover:bg-gray-200 text-black font-semibold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center gap-2"
+                className="px-5 py-2.5 rounded-full bg-white hover:bg-gray-100 text-black font-bold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.25)] flex items-center gap-2 cursor-pointer"
               >
-                <Sparkles size={13} className="text-black" />
-                <span>{t('nav.contact')}</span>
-                <kbd className="bg-black/10 text-black/70 px-1.5 py-0.5 rounded text-[10px] font-mono-tech">⌘K</kbd>
+                <Sparkles size={14} className="text-black" />
+                <span>Book Your Free 15-Minute Invoice Audit</span>
               </button>
             </div>
 
             <button 
-              className="xl:hidden p-2.5 rounded-2xl bg-white/5 text-white border border-white/10" 
+              className="lg:hidden p-2.5 rounded-2xl bg-white/5 text-white border border-white/10" 
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle navigation menu"
             >
@@ -116,40 +107,31 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Navigation Drawer */}
-        <div className={`xl:hidden fixed inset-0 top-0 bg-[#070A0F] z-[59] transition-transform duration-500 pt-24 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className={`lg:hidden fixed inset-0 top-0 bg-[#070A0F] z-[59] transition-transform duration-500 pt-24 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="flex flex-col p-8 gap-6 h-full overflow-y-auto">
             <div className="flex justify-between items-center pb-4 border-b border-white/10">
-               <button onClick={toggleLanguage} className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full text-xs font-mono-tech font-bold text-oakivo-secondary uppercase tracking-wider border border-white/10">
+               <button onClick={toggleLanguage} className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full text-xs font-mono-tech font-bold text-emerald-400 uppercase tracking-wider border border-white/10">
                   <Globe size={16} /> Language: {language.toUpperCase()}
                </button>
-               <Link to={NavRoute.ADMIN_PORTAL} className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-white">
-                  <Lock size={14} /> Vault
-               </Link>
             </div>
 
             {navLinks.map((link) => (
               <NavLink 
                 key={link.path} 
                 to={link.path} 
-                className="text-2xl font-display font-bold text-white border-b border-white/5 pb-4 flex justify-between items-center"
+                className="text-2xl font-bold text-white border-b border-white/5 pb-4 flex justify-between items-center"
               >
                 {link.name}
-                <ChevronRight size={20} className="text-oakivo-secondary" />
+                <ChevronRight size={20} className="text-emerald-400" />
               </NavLink>
             ))}
 
             <div className="mt-auto space-y-4 pt-6">
-              <NavLink to={NavRoute.BOOKING} className="block">
-                <button className="w-full py-4 text-xs font-bold rounded-2xl border border-white/20 text-white uppercase tracking-wider">
-                  {t('nav.booking')}
-                </button>
-              </NavLink>
-
               <button 
                 onClick={() => { setIsOpen(false); setIsDrawerOpen(true); }}
-                className="w-full py-4 text-xs font-extrabold rounded-2xl bg-oakivo-secondary text-black uppercase tracking-widest shadow-glow-cyan flex items-center justify-center gap-2"
+                className="w-full py-4 text-xs font-extrabold rounded-2xl bg-white text-black uppercase tracking-wider shadow-2xl flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Sparkles size={16} /> {t('nav.contact')}
+                <Sparkles size={16} /> Book Your Free 15-Minute Invoice Audit
               </button>
             </div>
           </div>
@@ -160,13 +142,13 @@ const Navbar: React.FC = () => {
       <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[55] lg:hidden transition-all duration-700 ${showSticky && !isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}>
         <button 
           onClick={() => setIsDrawerOpen(true)}
-          className="bg-[#0B0F17] text-white px-7 py-3.5 rounded-full shadow-2xl flex items-center gap-3 border border-oakivo-secondary/40 shadow-glow-cyan active:scale-95 transition-transform"
+          className="bg-[#0B0F17] text-white px-7 py-3.5 rounded-full shadow-2xl flex items-center gap-3 border border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-95 transition-transform"
         >
-          <div className="w-7 h-7 bg-oakivo-secondary rounded-full flex items-center justify-center text-black">
+          <div className="w-7 h-7 bg-emerald-400 rounded-full flex items-center justify-center text-black">
              <Zap size={14} />
           </div>
-          <span className="text-[11px] font-mono-tech font-extrabold uppercase tracking-widest text-oakivo-secondary whitespace-nowrap">
-            {t('common.cta_mobile_sticky')}
+          <span className="text-[11px] font-mono-tech font-extrabold uppercase tracking-wider text-emerald-400 whitespace-nowrap">
+            Book Your Free 15-Minute Invoice Audit
           </span>
         </button>
       </div>

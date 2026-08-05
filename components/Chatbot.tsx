@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
 import { 
-  X, Sparkles, ArrowRight, ShieldCheck, User, Send, CheckCircle, 
-  BrainCircuit, Activity, Terminal, ShieldAlert, Bot, HelpCircle
+  X, Sparkles, ArrowRight, User, Send, CheckCircle2, 
+  Bot, Clock, ShieldCheck, Activity, MessageSquare
 } from 'lucide-react';
-import Logo from './Logo';
 import { useLanguage } from '../context/LanguageContext';
 import { db } from '../utils/database';
 
@@ -16,16 +15,16 @@ const Chatbot: React.FC = () => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
-  const [leadForm, setLeadForm] = useState({ name: '', email: '', company: '' });
+  const [leadForm, setLeadForm] = useState({ name: '', email: '', company: '', bottleneck: '' });
   const [leadStatus, setLeadStatus] = useState<'idle' | 'success'>('idle');
   
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const quickPrompts = [
-    language === 'en' ? "Odoo 19 Implementation Cost?" : "Coût Odoo 19 ?",
-    language === 'en' ? "Agentic AI Integration" : "Intégration IA Agentique",
-    language === 'en' ? "PIPEDA / Data Sovereignty" : "Conformité LPRPDE",
-    language === 'en' ? "Book Architectural Audit" : "Réserver un Audit"
+    language === 'en' ? "Free 15-Min Operational Audit?" : "Audit opérationnel gratuit ?",
+    language === 'en' ? "Do we need to buy new software?" : "Faut-il acheter de nouveaux logiciels ?",
+    language === 'en' ? "How fast is setup?" : "Combien de temps prend l'installation ?",
+    language === 'en' ? "Which tools can you connect?" : "Quels outils pouvez-vous connecter ?"
   ];
 
   useEffect(() => {
@@ -34,8 +33,8 @@ const Chatbot: React.FC = () => {
       setMessages([{ 
         role: 'model', 
         text: language === 'en' 
-          ? "Welcome to Oakivo Intelligence Hub. I am your Senior Architectural Assistant. How can I assist you with Odoo 19, Agentic AI, or PIPEDA compliance today?" 
-          : "Bienvenue sur le Hub d'Intelligence Oakivo. Je suis votre Assistant d'Architecture Senior. Comment puis-je vous aider avec Odoo 19, l'IA Agentique ou la LPRPDE aujourd'hui ?" 
+          ? "Welcome to Oakivo Solutions! I am your AI Automation Assistant. We connect the software tools you already use so your team stops wasting hours on manual data entry across Atlantic Canada. How can I help you today?" 
+          : "Bienvenue chez Oakivo Solutions ! Je suis votre assistant d'automatisation. Nous connectons vos logiciels actuels pour éliminer la saisie manuelle de données au Canada atlantique. Comment puis-je vous aider aujourd'hui ?" 
       }]);
     }
   }, [language]);
@@ -55,11 +54,10 @@ const Chatbot: React.FC = () => {
     setIsTyping(true);
 
     try {
-      // Fallback response generator if API key is not active
       let generatedText = "";
       
       try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || process.env.API_KEY || '' });
         const response = await ai.models.generateContent({
           model: 'gemini-3.6-flash',
           contents: [...messages, { role: 'user', text: messageToSend }].map(m => ({
@@ -67,12 +65,17 @@ const Chatbot: React.FC = () => {
             parts: [{ text: m.text }]
           })),
           config: {
-            systemInstruction: `You are the Oakivo Senior Architectural Assistant for Oakivo Solutions Inc.
-            Company Focus: Canada's premier Odoo 19 Implementation Partner, Agentic AI, and Sovereign Zero-Trust Cybersecurity consultancy.
-            Tone: High-precision, professional, direct, encouraging, technical.
-            Key Offices: Montreal, Toronto, Dieppe / Moncton.
-            If the user asks for quotes, implementation dates, or specific audits, offer a human lead architect handoff.
-            Respond in ${language === 'en' ? 'English' : 'French'}.`,
+            systemInstruction: `You are Oakivo's AI Automation Assistant for Oakivo Solutions Inc.
+            Core Focus: Done-For-You Business Workflow & System Automation in Atlantic Canada (New Brunswick, Nova Scotia, PEI, Newfoundland).
+            Key Value Proposition: We connect the software businesses ALREADY use (QuickBooks, Excel, Shopify, custom CRMs, email, Google Workspace) so teams stop wasting hours on manual data entry, copy-pasting between systems, and repetitive admin work.
+            Key Facts:
+            - NO new software subscriptions to buy.
+            - Setup takes 5 to 10 business days.
+            - Reclaims 10 to 20 hours per employee every week.
+            - Zero human copy-paste errors across orders & billing.
+            - Primary CTA: Free 15-Minute Operational Audit with an automation specialist.
+            Tone: High-clarity, practical, zero technical jargon, friendly, direct.
+            Language: Respond in ${language === 'en' ? 'English' : 'French'}.`,
           },
         });
         generatedText = response.text || "";
@@ -81,37 +84,40 @@ const Chatbot: React.FC = () => {
       }
 
       if (!generatedText) {
-        // High-fidelity domain-aware fallback response
         const lowerMsg = messageToSend.toLowerCase();
-        if (lowerMsg.includes('odoo') || lowerMsg.includes('erp') || lowerMsg.includes('cost')) {
+        if (lowerMsg.includes('buy') || lowerMsg.includes('software') || lowerMsg.includes('new') || lowerMsg.includes('cost')) {
           generatedText = language === 'en'
-            ? "Oakivo specializes in Odoo 19 sovereign orchestration. Typical SME migrations range from 6 to 12 weeks with full CRA GST/HST tax module localization. Would you like to schedule a discovery call with a Principal Architect?"
-            : "Oakivo est spécialisé dans l'orchestration souveraine d'Odoo 19. Les déploiements pour PME durent de 6 à 12 semaines avec intégration complète des modules fiscaux ARC. Souhaitez-vous échanger avec un architecte principal ?";
-        } else if (lowerMsg.includes('ai') || lowerMsg.includes('agent') || lowerMsg.includes('automation')) {
+            ? "No, you do NOT need to buy any new software! We build custom automated bridges between the exact tools you already use (like QuickBooks, Excel, Shopify, email, or your current CRM). Everything happens seamlessly in the background."
+            : "Non, vous n'avez AUCUN nouveau logiciel à acheter ! Nous créons des ponts automatisés sur mesure entre les outils que vous utilisez déjà (QuickBooks, Excel, Shopify, courriels, CRM). Tout fonctionne en arrière-plan.";
+        } else if (lowerMsg.includes('fast') || lowerMsg.includes('time') || lowerMsg.includes('setup') || lowerMsg.includes('long')) {
           generatedText = language === 'en'
-            ? "Our Agentic AI reasoning engines run directly inside your PIPEDA-compliant Canadian security perimeter. They automate repetitive document parsing, supply chain negotiation, and exception routing with sub-50ms latency."
-            : "Nos moteurs d'IA Agentique fonctionnent directement dans votre périmètre de sécurité canadien LPRPDE. Ils automatisent l'analyse documentaire, la négociation de chaîne d'approvisionnement et le routage des exceptions.";
-        } else if (lowerMsg.includes('pipeda') || lowerMsg.includes('security') || lowerMsg.includes('audit')) {
+            ? "Our done-for-you workflow automation is typical setup and live in 5 to 10 business days. We handle 100% of the technical connection, testing, and verification so your team doesn't have to lift a finger."
+            : "Nos automatisations clé en main sont configurées et opérationnelles en 5 à 10 jours ouvrables. Nous gérons 100 % de l'installation et des tests sans vous déranger.";
+        } else if (lowerMsg.includes('audit') || lowerMsg.includes('15') || lowerMsg.includes('free') || lowerMsg.includes('book')) {
           generatedText = language === 'en'
-            ? "All Oakivo deployments adhere strictly to PIPEDA, Quebec Law 25, and SOC2 Type II standards with 100% sovereign Canadian data residency in Montreal and Toronto data hubs."
-            : "Toutes nos architectures respectent strictement la LPRPDE, la Loi 25 du Québec et les normes SOC2 Type II avec une résidence de données 100% canadienne à Montréal et Toronto.";
+            ? "Our Free 15-Minute Operational Audit is a quick, no-pressure chat where an automation specialist looks at your daily workflow to pinpoint exact areas where staff is losing hours on manual data entry."
+            : "Notre audit opérationnel gratuit de 15 minutes est un échange simple sans pression. Un spécialiste étudie vos processus quotidiens pour identifier où votre équipe perd du temps en saisie manuelle.";
+        } else if (lowerMsg.includes('tool') || lowerMsg.includes('connect') || lowerMsg.includes('quickbooks') || lowerMsg.includes('excel')) {
+          generatedText = language === 'en'
+            ? "We connect almost any software tool with an open API or export capability—including QuickBooks, Xero, Excel, Google Sheets, Shopify, WooCommerce, HubSpot, Salesforce, and custom SQL/inventory databases!"
+            : "Nous connectons presque tous les outils logiciels—QuickBooks, Excel, Google Sheets, Shopify, WooCommerce, HubSpot, Salesforce et bases de données sur mesure !";
         } else {
           generatedText = language === 'en'
-            ? "I have logged your technical query. Oakivo's engineering matrix covers Odoo 19, Agentic AI, and Zero-Trust architecture. Would you like to transmit your inquiry to a Principal Architect?"
-            : "J'ai bien noté votre demande technique. La matrice Oakivo couvre Odoo 19, l'IA Agentique et l'architecture Zero-Trust. Souhaitez-vous transmettre cette demande à un architecte principal ?";
+            ? "I'd love to help you reclaim staff hours! Oakivo connects your existing tools so you stop copy-pasting data. Would you like to request a free 15-minute operational audit with one of our specialists?"
+            : "Je serais ravi de vous aider à gagner du temps ! Oakivo connecte vos outils actuels pour éliminer le copié-collé. Souhaitez-vous demander un audit opérationnel gratuit de 15 minutes ?";
         }
       }
 
       setMessages(prev => [...prev, { role: 'model', text: generatedText }]);
 
-      const keywords = ['meeting', 'quote', 'cost', 'audit', 'hire', 'schedule', 'réserver', 'découverte'];
+      const keywords = ['audit', 'book', 'schedule', 'speak', 'meet', 'cost', 'quote', 'réserver', 'contact'];
       if (keywords.some(k => messageToSend.toLowerCase().includes(k) || generatedText.toLowerCase().includes(k))) {
-         setMessages(prev => [...prev, { role: 'model', text: language === 'en' ? "Would you like to transmit your inquiry directly to a Senior Architect?" : "Souhaitez-vous transmettre votre demande à un Architecte Senior ?", isAction: true }]);
+         setMessages(prev => [...prev, { role: 'model', text: language === 'en' ? "Would you like to book your free 15-minute operational audit right now?" : "Souhaitez-vous réserver votre audit opérationnel gratuit de 15 minutes dès maintenant ?", isAction: true }]);
       }
     } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'model', 
-        text: language === 'en' ? "System gateway timeout. Please use our Technical Intake page to connect with an architect." : "Délai dépassé. Veuillez utiliser notre page Intake Technique." 
+        text: language === 'en' ? "Connection temporarily delayed. Please use our Free Operational Audit form on the website!" : "Connexion temporairement différée. Veuillez utiliser notre formulaire d'audit gratuit !" 
       }]);
     } finally {
       setIsTyping(false);
@@ -120,71 +126,73 @@ const Chatbot: React.FC = () => {
 
   const handleLeadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    db.saveEntry('lead', { ...leadForm, source: 'Chat Assistant Intake' });
+    db.saveEntry('lead', { ...leadForm, source: 'Chat Assistant Operational Audit Intake', type: 'CHATBOT_AUDIT_REQUEST' });
     setLeadStatus('success');
     setTimeout(() => {
       setShowLeadForm(false);
       setLeadStatus('idle');
-      setLeadForm({ name: '', email: '', company: '' });
+      setLeadForm({ name: '', email: '', company: '', bottleneck: '' });
       setMessages(prev => [...prev, { 
         role: 'model', 
-        text: language === 'en' ? "Intelligence profile transmitted. A Principal Architect will contact you within 24 hours." : "Profil transmis. Un architecte principal vous contactera sous 24h." 
+        text: language === 'en' ? "Thank you! An automation specialist will review your details and reach out within 24 hours to schedule your free 15-minute audit." : "Merci ! Un spécialiste de l'automatisation examinera vos détails et vous contactera sous 24h pour planifier votre audit gratuit." 
       }]);
-    }, 1800);
+    }, 1500);
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-[100] font-sans">
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-2xl transition-all relative ${
-          isOpen ? 'bg-white text-oakivo-primary shadow-2xl scale-105' : 'bg-[#020504] text-white hover:scale-105'
+        className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] transition-all relative border border-white/20 cursor-pointer ${
+          isOpen ? 'bg-white text-black scale-105' : 'bg-[#0B0F17] text-white hover:scale-105'
         }`}
         aria-label="Toggle Oakivo AI Assistant"
       >
-        {isOpen ? <X size={28} /> : <Sparkles size={26} className="text-oakivo-secondary" />}
+        {isOpen ? <X size={26} /> : <Bot size={28} className="text-emerald-400" />}
         {!isOpen && (
-          <div className="absolute -top-1 -right-1 w-4 h-4 bg-oakivo-secondary rounded-full border-2 border-white animate-pulse" />
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-[#070A0F] animate-pulse" />
         )}
       </button>
 
-      <div className={`absolute bottom-20 right-0 w-[420px] max-w-[92vw] h-[620px] bg-white rounded-[36px] shadow-2xl border border-gray-100 flex flex-col transition-all duration-300 origin-bottom-right ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+      <div className={`absolute bottom-20 right-0 w-[420px] max-w-[90vw] h-[600px] bg-[#0B0F17] rounded-[32px] shadow-2xl border border-white/10 flex flex-col transition-all duration-300 origin-bottom-right overflow-hidden ${
+        isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+      }`}>
         
         {/* Header */}
-        <div className="p-6 bg-oakivo-primary text-white rounded-t-[36px] flex items-center justify-between border-b border-white/10">
+        <div className="p-5 bg-[#070A0F] text-white rounded-t-[32px] flex items-center justify-between border-b border-white/10">
            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-oakivo-secondary/20 border border-oakivo-secondary/30 flex items-center justify-center text-oakivo-secondary">
-                 <Bot size={20} />
+              <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                 <Bot size={22} />
               </div>
               <div>
-                 <span className="font-bold text-sm block leading-none">Oakivo AI Agent</span>
-                 <span className="text-[9px] font-mono-tech text-white/50 uppercase tracking-widest">Sovereign Architecture Core</span>
+                 <span className="font-extrabold text-sm block leading-none text-white">Oakivo Assistant</span>
+                 <span className="text-[10px] font-mono-tech text-emerald-400 font-bold uppercase tracking-wider">Done-For-You Workflow Automation</span>
               </div>
            </div>
            <button 
             onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')} 
-            className="text-[10px] font-black uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full text-oakivo-secondary hover:bg-white/20 transition-all"
+            className="text-[10px] font-mono-tech font-bold uppercase tracking-wider bg-white/10 px-3 py-1 rounded-full text-emerald-400 hover:bg-white/20 transition-all cursor-pointer"
            >
             {language.toUpperCase()}
            </button>
         </div>
 
         {/* Message Container */}
-        <div ref={scrollRef} className="flex-grow overflow-y-auto p-6 space-y-4 bg-oakivo-surface no-scrollbar">
+        <div ref={scrollRef} className="flex-grow overflow-y-auto p-5 space-y-4 bg-[#070A0F]/60 no-scrollbar">
            {messages.map((msg, i) => (
              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[88%] p-4 rounded-[22px] text-xs md:text-sm leading-relaxed ${
+                <div className={`max-w-[88%] p-4 rounded-2xl text-xs md:text-sm leading-relaxed ${
                   msg.role === 'user' 
-                    ? 'bg-oakivo-primary text-white rounded-br-none shadow-sm' 
-                    : 'bg-white text-gray-800 rounded-bl-none border border-gray-100 shadow-sm'
+                    ? 'bg-white text-black font-medium rounded-br-none shadow-sm' 
+                    : 'bg-[#121722] text-gray-200 border border-white/10 rounded-bl-none shadow-sm'
                 }`}>
                    {msg.text}
-                   {msg.isAction && (
+                   {msg.isAction && !showLeadForm && (
                      <button 
                       onClick={() => setShowLeadForm(true)} 
-                      className="mt-3 w-full bg-oakivo-secondary text-black py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-opacity"
+                      className="mt-3 w-full bg-emerald-400 text-black py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-emerald-300 transition-colors flex items-center justify-center gap-2 cursor-pointer"
                      >
-                       Request Senior Architect Call
+                       <Clock size={14} /> Book Free 15-Min Audit
                      </button>
                    )}
                 </div>
@@ -192,54 +200,73 @@ const Chatbot: React.FC = () => {
            ))}
 
            {isTyping && (
-             <div className="flex items-center gap-2 text-[10px] font-mono-tech text-oakivo-primary font-bold uppercase tracking-widest p-2">
-                <Activity size={14} className="animate-spin text-oakivo-secondary" /> Reasoning Architecture...
+             <div className="flex items-center gap-2 text-[10px] font-mono-tech text-gray-400 font-bold uppercase tracking-wider p-2">
+                <Activity size={14} className="animate-spin text-emerald-400" /> Analyzing request...
              </div>
            )}
 
            {showLeadForm && (
-             <form onSubmit={handleLeadSubmit} className="p-5 bg-white rounded-[24px] space-y-3 border border-gray-100 shadow-md">
-                <p className="text-xs font-bold text-oakivo-primary">Connect with Principal Architect:</p>
+             <form onSubmit={handleLeadSubmit} className="p-5 bg-[#121722] rounded-2xl space-y-3 border border-white/10 shadow-lg animate-fade-in-up">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-bold text-white flex items-center gap-1.5">
+                    <Sparkles size={14} className="text-emerald-400" /> Free 15-Min Audit Request
+                  </p>
+                  <button type="button" onClick={() => setShowLeadForm(false)} className="text-gray-400 hover:text-white">
+                    <X size={16} />
+                  </button>
+                </div>
+
                 <input 
                   type="text" 
                   required 
-                  placeholder="Full Name" 
+                  placeholder="Your Name *" 
                   value={leadForm.name} 
                   onChange={e => setLeadForm({...leadForm, name: e.target.value})} 
-                  className="w-full p-3 rounded-xl border border-gray-200 text-xs focus:border-oakivo-primary focus:outline-none" 
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-white focus:outline-none" 
                 />
                 <input 
                   type="email" 
                   required 
-                  placeholder="Corporate Email" 
+                  placeholder="Work Email *" 
                   value={leadForm.email} 
                   onChange={e => setLeadForm({...leadForm, email: e.target.value})} 
-                  className="w-full p-3 rounded-xl border border-gray-200 text-xs focus:border-oakivo-primary focus:outline-none" 
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-white focus:outline-none" 
                 />
-                <input 
-                  type="text" 
-                  placeholder="Company Name" 
-                  value={leadForm.company} 
-                  onChange={e => setLeadForm({...leadForm, company: e.target.value})} 
-                  className="w-full p-3 rounded-xl border border-gray-200 text-xs focus:border-oakivo-primary focus:outline-none" 
+                <textarea 
+                  rows={2}
+                  required 
+                  placeholder="What manual task takes up most of your team's time?" 
+                  value={leadForm.bottleneck} 
+                  onChange={e => setLeadForm({...leadForm, bottleneck: e.target.value})} 
+                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-white focus:outline-none resize-none" 
                 />
                 <button 
                   type="submit" 
-                  className="w-full bg-oakivo-primary text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-opacity-95 transition-all"
+                  className="w-full bg-white text-black py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-gray-100 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  {leadStatus === 'success' ? 'Profile Saved!' : 'Submit Architecture Request'}
+                  {leadStatus === 'success' ? (
+                    <>
+                      <CheckCircle2 size={16} className="text-emerald-500" />
+                      <span>Audit Request Sent!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={14} />
+                      <span>Book Free Operational Audit</span>
+                    </>
+                  )}
                 </button>
              </form>
            )}
         </div>
 
         {/* Quick Prompts */}
-        <div className="px-4 py-2 bg-white border-t border-gray-100 flex gap-2 overflow-x-auto no-scrollbar">
+        <div className="px-3 py-2 bg-[#070A0F] border-t border-white/10 flex gap-2 overflow-x-auto no-scrollbar">
           {quickPrompts.map((qp, idx) => (
             <button
               key={idx}
               onClick={() => handleSend(qp)}
-              className="px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-[10px] font-bold text-oakivo-primary whitespace-nowrap hover:bg-oakivo-primary hover:text-white transition-all"
+              className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-gray-300 whitespace-nowrap hover:bg-white hover:text-black transition-all cursor-pointer shrink-0"
             >
               {qp}
             </button>
@@ -247,18 +274,18 @@ const Chatbot: React.FC = () => {
         </div>
 
         {/* Input Bar */}
-        <div className="p-4 bg-white border-t border-gray-100 flex gap-2 rounded-b-[36px]">
+        <div className="p-3.5 bg-[#070A0F] border-t border-white/10 flex gap-2 rounded-b-[32px]">
            <input 
             type="text" 
             value={input} 
             onChange={e => setInput(e.target.value)} 
             onKeyDown={e => e.key === 'Enter' && handleSend()} 
-            placeholder={language === 'en' ? "Ask about Odoo 19, AI, or compliance..." : "Posez une question sur Odoo 19..."} 
-            className="flex-grow bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:border-oakivo-primary" 
+            placeholder={language === 'en' ? "Ask about workflow automation or audits..." : "Posez une question sur l'automatisation..."} 
+            className="flex-grow bg-white/5 border border-white/10 rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white" 
            />
            <button 
             onClick={() => handleSend()} 
-            className="w-11 h-11 bg-oakivo-primary text-white rounded-2xl flex items-center justify-center hover:scale-105 transition-transform"
+            className="w-10 h-10 bg-white text-black rounded-2xl flex items-center justify-center hover:bg-gray-200 transition-colors cursor-pointer shrink-0"
             aria-label="Send Message"
            >
             <ArrowRight size={18} />

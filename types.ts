@@ -44,5 +44,15 @@ export enum NavRoute {
   CAREERS = '/careers',
   PRIVACY = '/privacy',
   COMPLIANCE = '/compliance-matrix',
-  ADMIN_PORTAL = '/admin-portal'
+  ADMIN_PORTAL = '/admin-portal',
+  // Solution Pages
+  SOLUTION_INVOICE = '/solutions/invoice-automation',
+  SOLUTION_INVENTORY = '/solutions/order-inventory-sync',
+  SOLUTION_DISPATCH = '/solutions/dispatch-route-logging',
+  SOLUTION_REPORTING = '/solutions/custom-report-automation',
+  // Location Pages
+  LOCATION_NB = '/locations/new-brunswick',
+  LOCATION_NS = '/locations/nova-scotia',
+  LOCATION_PEI = '/locations/prince-edward-island',
+  LOCATION_NL = '/locations/newfoundland-labrador'
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
-  ShieldCheck, ArrowRight, Zap, Check, X, 
-  Terminal, Award, CheckCircle2, Users, Cpu, Lock, Sliders, TrendingUp
+  ShieldCheck, ArrowRight, Zap, CheckCircle2, Users, Layers, TrendingUp, Clock
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
@@ -10,77 +9,80 @@ import SEO from '../components/SEO';
 const OperatingPrinciples = [
   {
     number: '01',
-    title: 'Security by Design',
-    icon: <Lock size={24} className="text-oakivo-linearIndigo" />,
-    description: 'Defense-in-depth is baked into every line of Infrastructure as Code from day zero. We treat security as a fundamental engineering requirement, not an audit checklist afterthought.'
+    title: 'Grounded Solutions',
+    icon: <ShieldCheck size={24} className="text-emerald-400" />,
+    description: 'No unnecessary tech buzzwords or pushy sales pitches. We focus strictly on practical workflows that save your team actual hours every week.'
   },
   {
     number: '02',
-    title: 'Automation First',
-    icon: <Zap size={24} className="text-oakivo-linearIndigo" />,
-    description: 'Eliminating manual human intervention across CI/CD pipelines, environment provisioning, database migration, and security compliance verification.'
+    title: 'Zero Software Buying Required',
+    icon: <Zap size={24} className="text-emerald-400" />,
+    description: 'We connect the software tools you already pay for and use daily. No forcing expensive new subscriptions or risky operational overhauls.'
   },
   {
     number: '03',
-    title: 'Zero Fluff',
-    icon: <Terminal size={24} className="text-oakivo-linearIndigo" />,
-    description: 'Direct communication, zero buzzword fluff, and transparent engineering telemetry. You deal directly with senior architects who write code, not account managers.'
+    title: '100% Atlantic Canada Focus',
+    icon: <Users size={24} className="text-emerald-400" />,
+    description: 'We understand the unique operational dynamics of businesses in New Brunswick, Nova Scotia, PEI, and Newfoundland. Grounded, responsive local support.'
   },
   {
     number: '04',
-    title: 'Measured ROI',
-    icon: <TrendingUp size={24} className="text-oakivo-linearIndigo" />,
-    description: 'Every architectural decision is tied directly to explicit business outcomes—guaranteed uptime, reduced monthly cloud spend, and deployment velocity.'
+    title: 'Guaranteed Time Return',
+    icon: <Clock size={24} className="text-emerald-400" />,
+    description: 'Every workflow bridge we build is designed to eliminate manual data entry errors and give your staff 10 to 15 hours back every single week.'
   }
 ];
 
 const TrustMetrics = [
-  { value: '99.99%', label: 'Infrastructure Uptime Guaranteed', subtext: 'Battle-tested HA clustering' },
-  { value: '< 60 Days', label: 'SOC 2 Readiness SLA', subtext: 'Accelerated audit timelines' },
-  { value: '40%', label: 'Avg Cloud Spend Reduction', subtext: 'Automated cost optimization' },
-  { value: '100%', label: 'Senior Architect Lead Ratio', subtext: 'Zero junior associate billing' }
+  { value: '10–15 Hrs', label: 'Saved Per Employee / Week', subtext: 'Reclaimed staff payroll' },
+  { value: '100%', label: 'Atlantic Canada Focused', subtext: 'NB, NS, PEI, NL support' },
+  { value: '99%+ Accuracy', label: 'In Automated Billing & Orders', subtext: 'Eliminate copy-paste typos' },
+  { value: '15 Mins', label: 'Free Operational Audit', subtext: 'Instant workflow feedback' }
 ];
 
 const About: React.FC = () => {
   return (
     <>
       <SEO 
-        title="About Oakivo | Cloud Engineering & Zero-Trust Security Principals"
-        description="Oakivo is an elite boutique consultancy of senior architects empowering high-growth B2B enterprises with cloud modernization and zero-trust security."
-        keywords="Oakivo, Cloud Engineering Principals, Zero-Trust Architecture, B2B Cloud Consulting, DevOps Automation"
+        title="About Oakivo Solutions | Done-For-You Workflow Automation in Atlantic Canada"
+        description="Oakivo Solutions connects the software you already use so your team stops wasting hours on manual data entry, copy-pasting between systems, and repetitive admin work."
+        keywords="Oakivo Solutions, Business Automation Atlantic Canada, Workflow Automation New Brunswick, Process Integration Nova Scotia, PEI Software Integration"
       />
 
       {/* Hero Section */}
       <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 border-b border-white/[0.08] overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
           <div className="max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full linear-pill backdrop-blur-md">
-              <ShieldCheck size={13} className="text-oakivo-linearIndigo" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
+              <ShieldCheck size={13} className="text-emerald-400" />
               <span className="text-[11px] font-mono-tech font-medium text-gray-300">
-                Senior Engineering Consultancy
+                Atlantic Canada Invoice & Bookkeeping Automation
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
-              Architecting Unshakeable Platforms for <span className="text-linear-accent">Growth Enterprises</span>
+              Solving Atlantic Canada's Office Hiring Crunch Through <span className="text-linear-accent font-semibold">Invoice Automation.</span>
             </h1>
 
             {/* Brand Mission Statement */}
             <div className="p-6 md:p-8 rounded-2xl linear-card border border-white/10 space-y-2">
-              <span className="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-oakivo-linearIndigo block">
-                Brand Mission
+              <span className="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-emerald-400 block">
+                Our Core Focus
               </span>
               <p className="text-base md:text-lg text-gray-200 font-normal leading-relaxed tracking-linear-normal">
-                Oakivo exists to eliminate technical debt and engineer unshakeable cloud platforms for growth-focused enterprises. We replace bloated agency overhead with direct access to senior architects who deliver zero-trust security, automated velocity, and quantifiable ROI.
+                Atlantic Canada small businesses face the highest hiring difficulty in the country, especially for administrative and office support positions. Oakivo Solutions connects the invoicing and accounting software you already use (like QuickBooks, Xero, or Sage) so billing and customer records sync automatically—eliminating the need to fill office roles the local market can't supply.
+              </p>
+              <p className="text-xs text-gray-400 pt-2 italic">
+                Note: Automated invoice sync is usually just the first step in a broader long-term relationship. Once your business reclaims staff capacity, we help streamline other daily operational bottlenecks over time.
               </p>
             </div>
 
             <div className="pt-2 flex items-center gap-4">
               <Link
                 to={NavRoute.CONTACT}
-                className="px-6 py-3.5 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group"
+                className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group"
               >
-                <span>Talk to a Senior Architect</span>
+                <span>Book Your Free 15-Minute Invoice Audit</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
@@ -103,7 +105,7 @@ const About: React.FC = () => {
                 <div className="text-xs font-semibold text-gray-200">
                   {metric.label}
                 </div>
-                <div className="text-[10px] font-mono-tech text-gray-500">
+                <div className="text-[10px] font-mono-tech text-emerald-400 font-medium">
                   {metric.subtext}
                 </div>
               </div>
@@ -116,14 +118,14 @@ const About: React.FC = () => {
       <section className="py-20 md:py-28 relative border-b border-white/[0.08]">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="max-w-3xl mb-16 space-y-3">
-            <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-oakivo-linearIndigo">
-              Our Engineering Standards
+            <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-emerald-400">
+              Our Principles
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
-              Core Operating Principles
+              Grounded, Practical Values
             </h2>
             <p className="text-sm md:text-base text-[#8A8F98]">
-              We govern every architectural engagement through four non-negotiable engineering values.
+              How we work with business owners across New Brunswick, Nova Scotia, PEI, and Newfoundland.
             </p>
           </div>
 
@@ -156,15 +158,15 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Distinction Matrix */}
+      {/* Comparison Matrix */}
       <section className="py-20 md:py-28 relative border-b border-white/[0.08]">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="max-w-3xl mb-12 space-y-3">
-            <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-oakivo-linearIndigo">
-              Why Leaders Choose Oakivo
+            <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-emerald-400">
+              Why Owners Choose Oakivo
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-linear-tight text-linear-heading">
-              The Oakivo Difference vs. Legacy Consultancies
+              The Oakivo Approach vs. Traditional Agencies
             </h2>
           </div>
 
@@ -172,43 +174,43 @@ const About: React.FC = () => {
             <table className="w-full text-left text-xs md:text-sm border-collapse min-w-[600px]">
               <thead>
                 <tr className="border-b border-white/10 bg-white/[0.02]">
-                  <th className="p-4 md:p-5 font-mono-tech text-gray-400 font-medium uppercase">Engineering Parameter</th>
-                  <th className="p-4 md:p-5 font-mono-tech text-white font-bold uppercase bg-oakivo-linearIndigo/10">Oakivo Principal Model</th>
-                  <th className="p-4 md:p-5 font-mono-tech text-gray-500 font-medium uppercase">Legacy Big-4 Consultancies</th>
+                  <th className="p-4 md:p-5 font-mono-tech text-gray-400 font-medium uppercase">Parameter</th>
+                  <th className="p-4 md:p-5 font-mono-tech text-white font-bold uppercase bg-emerald-500/10">Oakivo Done-For-You Automation</th>
+                  <th className="p-4 md:p-5 font-mono-tech text-gray-500 font-medium uppercase">Traditional IT Agencies</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.06] text-gray-300">
                 <tr>
-                  <td className="p-4 md:p-5 font-semibold text-white">Architect Seniority</td>
-                  <td className="p-4 md:p-5 text-white font-bold bg-oakivo-linearIndigo/5 flex items-center gap-2">
+                  <td className="p-4 md:p-5 font-semibold text-white">Software Costs</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-emerald-500/5 flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-                    <span>100% Principal Architects (12+ yrs experience)</span>
+                    <span>Uses your existing software tools (no new licenses)</span>
                   </td>
-                  <td className="p-4 md:p-5 text-gray-400">Junior associates with high billable hour targets</td>
+                  <td className="p-4 md:p-5 text-gray-400">Forces expensive new ERP or SaaS platform subscriptions</td>
                 </tr>
                 <tr>
-                  <td className="p-4 md:p-5 font-semibold text-white">Security & IaC Protocol</td>
-                  <td className="p-4 md:p-5 text-white font-bold bg-oakivo-linearIndigo/5 flex items-center gap-2">
+                  <td className="p-4 md:p-5 font-semibold text-white">Language & Communication</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-emerald-500/5 flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-                    <span>Zero-Trust Infrastructure as Code by default</span>
+                    <span>Plain English, grounded business consulting</span>
                   </td>
-                  <td className="p-4 md:p-5 text-gray-400">Manual provisioning with post-hoc compliance patches</td>
+                  <td className="p-4 md:p-5 text-gray-400">Confusing technical jargon and acronyms</td>
                 </tr>
                 <tr>
-                  <td className="p-4 md:p-5 font-semibold text-white">Execution Speed</td>
-                  <td className="p-4 md:p-5 text-white font-bold bg-oakivo-linearIndigo/5 flex items-center gap-2">
+                  <td className="p-4 md:p-5 font-semibold text-white">Implementation Speed</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-emerald-500/5 flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-                    <span>Rapid 60-day target deployment sprints</span>
+                    <span>Quick workflow bridges running in days</span>
                   </td>
-                  <td className="p-4 md:p-5 text-gray-400">6–12 month protracted discovery cycles</td>
+                  <td className="p-4 md:p-5 text-gray-400">Multi-month discovery and expensive consulting retainers</td>
                 </tr>
                 <tr>
-                  <td className="p-4 md:p-5 font-semibold text-white">Engagement Model</td>
-                  <td className="p-4 md:p-5 text-white font-bold bg-oakivo-linearIndigo/5 flex items-center gap-2">
+                  <td className="p-4 md:p-5 font-semibold text-white">Target Focus</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-emerald-500/5 flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-                    <span>Direct Slack/Teams channel with lead engineers</span>
+                    <span>100% Atlantic Canada businesses & regional growth</span>
                   </td>
-                  <td className="p-4 md:p-5 text-gray-400">Layered account managers & proxy status meetings</td>
+                  <td className="p-4 md:p-5 text-gray-400">Generic global templates without local responsiveness</td>
                 </tr>
               </tbody>
             </table>
@@ -222,10 +224,10 @@ const About: React.FC = () => {
           <div className="linear-card rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
             <div className="max-w-3xl mx-auto space-y-4">
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
-                Experience Zero-Fluff Cloud Engineering
+                Book Your Free 15-Minute Invoice Audit
               </h2>
               <p className="text-sm md:text-base text-[#8A8F98] max-w-2xl mx-auto">
-                Schedule a direct intake session with our principal team to evaluate your current platform architecture.
+                No high-pressure sales pitch. We will review your daily invoicing setup and show you how to automate your billing flow—free of charge.
               </p>
             </div>
 
@@ -234,7 +236,7 @@ const About: React.FC = () => {
                 to={NavRoute.CONTACT}
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
               >
-                <span>Initiate Technical Intake</span>
+                <span>Book Your Free 15-Minute Invoice Audit</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>

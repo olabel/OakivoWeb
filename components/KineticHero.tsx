@@ -40,18 +40,18 @@ const KineticHero: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-[11px] font-mono-tech font-medium text-gray-300">
-                Done-For-You Workflow Automation • Atlantic Canada
+                Done-For-You Invoice & Bookkeeping Automation • Atlantic Canada
               </span>
             </div>
 
             {/* Kinetic Linear Headline */}
             <h1 className="text-3xl sm:text-5xl xl:text-6xl font-extrabold tracking-linear-tight leading-[1.1] text-linear-heading max-w-4xl">
-              Stop Wasting Hours on <span className="text-linear-accent font-semibold">Manual Data Entry</span> and Copy-Pasting Between Systems.
+              Can't Hire Office Admin Staff in Atlantic Canada? <span className="text-linear-accent font-semibold">Automate Your Invoicing Instead.</span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-[#8A8F98] font-normal max-w-2xl leading-relaxed tracking-linear-normal">
-              We connect the software you already use so your team stops wasting hours on manual data entry, copy-pasting between systems, and repetitive admin work. No expensive new software to buy, and zero disruption to your daily operations.
+              We connect the accounting software you already use (like QuickBooks, Xero, or Sage) so invoices, customer payments, and billing records sync automatically—removing the need to fill office roles the local labour market can't supply.
             </p>
 
             {/* Action CTAs */}
@@ -61,7 +61,7 @@ const KineticHero: React.FC = () => {
                 className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group cursor-pointer"
               >
                 <Sparkles size={15} />
-                <span>Book Your Free 15-Minute Operational Audit</span>
+                <span>Book Your Free 15-Minute Invoice Audit</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </button>
             </div>

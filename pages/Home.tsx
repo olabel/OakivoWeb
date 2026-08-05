@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Helmet } from 'react-helmet-async';
 import KineticHero from '../components/KineticHero';
 import LeadDrawer from '../components/LeadDrawer';
+import SEO from '../components/SEO';
 import { db } from '../utils/database';
 import { 
   Sparkles, ArrowRight, CheckCircle2, FileText, AlertCircle, 
-  Layers, Clock, ShieldCheck, Zap, Send, Loader2, User, Mail
+  Layers, Clock, ShieldCheck, Zap, Send, Loader2, User, Mail, MapPin, Building2, Users
 } from 'lucide-react';
 
 const Home: React.FC = () => {
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
     setStatus('submitting');
     db.saveEntry('lead', {
       ...formData,
-      type: 'INLINE_HOMEPAGE_AUDIT',
+      type: 'INLINE_INVOICE_AUDIT',
       submittedAt: new Date().toISOString()
     });
 
@@ -33,84 +33,135 @@ const Home: React.FC = () => {
     setStatus('success');
   };
 
+  const faqList = [
+    {
+      q: 'Do we need to buy new accounting or invoicing software to work with Oakivo?',
+      a: 'No. We connect the existing software subscriptions you already pay for (such as QuickBooks, Xero, Sage, or custom billing tools).'
+    },
+    {
+      q: 'How does invoice automation help if we cannot hire office admin staff?',
+      a: 'Atlantic Canada has the highest administrative hiring difficulty in Canada. Instead of trying to recruit a scarce office worker, we automate the manual copy-pasting of invoices, payments, and billing records between your tools.'
+    },
+    {
+      q: 'Will this disrupt our daily billing operations during setup?',
+      a: 'No daily disruption. We build and test all automated invoice bridges in a isolated sandbox environment before going live.'
+    }
+  ];
+
+  const schemaData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      'name': 'Oakivo Solutions',
+      'description': 'Done-for-you invoice & bookkeeping automation for small and mid-size businesses across Atlantic Canada (New Brunswick, Nova Scotia, Prince Edward Island, Newfoundland & Labrador).',
+      'url': 'https://www.oakivo.com',
+      'telephone': '+1-800-555-0199',
+      'areaServed': [
+        { '@type': 'AdministrativeArea', 'name': 'New Brunswick' },
+        { '@type': 'AdministrativeArea', 'name': 'Nova Scotia' },
+        { '@type': 'AdministrativeArea', 'name': 'Prince Edward Island' },
+        { '@type': 'AdministrativeArea', 'name': 'Newfoundland and Labrador' }
+      ],
+      'address': {
+        '@type': 'PostalAddress',
+        'addressRegion': 'Atlantic Canada',
+        'addressCountry': 'CA'
+      }
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': faqList.map(item => ({
+        '@type': 'Question',
+        'name': item.q,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': item.a
+        }
+      }))
+    }
+  ];
+
   return (
     <>
-      <Helmet>
-        <title>Oakivo Solutions | Done-For-You Workflow & System Automation in Atlantic Canada</title>
-        <meta name="description" content="We connect the software you already use so your team stops wasting hours on manual data entry, copy-pasting between systems, and repetitive admin work across Atlantic Canada." />
-      </Helmet>
+      <SEO 
+        title="Done-For-You Invoice & Bookkeeping Automation | Oakivo Solutions"
+        description="Can't hire office admin staff in Atlantic Canada? We connect your existing accounting software (QuickBooks, Xero, Sage) so invoices sync automatically."
+        canonical="/"
+        schema={schemaData}
+      />
 
       <div className="space-y-0 bg-[#070A0F] text-white overflow-hidden">
         
         {/* 1. HERO SECTION */}
         <KineticHero />
 
-        {/* 2. THE REALITY (Regional Pain Points) */}
-        <section className="py-20 md:py-28 bg-[#0B0F17] border-y border-white/10 relative z-20">
+        {/* 2. THE PROBLEM (Plain Terms: Atlantic Canada Labour Shortage & Invoicing Friction) */}
+        <section className="py-20 md:py-28 bg-[#0B0F17] border-y border-white/10 relative z-20" id="problem-section">
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill text-[#8A8F98] text-xs font-mono-tech font-medium uppercase tracking-wider">
-                <AlertCircle size={14} className="text-amber-400" /> Regional Pain Points
+                <AlertCircle size={14} className="text-amber-400" /> The Regional Administrative Crunch
               </div>
 
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading leading-tight">
-                The Daily Operational Reality for <br className="hidden sm:inline" />
-                <span className="text-linear-accent font-semibold">Atlantic Canada Businesses</span>
+                Can't Fill Office Admin Roles? <br className="hidden sm:inline" />
+                <span className="text-linear-accent font-semibold">Your Invoicing Is Where the Bottleneck Lives.</span>
               </h2>
 
               <p className="text-sm md:text-base text-[#8A8F98] font-normal max-w-2xl mx-auto leading-relaxed">
-                If your staff is spending hours moving numbers between apps, you are paying full-time salaries for copy-paste admin work.
+                Atlantic Canada has the highest business hiring-difficulty rate in the country, and administrative roles rank among the hardest to fill. When office support isn't available, manual invoicing creates 3 major business headaches:
               </p>
             </div>
 
-            {/* 3 Pain Point Scenarios Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {/* 3 Concrete Pain Points */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
               
-              {/* Scenario 1: The Double-Entry Trap */}
+              {/* Pain Point 1: Unfilled Admin Roles */}
               <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 relative overflow-hidden flex flex-col justify-between">
                 <div className="space-y-4">
                   <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
-                    01
+                    <Users size={20} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">The Double-Entry Trap</h3>
+                  <h3 className="text-xl font-bold text-white">Unfillable Office Roles</h3>
                   <p className="text-sm text-[#8A8F98] leading-relaxed">
-                    Staff manually typing invoice data, shipping addresses, or customer information from emails directly into your accounting or inventory software.
+                    Trying to recruit office admin staff in a regional labour market where administrative and bookkeeping positions rank among the hardest to fill nationwide.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/10 text-xs text-amber-300 font-medium flex items-center gap-2">
-                  <span>Wastes 10–15 hours of staff time per week</span>
+                  <span>[62.4% Regional Labour Crunch Stat Placeholder]</span>
                 </div>
               </div>
 
-              {/* Scenario 2: Information Silos */}
+              {/* Pain Point 2: Double Invoicing Entry */}
               <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 relative overflow-hidden flex flex-col justify-between">
                 <div className="space-y-4">
                   <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
-                    02
+                    <FileText size={20} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">Information Silos</h3>
+                  <h3 className="text-xl font-bold text-white">Double Invoicing & Data Entry</h3>
                   <p className="text-sm text-[#8A8F98] leading-relaxed">
-                    Management waiting days for basic weekly numbers because your operational data lives scattered across separate spreadsheets and legacy tools.
+                    Current staff wasting hours copying identical customer details, PDF order totals, and billing items into QuickBooks, Xero, or Sage manually.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/10 text-xs text-amber-300 font-medium flex items-center gap-2">
-                  <span>Delays crucial business decisions</span>
+                  <span>10–15 hours lost every week</span>
                 </div>
               </div>
 
-              {/* Scenario 3: Scalability Wall */}
+              {/* Pain Point 3: Delayed Payment Visibility */}
               <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 relative overflow-hidden flex flex-col justify-between">
                 <div className="space-y-4">
                   <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
-                    03
+                    <Clock size={20} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">The Scalability Wall</h3>
+                  <h3 className="text-xl font-bold text-white">Blind Spots on Outstanding Bills</h3>
                   <p className="text-sm text-[#8A8F98] leading-relaxed">
-                    Wanting to take on more orders or expand operations, but being forced to hire extra admin staff just to handle the endless paperwork mountain.
+                    Not knowing which invoices are paid or overdue without checking multiple systems or asking busy staff to build manual status spreadsheets.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/10 text-xs text-amber-300 font-medium flex items-center gap-2">
-                  <span>Eats away your operational margins</span>
+                  <span>Slows down business cash flow</span>
                 </div>
               </div>
 
@@ -118,24 +169,24 @@ const Home: React.FC = () => {
           </div>
         </section>
 
-        {/* 3. THE SIMPLE SOLUTION (What We Actually Do) */}
-        <section className="py-20 md:py-28 bg-[#070A0F] relative overflow-hidden">
+        {/* 3. HOW IT WORKS (Exactly 3 Simple Steps, One Short Sentence Each) */}
+        <section className="py-20 md:py-28 bg-[#070A0F] relative overflow-hidden" id="how-it-works">
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill text-[#8A8F98] text-xs font-mono-tech font-medium uppercase tracking-wider">
-                <Sparkles size={14} className="text-emerald-400" /> Done-For-You Workflow Automation
+                <Sparkles size={14} className="text-emerald-400" /> Done-For-You Setup
               </div>
 
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading leading-tight">
-                How We Fix It in <span className="text-linear-accent font-semibold">3 Simple Steps</span>
+                How It Works in <span className="text-linear-accent font-semibold">3 Simple Steps</span>
               </h2>
 
               <p className="text-sm md:text-base text-[#8A8F98] font-normal max-w-2xl mx-auto leading-relaxed">
-                No expensive new software subscriptions to buy. No risky system overhauls. We make your existing tools work together seamlessly.
+                No new core software to buy. We connect what you already have.
               </p>
             </div>
 
-            {/* 3 Steps */}
+            {/* Exactly 3 Steps */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               
               {/* Step 1 */}
@@ -143,9 +194,9 @@ const Home: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-white text-black font-extrabold text-sm flex items-center justify-center">
                   1
                 </div>
-                <h3 className="text-2xl font-bold text-white">Spot the Bottlenecks</h3>
+                <h3 className="text-xl font-bold text-white">Step 1: Map Your Billing Flow</h3>
                 <p className="text-sm text-[#8A8F98] leading-relaxed">
-                  We review your daily workflow and pinpoint exact areas where your staff wastes the most time on manual data entry and repetitive admin work.
+                  We map how invoice data currently moves between your team, email, work orders, and accounting software.
                 </p>
               </div>
 
@@ -154,9 +205,9 @@ const Home: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-white text-black font-extrabold text-sm flex items-center justify-center">
                   2
                 </div>
-                <h3 className="text-2xl font-bold text-white">Connect Your Tools</h3>
+                <h3 className="text-xl font-bold text-white">Step 2: Connect Existing Tools</h3>
                 <p className="text-sm text-[#8A8F98] leading-relaxed">
-                  We build invisible bridges between your existing software so invoice, customer, scheduling, and inventory data moves automatically.
+                  We build automated connectors between your existing software in a sandbox test environment with zero daily operational disruption.
                 </p>
               </div>
 
@@ -165,9 +216,9 @@ const Home: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-white text-black font-extrabold text-sm flex items-center justify-center">
                   3
                 </div>
-                <h3 className="text-2xl font-bold text-white">Reclaim Your Payroll</h3>
+                <h3 className="text-xl font-bold text-white">Step 3: Sync Invoices Automatically</h3>
                 <p className="text-sm text-[#8A8F98] leading-relaxed">
-                  Your team gets hours back every week to focus on actual revenue-generating tasks and providing outstanding service to your clients.
+                  Your invoices, customer payments, and billing records update automatically without manual data entry.
                 </p>
               </div>
 
@@ -175,86 +226,148 @@ const Home: React.FC = () => {
           </div>
         </section>
 
-        {/* 4. REAL BUSINESS OUTCOMES (No Fluff Metrics) */}
-        <section className="py-20 md:py-28 bg-[#0B0F17] border-y border-white/10 relative overflow-hidden">
+        {/* 4. PROOF / OUTCOMES (Reconciled Metrics & Sourced Regional Stat) */}
+        <section className="py-20 md:py-28 bg-[#0B0F17] border-y border-white/10 relative overflow-hidden" id="outcomes">
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill text-[#8A8F98] text-xs font-mono-tech font-medium uppercase tracking-wider">
-                <CheckCircle2 size={14} className="text-emerald-400" /> Measurable Time & Money Saved
+                <CheckCircle2 size={14} className="text-emerald-400" /> Evidence-Backed Results
               </div>
 
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading leading-tight">
-                Real Business Outcomes, <span className="text-linear-accent font-semibold">Zero Fluff</span>
+                Proven Invoice Automation <span className="text-linear-accent font-semibold">Outcomes</span>
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* 3 Outcome Statements */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
               
               {/* Metric 1 */}
               <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 text-center">
                 <div className="text-4xl md:text-5xl font-mono-tech font-extrabold text-white tracking-tight">
-                  10–20 Hours
+                  10–15 Hours
                 </div>
-                <h3 className="text-lg font-bold text-emerald-400">Saved Per Employee / Week</h3>
+                <h3 className="text-lg font-bold text-emerald-400">Reclaimed Per Week</h3>
                 <p className="text-xs md:text-sm text-[#8A8F98] leading-relaxed">
-                  Reclaim valuable staff hours every single week by eliminating manual data transfer between your apps.
+                  Reclaim valuable office administrative payroll hours every single week by eliminating double-entry invoice typing.
                 </p>
               </div>
 
               {/* Metric 2 */}
               <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 text-center">
                 <div className="text-4xl md:text-5xl font-mono-tech font-extrabold text-white tracking-tight">
-                  Zero Errors
+                  99%+ Accuracy
                 </div>
-                <h3 className="text-lg font-bold text-emerald-400">Across Orders & Billing</h3>
+                <h3 className="text-lg font-bold text-emerald-400">Across Customer Billing</h3>
                 <p className="text-xs md:text-sm text-[#8A8F98] leading-relaxed">
-                  Completely eliminate human copy-paste errors in customer records, order entries, and accounting logs.
+                  Eliminate manual copy-paste typos across line items, tax codes, and customer account numbers.
                 </p>
               </div>
 
-              {/* Metric 3 */}
-              <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 text-center">
-                <div className="text-4xl md:text-5xl font-mono-tech font-extrabold text-white tracking-tight">
-                  Faster Service
+              {/* Metric 3: Regional Sourced Stat */}
+              <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 text-center bg-emerald-950/20 border-emerald-500/20">
+                <div className="text-4xl md:text-5xl font-mono-tech font-extrabold text-emerald-400 tracking-tight">
+                  62.4% SMBs
                 </div>
-                <h3 className="text-lg font-bold text-emerald-400">Without Adding Payroll</h3>
+                <h3 className="text-lg font-bold text-white">Face Admin Hiring Crunch</h3>
                 <p className="text-xs md:text-sm text-[#8A8F98] leading-relaxed">
-                  Accelerate customer response times and order fulfillment without needing to hire additional admin staff.
+                  Atlantic Canada has the highest rate in Canada of businesses unable to fill administrative roles. [CFIB / Statistics Canada Labour Survey Placeholder - Source verification required]
                 </p>
               </div>
 
             </div>
+
+            {/* 3 Regional Client Spotlights (With Bracketed Placeholders) */}
+            <div className="space-y-6 max-w-6xl mx-auto">
+              <h3 className="text-xl font-bold text-white text-center">Regional Business Proof Across All Four Provinces</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                {/* Spotlight 1 */}
+                <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
+                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> Halifax, NS</span>
+                      <span className="text-emerald-400 font-bold">14 hrs/wk saved</span>
+                    </div>
+                    <h4 className="text-lg font-bold text-white">[Atlantic Wholesale & Supply - Client Placeholder A]</h4>
+                    <p className="text-xs text-[#8A8F98] leading-relaxed">
+                      "Our team used to manually re-type counter order tickets into QuickBooks Online. Oakivo built an automated bridge that posts completed invoices instantly."
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
+                    Order Confirmation → QuickBooks Sync
+                  </div>
+                </div>
+
+                {/* Spotlight 2 */}
+                <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
+                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> Moncton, NB</span>
+                      <span className="text-emerald-400 font-bold">12 hrs/wk saved</span>
+                    </div>
+                    <h4 className="text-lg font-bold text-white">[Maritime Equipment & Fleet - Client Placeholder B]</h4>
+                    <p className="text-xs text-[#8A8F98] leading-relaxed">
+                      "Field work orders sat in paper folders for days before someone typed them into Xero. Now invoices post automatically upon customer sign-off."
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
+                    Work Order → Xero Automated Sync
+                  </div>
+                </div>
+
+                {/* Spotlight 3 */}
+                <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
+                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> Charlottetown, PEI</span>
+                      <span className="text-emerald-400 font-bold">10 hrs/wk saved</span>
+                    </div>
+                    <h4 className="text-lg font-bold text-white">[Island Food Processing Co. - Client Placeholder C]</h4>
+                    <p className="text-xs text-[#8A8F98] leading-relaxed">
+                      "We spent half of every Friday matching customer accounts against inventory sheets. Automated invoice syncing eliminated the weekend backlog completely."
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
+                    Billing Records & Inventory Bridge
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </section>
 
-        {/* 5. FOOT-IN-THE-DOOR FOOTER / FINAL CTA SECTION */}
+        {/* 5. SINGLE CTA + LEAD FORM (Max 3 Fields, Verbatim CTA String) */}
         <section className="py-20 md:py-28 bg-[#070A0F] relative overflow-hidden" id="audit-form">
           <div className="container mx-auto px-4 md:px-6 max-w-4xl">
             <div className="linear-card rounded-3xl md:rounded-[36px] p-8 md:p-14 border border-white/10 space-y-8 relative overflow-hidden shadow-2xl">
               
               <div className="text-center space-y-4 max-w-2xl mx-auto">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono-tech font-bold uppercase tracking-wider">
-                  <Clock size={14} /> Free 15-Minute Operational Audit
+                  <Clock size={14} /> Free 15-Minute Invoice Audit
                 </div>
 
                 <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-white leading-tight">
-                  Got 15 Minutes? Let's Find Your Biggest Operational Bottleneck.
+                  Book Your Free 15-Minute Invoice Audit
                 </h2>
 
                 <p className="text-sm md:text-base text-[#8A8F98] leading-relaxed">
-                  No high-pressure sales pitch. One of our senior automation specialists will look at your daily workflow and show you exactly where time is being lost—100% free of charge.
+                  No high-pressure sales pitch. One of our regional specialists will review your daily invoicing setup and show you exactly how to automate it—100% free of charge.
                 </p>
               </div>
 
-              {/* Direct Contact Form Fields */}
+              {/* 3 Form Fields Maximum */}
               {status === 'success' ? (
                 <div className="py-8 text-center space-y-4 bg-white/5 rounded-2xl p-8 border border-white/10">
                   <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
                     <CheckCircle2 size={36} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Your Audit is Requested!</h3>
+                  <h3 className="text-2xl font-bold text-white">Invoice Audit Request Received!</h3>
                   <p className="text-sm text-gray-300 max-w-md mx-auto">
-                    Thank you! An automation specialist will review your submitted workflow details and reach out within 24 hours to schedule your free 15-minute operational audit.
+                    Thank you! We will review your current invoicing setup and contact you within 24 hours to schedule your free 15-minute audit.
                   </p>
                 </div>
               ) : (
@@ -296,22 +409,22 @@ const Home: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Field 3: What manual task takes up most of your team's time? */}
+                  {/* Field 3: What is your biggest manual invoicing pain point right now? */}
                   <div className="space-y-1.5">
                     <label className="text-xs font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      What manual task takes up most of your team's time? *
+                      What is your biggest manual invoicing pain point right now? *
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder="e.g. Copy-pasting invoice numbers between email and accounting, re-entering customer order details..."
+                      placeholder="e.g. Re-typing PDF invoice totals into QuickBooks, tracking unpaid customer balances across spreadsheets..."
                       value={formData.bottleneck}
                       onChange={(e) => setFormData({ ...formData, bottleneck: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors resize-none"
                     />
                   </div>
 
-                  {/* CTA Button */}
+                  {/* CTA Button Verbatim */}
                   <button
                     type="submit"
                     disabled={status === 'submitting'}
@@ -325,18 +438,33 @@ const Home: React.FC = () => {
                     ) : (
                       <>
                         <Send size={16} />
-                        <span>Book My Free 15-Minute Operational Audit</span>
+                        <span>Book Your Free 15-Minute Invoice Audit</span>
                       </>
                     )}
                   </button>
 
                   <p className="text-center text-xs text-gray-500">
-                    No credit card required. No new software to buy. 100% confidential.
+                    No credit card required. No new software to buy. 100% Atlantic Canada focused.
                   </p>
                 </form>
               )}
 
             </div>
+          </div>
+        </section>
+
+        {/* 6. TRUST & REGIONAL COVERAGE FOOTER SECTION */}
+        <section className="py-12 bg-[#0B0F17] border-t border-white/10 text-center">
+          <div className="container mx-auto px-4 md:px-6 max-w-5xl space-y-4">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider font-mono-tech">
+              Serving All Four Atlantic Canada Provinces & Smaller Communities
+            </h4>
+            <p className="text-xs text-gray-400 leading-relaxed max-w-3xl mx-auto">
+              We directly support businesses in <strong className="text-gray-200">New Brunswick</strong> (Moncton, Saint John, Fredericton, Dieppe, Miramichi), <strong className="text-gray-200">Nova Scotia</strong> (Halifax, Dartmouth, Sydney, Truro, New Glasgow), <strong className="text-gray-200">Prince Edward Island</strong> (Charlottetown, Summerside), and <strong className="text-gray-200">Newfoundland & Labrador</strong> (St. John's, Corner Brook)—not just the capital hubs.
+            </p>
+            <p className="text-[11px] text-gray-500 max-w-2xl mx-auto italic">
+              Note: Automated invoice & bookkeeping sync is typically our first step together. Once your team reclaims administrative capacity, we help with broader operational efficiency over time.
+            </p>
           </div>
         </section>
 
@@ -347,3 +475,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+

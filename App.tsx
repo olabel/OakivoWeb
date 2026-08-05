@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -16,6 +16,8 @@ import Careers from './pages/Careers';
 import AdminPortal from './pages/AdminPortal';
 import Privacy from './pages/Privacy';
 import ComplianceMatrix from './pages/ComplianceMatrix';
+import SolutionDetail from './pages/SolutionDetail';
+import LocationDetail from './pages/LocationDetail';
 import Chatbot from './components/Chatbot';
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
@@ -55,6 +57,8 @@ const App: React.FC = () => {
                 <Route path={NavRoute.ADMIN_PORTAL} element={<AdminPortal />} />
                 <Route path={NavRoute.PRIVACY} element={<Privacy />} />
                 <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
+                <Route path="/solutions/:slug" element={<SolutionDetail />} />
+                <Route path="/locations/:slug" element={<LocationDetail />} />
               </Routes>
             </main>
             <Footer />

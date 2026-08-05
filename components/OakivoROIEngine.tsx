@@ -57,8 +57,9 @@ const OakivoROIEngine: React.FC = () => {
   ];
 
   const diagScore = useMemo(() => {
-    return Object.entries(diagAnswers).reduce((acc, [qIdx, optionIdx]) => {
-      const q = diagQuestions[parseInt(qIdx)];
+    return Object.entries(diagAnswers).reduce((acc: number, [qIdx, optionIdx]: [string, number]) => {
+      const qIndex = parseInt(qIdx, 10);
+      const q = diagQuestions[qIndex];
       if (q && q.options[optionIdx]) {
         return acc + q.options[optionIdx].points;
       }

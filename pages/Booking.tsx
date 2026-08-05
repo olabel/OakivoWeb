@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Calendar as CalendarIcon, Clock, Globe, ShieldCheck, CheckCircle, ArrowRight, User, Mail, Video } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, Globe, ShieldCheck, CheckCircle2, ArrowRight, User, Mail, Video, Sparkles } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
-import Button from '../components/Button';
 import SEO from '../components/SEO';
 import Section from '../components/Section';
+import { db } from '../utils/database';
 
 const Booking: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const bData = translations[language].booking;
   
   const [step, setStep] = useState(1);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: '', email: '', company: '', bottleneck: '' });
   const [status, setStatus] = useState<'idle' | 'success'>('idle');
 
   const dates = [
@@ -26,158 +27,174 @@ const Booking: React.FC = () => {
 
   const handleComplete = (e: React.FormEvent) => {
     e.preventDefault();
+    db.saveEntry('lead', {
+      ...form,
+      selectedDate,
+      selectedTime,
+      type: '15_MIN_OPERATIONAL_AUDIT_BOOKING'
+    });
     setStatus('success');
   };
 
   return (
     <>
       <SEO 
-        title="Schedule Discovery | Oakivo Systems"
-        description="Book a technical discovery session with a senior architect."
+        title="Schedule Audit | Free 15-Minute Operational Audit | Oakivo"
+        description="Book a free 15-minute operational audit with an automation specialist at Oakivo Solutions in Atlantic Canada."
+        canonical="/booking"
       />
 
-      <section className="bg-white pt-24 pb-16">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-8xl font-serif-display font-bold text-oakivo-primary tracking-tighter leading-none mb-6">
+      <section className="bg-[#070A0F] text-white pt-40 pb-16 relative overflow-hidden">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="container mx-auto px-4 text-center max-w-3xl relative z-10">
+          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-6">
+            <Sparkles size={14} className="text-emerald-400" />
+            <span className="text-[10px] font-mono-tech text-emerald-400 font-bold uppercase tracking-widest">
+              Free Operational Audit
+            </span>
+          </div>
+
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-linear-heading mb-4">
             {bData.hero_title}
           </h1>
-          <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-[#8A8F98] font-normal leading-relaxed">
             {bData.hero_subtitle}
           </p>
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50/30">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto bg-white rounded-[48px] shadow-vise-xl border border-gray-100 overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+      <Section className="py-16 bg-[#0B0F17] text-white border-t border-white/10">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto linear-card rounded-3xl border border-white/10 overflow-hidden flex flex-col md:flex-row">
             
             {/* Sidebar Details */}
-            <div className="md:w-1/3 bg-oakivo-primary p-12 text-white border-r border-white/10">
-               <div className="mb-12">
-                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-oakivo-secondary mb-6 border border-white/20">
-                    <Video size={24} />
-                  </div>
-                  <h3 className="text-2xl font-serif-display font-bold mb-2">Technical Discovery</h3>
-                  <p className="text-gray-400 text-sm font-light">45 Minutes • Video Conference</p>
-               </div>
+            <div className="md:w-1/3 bg-[#070A0F] p-8 text-white border-r border-white/10 space-y-6">
+              <div>
+                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 mb-4 border border-emerald-500/20">
+                  <Video size={20} />
+                </div>
+                <h3 className="text-lg font-bold">15-Min Operational Audit</h3>
+                <p className="text-xs text-gray-400 font-light mt-1">15 Minutes • Live Video or Phone</p>
+              </div>
                
-               <div className="space-y-8">
-                  <div className="flex items-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-                    <Clock size={16} className="text-oakivo-secondary" /> 45 Min Session
-                  </div>
-                  <div className="flex items-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-                    <Globe size={16} className="text-oakivo-secondary" /> (GMT-4) Atlantic
-                  </div>
-                  <div className="flex items-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-                    <ShieldCheck size={16} className="text-oakivo-secondary" /> PIPEDA Encrypted
-                  </div>
-               </div>
+              <div className="space-y-4 pt-4 border-t border-white/10 text-xs text-gray-400">
+                <div className="flex items-center gap-2">
+                  <Clock size={14} className="text-emerald-400" /> <span>15 Minutes</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Globe size={14} className="text-emerald-400" /> <span>Atlantic Standard Time</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck size={14} className="text-emerald-400" /> <span>100% Free • No Hard Sales</span>
+                </div>
+              </div>
                
-               <div className="mt-24 pt-12 border-t border-white/10">
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-4">Lead Architect</p>
-                  <div className="flex items-center gap-4">
-                     <div className="w-10 h-10 bg-oakivo-secondary rounded-full flex items-center justify-center text-black font-bold text-xs shadow-cyber">AB</div>
-                     <div>
-                        <p className="text-sm font-bold">Ahmed Bello</p>
-                        <p className="text-[10px] text-oakivo-secondary font-black uppercase tracking-widest">Principal Architect</p>
-                     </div>
+              <div className="pt-6 border-t border-white/10">
+                <p className="text-[10px] font-mono-tech uppercase text-gray-500 mb-2">Automation Specialist</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-emerald-400 rounded-full flex items-center justify-center text-black font-bold text-xs">MV</div>
+                  <div>
+                    <p className="text-xs font-bold text-white">Marcus Vance</p>
+                    <p className="text-[10px] text-emerald-400 font-mono-tech">Lead Automation Specialist</p>
                   </div>
-               </div>
+                </div>
+              </div>
             </div>
 
             {/* Main Content */}
-            <div className="md:w-2/3 p-8 md:p-16 flex flex-col">
-               {status === 'success' ? (
-                 <div className="flex-grow flex flex-col items-center justify-center text-center animate-fade-in-up">
-                    <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-green-600 mb-8">
-                      <CheckCircle size={40} />
-                    </div>
-                    <h3 className="text-4xl font-serif-display font-bold text-oakivo-primary mb-4">{bData.success_title}</h3>
-                    <p className="text-lg text-gray-500 font-light mb-12">{bData.success_message}</p>
-                    <Button variant="black" onClick={() => setStep(1)}>Return to Matrix</Button>
-                 </div>
-               ) : step === 1 ? (
-                 <div className="animate-fade-in-up">
-                    <h3 className="text-2xl font-serif-display font-bold text-oakivo-primary mb-12">Select Date & Time</h3>
-                    <div className="grid grid-cols-5 gap-4 mb-12">
-                       {dates.map((d, i) => (
-                         <button 
-                           key={i}
-                           onClick={() => setSelectedDate(d.full)}
-                           className={`flex flex-col items-center p-4 rounded-2xl border transition-all ${selectedDate === d.full ? 'bg-oakivo-primary text-white shadow-xl scale-105 border-oakivo-primary' : 'bg-gray-50 text-gray-500 hover:bg-gray-100 border-gray-100'}`}
-                         >
-                            <span className="text-[10px] font-black uppercase tracking-widest mb-2">{d.day}</span>
-                            <span className="text-2xl font-bold font-serif-display">{d.date}</span>
-                         </button>
-                       ))}
-                    </div>
-                    
-                    {selectedDate && (
-                      <div className="space-y-6 animate-fade-in-up">
-                         <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Available Windows</h4>
-                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {times.map((t, i) => (
-                              <button 
-                                key={i}
-                                onClick={() => setSelectedTime(t)}
-                                className={`p-4 rounded-xl border text-sm font-bold transition-all ${selectedTime === t ? 'bg-oakivo-secondary text-black border-oakivo-secondary shadow-cyber scale-105' : 'bg-white text-oakivo-primary border-gray-100 hover:border-oakivo-primary'}`}
-                              >
-                                 {t}
-                              </button>
-                            ))}
-                         </div>
+            <div className="md:w-2/3 p-8 flex flex-col justify-center">
+              {status === 'success' ? (
+                <div className="text-center py-12 space-y-4">
+                  <CheckCircle2 size={48} className="text-emerald-400 mx-auto" />
+                  <h3 className="text-2xl font-bold text-white">{bData.success_title}</h3>
+                  <p className="text-xs text-gray-400 max-w-md mx-auto">{bData.success_message}</p>
+                </div>
+              ) : step === 1 ? (
+                <div className="space-y-6">
+                  <h3 className="text-lg font-bold text-white">Select Date & Time</h3>
+                  <div className="grid grid-cols-5 gap-2">
+                    {dates.map((d, i) => (
+                      <button 
+                        key={i}
+                        onClick={() => setSelectedDate(d.full)}
+                        className={`flex flex-col items-center p-3 rounded-2xl border text-xs transition-all cursor-pointer ${
+                          selectedDate === d.full 
+                            ? 'bg-white text-black border-white font-bold' 
+                            : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
+                        }`}
+                      >
+                        <span className="text-[10px] font-mono-tech uppercase text-gray-400 mb-1">{d.day}</span>
+                        <span className="text-lg font-bold">{d.date}</span>
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {selectedDate && (
+                    <div className="space-y-3 pt-2">
+                      <h4 className="text-[10px] font-mono-tech uppercase text-gray-400">Available Timeslots</h4>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {times.map((t, i) => (
+                          <button 
+                            key={i}
+                            onClick={() => setSelectedTime(t)}
+                            className={`p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                              selectedTime === t 
+                                ? 'bg-emerald-400 text-black border-emerald-400' 
+                                : 'bg-white/5 text-gray-200 border-white/10 hover:border-white'
+                            }`}
+                          >
+                            {t}
+                          </button>
+                        ))}
                       </div>
-                    )}
-                    
-                    <div className="mt-12 pt-12 border-t border-gray-50 flex justify-end">
-                       <Button 
-                         variant="black" 
-                         disabled={!selectedTime} 
-                         onClick={() => setStep(2)}
-                       >
-                         Next Step <ArrowRight size={18} />
-                       </Button>
                     </div>
-                 </div>
-               ) : (
-                 <form onSubmit={handleComplete} className="animate-fade-in-up space-y-8">
-                    <h3 className="text-2xl font-serif-display font-bold text-oakivo-primary mb-12">Confirm Details</h3>
-                    <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100 flex items-center justify-between">
-                       <div className="flex items-center gap-4 text-oakivo-primary">
-                          <CalendarIcon size={20} className="text-oakivo-secondary" />
-                          <span className="text-sm font-bold">{selectedDate} at {selectedTime}</span>
-                       </div>
-                       <button onClick={() => setStep(1)} className="text-[10px] font-black text-oakivo-muted hover:text-oakivo-primary uppercase tracking-widest underline">Edit</button>
-                    </div>
-                    
-                    <div className="space-y-6">
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block">Full Name</label>
-                          <div className="relative">
-                             <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                             <input type="text" required className="w-full bg-gray-50 border border-gray-100 p-4 pl-12 rounded-2xl focus:outline-none focus:border-oakivo-primary" />
-                          </div>
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block">Email Address</label>
-                          <div className="relative">
-                             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                             <input type="email" required className="w-full bg-gray-50 border border-gray-100 p-4 pl-12 rounded-2xl focus:outline-none focus:border-oakivo-primary" />
-                          </div>
-                       </div>
-                    </div>
+                  )}
+                  
+                  <div className="pt-4 border-t border-white/10 flex justify-end">
+                    <button 
+                      disabled={!selectedTime} 
+                      onClick={() => setStep(2)}
+                      className="px-6 py-3 rounded-full bg-white hover:bg-gray-100 disabled:opacity-50 text-black font-semibold text-xs tracking-wide flex items-center gap-2 cursor-pointer"
+                    >
+                      <span>Continue</span> <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleComplete} className="space-y-4">
+                  <h3 className="text-lg font-bold text-white">Confirm Your Details</h3>
+                  <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-xs text-emerald-400 font-mono-tech flex justify-between items-center">
+                    <span>{selectedDate} at {selectedTime}</span>
+                    <button type="button" onClick={() => setStep(1)} className="text-gray-400 hover:text-white underline text-[10px]">Change</button>
+                  </div>
+                  
+                  <div>
+                    <label className="text-[10px] font-mono-tech uppercase text-gray-400 block mb-1">Your Name *</label>
+                    <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white" placeholder="Marcus Vance" />
+                  </div>
 
-                    <div className="pt-8">
-                       <Button variant="black" size="lg" className="w-full shadow-premium !bg-oakivo-primary">
-                          Lock Deployment Window
-                       </Button>
-                    </div>
-                 </form>
-               )}
+                  <div>
+                    <label className="text-[10px] font-mono-tech uppercase text-gray-400 block mb-1">Work Email *</label>
+                    <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white" placeholder="m.vance@company.ca" />
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] font-mono-tech uppercase text-gray-400 block mb-1">Main Bottleneck Task *</label>
+                    <textarea rows={2} required value={form.bottleneck} onChange={e => setForm({...form, bottleneck: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white resize-none" placeholder="e.g. Typing paper invoices into QuickBooks..." />
+                  </div>
+
+                  <button type="submit" className="w-full py-3.5 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                    <Sparkles size={14} />
+                    <span>Confirm Free 15-Minute Audit</span>
+                  </button>
+                </form>
+              )}
             </div>
+
           </div>
         </div>
-      </section>
+      </Section>
     </>
   );
 };

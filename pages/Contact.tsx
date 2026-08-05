@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { 
   Send, CheckCircle2, ShieldCheck, Clock, Mail, MapPin, 
-  HelpCircle, ChevronDown, ChevronUp, Loader2, Sparkles
+  HelpCircle, ChevronDown, ChevronUp, Loader2, Sparkles, User, AlertCircle
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { db } from '../utils/database';
 
 const faqs = [
   {
-    question: 'What is the typical duration of an Oakivo engineering engagement?',
-    answer: 'Initial technical audits take 5–10 business days. Full platform refactoring or compliance readiness engagements typically range from 60 to 90 days with continuous post-deployment governance.'
+    question: 'Do we need to buy new software subscriptions?',
+    answer: 'No. In 95% of cases, we connect the software tools you already pay for and use daily (e.g. QuickBooks, Excel, Shopify, custom CRMs, Google Workspace, email).'
   },
   {
-    question: 'How are Oakivo engagements structured and priced?',
-    answer: 'We offer fixed-scope architectural transformations with guaranteed deliverables, as well as recurring Principal-as-a-Service retainer models. Zero hidden fees or junior associate billing multipliers.'
+    question: 'How long does a typical workflow automation setup take?',
+    answer: 'Most initial custom workflow bridges are built, tested, and handed over within 5 to 10 business days without interrupting your ongoing operations.'
   },
   {
-    question: 'How does Oakivo integrate with our existing internal engineering team?',
-    answer: 'We act as force multipliers. Our senior architects work directly alongside your VPs of Engineering and DevOps leads, co-authoring IaC code and conducting hands-on knowledge transfers throughout the lifecycle.'
+    question: 'What happens during the free 15-minute operational audit?',
+    answer: 'We look at your daily workflow, ask where your staff spends the most time on manual data entry or copy-pasting, and outline a straightforward automation plan—100% free with zero pushy sales talk.'
   }
 ];
 
@@ -26,8 +26,7 @@ const Contact: React.FC = () => {
     name: '',
     email: '',
     bottleneck: '',
-    timeline: '< 30 Days',
-    budget: '$50k – $100k'
+    location: 'New Brunswick'
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -36,8 +35,8 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setStatus('submitting');
     try {
-      db.saveEntry('lead', { ...formState, source: 'Contact & Discovery Intake' });
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      db.saveEntry('lead', { ...formState, source: 'Contact & Free Operational Audit Page' });
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setStatus('success');
     } catch (err) {
       setStatus('error');
@@ -51,9 +50,9 @@ const Contact: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Schedule a Technical Intake & Cloud Audit | Oakivo"
-        description="Connect directly with Oakivo's senior architects to analyze your cloud platform, security posture, and infrastructure bottlenecks. Response within 24 hours."
-        keywords="Technical Intake, Cloud Audit, Schedule Consultation, Oakivo Contact, DevOps Advisory"
+        title="Book Your Free 15-Minute Invoice Audit | Oakivo Solutions"
+        description="Book a free 15-minute invoice audit with Oakivo Solutions. We will analyze your billing workflow and show you how to eliminate manual data entry across Atlantic Canada."
+        canonical="/contact"
       />
 
       {/* Hero Section */}
@@ -61,18 +60,18 @@ const Contact: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
           <div className="max-w-4xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
-              <Sparkles size={13} className="text-oakivo-linearIndigo" />
+              <Sparkles size={13} className="text-emerald-400" />
               <span className="text-[11px] font-mono-tech font-medium text-gray-300">
-                Direct Senior SRE & SRE Architect Consultation
+                Atlantic Canada Invoice & Bookkeeping Automation
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
-              Book a 15-Min <span className="text-linear-accent">Infrastructure Audit</span>
+              Book Your Free 15-Minute <span className="text-linear-accent font-semibold">Invoice Audit</span>
             </h1>
 
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              We build self-healing cloud platforms, automate legacy workflows, and lock down PIPEDA compliance—so your team can focus on shipping features, not firefighting infrastructure.
+              No high-pressure sales pitch. One of our senior automation specialists will review your current invoicing and bookkeeping setup and show you where time is being lost to manual copy-pasting—100% free of charge.
             </p>
           </div>
         </div>
@@ -91,29 +90,29 @@ const Contact: React.FC = () => {
                     <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
                       <CheckCircle2 size={32} />
                     </div>
-                    <h2 className="text-2xl font-bold text-white">Intake Profile Transmitted</h2>
+                    <h2 className="text-2xl font-bold text-white">Audit Request Received!</h2>
                     <p className="text-sm text-gray-300 max-w-md mx-auto">
-                      Our senior architecture leads are reviewing your parameters. You will receive direct technical feedback within 24 hours.
+                      Thank you! An automation specialist will review your submitted workflow details and reach out within 24 hours to schedule your free 15-minute audit.
                     </p>
                     <button
                       onClick={() => setStatus('idle')}
                       className="mt-4 px-6 py-2.5 rounded-full linear-pill text-xs font-medium text-white hover:border-white/20"
                     >
-                      Submit Another Diagnostic
+                      Submit Another Request
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                      <h2 className="text-xl font-bold text-white tracking-tight">Technical Intake Parameters</h2>
-                      <p className="text-xs text-gray-400 mt-1">Direct review by senior cloud architects. Zero sales proxies.</p>
+                      <h2 className="text-xl font-bold text-white tracking-tight">Request Your Free 15-Minute Invoice Audit</h2>
+                      <p className="text-xs text-gray-400 mt-1">Direct feedback from local Atlantic Canada automation leads. 100% confidential.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {/* Full Name */}
                       <div className="space-y-1.5">
                         <label className="text-xs font-mono-tech font-medium text-gray-300 block">
-                          Full Name <span className="text-rose-400">*</span>
+                          Full Name <span className="text-emerald-400">*</span>
                         </label>
                         <input
                           type="text"
@@ -122,15 +121,14 @@ const Contact: React.FC = () => {
                           value={formState.name}
                           onChange={handleChange}
                           placeholder="e.g. Sarah Jenkins"
-                          className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-oakivo-linearIndigo transition-all"
+                          className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all"
                         />
-                        <span className="text-[10px] font-mono-tech text-gray-500 block">Your full professional name.</span>
                       </div>
 
                       {/* Work Email */}
                       <div className="space-y-1.5">
                         <label className="text-xs font-mono-tech font-medium text-gray-300 block">
-                          Work Email <span className="text-rose-400">*</span>
+                          Work Email <span className="text-emerald-400">*</span>
                         </label>
                         <input
                           type="email"
@@ -138,195 +136,142 @@ const Contact: React.FC = () => {
                           required
                           value={formState.email}
                           onChange={handleChange}
-                          placeholder="sarah@company.com"
-                          className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-oakivo-linearIndigo transition-all"
+                          placeholder="sarah@company.ca"
+                          className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all"
                         />
-                        <span className="text-[10px] font-mono-tech text-gray-500 block">We respect your privacy. Zero spam.</span>
                       </div>
                     </div>
 
-                    {/* Technical Bottleneck */}
+                    {/* Location */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-mono-tech font-medium text-gray-300 block">
-                        Primary Technical Bottleneck <span className="text-rose-400">*</span>
+                        Your Location / Province
+                      </label>
+                      <select
+                        name="location"
+                        value={formState.location}
+                        onChange={handleChange}
+                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all"
+                      >
+                        <option value="New Brunswick">New Brunswick</option>
+                        <option value="Nova Scotia">Nova Scotia</option>
+                        <option value="Prince Edward Island">Prince Edward Island</option>
+                        <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                        <option value="Other / Outside Atlantic Canada">Other / Outside Atlantic Canada</option>
+                      </select>
+                    </div>
+
+                    {/* Manual Task Bottleneck */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-mono-tech font-medium text-gray-300 block">
+                        Describe your current manual invoicing or bookkeeping pain point <span className="text-emerald-400">*</span>
                       </label>
                       <textarea
                         name="bottleneck"
                         required
-                        rows={3}
+                        rows={4}
                         value={formState.bottleneck}
                         onChange={handleChange}
-                        placeholder="e.g. Scaling issues, AWS cost overruns, SOC 2 audit preparation, legacy monolithic debt..."
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-oakivo-linearIndigo transition-all resize-none"
+                        placeholder="e.g. Copy-pasting invoice numbers from Excel into QuickBooks, re-entering job sheet hours manually into customer bills..."
+                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all resize-none"
                       />
-                      <span className="text-[10px] font-mono-tech text-gray-500 block">Provide a brief overview of your current architecture constraints.</span>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      {/* Timeline */}
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-mono-tech font-medium text-gray-300 block">
-                          Target Implementation Timeline
-                        </label>
-                        <select
-                          name="timeline"
-                          value={formState.timeline}
-                          onChange={handleChange}
-                          className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-oakivo-linearIndigo transition-all"
-                        >
-                          <option value="< 30 Days">&lt; 30 Days</option>
-                          <option value="1–3 Months">1–3 Months</option>
-                          <option value="3–6 Months">3–6 Months</option>
-                          <option value="Exploring / Advisory">Exploring / Advisory</option>
-                        </select>
-                        <span className="text-[10px] font-mono-tech text-gray-500 block">When do you need execution to begin?</span>
-                      </div>
+                    <button
+                      type="submit"
+                      disabled={status === 'submitting'}
+                      className="w-full py-4 rounded-full bg-white hover:bg-gray-100 text-black font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      {status === 'submitting' ? (
+                        <>
+                          <Loader2 size={16} className="animate-spin text-black" />
+                          <span>Transmitting Request...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send size={15} />
+                          <span>Book Your Free 15-Minute Invoice Audit</span>
+                        </>
+                      )}
+                    </button>
 
-                      {/* Budget */}
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-mono-tech font-medium text-gray-300 block">
-                          Infrastructure / Consulting Budget
-                        </label>
-                        <select
-                          name="budget"
-                          value={formState.budget}
-                          onChange={handleChange}
-                          className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-oakivo-linearIndigo transition-all"
-                        >
-                          <option value="$25k – $50k">$25k – $50k</option>
-                          <option value="$50k – $100k">$50k – $100k</option>
-                          <option value="$100k – $250k">$100k – $250k</option>
-                          <option value="$250k+ Enterprise">$250k+ Enterprise</option>
-                        </select>
-                        <span className="text-[10px] font-mono-tech text-gray-500 block">Helps us scope architectural team resources.</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-2">
-                      <button
-                        type="submit"
-                        disabled={status === 'submitting'}
-                        className="w-full py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group"
-                      >
-                        {status === 'submitting' ? (
-                          <>
-                            <Loader2 size={16} className="animate-spin text-black" />
-                            <span>Scheduling Infrastructure Audit...</span>
-                          </>
-                        ) : (
-                          <>
-                            <Send size={15} />
-                            <span>Book a 15-Min Infrastructure Audit</span>
-                          </>
-                        )}
-                      </button>
-                      <p className="text-[10px] font-mono-tech text-gray-500 text-center mt-3">
-                        Direct Senior Architect Review • Response Guaranteed within 24 Hours
-                      </p>
-                    </div>
+                    <p className="text-center text-xs text-gray-500">
+                      No credit card required. Zero obligation. 100% confidential.
+                    </p>
                   </form>
                 )}
               </div>
             </div>
 
-            {/* Direct Info & Trust Cards Column */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="linear-card rounded-2xl p-6 md:p-8 border border-white/[0.08] space-y-6">
-                <div>
-                  <span className="text-xs font-mono-tech text-oakivo-linearIndigo font-medium uppercase tracking-wider block">
-                    Direct Contact Channels
-                  </span>
-                  <h3 className="text-xl font-bold text-white mt-1">
-                    Connect With Architecture Principals
-                  </h3>
-                </div>
-
-                <div className="space-y-4 text-xs text-gray-300">
+            {/* Sidebar Column */}
+            <div className="lg:col-span-5 space-y-8">
+              <div className="linear-card rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/[0.08] space-y-6">
+                <h3 className="text-xl font-bold text-white tracking-tight">Direct Regional Support</h3>
+                
+                <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <Mail size={16} className="text-oakivo-linearIndigo shrink-0 mt-0.5" />
+                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-emerald-400 shrink-0">
+                      <MapPin size={18} />
+                    </div>
                     <div>
-                      <span className="text-gray-400 block text-[10px] font-mono-tech">Direct Engineering Email</span>
-                      <a href="mailto:architects@oakivo.com" className="text-white hover:text-oakivo-linearIndigo font-medium font-mono-tech">
-                        architects@oakivo.com
+                      <span className="text-xs font-mono-tech text-gray-400 uppercase tracking-wider block">Service Coverage</span>
+                      <span className="text-sm font-semibold text-white block mt-0.5">Atlantic Canada Regional Operations</span>
+                      <span className="text-xs text-gray-400 block mt-0.5">Serving NB, NS, PEI, and NL businesses</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-emerald-400 shrink-0">
+                      <Mail size={18} />
+                    </div>
+                    <div>
+                      <span className="text-xs font-mono-tech text-gray-400 uppercase tracking-wider block">Direct Email</span>
+                      <a href="mailto:hello@oakivo.com" className="text-sm font-semibold text-white hover:text-emerald-400 transition-colors block mt-0.5">
+                        hello@oakivo.com
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <MapPin size={16} className="text-oakivo-linearIndigo shrink-0 mt-0.5" />
-                    <div>
-                      <span className="text-gray-400 block text-[10px] font-mono-tech">Primary Engineering Hubs</span>
-                      <span className="text-white font-medium">Toronto • Montreal • San Francisco</span>
+                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-emerald-400 shrink-0">
+                      <Clock size={18} />
                     </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Clock size={16} className="text-emerald-400 shrink-0 mt-0.5" />
                     <div>
-                      <span className="text-gray-400 block text-[10px] font-mono-tech">SLA Commitment</span>
-                      <span className="text-white font-medium">Guaranteed 24-Hour Architect Response</span>
+                      <span className="text-xs font-mono-tech text-gray-400 uppercase tracking-wider block">Response Guarantee</span>
+                      <span className="text-sm font-semibold text-white block mt-0.5">Within 24 Business Hours</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="linear-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
-                <div className="flex items-center gap-2 text-emerald-400">
-                  <ShieldCheck size={18} />
-                  <span className="text-xs font-mono-tech font-bold uppercase">Zero-Spam Guarantee</span>
+              {/* FAQs */}
+              <div className="linear-card rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/[0.08] space-y-4">
+                <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono-tech font-bold uppercase tracking-wider">
+                  <HelpCircle size={16} /> Frequently Asked Questions
                 </div>
-                <p className="text-xs text-[#8A8F98] leading-relaxed">
-                  Your architecture parameters remain strictly confidential under non-disclosure protocols. We never share or sell contact data.
-                </p>
+
+                <div className="space-y-3">
+                  {faqs.map((faq, idx) => (
+                    <div key={idx} className="border-b border-white/10 pb-3 last:border-b-0 last:pb-0">
+                      <button
+                        onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                        className="w-full text-left flex items-center justify-between gap-2 py-1 text-sm font-semibold text-white hover:text-emerald-300 transition-colors cursor-pointer"
+                      >
+                        <span>{faq.question}</span>
+                        {openFaq === idx ? <ChevronUp size={16} className="shrink-0" /> : <ChevronDown size={16} className="shrink-0" />}
+                      </button>
+                      {openFaq === idx && (
+                        <p className="text-xs text-gray-400 mt-2 leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
+
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 md:py-28 relative">
-        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-          <div className="text-center space-y-3 mb-14">
-            <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-oakivo-linearIndigo">
-              Frequently Asked Questions
-            </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-linear-tight text-linear-heading">
-              Engineering Engagement FAQs
-            </h2>
-            <p className="text-xs md:text-sm text-[#8A8F98]">
-              Everything you need to know about working with Oakivo’s principal engineers.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {faqs.map((faq, idx) => (
-              <div
-                key={idx}
-                className="linear-card rounded-xl border border-white/[0.08] overflow-hidden"
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 text-white hover:text-oakivo-linearIndigo transition-colors"
-                >
-                  <span className="text-sm md:text-base font-semibold">
-                    {faq.question}
-                  </span>
-                  {openFaq === idx ? (
-                    <ChevronUp size={18} className="shrink-0 text-oakivo-linearIndigo" />
-                  ) : (
-                    <ChevronDown size={18} className="shrink-0 text-gray-400" />
-                  )}
-                </button>
-
-                {openFaq === idx && (
-                  <div className="px-5 pb-5 text-xs md:text-sm text-[#8A8F98] leading-relaxed border-t border-white/[0.06] pt-3">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </section>
