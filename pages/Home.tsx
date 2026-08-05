@@ -4,12 +4,14 @@ import KineticHero from '../components/KineticHero';
 import LeadDrawer from '../components/LeadDrawer';
 import SEO from '../components/SEO';
 import { db } from '../utils/database';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   Sparkles, ArrowRight, CheckCircle2, FileText, AlertCircle, 
   Layers, Clock, ShieldCheck, Zap, Send, Loader2, User, Mail, MapPin, Building2, Users
 } from 'lucide-react';
 
 const Home: React.FC = () => {
+  const { t, language } = useLanguage();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -85,7 +87,7 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Done-For-You Invoice & Bookkeeping Automation | Oakivo Solutions"
+        title="Invoice & Bookkeeping Automation | Oakivo Solutions"
         description="Can't hire office admin staff in Atlantic Canada? We connect your existing accounting software (QuickBooks, Xero, Sage) so invoices sync automatically."
         canonical="/"
         schema={schemaData}
@@ -101,16 +103,16 @@ const Home: React.FC = () => {
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill text-[#8A8F98] text-xs font-mono-tech font-medium uppercase tracking-wider">
-                <AlertCircle size={14} className="text-amber-400" /> The Regional Administrative Crunch
+                <AlertCircle size={14} className="text-amber-400" /> {t('problem.badge')}
               </div>
 
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading leading-tight">
-                Can't Fill Office Admin Roles? <br className="hidden sm:inline" />
-                <span className="text-linear-accent font-semibold">Your Invoicing Is Where the Bottleneck Lives.</span>
+                {t('problem.title_main')} <br className="hidden sm:inline" />
+                <span className="text-linear-accent font-semibold">{t('problem.title_accent')}</span>
               </h2>
 
               <p className="text-sm md:text-base text-[#8A8F98] font-normal max-w-2xl mx-auto leading-relaxed">
-                Atlantic Canada has the highest business hiring-difficulty rate in the country, and administrative roles rank among the hardest to fill. When office support isn't available, manual invoicing creates 3 major business headaches:
+                {t('problem.subtitle')}
               </p>
             </div>
 
@@ -123,13 +125,13 @@ const Home: React.FC = () => {
                   <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
                     <Users size={20} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">Unfillable Office Roles</h3>
+                  <h3 className="text-xl font-bold text-white">{t('problem.point1_title')}</h3>
                   <p className="text-sm text-[#8A8F98] leading-relaxed">
-                    Trying to recruit office admin staff in a regional labour market where administrative and bookkeeping positions rank among the hardest to fill nationwide.
+                    {t('problem.point1_desc')}
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/10 text-xs text-amber-300 font-medium flex items-center gap-2">
-                  <span>[62.4% Regional Labour Crunch Stat Placeholder]</span>
+                  <span>{t('problem.point1_stat')}</span>
                 </div>
               </div>
 
@@ -139,13 +141,13 @@ const Home: React.FC = () => {
                   <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
                     <FileText size={20} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">Double Invoicing & Data Entry</h3>
+                  <h3 className="text-xl font-bold text-white">{t('problem.point2_title')}</h3>
                   <p className="text-sm text-[#8A8F98] leading-relaxed">
-                    Current staff wasting hours copying identical customer details, PDF order totals, and billing items into QuickBooks, Xero, or Sage manually.
+                    {t('problem.point2_desc')}
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/10 text-xs text-amber-300 font-medium flex items-center gap-2">
-                  <span>10–15 hours lost every week</span>
+                  <span>{t('problem.point2_stat')}</span>
                 </div>
               </div>
 
@@ -155,13 +157,13 @@ const Home: React.FC = () => {
                   <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
                     <Clock size={20} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">Blind Spots on Outstanding Bills</h3>
+                  <h3 className="text-xl font-bold text-white">{t('problem.point3_title')}</h3>
                   <p className="text-sm text-[#8A8F98] leading-relaxed">
-                    Not knowing which invoices are paid or overdue without checking multiple systems or asking busy staff to build manual status spreadsheets.
+                    {t('problem.point3_desc')}
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/10 text-xs text-amber-300 font-medium flex items-center gap-2">
-                  <span>Slows down business cash flow</span>
+                  <span>{t('problem.point3_stat')}</span>
                 </div>
               </div>
 
@@ -174,15 +176,15 @@ const Home: React.FC = () => {
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill text-[#8A8F98] text-xs font-mono-tech font-medium uppercase tracking-wider">
-                <Sparkles size={14} className="text-emerald-400" /> Done-For-You Setup
+                <Sparkles size={14} className="text-emerald-400" /> {t('steps.badge')}
               </div>
 
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading leading-tight">
-                How It Works in <span className="text-linear-accent font-semibold">3 Simple Steps</span>
+                {t('steps.title_main')}<span className="text-linear-accent font-semibold">{t('steps.title_accent')}</span>
               </h2>
 
               <p className="text-sm md:text-base text-[#8A8F98] font-normal max-w-2xl mx-auto leading-relaxed">
-                No new core software to buy. We connect what you already have.
+                {t('steps.subtitle')}
               </p>
             </div>
 
@@ -194,9 +196,9 @@ const Home: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-white text-black font-extrabold text-sm flex items-center justify-center">
                   1
                 </div>
-                <h3 className="text-xl font-bold text-white">Step 1: Map Your Billing Flow</h3>
+                <h3 className="text-xl font-bold text-white">{t('steps.step1_title')}</h3>
                 <p className="text-sm text-[#8A8F98] leading-relaxed">
-                  We map how invoice data currently moves between your team, email, work orders, and accounting software.
+                  {t('steps.step1_desc')}
                 </p>
               </div>
 
@@ -205,9 +207,9 @@ const Home: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-white text-black font-extrabold text-sm flex items-center justify-center">
                   2
                 </div>
-                <h3 className="text-xl font-bold text-white">Step 2: Connect Existing Tools</h3>
+                <h3 className="text-xl font-bold text-white">{t('steps.step2_title')}</h3>
                 <p className="text-sm text-[#8A8F98] leading-relaxed">
-                  We build automated connectors between your existing software in a sandbox test environment with zero daily operational disruption.
+                  {t('steps.step2_desc')}
                 </p>
               </div>
 
@@ -216,9 +218,9 @@ const Home: React.FC = () => {
                 <div className="w-10 h-10 rounded-full bg-white text-black font-extrabold text-sm flex items-center justify-center">
                   3
                 </div>
-                <h3 className="text-xl font-bold text-white">Step 3: Sync Invoices Automatically</h3>
+                <h3 className="text-xl font-bold text-white">{t('steps.step3_title')}</h3>
                 <p className="text-sm text-[#8A8F98] leading-relaxed">
-                  Your invoices, customer payments, and billing records update automatically without manual data entry.
+                  {t('steps.step3_desc')}
                 </p>
               </div>
 
@@ -231,11 +233,11 @@ const Home: React.FC = () => {
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill text-[#8A8F98] text-xs font-mono-tech font-medium uppercase tracking-wider">
-                <CheckCircle2 size={14} className="text-emerald-400" /> Evidence-Backed Results
+                <CheckCircle2 size={14} className="text-emerald-400" /> {t('outcomes.badge')}
               </div>
 
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading leading-tight">
-                Proven Invoice Automation <span className="text-linear-accent font-semibold">Outcomes</span>
+                {t('outcomes.title_main')}<span className="text-linear-accent font-semibold">{t('outcomes.title_accent')}</span>
               </h2>
             </div>
 
@@ -245,41 +247,41 @@ const Home: React.FC = () => {
               {/* Metric 1 */}
               <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 text-center">
                 <div className="text-4xl md:text-5xl font-mono-tech font-extrabold text-white tracking-tight">
-                  10–15 Hours
+                  {t('outcomes.metric1_val')}
                 </div>
-                <h3 className="text-lg font-bold text-emerald-400">Reclaimed Per Week</h3>
+                <h3 className="text-lg font-bold text-emerald-400">{t('outcomes.metric1_title')}</h3>
                 <p className="text-xs md:text-sm text-[#8A8F98] leading-relaxed">
-                  Reclaim valuable office administrative payroll hours every single week by eliminating double-entry invoice typing.
+                  {t('outcomes.metric1_desc')}
                 </p>
               </div>
 
               {/* Metric 2 */}
               <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 text-center">
                 <div className="text-4xl md:text-5xl font-mono-tech font-extrabold text-white tracking-tight">
-                  99%+ Accuracy
+                  {t('outcomes.metric2_val')}
                 </div>
-                <h3 className="text-lg font-bold text-emerald-400">Across Customer Billing</h3>
+                <h3 className="text-lg font-bold text-emerald-400">{t('outcomes.metric2_title')}</h3>
                 <p className="text-xs md:text-sm text-[#8A8F98] leading-relaxed">
-                  Eliminate manual copy-paste typos across line items, tax codes, and customer account numbers.
+                  {t('outcomes.metric2_desc')}
                 </p>
               </div>
 
               {/* Metric 3: Regional Sourced Stat */}
               <div className="linear-card rounded-2xl md:rounded-3xl p-8 border border-white/10 space-y-4 text-center bg-emerald-950/20 border-emerald-500/20">
                 <div className="text-4xl md:text-5xl font-mono-tech font-extrabold text-emerald-400 tracking-tight">
-                  62.4% SMBs
+                  {t('outcomes.metric3_val')}
                 </div>
-                <h3 className="text-lg font-bold text-white">Face Admin Hiring Crunch</h3>
+                <h3 className="text-lg font-bold text-white">{t('outcomes.metric3_title')}</h3>
                 <p className="text-xs md:text-sm text-[#8A8F98] leading-relaxed">
-                  Atlantic Canada has the highest rate in Canada of businesses unable to fill administrative roles. [CFIB / Statistics Canada Labour Survey Placeholder - Source verification required]
+                  {t('outcomes.metric3_desc')}
                 </p>
               </div>
 
             </div>
 
-            {/* 3 Regional Client Spotlights (With Bracketed Placeholders) */}
+            {/* 3 Regional Client Spotlights */}
             <div className="space-y-6 max-w-6xl mx-auto">
-              <h3 className="text-xl font-bold text-white text-center">Regional Business Proof Across All Four Provinces</h3>
+              <h3 className="text-xl font-bold text-white text-center">{t('outcomes.proof_title')}</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
@@ -287,12 +289,12 @@ const Home: React.FC = () => {
                 <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
-                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> Halifax, NS</span>
-                      <span className="text-emerald-400 font-bold">14 hrs/wk saved</span>
+                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> {t('outcomes.proof1_loc')}</span>
+                      <span className="text-emerald-400 font-bold">{t('outcomes.proof1_saved')}</span>
                     </div>
-                    <h4 className="text-lg font-bold text-white">[Atlantic Wholesale & Supply - Client Placeholder A]</h4>
+                    <h4 className="text-lg font-bold text-white">{t('outcomes.proof1_title')}</h4>
                     <p className="text-xs text-[#8A8F98] leading-relaxed">
-                      "Our team used to manually re-type counter order tickets into QuickBooks Online. Oakivo built an automated bridge that posts completed invoices instantly."
+                      {t('outcomes.proof1_quote')}
                     </p>
                   </div>
                   <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
@@ -304,12 +306,12 @@ const Home: React.FC = () => {
                 <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
-                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> Moncton, NB</span>
-                      <span className="text-emerald-400 font-bold">12 hrs/wk saved</span>
+                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> {t('outcomes.proof2_loc')}</span>
+                      <span className="text-emerald-400 font-bold">{t('outcomes.proof2_saved')}</span>
                     </div>
-                    <h4 className="text-lg font-bold text-white">[Maritime Equipment & Fleet - Client Placeholder B]</h4>
+                    <h4 className="text-lg font-bold text-white">{t('outcomes.proof2_title')}</h4>
                     <p className="text-xs text-[#8A8F98] leading-relaxed">
-                      "Field work orders sat in paper folders for days before someone typed them into Xero. Now invoices post automatically upon customer sign-off."
+                      {t('outcomes.proof2_quote')}
                     </p>
                   </div>
                   <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
@@ -321,12 +323,12 @@ const Home: React.FC = () => {
                 <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
-                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> Charlottetown, PEI</span>
-                      <span className="text-emerald-400 font-bold">10 hrs/wk saved</span>
+                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> {t('outcomes.proof3_loc')}</span>
+                      <span className="text-emerald-400 font-bold">{t('outcomes.proof3_saved')}</span>
                     </div>
-                    <h4 className="text-lg font-bold text-white">[Island Food Processing Co. - Client Placeholder C]</h4>
+                    <h4 className="text-lg font-bold text-white">{t('outcomes.proof3_title')}</h4>
                     <p className="text-xs text-[#8A8F98] leading-relaxed">
-                      "We spent half of every Friday matching customer accounts against inventory sheets. Automated invoice syncing eliminated the weekend backlog completely."
+                      {t('outcomes.proof3_quote')}
                     </p>
                   </div>
                   <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
@@ -340,22 +342,22 @@ const Home: React.FC = () => {
           </div>
         </section>
 
-        {/* 5. SINGLE CTA + LEAD FORM (Max 3 Fields, Verbatim CTA String) */}
+        {/* 5. SINGLE CTA + LEAD FORM */}
         <section className="py-20 md:py-28 bg-[#070A0F] relative overflow-hidden" id="audit-form">
           <div className="container mx-auto px-4 md:px-6 max-w-4xl">
             <div className="linear-card rounded-3xl md:rounded-[36px] p-8 md:p-14 border border-white/10 space-y-8 relative overflow-hidden shadow-2xl">
               
               <div className="text-center space-y-4 max-w-2xl mx-auto">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono-tech font-bold uppercase tracking-wider">
-                  <Clock size={14} /> Free 15-Minute Invoice Audit
+                  <Clock size={14} /> {t('drawer.tag')}
                 </div>
 
                 <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-white leading-tight">
-                  Book Your Free 15-Minute Invoice Audit
+                  {t('drawer.title')}
                 </h2>
 
                 <p className="text-sm md:text-base text-[#8A8F98] leading-relaxed">
-                  No high-pressure sales pitch. One of our regional specialists will review your daily invoicing setup and show you exactly how to automate it—100% free of charge.
+                  {t('drawer.desc')}
                 </p>
               </div>
 
@@ -365,9 +367,9 @@ const Home: React.FC = () => {
                   <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
                     <CheckCircle2 size={36} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Invoice Audit Request Received!</h3>
+                  <h3 className="text-2xl font-bold text-white">{t('drawer.success_title')}</h3>
                   <p className="text-sm text-gray-300 max-w-md mx-auto">
-                    Thank you! We will review your current invoicing setup and contact you within 24 hours to schedule your free 15-minute audit.
+                    {t('drawer.success_desc')}
                   </p>
                 </div>
               ) : (
@@ -376,14 +378,14 @@ const Home: React.FC = () => {
                   {/* Field 1: Name */}
                   <div className="space-y-1.5">
                     <label className="text-xs font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      Your Name *
+                      {t('drawer.name_label')}
                     </label>
                     <div className="relative">
                       <User size={18} className="absolute left-4 top-3.5 text-gray-500" />
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Sarah Jenkins"
+                        placeholder={t('drawer.name_placeholder')}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors"
@@ -394,14 +396,14 @@ const Home: React.FC = () => {
                   {/* Field 2: Work Email */}
                   <div className="space-y-1.5">
                     <label className="text-xs font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      Work Email *
+                      {t('drawer.email_label')}
                     </label>
                     <div className="relative">
                       <Mail size={18} className="absolute left-4 top-3.5 text-gray-500" />
                       <input
                         type="email"
                         required
-                        placeholder="e.g. sarah@company.ca"
+                        placeholder={t('drawer.email_placeholder')}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors"
@@ -409,22 +411,22 @@ const Home: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Field 3: What is your biggest manual invoicing pain point right now? */}
+                  {/* Field 3: Bottleneck */}
                   <div className="space-y-1.5">
                     <label className="text-xs font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      What is your biggest manual invoicing pain point right now? *
+                      {t('drawer.bottleneck_label')}
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder="e.g. Re-typing PDF invoice totals into QuickBooks, tracking unpaid customer balances across spreadsheets..."
+                      placeholder={t('drawer.bottleneck_placeholder')}
                       value={formData.bottleneck}
                       onChange={(e) => setFormData({ ...formData, bottleneck: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors resize-none"
                     />
                   </div>
 
-                  {/* CTA Button Verbatim */}
+                  {/* CTA Button */}
                   <button
                     type="submit"
                     disabled={status === 'submitting'}
@@ -433,18 +435,18 @@ const Home: React.FC = () => {
                     {status === 'submitting' ? (
                       <>
                         <Loader2 size={18} className="animate-spin text-black" />
-                        <span>Submitting Request...</span>
+                        <span>{t('drawer.submitting')}</span>
                       </>
                     ) : (
                       <>
                         <Send size={16} />
-                        <span>Book Your Free 15-Minute Invoice Audit</span>
+                        <span>{t('common.cta_book_invoice_audit')}</span>
                       </>
                     )}
                   </button>
 
                   <p className="text-center text-xs text-gray-500">
-                    No credit card required. No new software to buy. 100% Atlantic Canada focused.
+                    {t('common.guarantee')}
                   </p>
                 </form>
               )}

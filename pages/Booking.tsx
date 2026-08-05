@@ -39,8 +39,8 @@ const Booking: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Schedule Audit | Free 15-Minute Operational Audit | Oakivo"
-        description="Book a free 15-minute operational audit with an automation specialist at Oakivo Solutions in Atlantic Canada."
+        title="Schedule Free 15-Minute Audit | Oakivo Solutions"
+        description="Schedule your free 15-minute invoice audit with an automation specialist at Oakivo Solutions. Discover how to automate billing across Atlantic Canada."
         canonical="/booking"
       />
 

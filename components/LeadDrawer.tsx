@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Send, CheckCircle2, ShieldCheck, Sparkles, Mail, User, Loader2 } from 'lucide-react';
 import { db } from '../utils/database';
+import { useLanguage } from '../context/LanguageContext';
 
 interface LeadDrawerProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface LeadDrawerProps {
 }
 
 const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -74,10 +76,10 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                 </div>
                 <div>
                   <span className="text-[10px] font-mono-tech font-bold uppercase tracking-[0.2em] text-emerald-400 block">
-                    Oakivo Free 15-Min Audit
+                    {t('drawer.tag')}
                   </span>
                   <h3 className="text-xl font-bold text-white">
-                    Book Your Free 15-Minute Invoice Audit
+                    {t('drawer.title')}
                   </h3>
                 </div>
               </div>
@@ -104,10 +106,10 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   </div>
                   <div className="space-y-2">
                     <h4 className="text-2xl font-bold text-white">
-                      Operational Audit Request Received
+                      {t('drawer.success_title')}
                     </h4>
                     <p className="text-sm text-gray-400 max-w-md mx-auto">
-                      One of our senior automation specialists will review your workflow request and contact you directly within 24 hours to schedule your 15-minute operational audit.
+                      {t('drawer.success_desc')}
                     </p>
                   </div>
 
@@ -115,26 +117,26 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                     onClick={handleReset}
                     className="px-8 py-3.5 rounded-full bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-gray-100 transition-all cursor-pointer"
                   >
-                    Close & Return to Page
+                    {t('drawer.close')}
                   </button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <p className="text-sm text-gray-300 leading-relaxed font-light">
-                    No high-pressure sales pitch. One of our senior automation specialists will review your daily workflow and show you exactly where time is being lost—100% free of charge.
+                    {t('drawer.desc')}
                   </p>
 
                   {/* Field 1: Name */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      Your Name *
+                      {t('drawer.name_label')}
                     </label>
                     <div className="relative">
                       <User size={16} className="absolute left-4 top-3.5 text-gray-500" />
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Marcus Vance"
+                        placeholder={t('drawer.name_placeholder')}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white"
@@ -145,14 +147,14 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   {/* Field 2: Work Email */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      Work Email *
+                      {t('drawer.email_label')}
                     </label>
                     <div className="relative">
                       <Mail size={16} className="absolute left-4 top-3.5 text-gray-500" />
                       <input
                         type="email"
                         required
-                        placeholder="e.g. m.vance@company.ca"
+                        placeholder={t('drawer.email_placeholder')}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white"
@@ -163,12 +165,12 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   {/* Field 3: Task Description */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      What is your biggest manual invoicing pain point right now? *
+                      {t('drawer.bottleneck_label')}
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder="e.g. Typing invoice details from PDFs into QuickBooks, copy-pasting customer orders into accounting sheets, or delayed payment tracking..."
+                      placeholder={t('drawer.bottleneck_placeholder')}
                       value={formData.bottleneck}
                       onChange={(e) => setFormData({ ...formData, bottleneck: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white resize-none"
@@ -184,12 +186,12 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                     {status === 'submitting' ? (
                       <>
                         <Loader2 size={16} className="animate-spin text-black" />
-                        <span>Scheduling Audit...</span>
+                        <span>{t('drawer.submitting')}</span>
                       </>
                     ) : (
                       <>
                         <Send size={15} />
-                        <span>Book Your Free 15-Minute Invoice Audit</span>
+                        <span>{t('common.cta_book_invoice_audit')}</span>
                       </>
                     )}
                   </button>

@@ -16,6 +16,7 @@ import Careers from './pages/Careers';
 import AdminPortal from './pages/AdminPortal';
 import Privacy from './pages/Privacy';
 import ComplianceMatrix from './pages/ComplianceMatrix';
+import BrandShowcase from './pages/BrandShowcase';
 import SolutionDetail from './pages/SolutionDetail';
 import LocationDetail from './pages/LocationDetail';
 import Chatbot from './components/Chatbot';
@@ -57,6 +58,7 @@ const App: React.FC = () => {
                 <Route path={NavRoute.ADMIN_PORTAL} element={<AdminPortal />} />
                 <Route path={NavRoute.PRIVACY} element={<Privacy />} />
                 <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
+                <Route path={NavRoute.BRAND_IDENTITY} element={<BrandShowcase />} />
                 <Route path="/solutions/:slug" element={<SolutionDetail />} />
                 <Route path="/locations/:slug" element={<LocationDetail />} />
               </Routes>

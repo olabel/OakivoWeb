@@ -8,7 +8,7 @@ import LeadDrawer from './LeadDrawer';
 import { useLanguage } from '../context/LanguageContext';
 
 const KineticHero: React.FC = () => {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const scrollToROI = () => {
@@ -40,18 +40,19 @@ const KineticHero: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-[11px] font-mono-tech font-medium text-gray-300">
-                Done-For-You Invoice & Bookkeeping Automation • Atlantic Canada
+                {t('hero.badge')}
               </span>
             </div>
 
             {/* Kinetic Linear Headline */}
             <h1 className="text-3xl sm:text-5xl xl:text-6xl font-extrabold tracking-linear-tight leading-[1.1] text-linear-heading max-w-4xl">
-              Can't Hire Office Admin Staff in Atlantic Canada? <span className="text-linear-accent font-semibold">Automate Your Invoicing Instead.</span>
+              {t('hero.headline_main')}{' '}
+              <span className="text-linear-accent font-semibold">{t('hero.headline_accent')}</span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-[#8A8F98] font-normal max-w-2xl leading-relaxed tracking-linear-normal">
-              We connect the accounting software you already use (like QuickBooks, Xero, or Sage) so invoices, customer payments, and billing records sync automatically—removing the need to fill office roles the local labour market can't supply.
+              {t('hero.subtitle')}
             </p>
 
             {/* Action CTAs */}
@@ -61,7 +62,7 @@ const KineticHero: React.FC = () => {
                 className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group cursor-pointer"
               >
                 <Sparkles size={15} />
-                <span>Book Your Free 15-Minute Invoice Audit</span>
+                <span>{t('hero.cta')}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </button>
             </div>
@@ -70,7 +71,7 @@ const KineticHero: React.FC = () => {
             <div className="pt-8 border-t border-white/10 w-full text-center">
               <p className="text-xs text-gray-400 font-medium max-w-2xl mx-auto flex items-center justify-center gap-2">
                 <ShieldCheck size={16} className="text-emerald-400 shrink-0" />
-                <span>No new software to buy. No pushy sales pitch. 100% Atlantic Canada focused.</span>
+                <span>{t('hero.guarantee')}</span>
               </p>
             </div>
           </motion.div>

@@ -44,9 +44,10 @@ const About: React.FC = () => {
   return (
     <>
       <SEO 
-        title="About Oakivo Solutions | Done-For-You Workflow Automation in Atlantic Canada"
-        description="Oakivo Solutions connects the software you already use so your team stops wasting hours on manual data entry, copy-pasting between systems, and repetitive admin work."
-        keywords="Oakivo Solutions, Business Automation Atlantic Canada, Workflow Automation New Brunswick, Process Integration Nova Scotia, PEI Software Integration"
+        title="About Oakivo Solutions | Atlantic Canada Automation"
+        description="Oakivo Solutions connects your existing accounting software so Atlantic Canada businesses eliminate manual invoicing and reclaim valuable office admin hours."
+        canonical="/about"
+        keywords="Oakivo Solutions, Invoice Automation Atlantic Canada, Bookkeeping Sync New Brunswick, QuickBooks Integration Nova Scotia, PEI Software Integration"
       />
 
       {/* Hero Section */}

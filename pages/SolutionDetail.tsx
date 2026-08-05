@@ -170,8 +170,8 @@ const SolutionDetail: React.FC = () => {
   return (
     <>
       <SEO 
-        title={`${solution.title} | Oakivo Solutions Atlantic Canada`}
-        description={solution.subtitle}
+        title={`${solution.title} | Oakivo Solutions`}
+        description={solution.description}
         canonical={`/solutions/${solutionKey}`}
         schema={[serviceSchema, faqSchema]}
       />

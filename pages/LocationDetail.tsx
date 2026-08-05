@@ -122,7 +122,7 @@ const LocationDetail: React.FC = () => {
   return (
     <>
       <SEO 
-        title={`Workflow Automation in ${location.name} | Oakivo Solutions`}
+        title={`Invoice Automation in ${location.name} | Oakivo`}
         description={location.heroSubtitle}
         canonical={`/locations/${locKey}`}
         schema={localBusinessSchema}

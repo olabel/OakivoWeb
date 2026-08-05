@@ -45,6 +45,7 @@ export enum NavRoute {
   PRIVACY = '/privacy',
   COMPLIANCE = '/compliance-matrix',
   ADMIN_PORTAL = '/admin-portal',
+  BRAND_IDENTITY = '/brand-identity',
   // Solution Pages
   SOLUTION_INVOICE = '/solutions/invoice-automation',
   SOLUTION_INVENTORY = '/solutions/order-inventory-sync',

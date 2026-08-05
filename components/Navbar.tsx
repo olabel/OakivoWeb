@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
   const location = useLocation();
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,11 +32,11 @@ const Navbar: React.FC = () => {
   }, [language, setLanguage]);
 
   const navLinks = [
-    { name: 'Home', path: NavRoute.HOME },
-    { name: 'Services & Process', path: NavRoute.SERVICES },
-    { name: 'Case Studies', path: NavRoute.CASE_STUDIES },
-    { name: 'About Us', path: NavRoute.ABOUT },
-    { name: 'Free Audit', path: NavRoute.CONTACT },
+    { name: t('nav.home'), path: NavRoute.HOME },
+    { name: t('nav.services'), path: NavRoute.SERVICES },
+    { name: t('nav.work'), path: NavRoute.CASE_STUDIES },
+    { name: t('nav.about'), path: NavRoute.ABOUT },
+    { name: t('nav.contact'), path: NavRoute.CONTACT },
   ];
 
   return (
@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
                 className="px-5 py-2.5 rounded-full bg-white hover:bg-gray-100 text-black font-bold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.25)] flex items-center gap-2 cursor-pointer"
               >
                 <Sparkles size={14} className="text-black" />
-                <span>Book Your Free 15-Minute Invoice Audit</span>
+                <span>{t('common.cta_book_invoice_audit')}</span>
               </button>
             </div>
 
@@ -131,7 +131,7 @@ const Navbar: React.FC = () => {
                 onClick={() => { setIsOpen(false); setIsDrawerOpen(true); }}
                 className="w-full py-4 text-xs font-extrabold rounded-2xl bg-white text-black uppercase tracking-wider shadow-2xl flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Sparkles size={16} /> Book Your Free 15-Minute Invoice Audit
+                <Sparkles size={16} /> {t('common.cta_book_invoice_audit')}
               </button>
             </div>
           </div>
@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
              <Zap size={14} />
           </div>
           <span className="text-[11px] font-mono-tech font-extrabold uppercase tracking-wider text-emerald-400 whitespace-nowrap">
-            Book Your Free 15-Minute Invoice Audit
+            {t('common.cta_book_invoice_audit')}
           </span>
         </button>
       </div>

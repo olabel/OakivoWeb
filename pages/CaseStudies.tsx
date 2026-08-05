@@ -90,8 +90,8 @@ const CaseStudies: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Atlantic Canada Automation Case Studies & Results | Oakivo Solutions"
-        description="See how Atlantic Canada businesses in New Brunswick, Nova Scotia, and PEI saved 10 to 15 hours per week by connecting their existing software tools with Oakivo Solutions."
+        title="Invoice Automation Case Studies | Oakivo Solutions"
+        description="See how Atlantic Canada businesses in NB, NS, and PEI save 10 to 15 hours per week by connecting their accounting software with Oakivo Solutions."
         canonical="/case-studies"
       />
 

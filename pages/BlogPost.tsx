@@ -19,7 +19,7 @@ const BlogPost: React.FC = () => {
   return (
     <>
       <SEO 
-        title={`${post.title} | Oakivo Automation Article`} 
+        title={`${post.title} | Oakivo Solutions`} 
         description={post.excerpt}
         canonical={`/perspectives/${post.id}`}
       />

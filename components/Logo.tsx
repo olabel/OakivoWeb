@@ -4,13 +4,18 @@ interface LogoProps {
   className?: string;
   showText?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  variant?: 'dark' | 'light' | 'mono';
+  light?: boolean;
 }
 
 export const Logo: React.FC<LogoProps> = ({ 
   className = '', 
   showText = true,
-  size = 'md' 
+  size = 'md',
+  variant = 'dark',
+  light
 }) => {
+  const activeVariant = light ? 'light' : variant;
   const iconSizes = {
     sm: 'w-7 h-7',
     md: 'w-9 h-9',
@@ -29,65 +34,42 @@ export const Logo: React.FC<LogoProps> = ({
     lg: 'text-[9px]'
   };
 
+  // Concept 1: The Interlocking Timber Joint (Joinery & Seamless Systems Connection)
   return (
     <div className={`flex items-center gap-3 cursor-pointer group select-none ${className}`}>
-      {/* Precision Geometric Shield Emblem */}
-      <div className={`relative ${iconSizes[size]} rounded-xl bg-gradient-to-br from-[#5E6AD2] via-[#8257E5] to-[#00F0FF] p-[1px] shadow-[0_0_20px_rgba(94,106,210,0.25)] group-hover:shadow-[0_0_30px_rgba(94,106,210,0.45)] transition-all duration-300`}>
-        <div className="w-full h-full bg-[#08090A] rounded-[11px] flex items-center justify-center relative overflow-hidden">
-          {/* Subtle Inner Glow */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#5E6AD2]/20 via-transparent to-[#00F0FF]/20 opacity-60 group-hover:opacity-100 transition-opacity" />
-          
-          {/* Million-Dollar Oakivo Isometric "O" Shield Symbol */}
-          <svg 
-            viewBox="0 0 32 32" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:scale-105"
-          >
-            <defs>
-              <linearGradient id="oakivoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FFFFFF" />
-                <stop offset="100%" stopColor="#5E6AD2" />
-              </linearGradient>
-              <linearGradient id="oakivoGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#00F0FF" />
-                <stop offset="100%" stopColor="#8257E5" />
-              </linearGradient>
-            </defs>
-
-            {/* Hexagonal Shield Outline Facets */}
-            <path 
-              d="M16 3L27 9.35V22.65L16 29L5 22.65V9.35L16 3Z" 
-              stroke="url(#oakivoGrad1)" 
-              strokeWidth="2" 
-              strokeLinejoin="round" 
-              className="opacity-90"
-            />
-            {/* Inner Interlocking Core "O" Node */}
-            <path 
-              d="M16 8L22 11.5V18.5L16 22L10 18.5V11.5L16 8Z" 
-              fill="url(#oakivoGrad2)" 
-              fillOpacity="0.25"
-              stroke="url(#oakivoGrad2)" 
-              strokeWidth="1.5" 
-              strokeLinejoin="round" 
-            />
-            {/* Center Zero-Trust Diamond Core */}
-            <circle cx="16" cy="15" r="2" fill="#00F0FF" />
-          </svg>
-        </div>
+      {/* Structural Emblem Container */}
+      <div className={`relative ${iconSizes[size]} rounded-xl bg-[#0F172A] p-1.5 border border-white/10 shadow-md group-hover:border-amber-500/50 transition-all duration-300 flex items-center justify-center shrink-0`}>
+        <svg 
+          viewBox="0 0 32 32" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg" 
+          className="w-full h-full transition-transform duration-300 group-hover:scale-105"
+        >
+          {/* Solid Interlocking Block A (Warm Copper/Amber) */}
+          <path 
+            d="M6 6C6 4.89543 6.89543 4 8 4H20V10H12V20H6V6Z" 
+            fill={variant === 'mono' ? '#FFFFFF' : '#D97706'} 
+          />
+          {/* Solid Interlocking Block B (Slate Earth) */}
+          <path 
+            d="M26 26C26 27.1046 25.1046 28 24 28H12V22H20V12H26V26Z" 
+            fill={variant === 'mono' ? '#FFFFFF' : '#475569'} 
+          />
+          {/* Keyway Connection Core (Emerald Precision Marker) */}
+          <rect x="12" y="10" width="8" height="10" fill={variant === 'mono' ? '#FFFFFF' : '#10B981'} rx="1" />
+        </svg>
       </div>
 
       {/* Brand Wordmark */}
       {showText && (
         <div className="flex flex-col">
-          <div className="flex items-center gap-1">
-            <span className={`font-sans ${textSizes[size]} font-extrabold tracking-[-0.03em] text-white leading-none`}>
+          <div className="flex items-center gap-1.5">
+            <span className={`font-sans ${textSizes[size]} font-extrabold tracking-tight text-white leading-none`}>
               OAKIVO
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#5E6AD2] to-[#00F0FF] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           </div>
-          <span className={`${subTextSizes[size]} font-mono-tech tracking-[0.25em] text-[#8A8F98] uppercase font-semibold mt-1`}>
+          <span className={`${subTextSizes[size]} font-mono-tech tracking-[0.25em] text-gray-400 uppercase font-semibold mt-1`}>
             SOLUTIONS
           </span>
         </div>
@@ -97,3 +79,4 @@ export const Logo: React.FC<LogoProps> = ({
 };
 
 export default Logo;
+

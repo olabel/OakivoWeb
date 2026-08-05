@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-type Language = 'en' | 'fr';
+export type Language = 'en' | 'fr';
 
 interface LanguageContextType {
   language: Language;
@@ -16,20 +16,150 @@ export const translations: Record<Language, Record<string, any>> = {
       home: 'Home', 
       verticals: 'Industries Served', 
       services: 'Services & Process', 
-      work: 'Case Studies', 
+      work: 'Case Studies',
+      case_studies: 'Case Studies', 
       about: 'About Us', 
-      contact: "Free Operational Audit", 
-      careers: "Careers",
-      booking: "Schedule Audit",
-      compliance: "Security & Guarantee"
+      contact: 'Free Audit', 
+      careers: 'Careers',
+      booking: 'Schedule Audit',
+      compliance: 'Security & Guarantee',
+      privacy: 'Privacy Policy',
+      solutions: 'Solutions',
+      locations: 'Locations'
     },
     common: {
+      cta_book_invoice_audit: "Book Your Free 15-Minute Invoice Audit",
       cta_audit: "Book 15-Min Audit",
       cta_blueprint: "Request Solution Blueprint",
       cta_meet: "Meet Our Automation Team",
       cta_orchestrate: "Book Operational Audit",
       cta_mobile_sticky: "Book Free Audit",
-      cta_schedule: "Schedule 15-Min Audit"
+      cta_schedule: "Schedule 15-Min Audit",
+      submitting: "Submitting Request...",
+      success: "Request Submitted!",
+      guarantee: "No new software to buy. No pushy sales pitch. 100% Atlantic Canada focused.",
+      no_software: "No new software to buy",
+      regional_focus: "Atlantic Canada Regional Focus",
+      regional_sub: "New Brunswick • Nova Scotia • PEI • NL"
+    },
+    hero: {
+      badge: "Done-For-You Invoice & Bookkeeping Automation • Atlantic Canada",
+      headline_main: "Can't Hire Office Admin Staff in Atlantic Canada?",
+      headline_accent: "Automate the Busywork Instead.",
+      subtitle: "We connect the accounting software you already use (like QuickBooks, Xero, or Sage) so invoices, customer payments, and billing records sync automatically—removing the need to fill office roles the local labour market can't supply.",
+      cta: "Book Your Free 15-Minute Invoice Audit",
+      guarantee: "No new software to buy. No pushy sales pitch. 100% Atlantic Canada focused."
+    },
+    problem: {
+      badge: "The Regional Administrative Crunch",
+      title_main: "Can't Fill Office Admin Roles?",
+      title_accent: "Your Invoicing Is Where the Bottleneck Lives.",
+      subtitle: "Atlantic Canada has the highest business hiring-difficulty rate in the country, and administrative roles rank among the hardest to fill. When office support isn't available, manual invoicing creates 3 major business headaches:",
+      point1_title: "Unfillable Office Roles",
+      point1_desc: "Trying to recruit office admin staff in a regional labour market where administrative and bookkeeping positions rank among the hardest to fill nationwide.",
+      point1_stat: "62.4% Regional Labour Crunch Stat",
+      point2_title: "Double Invoicing & Data Entry",
+      point2_desc: "Current staff wasting hours copying identical customer details, PDF order totals, and billing items into QuickBooks, Xero, or Sage manually.",
+      point2_stat: "10–15 hours lost every week",
+      point3_title: "Blind Spots on Outstanding Bills",
+      point3_desc: "Not knowing which invoices are paid or overdue without checking multiple systems or asking busy staff to build manual status spreadsheets.",
+      point3_stat: "Slows down business cash flow"
+    },
+    steps: {
+      badge: "Done-For-You Setup",
+      title_main: "How It Works in ",
+      title_accent: "3 Simple Steps",
+      subtitle: "No new core software to buy. We connect what you already have.",
+      step1_num: "1",
+      step1_title: "Step 1: Map Your Billing Flow",
+      step1_desc: "We map how invoice data currently moves between your team, email, work orders, and accounting software.",
+      step2_num: "2",
+      step2_title: "Step 2: Connect Existing Tools",
+      step2_desc: "We build automated connectors between your existing software in a sandbox test environment with zero daily operational disruption.",
+      step3_num: "3",
+      step3_title: "Step 3: Sync Invoices Automatically",
+      step3_desc: "Your invoices, customer payments, and billing records update automatically without manual data entry."
+    },
+    outcomes: {
+      badge: "Evidence-Backed Results",
+      title_main: "Proven Invoice Automation ",
+      title_accent: "Outcomes",
+      metric1_val: "10–15 Hours",
+      metric1_title: "Reclaimed Per Week",
+      metric1_desc: "Reclaim valuable office administrative payroll hours every single week by eliminating double-entry invoice typing.",
+      metric2_val: "99%+ Accuracy",
+      metric2_title: "Across Customer Billing",
+      metric2_desc: "Eliminate manual copy-paste typos across line items, tax codes, and customer account numbers.",
+      metric3_val: "62.4% SMBs",
+      metric3_title: "Face Admin Hiring Crunch",
+      metric3_desc: "Atlantic Canada has the highest rate in Canada of businesses unable to fill administrative roles.",
+      proof_title: "Regional Business Proof Across All Four Provinces",
+      proof1_loc: "Halifax, NS",
+      proof1_title: "Atlantic Wholesale & Supply",
+      proof1_saved: "14 hrs/wk saved",
+      proof1_quote: "\"Our team used to manually re-type counter order tickets into QuickBooks Online. Oakivo built an automated bridge that posts completed invoices instantly.\"",
+      proof2_loc: "Moncton, NB",
+      proof2_title: "Maritime Equipment & Fleet",
+      proof2_saved: "12 hrs/wk saved",
+      proof2_quote: "\"Field work orders sat in paper folders for days before someone typed them into Xero. Now invoices post automatically upon customer sign-off.\"",
+      proof3_loc: "Charlottetown, PEI",
+      proof3_title: "Island Food Processing Co.",
+      proof3_saved: "10 hrs/wk saved",
+      proof3_quote: "\"We spent half of every Friday matching customer accounts against inventory sheets. Automated invoice syncing eliminated the weekend backlog completely.\""
+    },
+    drawer: {
+      tag: "Oakivo Free 15-Min Audit",
+      title: "Book Your Free 15-Minute Invoice Audit",
+      desc: "No high-pressure sales pitch. One of our senior automation specialists will review your daily workflow and show you exactly where time is being lost—100% free of charge.",
+      name_label: "Your Name *",
+      name_placeholder: "e.g. Sarah Jenkins",
+      email_label: "Work Email *",
+      email_placeholder: "e.g. sarah@company.ca",
+      bottleneck_label: "What is your biggest manual invoicing pain point right now? *",
+      bottleneck_placeholder: "e.g. Typing invoice details from PDFs into QuickBooks, copy-pasting customer orders into accounting sheets...",
+      submit_btn: "Book Your Free 15-Minute Invoice Audit",
+      submitting: "Scheduling Audit...",
+      success_title: "Operational Audit Request Received",
+      success_desc: "One of our senior automation specialists will review your workflow request and contact you directly within 24 hours to schedule your 15-minute operational audit.",
+      success_close: "Close & Return to Page",
+      footer_badge: "Grounded Done-For-You Business Automation",
+      footer_region: "Atlantic Canada Regional Operations"
+    },
+    footer: {
+      card_tag: "Free 15-Minute Invoice Audit",
+      card_title: "Ready to stop wasting payroll hours on manual invoicing?",
+      card_desc: "Book a free 15-minute audit. We will review your current invoicing workflow and show you how connecting your existing software removes the need to fill scarce office admin roles.",
+      cta_audit: "Book Your Free 15-Minute Invoice Audit",
+      callout_tag: "Free 15-Minute Invoice Audit",
+      callout_title: "Ready to stop wasting payroll hours on manual invoicing?",
+      callout_desc: "Book a free 15-minute audit. We will review your current invoicing workflow and show you how connecting your existing software removes the need to fill scarce office admin roles.",
+      callout_btn: "Book Your Free 15-Minute Invoice Audit",
+      brand_desc: "Oakivo Solutions builds custom automated bridges between your existing accounting, inventory, and scheduling software so your team stops losing hours to manual data entry across Atlantic Canada.",
+      badge_title: "Atlantic Canada Regional Focus",
+      badge_desc: "Grounded, responsive done-for-you automation support for businesses in New Brunswick, Nova Scotia, Prince Edward Island, and Newfoundland.",
+      focus_tag: "Atlantic Canada Regional Focus",
+      focus_desc: "Grounded, responsive done-for-you automation support for businesses in New Brunswick, Nova Scotia, Prince Edward Island, and Newfoundland.",
+      nav_title: "Navigation",
+      nav_header: "Navigation",
+      solutions_title: "Automation Solutions",
+      solutions_header: "Automation Solutions",
+      service_area: "Service Area",
+      area_header: "Service Area",
+      rights: "2026 Oakivo Solutions Inc. All rights reserved.",
+      copyright: "© 2026 Oakivo Solutions Inc. All rights reserved.",
+      privacy: "Privacy Policy",
+      compliance: "Security Guarantee"
+    },
+    chatbot: {
+      greeting: "Welcome to Oakivo Solutions! I am your AI Automation Assistant. We connect the software tools you already use so your team stops wasting hours on manual data entry across Atlantic Canada. How can I help you today?",
+      placeholder: "Ask about workflow automation or audits...",
+      quick_prompts: [
+        "Free 15-Min Operational Audit?",
+        "Do we need to buy new software?",
+        "How fast is setup?",
+        "Which tools can you connect?"
+      ],
+      audit_btn: "Book Free 15-Min Audit"
     },
     magnets: {
       erp: {
@@ -53,24 +183,6 @@ export const translations: Record<Language, Record<string, any>> = {
         btn: "Book Free Audit"
       }
     },
-    home: {
-      hero_label: "Done-For-You Business Workflow Automation",
-      hero_title_main: "Stop Letting Tech Debt and Runaway Cloud Bills",
-      hero_title_italic: "Eat Your Margins.",
-      hero_title_end: "",
-      hero_subtitle: "We build self-healing cloud platforms, automate legacy workflows, and lock down compliance—so your team can focus on shipping features, not firefighting infrastructure.",
-      cta_primary: "Book a 15-Min Operational Audit",
-      cta_secondary: "See How We Reduced Cloud Spend by 35%",
-      trust_badges: {
-        odoo: "Done-For-You Automation Partner",
-        sovereignty: "Atlantic Canada Local Support",
-        accounting: "Connects Existing Accounting Software",
-        expert: "Zero New Software to Buy",
-        location: "New Brunswick • Nova Scotia • PEI • NL"
-      },
-      matrix_title: "How We Help Atlantic Businesses",
-      matrix_subtitle: "Grounded, done-for-you automation trusted by growing operations across Atlantic Canada.",
-    },
     verticals: {
       hero_title: "Industries We Serve.",
       hero_subtitle: "Custom workflow automation tailored to the daily operational needs of Atlantic Canada businesses.",
@@ -79,13 +191,17 @@ export const translations: Record<Language, Record<string, any>> = {
         { title: "Equipment Wholesale & Supply", desc: "Bridge parts ordering, customer inventory, and invoicing software.", impact: "Eliminates double entry across orders and customer billing records." },
         { title: "Transportation & Freight", desc: "Automatically match dispatch logs with driver manifests and accounting.", impact: "Accelerate billing cycles by up to 5 business days." },
         { title: "Construction & Field Contracting", desc: "Sync timesheets, job site expenses, and supplier receipts instantly.", impact: "Cuts admin overhead and eliminates lost job site receipt entries." },
-        { title: "Retail & E-Commerce", desc: "Real-time stock synchronization between web storefronts and warehouse tools.", impact: "Prevated stockouts and eliminated manual order entry errors." },
+        { title: "Retail & E-Commerce", desc: "Real-time stock synchronization between web storefronts and warehouse tools.", impact: "Prevented stockouts and eliminated manual order entry errors." },
         { title: "Professional Services", desc: "Automated client onboarding, contract routing, and invoice creation.", impact: "Reclaim up to 20 payroll hours per employee every single month." }
       ]
     },
     services: {
       hero_label: "Our Core Services",
-      hero_title: "How We Eliminate <br/> Manual Data Entry.",
+      hero_title: "How We Eliminate Manual Data Entry.",
+      service1_title: "Accounting & Invoice Sync",
+      service2_title: "Order & Inventory Synchronization",
+      service3_title: "Dispatch & Work Order Automation",
+      service4_title: "Financial & Systems Reporting",
       list: [
         { title: "Accounting & Invoice Sync", desc: "Automatically transfer customer invoices, bills, and payment records into your existing accounting software.", insight: "No manual typing, zero copy-paste typos.", magnet: "erp" },
         { title: "Order & Inventory Bridges", desc: "Connect web orders, POS systems, and warehouse inventories so stock levels update instantly.", insight: "Real-time order flow without extra admin staff.", magnet: "cyber" },
@@ -97,9 +213,11 @@ export const translations: Record<Language, Record<string, any>> = {
       cta_btn: "Book Free Operational Audit"
     },
     caseStudies: {
+      hero_title: "Case Studies & Regional Results",
+      hero_subtitle: "Real stories from businesses in Atlantic Canada that eliminated manual invoicing and saved staff hours.",
       cases: [
-        { id: 1, title: "Atlantic Wholesale Distributor", impact: "18 Hours Saved / Week", quote: "Oakivo connected our order forms directly with our accounting software. Our staff doesn't re-type orders anymore.", author: "Operations Director", problem: "Staff spending 20 hours a week copy-pasting order numbers.", solution: "Automated Order-to-Accounting Bridge." },
-        { id: 2, title: "Maritime Freight Operations", impact: "Zero Invoice Typos", quote: "Billing used to take 4 days after delivery. Now invoices send automatically upon delivery confirmation.", author: "General Manager", problem: "Delayed invoicing due to manual paperwork processing.", solution: "Automated Dispatch & Invoicing Bridge." }
+        { id: '1', title: "Atlantic Wholesale Distributor", impact: "18 Hours Saved / Week", quote: "Oakivo connected our order forms directly with our accounting software. Our staff doesn't re-type orders anymore.", author: "Operations Director", problem: "Staff spending 20 hours a week copy-pasting order numbers.", solution: "Automated Order-to-Accounting Bridge." },
+        { id: '2', title: "Maritime Freight Operations", impact: "Zero Invoice Typos", quote: "Billing used to take 4 days after delivery. Now invoices send automatically upon delivery confirmation.", author: "General Manager", problem: "Delayed invoicing due to manual paperwork processing.", solution: "Automated Dispatch & Invoicing Bridge." }
       ]
     },
     about: {
@@ -161,22 +279,152 @@ export const translations: Record<Language, Record<string, any>> = {
   fr: {
     nav: { 
       home: 'Accueil', 
-      verticals: 'Industries Servies', 
-      services: 'Services & Procédés', 
-      work: 'Études de Cas', 
+      verticals: 'Industries Desservies', 
+      services: 'Services & Processus', 
+      work: 'Études de Cas',
+      case_studies: 'Études de Cas', 
       about: 'À Propos', 
-      contact: "Audit Opérationnel Gratuit", 
-      careers: "Carrières",
-      booking: "Planifier un Audit",
-      compliance: "Garantie & Sécurité"
+      contact: 'Audit Gratuit', 
+      careers: 'Carrières',
+      booking: 'Planifier un Audit',
+      compliance: 'Sécurité & Garantie',
+      privacy: 'Politique de Confidentialité',
+      solutions: 'Solutions',
+      locations: 'Emplacements'
     },
     common: {
-      cta_audit: "Réserver un Audit 15-Min",
+      cta_book_invoice_audit: "Réservez Votre Audit Gratuit de 15 Min",
+      cta_audit: "Réserver un Audit de 15 Min",
       cta_blueprint: "Demander le Schéma de Solution",
       cta_meet: "Rencontrer l'Équipe",
       cta_orchestrate: "Réserver un Audit Opérationnel",
-      cta_mobile_sticky: "Audit Gratuit",
-      cta_schedule: "Planifier l'Audit Gratuit"
+      cta_mobile_sticky: "Réserver un Audit Gratuit",
+      cta_schedule: "Planifier l'Audit de 15 Min",
+      submitting: "Envoi de la demande...",
+      success: "Demande transmise !",
+      guarantee: "Aucun nouveau logiciel à acheter. Sans pression commerciale. 100 % axé sur le Canada atlantique.",
+      no_software: "Aucun nouveau logiciel à acheter",
+      regional_focus: "Focus Régional Canada Atlantique",
+      regional_sub: "Nouveau-Brunswick • Nouvelle-Écosse • Î.-P.-É. • T.-N.-L."
+    },
+    hero: {
+      badge: "Automatisation de Facturation & Tenue de Livres Clé en Main • Canada Atlantique",
+      headline_main: "Vous ne trouvez pas de personnel administratif au Canada atlantique ?",
+      headline_accent: "Automatisez plutôt les tâches répétitives.",
+      subtitle: "Nous connectons les logiciels comptables que vous utilisez déjà (QuickBooks, Xero ou Sage) afin que vos factures, paiements clients et pièces justificatives se synchronisent automatiquement.",
+      cta: "Réservez Votre Audit Gratuit de 15 Min",
+      guarantee: "Aucun nouveau logiciel à acheter. Sans pression commerciale. 100 % axé sur le Canada atlantique."
+    },
+    problem: {
+      badge: "La Pénurie Administrative Régionale",
+      title_main: "Impossible de recruter du personnel de bureau ?",
+      title_accent: "Votre facturation est le véritable goulot d'étranglement.",
+      subtitle: "Le Canada atlantique connaît la plus forte difficulté de recrutement d'entreprises au pays, et les postes administratifs figurent parmi les plus rares. En l'absence de soutien de bureau, la facturation manuelle crée 3 problèmes majeurs :",
+      point1_title: "Postes Administratifs Introuvables",
+      point1_desc: "Recruter du personnel administratif dans un marché régional où la tenue de livres fait partie des métiers les plus difficiles à combler au pays.",
+      point1_stat: "62,4 % de tension sur la main-d'œuvre régionale",
+      point2_title: "Double Saisie & Facturation Manuelle",
+      point2_desc: "L'équipe actuelle perd des heures à copier manuellement les détails clients et les montants de commandes dans QuickBooks, Xero ou Sage.",
+      point2_stat: "10 à 15 heures perdues chaque semaine",
+      point3_title: "Manque de Visibilité sur les Factures",
+      point3_desc: "Ne pas savoir quelles factures sont réglées ou en retard sans consulter plusieurs outils ou solliciter des tableaux manuels.",
+      point3_stat: "Ralentit les flux de trésorerie"
+    },
+    steps: {
+      badge: "Installation Clé en Main",
+      title_main: "Comment ça marche en ",
+      title_accent: "3 Étapes Simples",
+      subtitle: "Aucun nouveau logiciel principal à acheter. Nous connectons vos outils actuels.",
+      step1_num: "1",
+      step1_title: "Étape 1 : Cartographier votre facturation",
+      step1_desc: "Nous analysons le parcours de vos données de facturation entre votre équipe, vos courriels et vos logiciels comptables.",
+      step2_num: "2",
+      step2_title: "Étape 2 : Connecter vos outils existants",
+      step2_desc: "Nous créons des connecteurs automatisés entre vos logiciels actuels dans un environnement de test sécurisé.",
+      step3_num: "3",
+      step3_title: "Étape 3 : Synchroniser automatiquement vos factures",
+      step3_desc: "Vos factures, paiements clients et données comptables se mettent à jour automatiquement sans saisie manuelle."
+    },
+    outcomes: {
+      badge: "Résultats Prouvés",
+      title_main: "Résultats d'Automatisation de Facturation ",
+      title_accent: "Prouvés",
+      metric1_val: "10–15 Heures",
+      metric1_title: "Récupérées par semaine",
+      metric1_desc: "Récupérez de précieuses heures d'administration chaque semaine en éliminant la double saisie des factures.",
+      metric2_val: "Précision > 99 %",
+      metric2_title: "Sur toute la facturation",
+      metric2_desc: "Éliminez les fautes de frappe manuelles sur les articles, taxes et numéros de comptes clients.",
+      metric3_val: "62,4 % des PME",
+      metric3_title: "Face à la pénurie administrative",
+      metric3_desc: "Le Canada atlantique enregistre le taux le plus élevé de PME incapables de combler des postes administratifs.",
+      proof_title: "Preuves Concrètes Dans les Quatre Provinces Atlantiques",
+      proof1_loc: "Halifax, N.-É.",
+      proof1_title: "Atlantic Wholesale & Supply",
+      proof1_saved: "14 h/sem économisées",
+      proof1_quote: "\"Notre équipe ressaisissait manuellement les commandes dans QuickBooks Online. Oakivo a créé un pont automatisé qui gère les factures instantanément.\"",
+      proof2_loc: "Moncton, N.-B.",
+      proof2_title: "Maritime Equipment & Fleet",
+      proof2_saved: "12 h/sem économisées",
+      proof2_quote: "\"Les bons de travail papier traînaient pendant des jours. Désormais, les factures s'envoient automatiquement dès la signature client.\"",
+      proof3_loc: "Charlottetown, Î.-P.-É.",
+      proof3_title: "Island Food Processing Co.",
+      proof3_saved: "10 h/sem économisées",
+      proof3_quote: "\"Nous passions tous nos vendredis à rapprocher les comptes et les stocks. La synchronisation automatique a supprimé tout retard.\""
+    },
+    drawer: {
+      tag: "Audit Gratuit 15 Min Oakivo",
+      title: "Réservez Votre Audit Gratuit de 15 Min",
+      desc: "Sans pression commerciale. Un spécialiste examinera vos processus quotidiens et vous montrera exactement où vous perdez du temps, 100 % gratuitement.",
+      name_label: "Votre nom *",
+      name_placeholder: "ex. Marie Tremblay",
+      email_label: "Courriel professionnel *",
+      email_placeholder: "ex. marie@entreprise.ca",
+      bottleneck_label: "Quelle est votre plus grande difficulté en facturation manuelle ? *",
+      bottleneck_placeholder: "ex. Saisir les détails de factures PDF dans QuickBooks, copier-coller les commandes dans des tableurs...",
+      submit_btn: "Réserver Mon Audit Gratuit de 15 Min",
+      submitting: "Planification en cours...",
+      success_title: "Demande d'Audit Opérationnel Reçue",
+      success_desc: "Un spécialiste examinera votre demande et vous contactera sous 24h pour planifier votre audit opérationnel de 15 minutes.",
+      success_close: "Fermer et Revenir à la Page",
+      footer_badge: "Automatisation d'Entreprise Clé en Main",
+      footer_region: "Opérations Régionales au Canada Atlantique"
+    },
+    footer: {
+      card_tag: "Audit Gratuit de 15 Min",
+      card_title: "Prêt à cesser de gaspiller vos heures en facturation manuelle ?",
+      card_desc: "Réservez un audit gratuit de 15 minutes. Nous examinerons votre facturation actuelle et vous montrerons comment connecter vos outils.",
+      cta_audit: "Réserver Mon Audit Gratuit de 15 Min",
+      callout_tag: "Audit Gratuit de 15 Min",
+      callout_title: "Prêt à cesser de gaspiller vos heures en facturation manuelle ?",
+      callout_desc: "Réservez un audit gratuit de 15 minutes. Nous examinerons votre facturation actuelle et vous montrerons comment connecter vos outils.",
+      callout_btn: "Réserver Mon Audit Gratuit de 15 Min",
+      brand_desc: "Oakivo Solutions crée des ponts automatisés entre vos logiciels comptables, de gestion et de stocks pour éliminer la saisie manuelle au Canada atlantique.",
+      badge_title: "Focus Régional Canada Atlantique",
+      badge_desc: "Un soutien pragmatique et réactif en automatisation clé en main pour les entreprises du Nouveau-Brunswick, de la Nouvelle-Écosse, de l'Î.-P.-É. et de Terre-Neuve-et-Labrador.",
+      focus_tag: "Focus Régional Canada Atlantique",
+      focus_desc: "Un soutien pragmatique et réactif en automatisation clé en main pour les entreprises du Nouveau-Brunswick, de la Nouvelle-Écosse, de l'Î.-P.-É. et de Terre-Neuve-et-Labrador.",
+      nav_title: "Navigation",
+      nav_header: "Navigation",
+      solutions_title: "Solutions d'Automatisation",
+      solutions_header: "Solutions d'Automatisation",
+      service_area: "Zones Desservies",
+      area_header: "Zones Desservies",
+      rights: "2026 Oakivo Solutions Inc. Tous droits réservés.",
+      copyright: "© 2026 Oakivo Solutions Inc. Tous droits réservés.",
+      privacy: "Politique de Confidentialité",
+      compliance: "Garantie de Sécurité"
+    },
+    chatbot: {
+      greeting: "Bienvenue chez Oakivo Solutions ! Je suis votre assistant d'automatisation. Nous connectons vos logiciels actuels pour éliminer la saisie manuelle de données au Canada atlantique. Comment puis-je vous aider aujourd'hui ?",
+      placeholder: "Posez une question sur l'automatisation...",
+      quick_prompts: [
+        "Audit opérationnel gratuit ?",
+        "Faut-il acheter de nouveaux logiciels ?",
+        "Combien de temps prend l'installation ?",
+        "Quels outils pouvez-vous connecter ?"
+      ],
+      audit_btn: "Réserver un Audit Gratuit de 15 Min"
     },
     magnets: {
       erp: {
@@ -200,24 +448,6 @@ export const translations: Record<Language, Record<string, any>> = {
         btn: "Réserver l'Audit Gratuit"
       }
     },
-    home: {
-      hero_label: "Automatisation de Flux de Travail Clé en Main",
-      hero_title_main: "Arrêtez de Laisser la Dette Technique",
-      hero_title_italic: "Réduire Vos Marges.",
-      hero_title_end: "",
-      hero_subtitle: "Nous connectons les logiciels que vous utilisez déjà afin que votre équipe cesse de perdre des heures en saisie manuelle de données au Canada atlantique.",
-      cta_primary: "Réserver un Audit Opérationnel de 15 Min",
-      cta_secondary: "Découvrir Nos Études de Cas",
-      trust_badges: {
-        odoo: "Partenaire d'Automatisation Clé en Main",
-        sovereignty: "Support Local au Canada Atlantique",
-        accounting: "Connecte Vos Logiciels Existants",
-        expert: "Aucun Nouveau Logiciel à Acheter",
-        location: "Nouveau-Brunswick • Nouvelle-Écosse • Î.-P.-É. • T.-N.-L."
-      },
-      matrix_title: "Comment Nous Aidons les Entreprises Atlantiques",
-      matrix_subtitle: "Une automatisation pragmatique et clé en main au service des PME du Canada atlantique.",
-    },
     verticals: {
       hero_title: "Industries Que Nous Servons.",
       hero_subtitle: "Des automatisations sur mesure adaptées aux besoins opérationnels quotidiens des PME atlantiques.",
@@ -232,7 +462,11 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     services: {
       hero_label: "Nos Services Principaux",
-      hero_title: "Comment Nous Éliminons <br/> la Saisie Manuelle de Données.",
+      hero_title: "Comment Nous Éliminons la Saisie Manuelle de Données.",
+      service1_title: "Synchronisation Comptabilité & Factures",
+      service2_title: "Ponts Commandes & Inventaire",
+      service3_title: "Automatisation Dispatch & Logistique",
+      service4_title: "Rapports Financiers & Système",
       list: [
         { title: "Synchronisation Comptabilité & Factures", desc: "Transférez automatiquement factures et paiements dans votre logiciel comptable existant.", insight: "Saisie automatique, zéro faute de frappe.", magnet: "erp" },
         { title: "Ponts Commandes & Inventaire", desc: "Connectez vos ventes web, points de vente et stocks pour une mise à jour instantanée.", insight: "Gestion des stocks en temps réel sans personnel supplémentaire.", magnet: "cyber" },
@@ -244,9 +478,11 @@ export const translations: Record<Language, Record<string, any>> = {
       cta_btn: "Réserver un Audit Opérationnel Gratuit"
     },
     caseStudies: {
+      hero_title: "Études de Cas & Résultats Régionaux",
+      hero_subtitle: "Découvrez comment des entreprises du Canada atlantique ont éliminé la facturation manuelle et économisé des heures de travail.",
       cases: [
-        { id: 1, title: "Distributeur Grossiste Atlantique", impact: "18 Heures Économisées / Semaine", quote: "Oakivo a connecté nos bons de commande directement à notre logiciel comptable. Notre équipe ne ressaisit plus les commandes.", author: "Directeur des Opérations", problem: "L'équipe passait 20h par semaine à copier-coller des commandes.", solution: "Pont Automatisé Commandes-Comptabilité." },
-        { id: 2, title: "Transporteur Maritime", impact: "Zéro Erreur de Facturation", quote: "La facturation prenait 4 jours. Maintenant, les factures s'envoient automatiquement dès confirmation de livraison.", author: "Directeur Général", problem: "Facturation retardée par le traitement manuel des documents.", solution: "Pont Automatisé Répartition & Facturation." }
+        { id: '1', title: "Distributeur Grossiste Atlantique", impact: "18 Heures Économisées / Semaine", quote: "Oakivo a connecté nos bons de commande directement à notre logiciel comptable. Notre équipe ne ressaisit plus les commandes.", author: "Directeur des Opérations", problem: "L'équipe passait 20h par semaine à copier-coller des commandes.", solution: "Pont Automatisé Commandes-Comptabilité." },
+        { id: '2', title: "Transporteur Maritime", impact: "Zéro Erreur de Facturation", quote: "La facturation prenait 4 jours. Maintenant, les factures s'envoient automatiquement dès confirmation de livraison.", author: "Directeur Général", problem: "Facturation retardée par le traitement manuel des documents.", solution: "Pont Automatisé Répartition & Facturation." }
       ]
     },
     about: {

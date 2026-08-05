@@ -50,8 +50,8 @@ const Contact: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Book Your Free 15-Minute Invoice Audit | Oakivo Solutions"
-        description="Book a free 15-minute invoice audit with Oakivo Solutions. We will analyze your billing workflow and show you how to eliminate manual data entry across Atlantic Canada."
+        title="Free 15-Minute Invoice Audit | Oakivo Solutions"
+        description="Book a free 15-minute invoice audit with Oakivo Solutions. We will analyze your billing workflow and show how to automate invoicing in Atlantic Canada."
         canonical="/contact"
       />
 

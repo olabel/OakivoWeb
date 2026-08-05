@@ -49,7 +49,7 @@ const Careers: React.FC = () => {
     <>
       <SEO 
         title="Careers | Join Oakivo Solutions in Atlantic Canada"
-        description="Join Oakivo's team of automation specialists and software integration engineers serving Atlantic Canada."
+        description="Join Oakivo's team of workflow automation specialists and integration engineers building invoice & bookkeeping solutions for Atlantic Canada."
         canonical="/careers"
       />
 

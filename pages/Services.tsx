@@ -6,8 +6,11 @@ import {
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import SEO from '../components/SEO';
+import { useLanguage } from '../context/LanguageContext';
 
 const Services: React.FC = () => {
+  const { t } = useLanguage();
+
   const corePillars = [
     {
       id: 'software-integration',
@@ -59,29 +62,29 @@ const Services: React.FC = () => {
   const processSteps = [
     {
       step: '01',
-      title: 'Identify Bottlenecks',
-      subtitle: 'Free 15-Minute Operational Audit',
-      description: 'We review your daily workflow with you and pinpoint the exact manual copy-paste tasks and data entry bottlenecks draining your team’s weekly payroll hours.'
+      title: t('steps.step1_title'),
+      subtitle: t('drawer.tag'),
+      description: t('steps.step1_desc')
     },
     {
       step: '02',
-      title: 'Connect Existing Tools',
+      title: t('steps.step2_title'),
       subtitle: 'Seamless System Integration',
-      description: 'We build invisible bridges between your current software tools so orders, invoices, and customer records move automatically without human intervention.'
+      description: t('steps.step2_desc')
     },
     {
       step: '03',
-      title: 'Reclaim Staff Time',
+      title: t('steps.step3_title'),
       subtitle: 'Full Workflow Handoff & Support',
-      description: 'Your team gets hours back every week to focus on actual revenue-generating work, backed by our hands-on support and local Atlantic Canada team.'
+      description: t('steps.step3_desc')
     }
   ];
 
   return (
     <>
       <SEO 
-        title="Done-For-You Workflow Automation & Integrations | Oakivo Solutions"
-        description="We connect the software tools you already use so your team stops wasting hours on manual data entry across Atlantic Canada."
+        title="Invoice Automation Services & Process | Oakivo Solutions"
+        description="Explore our done-for-you invoice & bookkeeping automation services. Connect your existing accounting software with zero disruption across Atlantic Canada."
         canonical="/services"
       />
 
@@ -92,16 +95,17 @@ const Services: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
               <Sparkles size={13} className="text-emerald-400" />
               <span className="text-[11px] font-mono-tech font-medium text-gray-300">
-                Done-For-You Invoice & Bookkeeping Automation
+                {t('hero.badge')}
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
-              Stop Wasting Hours on <span className="text-linear-accent font-semibold">Manual Invoicing & Data Entry.</span>
+              {t('hero.headline_main')}{' '}
+              <span className="text-linear-accent font-semibold">{t('hero.headline_accent')}</span>
             </h1>
 
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              We connect the invoicing, dispatch, and accounting software you already use so your team stops losing payroll hours to manual copy-pasting and billing errors. Zero new software subscriptions required.
+              {t('hero.subtitle')}
             </p>
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
@@ -109,7 +113,7 @@ const Services: React.FC = () => {
                 to={NavRoute.CONTACT}
                 className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group"
               >
-                <span>Book Your Free 15-Minute Invoice Audit</span>
+                <span>{t('common.cta_book_invoice_audit')}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
@@ -122,13 +126,13 @@ const Services: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="max-w-3xl mb-16 space-y-3">
             <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-emerald-400">
-              What We Do
+              {t('services.badge')}
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
-              How We Streamline Your Business Operations
+              {t('services.title')}
             </h2>
             <p className="text-sm md:text-base text-[#8A8F98]">
-              Grounded, practical system integration tailored for business owners across New Brunswick, Nova Scotia, PEI, and Newfoundland.
+              {t('services.subtitle')}
             </p>
           </div>
 
@@ -210,13 +214,13 @@ const Services: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="max-w-3xl mb-16 space-y-3">
             <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-emerald-400">
-              The Simple Process
+              {t('steps.badge')}
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
-              3 Steps to Eliminate Manual Admin
+              {t('steps.title_main')}{t('steps.title_accent')}
             </h2>
             <p className="text-sm md:text-base text-[#8A8F98]">
-              A straightforward, zero-risk approach designed specifically for busy operations teams.
+              {t('steps.subtitle')}
             </p>
           </div>
 
@@ -254,13 +258,13 @@ const Services: React.FC = () => {
           <div className="linear-card rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
             <div className="max-w-3xl mx-auto space-y-4">
               <span className="inline-block px-3.5 py-1.5 rounded-full linear-pill text-emerald-400 text-xs font-mono-tech uppercase font-bold">
-                Free 15-Minute Invoice Audit
+                {t('drawer.tag')}
               </span>
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
-                Book Your Free 15-Minute Invoice Audit
+                {t('drawer.title')}
               </h2>
               <p className="text-sm md:text-base text-[#8A8F98] max-w-2xl mx-auto">
-                No high-pressure sales pitch. One of our senior automation specialists will look at your daily invoicing workflow and show you where time is being lost—100% free of charge.
+                {t('drawer.desc')}
               </p>
             </div>
 
@@ -269,7 +273,7 @@ const Services: React.FC = () => {
                 to={NavRoute.CONTACT}
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
               >
-                <span>Book Your Free 15-Minute Invoice Audit</span>
+                <span>{t('common.cta_book_invoice_audit')}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>

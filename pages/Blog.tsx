@@ -12,9 +12,9 @@ const Blog: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Automation Insights | Practical Articles for Atlantic Canada Businesses"
-        description="Read tactical guides on eliminating manual data entry, connecting accounting software, and saving staff payroll hours in Atlantic Canada."
-        canonical="/blog"
+        title="Automation & Invoicing Insights | Oakivo Solutions"
+        description="Read practical guides on eliminating manual data entry, automating invoice processing, and saving office payroll hours across Atlantic Canada."
+        canonical="/perspectives"
       />
 
       <section className="bg-[#070A0F] text-white pt-40 pb-20 relative overflow-hidden">

@@ -10,8 +10,8 @@ const Privacy: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Privacy & Data Sovereignty | Oakivo Solutions Inc"
-        description="Oakivo's commitment to data privacy, Canadian residency, and technical security protocols. Learn how we protect your industrial intelligence."
+        title="Privacy Policy & Security | Oakivo Solutions"
+        description="Oakivo's commitment to data privacy, Canadian residency, and technical security protocols for automated business workflows across Atlantic Canada."
         canonical="/privacy"
       />
 

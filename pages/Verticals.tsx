@@ -50,7 +50,7 @@ const Verticals: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Industries Served | Done-For-You Automation in Atlantic Canada"
+        title="Industries Served | Invoice Automation | Oakivo"
         description="Done-for-you business workflow automation tailored to Seafood, Wholesale, Transport, Construction, Retail, and Professional Services in Atlantic Canada."
         canonical="/verticals"
       />

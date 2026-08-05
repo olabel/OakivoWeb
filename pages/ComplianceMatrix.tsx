@@ -17,8 +17,8 @@ const ComplianceMatrix: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Security & Guarantee | Oakivo Solutions Atlantic Canada"
-        description="Our automation security and integrity guarantee for businesses in New Brunswick, Nova Scotia, PEI, and NL."
+        title="Security & Data Guarantee | Oakivo Solutions"
+        description="Explore Oakivo's security standards, zero-data-retention guarantee, and bank-grade encryption for automated invoice and system integrations in Atlantic Canada."
         canonical="/compliance-matrix"
       />
 
