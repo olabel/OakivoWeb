@@ -30,99 +30,75 @@ const BentoServices: React.FC = () => {
 
   const servicesData: ServiceCardData[] = [
     {
-      id: 'odoo-19-core',
-      category: 'odoo',
-      title: 'Odoo 19 Sovereign Orchestration',
-      subtitle: 'CRA-Compliant Industrial Core',
-      description: 'Unified enterprise resource orchestration. We migrate legacy technical debt into a single, real-time Odoo 19 platform localized for CRA taxes, bilingual multi-currency accounting, and shop-floor PLM.',
-      impactMetric: '100%',
-      impactLabel: 'CRA & GST/HST Audit Synchronization',
+      id: 'digital-transformation',
+      category: 'modernization',
+      title: 'Stop Bleeding Engineering Hours to Manual Workflows.',
+      subtitle: 'Legacy System Modernization & Custom API Automation',
+      description: 'Connect legacy ERPs to modern cloud applications with custom API bridges—no risky, multi-year rebuilds required.',
+      impactMetric: '0',
+      impactLabel: 'Risky Multi-Year Monolith Rebuilds Required',
       icon: <Layers className="text-oakivo-secondary" size={24} />,
       accentColor: 'cyan',
       size: 'large',
       features: [
-        'Automatic CRA GST/HST tax matrix & multi-currency ledger',
-        'Real-time Shop-Floor OEE & Manufacturing Execution (MES)',
-        'Zero-latency Warehouse (WMS) & Barcode Automation',
-        'Native Quebec Law 25 bilingual data governance'
+        'Custom API bridges connecting legacy ERPs to modern cloud tools',
+        'Automated workflow pipelines eliminating manual data entry',
+        'Incremental modernization without operational downtime',
+        'Zero-trust data validation across all integration endpoints'
       ],
       schematicCode: [
-        'INIT_NODE :: ODOO_19_SOVEREIGN_CORE',
-        'CONNECT_MODULES -> [ACCOUNTING_CRA, MES_SHOPFLOOR, WMS_BARCODE]',
-        'VERIFY_LEDGER -> CRA_STAMP_OK (0ms latency)',
-        'STATUS -> RESILIENT_OPERATIONAL'
+        'INIT_BRIDGE :: LEGACY_ERP <-> CLOUD_APP',
+        'AUTOMATE_WORKFLOW -> ZERO_MANUAL_HOURS',
+        'VALIDATE_DATA -> 100% INTEGRITY_STAMP',
+        'STATUS -> OPERATIONAL_VELOCITY'
       ]
     },
     {
-      id: 'agentic-ai-engine',
-      category: 'ai',
-      title: 'Agentic AI Reasoning Engines',
-      subtitle: 'Sub-50ms Local Inference',
-      description: 'Autonomous decision-making agents operating within your local security perimeter. From automated PO reconciliation to predictive supply chain routing.',
-      impactMetric: '<50ms',
-      impactLabel: 'Local Inferences Latency SLA',
+      id: 'modern-platforms',
+      category: 'odoo',
+      title: 'Migrate to the Cloud Without the $50k Surprise Monthly Bill.',
+      subtitle: 'Predictable Cloud Migration & Fractional SRE',
+      description: 'Get enterprise uptime, Kubernetes orchestration, and locked-in monthly spend hosted strictly on Canadian soil.',
+      impactMetric: '35%',
+      impactLabel: 'Average Monthly Cloud Spend Reduction',
       icon: <Cpu className="text-emerald-400" size={24} />,
       accentColor: 'emerald',
       size: 'large',
       features: [
-        'Autonomous PDF invoice parsing & 3-way matching',
-        'Predictive supply chain anomaly detection',
-        'Custom local RAG over confidential enterprise docs',
-        'Human-in-the-loop validation dashboards'
+        'Locked-in monthly spend hosted strictly on Canadian soil',
+        'Kubernetes container orchestration & autoscaling',
+        '99.99% uptime guarantee with automated failover',
+        'Fractional SRE oversight and continuous infrastructure tuning'
       ],
       schematicCode: [
-        'AGENT_LOOP -> PARSE_INCOMING_DOCUMENTS',
-        'EVAL_CONFIDENCE -> 99.4% (Threshold > 95%)',
-        'ACTION -> EXECUTE_3WAY_MATCH()',
-        'NOTIFY_AUDIT -> RECORD_SAVED_IN_VAULT'
+        'DEPLOY_NODE :: CANADIAN_SOVEREIGN_CLOUD',
+        'ORCHESTRATE -> KUBERNETES_AUTOSCALE',
+        'LOCK_BUDGET -> PREDICTABLE_MONTHLY_COST',
+        'STATUS -> 99.99_UPTIME_VERIFIED'
       ]
     },
     {
-      id: 'zero-trust-hardening',
+      id: 'enterprise-security',
       category: 'cyber',
-      title: 'PIPEDA & Zero-Trust Hardening',
-      subtitle: 'Sovereign Canadian Cloud',
-      description: 'Military-grade perimeter protection and strict Canadian data residency. Prevent lateral movement and ensure 100% PIPEDA & SOC2 Type II compliance.',
-      impactMetric: 'Zero',
-      impactLabel: 'Data Exposure across Canadian Nodes',
+      title: 'Ironclad Data Sovereignty. 100% PIPEDA-Compliant, Zero Breach Anxiety.',
+      subtitle: 'PIPEDA-Compliant Cloud Architecture & Zero-Trust Security',
+      description: 'Embed automated vulnerability scanning and zero-trust access directly into your deployment pipeline.',
+      impactMetric: '100%',
+      impactLabel: 'PIPEDA Compliance & Zero Breach Exposure',
       icon: <ShieldCheck className="text-indigo-400" size={24} />,
       accentColor: 'indigo',
       size: 'medium',
       features: [
-        'Montreal & Toronto sovereign data residency',
-        'SOC2 Type II & Quebec Law 25 compliance matrices',
-        'Continuous automated vulnerability threat scanning',
-        'Role-based granular access control (RBAC)'
+        'Automated vulnerability scanning in CI/CD deployment pipelines',
+        'Zero-trust access control and micro-segmentation',
+        '100% PIPEDA & Law 25 compliance on Canadian nodes',
+        '24/7 automated security threat monitoring & auditing'
       ],
       schematicCode: [
-        'SEC_NODE :: PIPEDA_GUARD_v2',
-        'ENFORCE_RESIDENCY -> CA_EAST_MONTREAL',
-        'ENCRYPTION -> AES-256-GCM + HARDWARE_HSM',
-        'THREAT_LEVEL -> ZERO_EXPOSURE'
-      ]
-    },
-    {
-      id: 'industrial-modernization',
-      category: 'modernization',
-      title: 'Legacy Technical Debt Elimination',
-      subtitle: 'De-Risking Cloud Migration',
-      description: 'Replacing fragile on-premise servers and legacy monoliths with modular, cloud-native microservices engineered for 99.99% uptime.',
-      impactMetric: '3.8x',
-      impactLabel: 'Operational Velocity Multiplier',
-      icon: <Zap className="text-amber-400" size={24} />,
-      accentColor: 'gold',
-      size: 'medium',
-      features: [
-        'Seamless data migration from legacy ERPs (SAP, Dynamics, AS400)',
-        'High-speed API gateway & custom webhooks',
-        'Automated failover and disaster recovery protocols',
-        'Comprehensive staff training & change management'
-      ],
-      schematicCode: [
-        'MIGRATE_CORE :: AS400 -> ODOO_19_CLOUD',
-        'EXTRACT_ENTRIES -> 1,240,000 RECORDS',
-        'VALIDATE_CHECKSUM -> 100% MATCH',
-        'CUTOVER -> EXECUTED IN 4 HOURS'
+        'SEC_PIPELINE :: ZERO_TRUST_ENFORCER',
+        'SCAN_VULNERABILITY -> AUTOMATED_PASS',
+        'ENFORCE_PIPEDA -> CANADIAN_SOVEREIGN_VAULT',
+        'STATUS -> SECURE_ZERO_BREACH'
       ]
     }
   ];

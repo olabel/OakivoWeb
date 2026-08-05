@@ -11,48 +11,48 @@ const Services: React.FC = () => {
   const corePillars = [
     {
       id: 'digital-transformation',
-      title: 'Digital Transformation',
-      tagline: 'Streamline operations & eliminate technical debt',
+      title: 'Stop Bleeding Engineering Hours to Manual Workflows.',
+      tagline: 'Legacy System Modernization & Custom API Automation',
       icon: <RefreshCw size={28} className="text-oakivo-linearIndigo" />,
-      problem: 'Legacy operational friction, fragmented SaaS sprawl, and bloated technical debt halting enterprise release velocity.',
+      problem: 'Connect legacy ERPs to modern cloud applications with custom API bridges—no risky, multi-year rebuilds required.',
       capabilities: [
-        'Enterprise System Consolidation & Monolith Deconstruction',
-        'Legacy Architecture Refactoring & API Integration',
-        'Continuous Delivery Pipeline (CI/CD) Optimization',
-        'Developer Experience (DX) & Internal Developer Platform (IDP)'
+        'Legacy ERP & custom API integration bridges',
+        'Automated workflow pipelines & data synchronization',
+        'Monolith deconstruction without operational downtime',
+        'CI/CD deployment pipeline optimization'
       ],
-      outcomeMetric: '50%+ Overhead Reduction',
-      outcomeDesc: 'Achieved 50%+ reduction in infrastructure maintenance overhead and 3x faster feature deployment velocity across engineering units.'
+      outcomeMetric: '0 Manual Hours Lost',
+      outcomeDesc: 'Eliminated manual ERP data entry and accelerated release velocity without multi-year rebuild risks.'
     },
     {
       id: 'modern-platforms',
-      title: 'Modern Platforms',
-      tagline: 'Elastic, cloud-native infrastructure at scale',
+      title: 'Migrate to the Cloud Without the $50k Surprise Monthly Bill.',
+      tagline: 'Predictable Cloud Migration & Fractional SRE',
       icon: <Cpu size={28} className="text-oakivo-linearIndigo" />,
-      problem: 'Monolithic database bottlenecks, unreliable cloud auto-scaling, and unoptimized, escalating cloud expenditure.',
+      problem: 'Get enterprise uptime, Kubernetes orchestration, and locked-in monthly spend hosted strictly on Canadian soil.',
       capabilities: [
-        'Multi-Cloud Infrastructure as Code (Terraform / Pulumi)',
-        'Kubernetes & Microservices Container Orchestration',
-        'Database Sharding & High-Availability Clustering (Aurora / Postgres)',
-        'Automated Multi-Region Disaster Recovery & Failover'
+        'Locked-in monthly cloud budget on Canadian infrastructure',
+        'Kubernetes container orchestration & microservices',
+        'High-availability database sharding & automated failover',
+        'Fractional SRE oversight and continuous infrastructure tuning'
       ],
-      outcomeMetric: '99.99% Guaranteed Availability',
-      outcomeDesc: 'Delivered 99.99% system availability while cutting monthly cloud spend by 35% to 45% through automated resource rightsizing.'
+      outcomeMetric: '35% Spend Reduction',
+      outcomeDesc: 'Delivered 99.99% system availability while cutting monthly cloud bills by 35% with locked-in predictable pricing.'
     },
     {
       id: 'enterprise-security',
-      title: 'Enterprise Security',
-      tagline: 'Zero-trust architecture & continuous compliance',
+      title: 'Ironclad Data Sovereignty. 100% PIPEDA-Compliant, Zero Breach Anxiety.',
+      tagline: 'PIPEDA-Compliant Cloud Architecture & Zero-Trust Security',
       icon: <Lock size={28} className="text-emerald-400" />,
-      problem: 'Pervasive attack surfaces, regulatory non-compliance risks (SOC 2, ISO 27001, PIPEDA), and vulnerable API endpoints.',
+      problem: 'Embed automated vulnerability scanning and zero-trust access directly into your deployment pipeline.',
       capabilities: [
-        'Zero-Trust Network Architecture & Micro-segmentation',
-        'Role-Based IAM Governance & Least-Privilege Enforcer',
-        'Automated Vulnerability Remediation in CI/CD Pipelines',
-        'Real-Time Threat Telemetry & SIEM / Audit Telemetry Integration'
+        'Automated vulnerability scanning in CI/CD pipelines',
+        'Zero-trust micro-segmentation & role-based IAM',
+        '100% PIPEDA & Law 25 compliance on Canadian nodes',
+        'Real-time threat monitoring & continuous audit readiness'
       ],
-      outcomeMetric: '< 60 Day Compliance',
-      outcomeDesc: 'Accelerated full SOC 2 Type II and ISO 27001 audit readiness in under 60 days with continuous security monitoring.'
+      outcomeMetric: '100% PIPEDA Compliant',
+      outcomeDesc: 'Zero breach exposure with continuous compliance monitoring and automated vulnerability scanning.'
     }
   ];
 
@@ -103,11 +103,11 @@ const Services: React.FC = () => {
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
-              Enterprise Cloud Platform Engineering & <span className="text-linear-accent">Digital Transformation</span>
+              Stop Letting Tech Debt and Runaway Cloud Bills <span className="text-linear-accent">Eat Your Margins.</span>
             </h1>
 
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              We build resilient cloud environments, eliminate legacy technical debt, and enforce zero-trust security for high-growth enterprises.
+              We build self-healing cloud platforms, automate legacy workflows, and lock down PIPEDA compliance—so your team can focus on shipping features, not firefighting infrastructure.
             </p>
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
@@ -115,7 +115,7 @@ const Services: React.FC = () => {
                 to={NavRoute.CONTACT}
                 className="px-6 py-3.5 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group"
               >
-                <span>Schedule Architecture Review</span>
+                <span>Book a 15-Min Infrastructure Audit</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
 
@@ -123,7 +123,7 @@ const Services: React.FC = () => {
                 href="#core-pillars"
                 className="px-6 py-3.5 rounded-full linear-pill text-gray-300 hover:text-white hover:border-white/20 transition-all text-xs font-medium"
               >
-                Explore Engineering Pillars
+                See How We Reduced Cloud Spend by 35%
               </a>
             </div>
           </div>
@@ -275,10 +275,10 @@ const Services: React.FC = () => {
                 High-Urgency Consultation Offer
               </span>
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
-                Ready to Modernize Your Enterprise Architecture?
+                Got 15 Minutes? Let’s Audit Your Cloud Setup.
               </h2>
               <p className="text-sm md:text-base text-[#8A8F98] max-w-2xl mx-auto">
-                Eliminate infrastructure bottlenecks and achieve continuous deployment velocity with direct senior architect oversight.
+                No high-pressure sales pitch. You'll talk directly with a senior platform engineer who will review your current architecture and point out where you're overpaying or exposed.
               </p>
             </div>
 
@@ -287,7 +287,7 @@ const Services: React.FC = () => {
                 to={NavRoute.CONTACT}
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
               >
-                <span>Book a 30-Minute Architecture Audit</span>
+                <span>Schedule Your Technical Discovery</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>

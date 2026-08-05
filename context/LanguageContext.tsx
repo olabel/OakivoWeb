@@ -55,12 +55,12 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     home: {
       hero_label: "Industrial-Grade Systems Engineering",
-      hero_title_main: "Architecting",
-      hero_title_italic: "resilient",
-      hero_title_end: "digital cores.",
-      hero_subtitle: "Oakivo Solutions Inc. orchestrates the complexity of Odoo 19 and Agentic AI. We de-risk Canadian industrial growth through sovereign, Zero-Trust digital transformation.",
-      cta_primary: "Initialize Technical Discovery",
-      cta_secondary: "Explore Sector Logic",
+      hero_title_main: "Stop Letting Tech Debt and Runaway Cloud Bills",
+      hero_title_italic: "Eat Your Margins.",
+      hero_title_end: "",
+      hero_subtitle: "We build self-healing cloud platforms, automate legacy workflows, and lock down PIPEDA compliance—so your team can focus on shipping features, not firefighting infrastructure.",
+      cta_primary: "Book a 15-Min Infrastructure Audit",
+      cta_secondary: "See How We Reduced Cloud Spend by 35%",
       trust_badges: {
         odoo: "Official Odoo 19 Implementation Partner",
         sovereignty: "PIPEDA / SOC2 Sovereignty",
@@ -69,7 +69,7 @@ export const translations: Record<Language, Record<string, any>> = {
         location: "Dieppe • Toronto • Montreal"
       },
       matrix_title: "The Engineering Matrix",
-      matrix_subtitle: "Validated operational logic for high-stakes manufacturing, logistics, and professional services.",
+      matrix_subtitle: "Hands-on platform engineering trusted by growing logistics, finance, and industrial teams across Atlantic Canada.",
     },
     verticals: {
       hero_title: "Sector-Specific Logic.",

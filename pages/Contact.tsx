@@ -63,16 +63,16 @@ const Contact: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
               <Sparkles size={13} className="text-oakivo-linearIndigo" />
               <span className="text-[11px] font-mono-tech font-medium text-gray-300">
-                Direct Senior Architect Consultation
+                Direct Senior SRE & SRE Architect Consultation
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
-              Initiate Technical Intake & <span className="text-linear-accent">Platform Audit</span>
+              Book a 15-Min <span className="text-linear-accent">Infrastructure Audit</span>
             </h1>
 
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              Schedule a direct consultation with our principal engineering team. We will analyze your current cloud infrastructure, identify security vulnerabilities, and outline a high-ROI transformation blueprint.
+              We build self-healing cloud platforms, automate legacy workflows, and lock down PIPEDA compliance—so your team can focus on shipping features, not firefighting infrastructure.
             </p>
           </div>
         </div>
@@ -211,12 +211,12 @@ const Contact: React.FC = () => {
                         {status === 'submitting' ? (
                           <>
                             <Loader2 size={16} className="animate-spin text-black" />
-                            <span>Transmitting Intake Profile...</span>
+                            <span>Scheduling Infrastructure Audit...</span>
                           </>
                         ) : (
                           <>
                             <Send size={15} />
-                            <span>Transmit Technical Intake Profile</span>
+                            <span>Book a 15-Min Infrastructure Audit</span>
                           </>
                         )}
                       </button>
