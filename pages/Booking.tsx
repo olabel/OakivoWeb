@@ -7,12 +7,19 @@ import { db } from '../utils/database';
 
 const Booking: React.FC = () => {
   const { language } = useLanguage();
-  const bData = translations[language].booking;
+  const langDict = translations[language] || translations['en'];
+  const bData = langDict?.booking || translations['en'].booking || {
+    hero_title: "15-Minute Operational Audit.",
+    hero_subtitle: "Select a timeslot for a brief evaluation of your invoicing bottlenecks.",
+    success_title: "Audit Confirmed.",
+    success_message: "A calendar invitation has been sent to your work email address."
+  };
   
   const [step, setStep] = useState(1);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [form, setForm] = useState({ name: '', email: '', company: '', bottleneck: '' });
+  const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'success'>('idle');
 
   const dates = [
@@ -27,6 +34,11 @@ const Booking: React.FC = () => {
 
   const handleComplete = (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) {
+      // Bot detected via honeypot: silently simulate success
+      setStatus('success');
+      return;
+    }
     db.saveEntry('lead', {
       ...form,
       selectedDate,
@@ -163,25 +175,37 @@ const Booking: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleComplete} className="space-y-4">
+                  {/* Hidden Honeypot Input for Bot Anti-Spam */}
+                  <input
+                    type="text"
+                    name="b_office_phone"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    className="hidden absolute opacity-0 pointer-events-none -z-10"
+                    aria-hidden="true"
+                  />
+
                   <h3 className="text-lg font-bold text-white">Confirm Your Details</h3>
                   <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-xs text-emerald-400 font-mono-tech flex justify-between items-center">
                     <span>{selectedDate} at {selectedTime}</span>
-                    <button type="button" onClick={() => setStep(1)} className="text-gray-400 hover:text-white underline text-[10px]">Change</button>
+                    <button type="button" onClick={() => setStep(1)} className="text-gray-300 hover:text-white underline text-[10px]">Change</button>
                   </div>
                   
                   <div>
-                    <label className="text-[10px] font-mono-tech uppercase text-gray-400 block mb-1">Your Name *</label>
-                    <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white" placeholder="Marcus Vance" />
+                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Your Name *</label>
+                    <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="Marcus Vance" />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-mono-tech uppercase text-gray-400 block mb-1">Work Email *</label>
-                    <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white" placeholder="m.vance@company.ca" />
+                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Work Email *</label>
+                    <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="m.vance@company.ca" />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-mono-tech uppercase text-gray-400 block mb-1">Main Bottleneck Task *</label>
-                    <textarea rows={2} required value={form.bottleneck} onChange={e => setForm({...form, bottleneck: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white resize-none" placeholder="e.g. Typing paper invoices into QuickBooks..." />
+                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Main Bottleneck Task *</label>
+                    <textarea rows={2} required value={form.bottleneck} onChange={e => setForm({...form, bottleneck: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white resize-none" placeholder="e.g. Typing paper invoices into QuickBooks..." />
                   </div>
 
                   <button type="submit" className="w-full py-3.5 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 cursor-pointer">

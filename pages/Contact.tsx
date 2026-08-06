@@ -28,11 +28,17 @@ const Contact: React.FC = () => {
     bottleneck: '',
     location: 'New Brunswick'
   });
+  const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) {
+      // Bot detected via honeypot: silently simulate success
+      setStatus('success');
+      return;
+    }
     setStatus('submitting');
     try {
       db.saveEntry('lead', { ...formState, source: 'Contact & Free Operational Audit Page' });
@@ -103,9 +109,21 @@ const Contact: React.FC = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Hidden Honeypot Input for Bot Anti-Spam */}
+                    <input
+                      type="text"
+                      name="b_company_suite"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      className="hidden absolute opacity-0 pointer-events-none -z-10"
+                      aria-hidden="true"
+                    />
+
                     <div>
                       <h2 className="text-xl font-bold text-white tracking-tight">Request Your Free 15-Minute Invoice Audit</h2>
-                      <p className="text-xs text-gray-400 mt-1">Direct feedback from local Atlantic Canada automation leads. 100% confidential.</p>
+                      <p className="text-xs text-gray-300 mt-1">Direct feedback from local Atlantic Canada automation leads. 100% confidential.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -121,7 +139,7 @@ const Contact: React.FC = () => {
                           value={formState.name}
                           onChange={handleChange}
                           placeholder="e.g. Sarah Jenkins"
-                          className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all"
+                          className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-all"
                         />
                       </div>
 
@@ -137,7 +155,7 @@ const Contact: React.FC = () => {
                           value={formState.email}
                           onChange={handleChange}
                           placeholder="sarah@company.ca"
-                          className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all"
+                          className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-all"
                         />
                       </div>
                     </div>
@@ -151,7 +169,7 @@ const Contact: React.FC = () => {
                         name="location"
                         value={formState.location}
                         onChange={handleChange}
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all"
+                        className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all"
                       >
                         <option value="New Brunswick">New Brunswick</option>
                         <option value="Nova Scotia">Nova Scotia</option>
@@ -173,7 +191,7 @@ const Contact: React.FC = () => {
                         value={formState.bottleneck}
                         onChange={handleChange}
                         placeholder="e.g. Copy-pasting invoice numbers from Excel into QuickBooks, re-entering job sheet hours manually into customer bills..."
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all resize-none"
+                        className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-all resize-none"
                       />
                     </div>
 

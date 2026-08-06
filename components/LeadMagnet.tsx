@@ -12,12 +12,23 @@ const LeadMagnet: React.FC<LeadMagnetProps> = ({ type }) => {
   const { language } = useLanguage();
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [email, setEmail] = useState('');
+  const [honeypot, setHoneypot] = useState('');
 
-  // Access the object directly from translations instead of via t()
-  const magnetData = translations[language].magnets[type];
+  // Access the object directly from translations with fallback
+  const langDict = translations[language] || translations['en'];
+  const magnetData = langDict?.magnets?.[type] || translations['en'].magnets[type] || {
+    title: "Technical Automation Briefing",
+    desc: "Detailed workflow analysis on connecting existing software to automate manual data entry.",
+    btn: "Download Briefing"
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) {
+      // Bot detected via honeypot: silently simulate success
+      setStatus('success');
+      return;
+    }
     setStatus('submitting');
     db.saveEntry('subscriber', { email, magnetType: type });
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -63,13 +74,24 @@ const LeadMagnet: React.FC<LeadMagnetProps> = ({ type }) => {
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+            {/* Hidden Honeypot Input for Bot Anti-Spam */}
+            <input
+              type="text"
+              name="b_website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              className="hidden absolute opacity-0 pointer-events-none -z-10"
+              aria-hidden="true"
+            />
             <input 
               type="email" 
               required 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter corporate email" 
-              className="flex-grow bg-white border border-gray-200 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:border-oakivo-primary focus:ring-4 focus:ring-oakivo-primary/5 transition-all"
+              className="flex-grow bg-white border border-gray-200 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:border-oakivo-primary focus:ring-4 focus:ring-oakivo-primary/5 transition-all text-gray-900 placeholder-gray-500"
             />
             <Button variant="black" size="md" type="submit" disabled={status === 'submitting'} className="min-w-[200px]">
               {status === 'submitting' ? <Loader2 className="animate-spin" size={18} /> : magnetData.btn}

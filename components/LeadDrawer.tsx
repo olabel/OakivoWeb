@@ -17,11 +17,17 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
     email: '',
     bottleneck: ''
   });
+  const [honeypot, setHoneypot] = useState('');
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) {
+      // Bot detected via honeypot: silently simulate success without DB entry
+      setStatus('success');
+      return;
+    }
     if (!formData.email || !formData.name || !formData.bottleneck) return;
 
     setStatus('submitting');
@@ -44,6 +50,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
       email: '',
       bottleneck: ''
     });
+    setHoneypot('');
     onClose();
   };
 
@@ -117,29 +124,41 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                     onClick={handleReset}
                     className="px-8 py-3.5 rounded-full bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-gray-100 transition-all cursor-pointer"
                   >
-                    {t('drawer.close')}
+                    {t('drawer.close') || t('drawer.success_close') || "Close & Return to Page"}
                   </button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Hidden Honeypot Field for Bot Anti-Spam */}
+                  <input
+                    type="text"
+                    name="b_fax_number"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    className="hidden absolute opacity-0 pointer-events-none -z-10"
+                    aria-hidden="true"
+                  />
+
                   <p className="text-sm text-gray-300 leading-relaxed font-light">
-                    {t('drawer.desc')}
+                    {t('drawer.desc') || "No high-pressure sales pitch. One of our senior automation specialists will review your daily workflow and show you exactly where time is being lost—100% free of charge."}
                   </p>
 
                   {/* Field 1: Name */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      {t('drawer.name_label')}
+                      {t('drawer.name_label') || "Your Name *"}
                     </label>
                     <div className="relative">
-                      <User size={16} className="absolute left-4 top-3.5 text-gray-500" />
+                      <User size={16} className="absolute left-4 top-3.5 text-gray-400" />
                       <input
                         type="text"
                         required
-                        placeholder={t('drawer.name_placeholder')}
+                        placeholder={t('drawer.name_placeholder') || "e.g. Sarah Jenkins"}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white"
+                        className="w-full bg-white/5 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white"
                       />
                     </div>
                   </div>
@@ -147,17 +166,17 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   {/* Field 2: Work Email */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      {t('drawer.email_label')}
+                      {t('drawer.email_label') || "Work Email *"}
                     </label>
                     <div className="relative">
-                      <Mail size={16} className="absolute left-4 top-3.5 text-gray-500" />
+                      <Mail size={16} className="absolute left-4 top-3.5 text-gray-400" />
                       <input
                         type="email"
                         required
-                        placeholder={t('drawer.email_placeholder')}
+                        placeholder={t('drawer.email_placeholder') || "e.g. sarah@company.ca"}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white"
+                        className="w-full bg-white/5 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white"
                       />
                     </div>
                   </div>
@@ -165,15 +184,15 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   {/* Field 3: Task Description */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      {t('drawer.bottleneck_label')}
+                      {t('drawer.bottleneck_label') || "What is your biggest manual invoicing pain point right now? *"}
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder={t('drawer.bottleneck_placeholder')}
+                      placeholder={t('drawer.bottleneck_placeholder') || "e.g. Typing invoice details from PDFs into QuickBooks, copy-pasting customer orders into accounting sheets..."}
                       value={formData.bottleneck}
                       onChange={(e) => setFormData({ ...formData, bottleneck: e.target.value })}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white resize-none"
+                      className="w-full bg-white/5 border border-white/15 rounded-2xl p-4 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white resize-none"
                     />
                   </div>
 

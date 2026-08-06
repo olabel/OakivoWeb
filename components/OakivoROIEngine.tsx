@@ -15,6 +15,7 @@ const OakivoROIEngine: React.FC = () => {
   const [errorRate, setErrorRate] = useState(5); // % error rate in manual workflows
   const [email, setEmail] = useState('');
   const [companyName, setCompanyName] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'unlocked'>('idle');
 
   // Diagnostic Quiz State
@@ -90,6 +91,11 @@ const OakivoROIEngine: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) {
+      // Bot detected via honeypot: silently simulate unlocked
+      setStatus('unlocked');
+      return;
+    }
     if (!email) return;
 
     setStatus('submitting');
@@ -282,7 +288,18 @@ const OakivoROIEngine: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 pt-4 border-t border-white/10">
-                  <span className="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-white/60 block">
+                  {/* Hidden Honeypot Input for Bot Anti-Spam */}
+                  <input
+                    type="text"
+                    name="b_phone_ext"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    className="hidden absolute opacity-0 pointer-events-none -z-10"
+                    aria-hidden="true"
+                  />
+                  <span className="text-[10px] font-mono-tech font-bold uppercase tracking-widest text-gray-300 block">
                     Receive Full Architectural Diagnostic Brief:
                   </span>
                   <div className="flex flex-col sm:flex-row gap-3">
@@ -291,7 +308,7 @@ const OakivoROIEngine: React.FC = () => {
                       placeholder="Company Name" 
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
-                      className="bg-white/10 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-oakivo-secondary flex-grow"
+                      className="bg-white/10 border border-white/15 rounded-2xl px-5 py-3.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-oakivo-secondary flex-grow"
                     />
                     <input 
                       type="email" 
@@ -299,7 +316,7 @@ const OakivoROIEngine: React.FC = () => {
                       placeholder="Corporate Email" 
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="bg-white/10 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-oakivo-secondary flex-grow"
+                      className="bg-white/10 border border-white/15 rounded-2xl px-5 py-3.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-oakivo-secondary flex-grow"
                     />
                   </div>
                   <Button 

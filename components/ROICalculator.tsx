@@ -8,6 +8,7 @@ const ROICalculator: React.FC = () => {
   const { language, t } = useLanguage();
   const [hours, setHours] = useState(40);
   const [email, setEmail] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'unlocked'>('idle');
 
   const HOURLY_RATE = 75;
@@ -26,6 +27,11 @@ const ROICalculator: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) {
+      // Bot detected via honeypot: silently simulate unlocked
+      setStatus('unlocked');
+      return;
+    }
     setStatus('submitting');
     db.saveEntry('subscriber', { 
         email, 
@@ -139,15 +145,26 @@ const ROICalculator: React.FC = () => {
                </div>
              ) : (
                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                  {/* Hidden Honeypot Input for Bot Anti-Spam */}
+                  <input
+                    type="text"
+                    name="b_fax_line"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    className="hidden absolute opacity-0 pointer-events-none -z-10"
+                    aria-hidden="true"
+                  />
                   <div className="relative">
-                     <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20" size={18} />
+                     <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                      <input 
                        type="email" 
                        required 
                        value={email}
                        onChange={(e) => setEmail(e.target.value)}
                        placeholder="Enter corporate email to unlock roadmap"
-                       className="w-full bg-white/5 border border-white/10 rounded-2xl pl-16 pr-6 py-5 text-sm focus:outline-none focus:border-oakivo-secondary transition-all"
+                       className="w-full bg-white/5 border border-white/15 rounded-2xl pl-16 pr-6 py-5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-oakivo-secondary transition-all"
                      />
                   </div>
                   <Button variant="white" type="submit" disabled={status === 'submitting'} className="!bg-oakivo-secondary !text-oakivo-primary border-none shadow-cyber group">
