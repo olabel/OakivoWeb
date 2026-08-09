@@ -7,12 +7,14 @@ import { db } from '../utils/database';
 import { useLanguage } from '../context/LanguageContext';
 import { 
   Sparkles, ArrowRight, CheckCircle2, FileText, AlertCircle, 
-  Layers, Clock, ShieldCheck, Zap, Send, Loader2, User, Mail, MapPin, Building2, Users
+  Layers, Clock, ShieldCheck, Zap, Send, Loader2, User, Mail, MapPin, Building2, Users,
+  Lock, KeyRound, Shield, Terminal, Activity, Cpu, Database, RefreshCw
 } from 'lucide-react';
 
 const Home: React.FC = () => {
   const { t, language } = useLanguage();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [activePillar, setActivePillar] = useState<'modular' | 'deployment' | 'alerting'>('modular');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -279,64 +281,217 @@ const Home: React.FC = () => {
 
             </div>
 
-            {/* 3 Regional Client Spotlights */}
-            <div className="space-y-6 max-w-6xl mx-auto">
-              <h3 className="text-xl font-bold text-white text-center">{t('outcomes.proof_title')}</h3>
+            {/* Interactive Engineering & Reliability Console */}
+            <div className="space-y-8 max-w-5xl mx-auto text-center">
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                {/* Spotlight 1 */}
-                <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
-                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> {t('outcomes.proof1_loc')}</span>
-                      <span className="text-emerald-400 font-bold">{t('outcomes.proof1_saved')}</span>
-                    </div>
-                    <h4 className="text-lg font-bold text-white">{t('outcomes.proof1_title')}</h4>
-                    <p className="text-xs text-[#8A8F98] leading-relaxed">
-                      {t('outcomes.proof1_quote')}
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
-                    Order Confirmation → QuickBooks Sync
-                  </div>
+              <div className="linear-card rounded-3xl p-6 md:p-10 border border-white/10 space-y-6 text-left shadow-2xl relative overflow-hidden">
+                <p className="text-base md:text-lg text-gray-200 leading-relaxed font-normal">
+                  {t('outcomes.proof_desc')}
+                </p>
+
+                {/* Interactive Pillar Selector Tabs */}
+                <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-black/60 border border-white/10">
+                  <button
+                    type="button"
+                    onClick={() => setActivePillar('modular')}
+                    className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs font-mono-tech font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                      activePillar === 'modular'
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-lg'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    <Layers size={14} className={activePillar === 'modular' ? 'text-emerald-400' : 'text-gray-500'} />
+                    <span>{t('outcomes.proof_pillar1_title')}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActivePillar('deployment')}
+                    className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs font-mono-tech font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                      activePillar === 'deployment'
+                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-lg'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    <Zap size={14} className={activePillar === 'deployment' ? 'text-cyan-400' : 'text-gray-500'} />
+                    <span>{t('outcomes.proof_pillar2_title')}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActivePillar('alerting')}
+                    className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs font-mono-tech font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                      activePillar === 'alerting'
+                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-lg'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    <Sparkles size={14} className={activePillar === 'alerting' ? 'text-amber-400' : 'text-gray-500'} />
+                    <span>{t('outcomes.proof_pillar3_title')}</span>
+                  </button>
                 </div>
 
-                {/* Spotlight 2 */}
-                <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
-                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> {t('outcomes.proof2_loc')}</span>
-                      <span className="text-emerald-400 font-bold">{t('outcomes.proof2_saved')}</span>
-                    </div>
-                    <h4 className="text-lg font-bold text-white">{t('outcomes.proof2_title')}</h4>
-                    <p className="text-xs text-[#8A8F98] leading-relaxed">
-                      {t('outcomes.proof2_quote')}
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
-                    Work Order → Xero Automated Sync
-                  </div>
-                </div>
+                {/* Interactive Console Content Body */}
+                <motion.div 
+                  key={activePillar}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="p-6 rounded-2xl bg-[#080B10] border border-white/10 space-y-4 font-mono-tech"
+                >
+                  {activePillar === 'modular' && (
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                        <div className="flex items-center gap-2 text-xs text-emerald-400 font-bold">
+                          <Terminal size={14} />
+                          <span>ARCHITECTURE : DECOUPLED CONNECTOR MATRIX</span>
+                        </div>
+                        <div className="text-[10px] text-gray-400 bg-white/5 px-2.5 py-1 rounded-md border border-white/10">
+                          STATUS: 99.98% SCHEMA INTEGRITY
+                        </div>
+                      </div>
 
-                {/* Spotlight 3 */}
-                <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between text-xs text-gray-400 font-mono-tech">
-                      <span className="flex items-center gap-1"><MapPin size={12} className="text-emerald-400" /> {t('outcomes.proof3_loc')}</span>
-                      <span className="text-emerald-400 font-bold">{t('outcomes.proof3_saved')}</span>
-                    </div>
-                    <h4 className="text-lg font-bold text-white">{t('outcomes.proof3_title')}</h4>
-                    <p className="text-xs text-[#8A8F98] leading-relaxed">
-                      {t('outcomes.proof3_quote')}
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-white/10 text-[11px] text-gray-400 font-mono-tech">
-                    Billing Records & Inventory Bridge
-                  </div>
-                </div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+                          <span className="text-[10px] text-gray-500 uppercase block">Input Source</span>
+                          <span className="text-white font-semibold">Invoices, Work Orders, CSV</span>
+                        </div>
+                        <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 space-y-1">
+                          <span className="text-[10px] text-emerald-400 uppercase block">Oakivo Schema Validator</span>
+                          <span className="text-emerald-300 font-semibold">Zero-Loss Data Mapping</span>
+                        </div>
+                        <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+                          <span className="text-[10px] text-gray-500 uppercase block">Target Ledger</span>
+                          <span className="text-white font-semibold">QuickBooks, Xero, Sage</span>
+                        </div>
+                      </div>
 
+                      <p className="text-xs text-gray-400 font-sans leading-relaxed pt-1">
+                        {t('outcomes.proof_pillar1_desc')} Every automated connector isolates data transformation logic from accounting API rate limits to ensure zero lost transactions.
+                      </p>
+                    </div>
+                  )}
+
+                  {activePillar === 'deployment' && (
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                        <div className="flex items-center gap-2 text-xs text-cyan-400 font-bold">
+                          <Activity size={14} />
+                          <span>DEPLOYMENT : ZERO-DOWNTIME SANDBOX PIPELINE</span>
+                        </div>
+                        <div className="text-[10px] text-cyan-300 bg-cyan-500/10 px-2.5 py-1 rounded-md border border-cyan-500/30">
+                          ENVIRONMENT: ISOLATED TEST SANDBOX
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+                          <span className="text-[10px] text-gray-500 uppercase block">Stage 1</span>
+                          <span className="text-white font-semibold">Pre-Flight Payload Audit</span>
+                        </div>
+                        <div className="p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30 space-y-1">
+                          <span className="text-[10px] text-cyan-400 uppercase block">Stage 2: Parallel Test</span>
+                          <span className="text-cyan-300 font-semibold">Zero Daily Disruption</span>
+                        </div>
+                        <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+                          <span className="text-[10px] text-gray-500 uppercase block">Stage 3</span>
+                          <span className="text-white font-semibold">Instant Production Cutover</span>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-gray-400 font-sans leading-relaxed pt-1">
+                        {t('outcomes.proof_pillar2_desc')} All data mapping scripts run in an isolated staging layer first. Your business billing operations continue uninterrupted.
+                      </p>
+                    </div>
+                  )}
+
+                  {activePillar === 'alerting' && (
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                        <div className="flex items-center gap-2 text-xs text-amber-400 font-bold">
+                          <RefreshCw size={14} className="animate-spin" style={{ animationDuration: '4s' }} />
+                          <span>ALERTING : REAL-TIME HEALTH MONITOR & FALLBACK</span>
+                        </div>
+                        <div className="text-[10px] text-amber-300 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/30">
+                          LATENCY: &lt; 120ms
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+                          <span className="text-[10px] text-gray-500 uppercase block">API Monitor</span>
+                          <span className="text-white font-semibold">24/7 Heartbeat Pulse</span>
+                        </div>
+                        <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 space-y-1">
+                          <span className="text-[10px] text-amber-400 uppercase block">Retry Handler</span>
+                          <span className="text-amber-300 font-semibold">Exponential Backoff</span>
+                        </div>
+                        <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+                          <span className="text-[10px] text-gray-500 uppercase block">Owner Notification</span>
+                          <span className="text-white font-semibold">Instant Alert & Log</span>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-gray-400 font-sans leading-relaxed pt-1">
+                        {t('outcomes.proof_pillar3_desc')} Automated fallback mechanisms catch third-party accounting API outages instantly, queuing invoices safely until service restores.
+                      </p>
+                    </div>
+                  )}
+                </motion.div>
               </div>
+
+              {/* Security & Compliance Standards Row */}
+              <div className="space-y-4 text-center pt-4">
+                <div className="inline-flex items-center gap-2 text-xs font-mono-tech text-gray-400 uppercase tracking-widest">
+                  <Shield size={14} className="text-emerald-400" />
+                  <span>{t('outcomes.security_title')}</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+                  {/* Badge 1: Data Encryption */}
+                  <div className="linear-card rounded-2xl p-5 border border-white/10 hover:border-emerald-500/40 transition-all space-y-2 group">
+                    <div className="flex items-center justify-between">
+                      <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:scale-105 transition-transform">
+                        <Lock size={18} />
+                      </div>
+                      <span className="text-[10px] font-mono-tech font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                        256-Bit AES
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-bold text-white tracking-tight">{t('outcomes.security1_title')}</h3>
+                    <p className="text-xs text-gray-400 leading-relaxed">{t('outcomes.security1_desc')}</p>
+                  </div>
+
+                  {/* Badge 2: API Security Standards */}
+                  <div className="linear-card rounded-2xl p-5 border border-white/10 hover:border-cyan-500/40 transition-all space-y-2 group">
+                    <div className="flex items-center justify-between">
+                      <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 group-hover:scale-105 transition-transform">
+                        <KeyRound size={18} />
+                      </div>
+                      <span className="text-[10px] font-mono-tech font-bold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                        OAuth 2.0
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-bold text-white tracking-tight">{t('outcomes.security2_title')}</h3>
+                    <p className="text-xs text-gray-400 leading-relaxed">{t('outcomes.security2_desc')}</p>
+                  </div>
+
+                  {/* Badge 3: Regional Compliance */}
+                  <div className="linear-card rounded-2xl p-5 border border-white/10 hover:border-emerald-500/40 transition-all space-y-2 group">
+                    <div className="flex items-center justify-between">
+                      <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:scale-105 transition-transform">
+                        <ShieldCheck size={18} />
+                      </div>
+                      <span className="text-[10px] font-mono-tech font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                        PIPEDA / CAN
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-bold text-white tracking-tight">{t('outcomes.security3_title')}</h3>
+                    <p className="text-xs text-gray-400 leading-relaxed">{t('outcomes.security3_desc')}</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
