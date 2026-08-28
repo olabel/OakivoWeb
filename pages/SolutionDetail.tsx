@@ -26,7 +26,7 @@ const solutionsMap: Record<string, SolutionData> = {
   'invoice-automation': {
     title: 'Accounting & Invoice Synchronization',
     subtitle: 'Eliminate manual invoice typing between email, CRM, and accounting software.',
-    description: 'We build direct automated bridges connecting your sales, dispatch, or customer portals directly into QuickBooks Online, Xero, or Sage—so invoices generate automatically without double data entry.',
+    description: 'We build direct automated bridges connecting your sales, dispatch, or customer portals directly into QuickBooks Online, Xero, or Sage - so invoices generate automatically without double data entry.',
     icon: FileText,
     benefits: [
       'Automatic invoice creation from closed orders or dispatch logs',
@@ -176,22 +176,22 @@ const SolutionDetail: React.FC = () => {
         schema={[serviceSchema, faqSchema]}
       />
 
-      <section className="bg-[#070A0F] text-white pt-36 pb-20 relative overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <section className="bg-slate-950 text-white pt-36 pb-20 relative overflow-hidden">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-4xl">
-          <Link to={NavRoute.SERVICES} className="inline-flex items-center gap-2 text-emerald-400 mb-8 hover:underline font-mono-tech font-bold uppercase tracking-wider text-xs">
+          <Link to={NavRoute.SERVICES} className="inline-flex items-center gap-2 text-cyan-400 mb-8 hover:underline font-mono font-bold uppercase tracking-wider text-xs">
             <ArrowLeft size={16} /> All Solutions & Process
           </Link>
 
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1.5 rounded-full mb-6">
-            <IconComponent size={16} className="text-emerald-400" />
-            <span className="text-[11px] font-mono-tech text-emerald-400 font-bold uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 px-3.5 py-1.5 rounded-full mb-6">
+            <IconComponent size={16} className="text-cyan-400" />
+            <span className="text-[11px] font-mono text-cyan-400 font-bold uppercase tracking-widest">
               Done-For-You Workflow Integration
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-linear-heading mb-6">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-100 mb-6">
             {solution.title}
           </h1>
 
@@ -203,12 +203,12 @@ const SolutionDetail: React.FC = () => {
             onClick={() => setIsDrawerOpen(true)}
             className="px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
           >
-            <Sparkles size={16} /> Book Your Free 15-Minute Operational Audit
+            <Sparkles size={16} /> Schedule Your Operational Audit
           </button>
         </div>
       </section>
 
-      <Section className="bg-[#0B0F17] text-white py-20 border-t border-white/10">
+      <Section className="bg-slate-900 text-white py-20 border-t border-white/10">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl space-y-16">
           
           {/* Overview */}
@@ -222,8 +222,8 @@ const SolutionDetail: React.FC = () => {
             <h2 className="text-2xl font-bold text-white">Key Features & Impact</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {solution.benefits.map((benefit, idx) => (
-                <div key={idx} className="linear-card rounded-2xl p-5 border border-white/10 flex items-start gap-3">
-                  <CheckCircle2 size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                <div key={idx} className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl p-5 border border-white/10 flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-cyan-400 shrink-0 mt-0.5" />
                   <span className="text-xs md:text-sm text-gray-200 font-medium">{benefit}</span>
                 </div>
               ))}
@@ -231,19 +231,19 @@ const SolutionDetail: React.FC = () => {
           </div>
 
           {/* Practical Case Example */}
-          <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-6">
+          <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-3xl p-8 border border-white/10 space-y-6">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <span className="text-[10px] font-mono-tech uppercase text-emerald-400 font-bold tracking-widest">
+              <span className="text-[10px] font-mono uppercase text-cyan-400 font-bold tracking-widest">
                 Regional Case Study
               </span>
-              <span className="text-xs font-mono-tech text-gray-400">{solution.useCase.location}</span>
+              <span className="text-xs font-mono text-gray-400">{solution.useCase.location}</span>
             </div>
             <h3 className="text-xl font-bold text-white">{solution.useCase.client}</h3>
             <div className="space-y-2 text-xs md:text-sm text-gray-300">
               <p><strong className="text-white">Challenge:</strong> {solution.useCase.challenge}</p>
               <p><strong className="text-white">Solution Outcome:</strong> {solution.useCase.outcome}</p>
             </div>
-            <div className="pt-4 border-t border-white/10 text-emerald-400 font-mono-tech font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+            <div className="pt-4 border-t border-white/10 text-cyan-400 font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2">
               <Clock size={16} /> {solution.useCase.hoursSaved}
             </div>
           </div>
@@ -253,7 +253,7 @@ const SolutionDetail: React.FC = () => {
             <h2 className="text-2xl font-bold text-white">Frequently Asked Questions</h2>
             <div className="space-y-4">
               {solution.faq.map((item, i) => (
-                <div key={i} className="linear-card rounded-2xl p-6 border border-white/10 space-y-2">
+                <div key={i} className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl p-6 border border-white/10 space-y-2">
                   <h3 className="text-base font-bold text-white">{item.question}</h3>
                   <p className="text-xs md:text-sm text-gray-400 leading-relaxed">{item.answer}</p>
                 </div>
@@ -262,21 +262,21 @@ const SolutionDetail: React.FC = () => {
           </div>
 
           {/* Final Callout */}
-          <div className="linear-card rounded-3xl p-8 md:p-12 border border-white/10 text-center space-y-6">
-            <span className="text-[10px] font-mono-tech text-emerald-400 font-bold uppercase tracking-widest block">
-              Start Free
+          <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-3xl p-8 md:p-12 border border-white/10 text-center space-y-6">
+            <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest block">
+              Start
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-white">
               Ready to eliminate manual data entry in your operations?
             </h2>
             <p className="text-xs md:text-sm text-gray-400 font-light max-w-xl mx-auto">
-              Book a free 15-minute operational audit. We'll show you exactly how to connect your tools without buying expensive new software.
+              Schedule a 15-minute operational audit. We'll show you exactly how to connect your tools without buying expensive new software.
             </p>
             <button
               onClick={() => setIsDrawerOpen(true)}
               className="px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
             >
-              <Sparkles size={16} /> Book Your Free 15-Minute Operational Audit
+              <Sparkles size={16} /> Schedule Your Operational Audit
             </button>
           </div>
 

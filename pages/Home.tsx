@@ -1,10 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { ShieldCheck, Server, Lock, ArrowRight, Video, Sparkles, Terminal } from 'lucide-react';
 import { NavRoute } from '../types';
+import { useLanguage } from '../context/LanguageContext';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+
+const ParallaxCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+    const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        x.set((e.clientX - centerX) / (rect.width / 2));
+        y.set((e.clientY - centerY) / (rect.height / 2));
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    const rotateX = useTransform(mouseYSpring, [-1, 1], [4, -4]);
+    const rotateY = useTransform(mouseXSpring, [-1, 1], [-4, 4]);
+    
+    return (
+        <motion.div
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+            className={`relative perspective-1000 ${className}`}
+        >
+            <motion.div 
+                style={{ transform: "translateZ(30px)" }}
+                className="w-full h-full flex flex-col justify-between"
+            >
+                {children}
+            </motion.div>
+        </motion.div>
+    );
+};
 
 const Home: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <>
       <SEO 
@@ -14,172 +62,152 @@ const Home: React.FC = () => {
       />
       
       {/* Hero Section */}
-      <header className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-20 lg:-mt-24 pt-20">
+      <header className="relative min-h-[95vh] flex items-center justify-center overflow-hidden bg-slate-950">
         {/* Video Placeholder */}
-        <div className="absolute inset-0 w-full h-full bg-slate-900 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
             <iframe
-                className="absolute w-[300vw] h-[300vh] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[150vw] md:h-[150vh] lg:w-[120vw] lg:h-[150vh] opacity-30 mix-blend-luminosity"
+                className="absolute w-[300vw] h-[300vh] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[150vw] md:h-[150vh] lg:w-[120vw] lg:h-[150vh] opacity-20 mix-blend-luminosity"
                 src="https://www.youtube.com/embed/W3xvFiHXsNI?autoplay=1&mute=1&controls=0&loop=1&playlist=W3xvFiHXsNI&showinfo=0&rel=0&modestbranding=1"
                 allow="autoplay; encrypted-media"
                 style={{ border: 'none' }}
             ></iframe>
         </div>
         {/* Overlay Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/60 to-slate-950"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/10 via-transparent to-transparent"></div>
         
-        <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
-            <div className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 text-xs font-semibold tracking-[0.2em] uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                Enterprise DevSecOps
-            </div>
-            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-display font-bold tracking-tighter mb-6 leading-[1.05]">
-                Automated Security.<br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-indigo-600">Uncompromised Speed.</span>
+        <div className="relative z-10 container mx-auto px-6 flex flex-col items-start text-left max-w-7xl pt-24">
+            <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-display font-bold tracking-tight mb-8 leading-[1.05] text-slate-100 max-w-4xl">
+                {t('landing.hero_headline')}
             </h1>
-            <p className="text-lg md:text-xl text-slate-400 max-w-2xl font-light leading-relaxed mb-12">
-                We architect bespoke, self-healing cloud infrastructure and shift-left pipelines. Ship faster without failing another compliance audit.
+            <p className="text-lg md:text-2xl text-slate-300 max-w-3xl font-light leading-relaxed mb-12">
+                {t('landing.hero_subheadline')}
             </p>
-            <Link to={NavRoute.BOOKING} className="relative group inline-flex items-center justify-center px-10 py-5 text-sm font-medium tracking-widest uppercase text-white transition-all duration-500 rounded-full bg-indigo-600 hover:bg-indigo-500 hover:shadow-[0_0_40px_-10px_rgba(99,102,241,0.6)] overflow-hidden">
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                <span className="relative z-10 flex items-center gap-3">
-                    Initialize Audit
-                    <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1.5" />
-                </span>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-start gap-6">
+                <button onClick={() => window.dispatchEvent(new CustomEvent('open-lead-drawer'))} className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-950 transition-all duration-500 bg-slate-100 hover:bg-white rounded-sm overflow-hidden cursor-pointer">
+                    <span className="relative z-10 flex items-center gap-3">
+                        {t('common.cta_book_audit')}
+                        <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" />
+                    </span>
+                </button>
+                <a href="#capabilities" className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-100 transition-all duration-500 border border-slate-700 hover:border-slate-500 hover:bg-slate-900/50 rounded-sm">
+                    <span className="flex items-center gap-3">
+                        {t('common.cta_explore_arsenal')}
+                    </span>
+                </a>
+            </div>
         </div>
       </header>
 
-      {/* Bento Box Value Proposition */}
-      <section id="arsenal" className="py-32 md:py-48 px-6 relative bg-slate-950">
-        {/* Decorative Ambient Light */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-
+      {/* The Strategic Imperative */}
+      <section className="py-32 md:py-48 px-6 bg-slate-950 relative border-t border-slate-900/50">
         <div className="container mx-auto max-w-7xl relative z-10">
-            <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
-                <div className="max-w-2xl">
-                    <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6">The DevSecOps Arsenal</h2>
-                    <p className="text-slate-400 text-lg font-light leading-relaxed">Modular, production-tested pillars designed to secure your cloud infrastructure without bottlenecking engineering velocity.</p>
-                </div>
-            </div>
-
-            <div className="bento-grid">
-                {/* Large Featured Card */}
-                <div className="col-span-12 lg:col-span-8 glass-panel rounded-[2rem] p-10 md:p-14 group hover:border-cyan-500/30 transition-all duration-700 relative overflow-hidden flex flex-col justify-between min-h-[400px]">
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[80px] group-hover:bg-cyan-500/20 transition-all duration-700 -translate-y-1/2 translate-x-1/3"></div>
-                    <div className="relative z-10">
-                        <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-8 border border-cyan-500/20 text-cyan-400">
-                            <ShieldCheck className="w-6 h-6" />
-                        </div>
-                    </div>
-                    <div className="relative z-10">
-                        <h3 className="text-3xl md:text-4xl font-display font-bold mb-4 tracking-tight">Continuous Cloud Compliance</h3>
-                        <p className="text-slate-400 leading-relaxed font-light md:text-lg max-w-xl">
-                            Turn compliance from an annual nightmare into continuous assurance. Automated drift detection and push-button cryptographic evidence for SOC 2, PIPEDA, and ISO 27001 across multi-cloud environments.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Small Card 1 */}
-                <div className="col-span-12 md:col-span-6 lg:col-span-4 glass-panel rounded-[2rem] p-10 group hover:border-indigo-500/30 hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between min-h-[400px]">
-                    <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-8 border border-indigo-500/20 text-indigo-400">
-                        <Terminal className="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-display font-bold mb-4 tracking-tight">Shift-Left Pipeline Speed</h3>
-                        <p className="text-slate-400 font-light leading-relaxed">
-                            Build fast. Break nothing. We engineer CI/CD gates that scan for vulnerabilities in milliseconds during pull requests, accelerating velocity by 10x.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Small Card 2 */}
-                <div className="col-span-12 md:col-span-6 lg:col-span-4 glass-panel rounded-[2rem] p-10 group hover:border-slate-500/50 hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between min-h-[300px]">
-                    <div className="w-12 h-12 rounded-xl bg-slate-800/50 flex items-center justify-center mb-8 border border-slate-700/50 text-slate-300">
-                        <Lock className="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-display font-bold mb-4 tracking-tight">ERP Zero Trust IAM</h3>
-                        <p className="text-slate-400 font-light leading-relaxed">
-                            Sub-second credential de-provisioning and least-privilege role matrices protecting your core financial data.
-                        </p>
-                    </div>
-                </div>
-
-                {/* Wide Card */}
-                <div className="col-span-12 lg:col-span-8 glass-panel rounded-[2rem] p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between group hover:border-cyan-500/20 hover:bg-slate-900/50 transition-all duration-500 min-h-[300px]">
-                    <div className="max-w-xl">
-                        <h3 className="text-2xl md:text-3xl font-display font-bold mb-4 tracking-tight">Automated Incident Remediation</h3>
-                        <p className="text-slate-400 font-light leading-relaxed md:text-lg">
-                            Autonomous SRE runbooks that quarantine compromised workloads and rotate breached secrets at machine speed before humans even wake up.
-                        </p>
-                    </div>
-                    <div className="mt-8 md:mt-0 flex flex-col items-start md:items-end gap-2 shrink-0">
-                        <div className="flex items-center gap-3 bg-cyan-500/10 border border-cyan-500/20 px-5 py-2.5 rounded-full">
-                            <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
-                            <span className="text-sm font-semibold tracking-widest text-cyan-400 uppercase">99.99% Uptime</span>
-                        </div>
-                    </div>
-                </div>
+            <div className="max-w-4xl">
+                <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8 text-slate-100">{t('landing.strategic_headline')}</h2>
+                <p className="text-slate-300 text-lg md:text-2xl font-light leading-relaxed">
+                    {t('landing.strategic_body')}
+                </p>
             </div>
         </div>
       </section>
 
-      {/* The 3-Step Process (Asymmetrical) */}
-      <section id="process" className="py-32 md:py-48 px-6 border-t border-white/[0.02] relative overflow-hidden bg-slate-950">
-        <div className="container mx-auto max-w-5xl relative z-10">
-            <div className="text-center mb-32">
-                <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6">Deployment Protocol</h2>
-                <p className="text-slate-400 text-lg max-w-xl mx-auto font-light leading-relaxed">A surgical, predictable integration of enterprise security controls into your existing infrastructure.</p>
+      {/* Core Capabilities - Bento Box Grid */}
+      <section id="capabilities" className="py-32 md:py-48 px-6 bg-slate-950 relative border-t border-slate-900/50">
+        <div className="absolute inset-0 bg-slate-950 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
+        <div className="container mx-auto max-w-7xl relative z-10">
+            <div className="mb-20">
+                <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6 text-slate-100">{t('landing.capabilities_headline')}</h2>
             </div>
 
-            <div className="space-y-32 md:space-y-48">
-                {/* Step 1 */}
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-24 group">
-                    <div className="md:w-5/12 flex justify-start md:justify-end">
-                        <div className="text-7xl md:text-[9rem] font-display font-bold text-transparent transition-all duration-700" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>
-                            01
-                        </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 perspective-[2000px]">
+                {/* Item 1 */}
+                <ParallaxCard className="col-span-1 md:col-span-8 bg-slate-900/40 backdrop-blur-md border border-slate-800 p-10 md:p-14 group hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all duration-500 min-h-[400px]">
+                    <div className="w-12 h-12 bg-cyan-500/10 flex items-center justify-center mb-8 border border-cyan-500/20 text-cyan-400 rounded-sm">
+                        <ShieldCheck className="w-5 h-5" />
                     </div>
-                    <div className="md:w-7/12 space-y-5 relative">
-                        <div className="absolute -left-6 md:-left-12 top-2 w-px h-0 bg-indigo-500 group-hover:h-full transition-all duration-700 ease-out"></div>
-                        <h3 className="text-3xl font-display font-bold tracking-tight">Security & Architecture Audit</h3>
-                        <p className="text-slate-400 font-light leading-relaxed text-lg">
-                            We map your multi-cloud footprint, analyze existing CI/CD bottlenecks, and identify immediate compliance gaps. No disruptions to active development.
+                    <div>
+                        <h3 className="text-2xl md:text-3xl font-display font-bold mb-4 tracking-tight text-slate-100">{t('landing.cap1_title')}</h3>
+                        <p className="text-slate-400 leading-relaxed font-light md:text-lg max-w-2xl">
+                            {t('landing.cap1_body')}
                         </p>
                     </div>
+                </ParallaxCard>
+
+                {/* Item 2 */}
+                <ParallaxCard className="col-span-1 md:col-span-4 bg-slate-900/40 backdrop-blur-md border border-slate-800 p-10 group hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all duration-500 min-h-[400px]">
+                    <div className="w-12 h-12 bg-cyan-500/10 flex items-center justify-center mb-8 border border-cyan-500/20 text-cyan-400 rounded-sm">
+                        <Terminal className="w-5 h-5" />
+                    </div>
+                    <div>
+                        <h3 className="text-xl md:text-2xl font-display font-bold mb-4 tracking-tight text-slate-100">{t('landing.cap2_title')}</h3>
+                        <p className="text-slate-400 font-light leading-relaxed">
+                            {t('landing.cap2_body')}
+                        </p>
+                    </div>
+                </ParallaxCard>
+
+                {/* Item 3 */}
+                <ParallaxCard className="col-span-1 md:col-span-4 bg-slate-900/40 backdrop-blur-md border border-slate-800 p-10 group hover:bg-slate-900/60 hover:border-slate-500/50 transition-all duration-500 min-h-[400px]">
+                    <div className="w-12 h-12 bg-slate-800/50 flex items-center justify-center mb-8 border border-slate-700/50 text-slate-300 rounded-sm">
+                        <Lock className="w-5 h-5" />
+                    </div>
+                    <div>
+                        <h3 className="text-xl md:text-2xl font-display font-bold mb-4 tracking-tight text-slate-100">{t('landing.cap3_title')}</h3>
+                        <p className="text-slate-400 font-light leading-relaxed">
+                            {t('landing.cap3_body')}
+                        </p>
+                    </div>
+                </ParallaxCard>
+
+                {/* Item 4 */}
+                <ParallaxCard className="col-span-1 md:col-span-8 bg-slate-900/40 backdrop-blur-md border border-slate-800 p-10 md:p-14 group hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all duration-500 min-h-[400px]">
+                    <div className="w-12 h-12 bg-cyan-500/10 flex items-center justify-center mb-8 border border-cyan-500/20 text-cyan-400 rounded-sm">
+                        <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div className="max-w-2xl">
+                        <h3 className="text-2xl md:text-3xl font-display font-bold mb-4 tracking-tight text-slate-100">{t('landing.cap4_title')}</h3>
+                        <p className="text-slate-400 font-light leading-relaxed md:text-lg">
+                            {t('landing.cap4_body')}
+                        </p>
+                    </div>
+                </ParallaxCard>
+            </div>
+        </div>
+      </section>
+
+      {/* The Engagement Model - 3-Step Layout */}
+      <section className="py-32 md:py-48 px-6 border-t border-slate-800/50 bg-slate-950 relative">
+        <div className="container mx-auto max-w-7xl relative z-10">
+            <div className="mb-24">
+                <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6 text-slate-100">{t('landing.methodology_headline')}</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+                {/* Step 1 */}
+                <div className="group">
+                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4">STEP 01</div>
+                    <h3 className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step1_title')}</h3>
+                    <p className="text-slate-400 font-light leading-relaxed text-lg">
+                        {t('landing.step1_body')}
+                    </p>
                 </div>
 
                 {/* Step 2 */}
-                <div className="flex flex-col md:flex-row-reverse items-start md:items-center gap-8 md:gap-24 group">
-                    <div className="md:w-5/12 flex justify-start">
-                        <div className="text-7xl md:text-[9rem] font-display font-bold text-transparent transition-all duration-700" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>
-                            02
-                        </div>
-                    </div>
-                    <div className="md:w-7/12 space-y-5 md:text-right relative">
-                        <div className="absolute -left-6 md:left-auto md:-right-12 top-2 w-px h-0 bg-cyan-500 group-hover:h-full transition-all duration-700 ease-out"></div>
-                        <h3 className="text-3xl font-display font-bold tracking-tight">Automated Pipeline Deployment</h3>
-                        <p className="text-slate-400 font-light leading-relaxed text-lg">
-                            Surgical injection of shift-left security gates, secrets scanning, and Infrastructure-as-Code drift detection directly into your Git repositories.
-                        </p>
-                    </div>
+                <div className="group">
+                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4">STEP 02</div>
+                    <h3 className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step2_title')}</h3>
+                    <p className="text-slate-400 font-light leading-relaxed text-lg">
+                        {t('landing.step2_body')}
+                    </p>
                 </div>
 
                 {/* Step 3 */}
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-24 group">
-                    <div className="md:w-5/12 flex justify-start md:justify-end">
-                        <div className="text-7xl md:text-[9rem] font-display font-bold text-transparent transition-all duration-700" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>
-                            03
-                        </div>
-                    </div>
-                    <div className="md:w-7/12 space-y-5 relative">
-                        <div className="absolute -left-6 md:-left-12 top-2 w-px h-0 bg-indigo-500 group-hover:h-full transition-all duration-700 ease-out"></div>
-                        <h3 className="text-3xl font-display font-bold tracking-tight">Continuous SRE Oversight</h3>
-                        <p className="text-slate-400 font-light leading-relaxed text-lg">
-                            Hand-off to our autonomous event-driven runbooks and continuous compliance engine, backed by our local Dieppe-based engineering team.
-                        </p>
-                    </div>
+                <div className="group">
+                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4">STEP 03</div>
+                    <h3 className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step3_title')}</h3>
+                    <p className="text-slate-400 font-light leading-relaxed text-lg">
+                        {t('landing.step3_body')}
+                    </p>
                 </div>
             </div>
         </div>
@@ -189,3 +217,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+

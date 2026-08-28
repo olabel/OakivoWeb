@@ -329,12 +329,12 @@ const AdminPortal: React.FC = () => {
               </div>
 
               <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-                <div className="flex items-center gap-2 text-emerald-500 text-[10px] font-black uppercase tracking-widest mb-3">
+                <div className="flex items-center gap-2 text-cyan-500 text-[10px] font-black uppercase tracking-widest mb-3">
                   <Activity size={16} /> Active Users Right Now
                 </div>
                 <div className="text-4xl font-extrabold text-emerald-600 font-serif-display flex items-center gap-3">
                   {analyticsSummary.activeVisitorsNow}
-                  <span className="w-3 h-3 bg-emerald-500 rounded-full animate-ping" />
+                  <span className="w-3 h-3 bg-cyan-500 rounded-full animate-ping" />
                 </div>
                 <span className="text-[10px] text-gray-400 font-bold mt-2 block">Live Telemetry</span>
               </div>
@@ -368,14 +368,14 @@ const AdminPortal: React.FC = () => {
                   <h3 className="text-lg font-serif-display font-bold text-oakivo-primary flex items-center gap-2">
                     <Globe size={18} className="text-oakivo-secondary" /> Top Visited Platform Routes
                   </h3>
-                  <span className="text-[10px] font-mono-tech text-gray-400 uppercase">Real-Time</span>
+                  <span className="text-[10px] font-mono text-gray-400 uppercase">Real-Time</span>
                 </div>
 
                 <div className="space-y-4">
                   {analyticsSummary.topPages.map((page, idx) => (
                     <div key={idx} className="space-y-1.5">
                       <div className="flex items-center justify-between text-xs font-bold">
-                        <span className="text-oakivo-primary font-mono-tech">{page.path}</span>
+                        <span className="text-oakivo-primary font-mono">{page.path}</span>
                         <span className="text-gray-500">{page.views} views ({page.percentage}%)</span>
                       </div>
                       <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -395,7 +395,7 @@ const AdminPortal: React.FC = () => {
                   <h3 className="text-lg font-serif-display font-bold text-oakivo-primary flex items-center gap-2">
                     <Zap size={18} className="text-oakivo-secondary" /> Inbound Traffic Channels
                   </h3>
-                  <span className="text-[10px] font-mono-tech text-gray-400 uppercase">Referrers</span>
+                  <span className="text-[10px] font-mono text-gray-400 uppercase">Referrers</span>
                 </div>
 
                 <div className="space-y-4">
@@ -409,7 +409,7 @@ const AdminPortal: React.FC = () => {
                       </div>
                       <div className="text-right">
                         <span className="text-sm font-extrabold text-oakivo-primary block">{source.count} clicks</span>
-                        <span className="text-[10px] text-gray-400 font-mono-tech">{source.percentage}% of total</span>
+                        <span className="text-[10px] text-gray-400 font-mono">{source.percentage}% of total</span>
                       </div>
                     </div>
                   ))}
@@ -421,13 +421,13 @@ const AdminPortal: React.FC = () => {
             <div className="bg-white rounded-[32px] p-8 border border-gray-100 shadow-sm space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-gray-100">
                 <h3 className="text-lg font-serif-display font-bold text-oakivo-primary flex items-center gap-2">
-                  <Activity size={18} className="text-emerald-500" /> Recent Visitor Telemetry Feed
+                  <Activity size={18} className="text-cyan-500" /> Recent Visitor Telemetry Feed
                 </h3>
-                <span className="text-[10px] font-mono-tech text-gray-400 uppercase">Auto-Updating</span>
+                <span className="text-[10px] font-mono text-gray-400 uppercase">Auto-Updating</span>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs font-mono-tech">
+                <table className="w-full text-left text-xs font-mono">
                   <thead>
                     <tr className="text-gray-400 uppercase text-[9px] border-b border-gray-100">
                       <th className="pb-3">Timestamp</th>
@@ -498,7 +498,7 @@ const AdminPortal: React.FC = () => {
                 <h3 className="text-lg font-serif-display font-bold text-oakivo-primary flex items-center gap-2">
                   <SearchIcon size={18} className="text-oakivo-secondary" /> Page-by-Page SEO Health Breakdown
                 </h3>
-                <span className="text-[10px] font-mono-tech text-gray-400 uppercase">Diagnostic Audit</span>
+                <span className="text-[10px] font-mono text-gray-400 uppercase">Diagnostic Audit</span>
               </div>
 
               <div className="space-y-6">
@@ -506,7 +506,7 @@ const AdminPortal: React.FC = () => {
                   <div key={idx} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
-                        <span className="text-base font-bold text-oakivo-primary font-mono-tech">{audit.page}</span>
+                        <span className="text-base font-bold text-oakivo-primary font-mono">{audit.page}</span>
                         <p className="text-xs text-gray-400 mt-0.5">Title, Meta, Heading & OpenGraph Audit</p>
                       </div>
 
@@ -520,7 +520,7 @@ const AdminPortal: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono-tech">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
                       <div className="bg-white p-3 rounded-xl border border-gray-100">
                         <span className="text-gray-400 block text-[9px] uppercase">Title Tag</span>
                         <span className="font-bold text-emerald-600">{audit.titleScore}% Verified</span>
@@ -540,7 +540,7 @@ const AdminPortal: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-2 text-xs text-gray-600 pt-1">
-                      <CheckCircle2 size={14} className="text-emerald-500" />
+                      <CheckCircle2 size={14} className="text-cyan-500" />
                       <span>{audit.issues.join(' • ')}</span>
                     </div>
                   </div>

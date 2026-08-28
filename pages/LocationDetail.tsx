@@ -46,7 +46,7 @@ const locationsMap: Record<string, LocationData> = {
     keyHubs: ['Halifax', 'Dartmouth', 'Sydney', 'Truro', 'New Glasgow'],
     heroTitle: 'Done-For-You Workflow Automation in Nova Scotia',
     heroSubtitle: 'Helping Nova Scotia businesses eliminate manual copy-pasting between accounting, inventory, and operational software.',
-    regionalContext: 'Nova Scotia businesses in Halifax, Dartmouth, and Cape Breton are growing rapidly—but growth often stalls when admin paperwork explodes. We integrate the software tools you already pay for, freeing up staff without requiring new software purchases.',
+    regionalContext: 'Nova Scotia businesses in Halifax, Dartmouth, and Cape Breton are growing rapidly - but growth often stalls when admin paperwork explodes. We integrate the software tools you already pay for, freeing up staff without requiring new software purchases.',
     commonWorkflows: [
       'Halifax Wholesale: Automated order processing from email into accounting',
       'Dartmouth Trade Services: Driver route logs connected directly to customer invoicing',
@@ -128,22 +128,22 @@ const LocationDetail: React.FC = () => {
         schema={localBusinessSchema}
       />
 
-      <section className="bg-[#070A0F] text-white pt-36 pb-20 relative overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <section className="bg-slate-950 text-white pt-36 pb-20 relative overflow-hidden">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-4xl">
-          <Link to={NavRoute.HOME} className="inline-flex items-center gap-2 text-emerald-400 mb-8 hover:underline font-mono-tech font-bold uppercase tracking-wider text-xs">
+          <Link to={NavRoute.HOME} className="inline-flex items-center gap-2 text-cyan-400 mb-8 hover:underline font-mono font-bold uppercase tracking-wider text-xs">
             <ArrowLeft size={16} /> Back to Home
           </Link>
 
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1.5 rounded-full mb-6">
-            <MapPin size={16} className="text-emerald-400" />
-            <span className="text-[11px] font-mono-tech text-emerald-400 font-bold uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 px-3.5 py-1.5 rounded-full mb-6">
+            <MapPin size={16} className="text-cyan-400" />
+            <span className="text-[11px] font-mono text-cyan-400 font-bold uppercase tracking-widest">
               Regional Automation • {location.name}
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-linear-heading mb-6">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-100 mb-6">
             {location.heroTitle}
           </h1>
 
@@ -155,22 +155,22 @@ const LocationDetail: React.FC = () => {
             onClick={() => setIsDrawerOpen(true)}
             className="px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
           >
-            <Sparkles size={16} /> Book Your Free 15-Minute Operational Audit
+            <Sparkles size={16} /> Schedule Your Operational Audit
           </button>
         </div>
       </section>
 
-      <Section className="bg-[#0B0F17] text-white py-20 border-t border-white/10">
+      <Section className="bg-slate-900 text-white py-20 border-t border-white/10">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl space-y-16">
           
           {/* Key Hubs */}
-          <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4">
+          <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-3xl p-8 border border-white/10 space-y-4">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <MapPin size={18} className="text-emerald-400" /> Serving Key Business Communities in {location.name}
+              <MapPin size={18} className="text-cyan-400" /> Serving Key Business Communities in {location.name}
             </h2>
             <div className="flex flex-wrap gap-2 pt-2">
               {location.keyHubs.map((hub, i) => (
-                <span key={i} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-mono-tech text-emerald-300">
+                <span key={i} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-emerald-300">
                   {hub}
                 </span>
               ))}
@@ -188,8 +188,8 @@ const LocationDetail: React.FC = () => {
             <h2 className="text-2xl font-bold text-white">Common Automation Solutions in {location.name}</h2>
             <div className="space-y-3">
               {location.commonWorkflows.map((flow, i) => (
-                <div key={i} className="linear-card rounded-2xl p-5 border border-white/10 flex items-start gap-3">
-                  <CheckCircle2 size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                <div key={i} className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl p-5 border border-white/10 flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-cyan-400 shrink-0 mt-0.5" />
                   <span className="text-xs md:text-sm text-gray-200 font-medium">{flow}</span>
                 </div>
               ))}
@@ -197,8 +197,8 @@ const LocationDetail: React.FC = () => {
           </div>
 
           {/* Local Outcome */}
-          <div className="linear-card rounded-3xl p-8 border border-white/10 space-y-4">
-            <span className="text-[10px] font-mono-tech uppercase text-emerald-400 font-bold tracking-widest block">
+          <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-3xl p-8 border border-white/10 space-y-4">
+            <span className="text-[10px] font-mono uppercase text-cyan-400 font-bold tracking-widest block">
               Regional Client Spotlight
             </span>
             <h3 className="text-xl font-bold text-white">{location.localProof.client} ({location.localProof.city})</h3>
@@ -206,21 +206,21 @@ const LocationDetail: React.FC = () => {
           </div>
 
           {/* Final Callout */}
-          <div className="linear-card rounded-3xl p-8 md:p-12 border border-white/10 text-center space-y-6">
-            <span className="text-[10px] font-mono-tech text-emerald-400 font-bold uppercase tracking-widest block">
-              Free Operational Audit
+          <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-3xl p-8 md:p-12 border border-white/10 text-center space-y-6">
+            <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest block">
+              Operational Audit
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-white">
               Stop losing staff payroll hours to manual data entry in {location.name}.
             </h2>
             <p className="text-xs md:text-sm text-gray-400 font-light max-w-xl mx-auto">
-              Book a free 15-minute operational audit with an Atlantic Canada automation specialist.
+              Schedule a 15-minute operational audit with an Atlantic Canada automation specialist.
             </p>
             <button
               onClick={() => setIsDrawerOpen(true)}
               className="px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
             >
-              <Sparkles size={16} /> Book Your Free 15-Minute Operational Audit
+              <Sparkles size={16} /> Schedule Your Operational Audit
             </button>
           </div>
 

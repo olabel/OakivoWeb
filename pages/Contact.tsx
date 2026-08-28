@@ -59,7 +59,7 @@ const Contact: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Book 30-Minute Security Architecture Audit | Oakivo Solutions — Dieppe, NB"
+        title="Book 30-Minute Security Architecture Audit | Oakivo Solutions  -  Dieppe, NB"
         description="Schedule a 30-minute DevSecOps and Cloud Security Architecture Audit with Oakivo Solutions. Direct senior engineering guidance for Atlantic Canadian businesses."
         canonical="/contact"
       />
@@ -69,18 +69,18 @@ const Contact: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
           <div className="max-w-4xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
-              <Terminal size={13} className="text-emerald-400" />
-              <span className="text-[11px] font-mono-tech font-medium text-gray-300">
+              <Terminal size={13} className="text-cyan-400" />
+              <span className="text-[11px] font-mono font-medium text-gray-300">
                 Dieppe, New Brunswick • Atlantic Canada Authority
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
+            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-slate-100 leading-[1.06]">
               Book Your 30-Minute <span className="text-linear-accent font-semibold">Security Architecture Audit</span>
             </h1>
 
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              No sales reps or high-pressure pitches. Meet directly with a senior DevSecOps engineer to evaluate your cloud infrastructure, CI/CD pipelines, and compliance exposure—100% confidential and free of charge.
+              No sales reps or high-pressure pitches. Meet directly with a senior DevSecOps engineer to evaluate your cloud infrastructure, CI/CD pipelines, and compliance exposure - 100% confidential.
             </p>
           </div>
         </div>
@@ -93,10 +93,10 @@ const Contact: React.FC = () => {
             
             {/* Form Column */}
             <div className="lg:col-span-7">
-              <div className="linear-card rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] shadow-2xl">
+              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] shadow-2xl">
                 {status === 'success' ? (
                   <div className="text-center py-12 space-y-4">
-                    <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
+                    <div className="w-16 h-16 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full flex items-center justify-center mx-auto">
                       <CheckCircle2 size={32} />
                     </div>
                     <h2 className="text-2xl font-bold text-white">{t('drawer.success_title')}</h2>
@@ -132,8 +132,8 @@ const Contact: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {/* Full Name */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-mono-tech font-medium text-gray-300 block">
-                          {t('drawer.name_label')} <span className="text-emerald-400">*</span>
+                        <label className="text-xs font-mono font-medium text-gray-300 block">
+                          {t('drawer.name_label')} <span className="text-cyan-400">*</span>
                         </label>
                         <input
                           type="text"
@@ -148,8 +148,8 @@ const Contact: React.FC = () => {
 
                       {/* Work Email */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-mono-tech font-medium text-gray-300 block">
-                          {t('drawer.email_label')} <span className="text-emerald-400">*</span>
+                        <label className="text-xs font-mono font-medium text-gray-300 block">
+                          {t('drawer.email_label')} <span className="text-cyan-400">*</span>
                         </label>
                         <input
                           type="email"
@@ -166,7 +166,7 @@ const Contact: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {/* Company */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-mono-tech font-medium text-gray-300 block">
+                        <label className="text-xs font-mono font-medium text-gray-300 block">
                           {t('drawer.company_label')}
                         </label>
                         <input
@@ -181,7 +181,7 @@ const Contact: React.FC = () => {
 
                       {/* Location */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-mono-tech font-medium text-gray-300 block">
+                        <label className="text-xs font-mono font-medium text-gray-300 block">
                           Your Location / Province
                         </label>
                         <select
@@ -201,8 +201,8 @@ const Contact: React.FC = () => {
 
                     {/* Security & Infrastructure Bottleneck */}
                     <div className="space-y-1.5">
-                      <label className="text-xs font-mono-tech font-medium text-gray-300 block">
-                        {t('drawer.bottleneck_label')} <span className="text-emerald-400">*</span>
+                      <label className="text-xs font-mono font-medium text-gray-300 block">
+                        {t('drawer.bottleneck_label')} <span className="text-cyan-400">*</span>
                       </label>
                       <textarea
                         name="bottleneck"
@@ -233,7 +233,7 @@ const Contact: React.FC = () => {
                       )}
                     </button>
 
-                    <p className="text-center text-xs text-gray-500 font-mono-tech">
+                    <p className="text-center text-xs text-gray-500 font-mono">
                       {t('common.guarantee')}
                     </p>
                   </form>
@@ -243,39 +243,39 @@ const Contact: React.FC = () => {
 
             {/* Sidebar Column */}
             <div className="lg:col-span-5 space-y-8">
-              <div className="linear-card rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/[0.08] space-y-6">
+              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/[0.08] space-y-6">
                 <h3 className="text-xl font-bold text-white tracking-tight">Direct Regional Presence</h3>
                 
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-emerald-400 shrink-0">
+                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-cyan-400 shrink-0">
                       <MapPin size={18} />
                     </div>
                     <div>
-                      <span className="text-xs font-mono-tech text-gray-400 uppercase tracking-wider block">Headquarters</span>
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">Headquarters</span>
                       <span className="text-sm font-semibold text-white block mt-0.5">Dieppe, New Brunswick</span>
                       <span className="text-xs text-gray-400 block mt-0.5">Serving NB, NS, PEI, and NL enterprises</span>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-emerald-400 shrink-0">
+                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-cyan-400 shrink-0">
                       <Mail size={18} />
                     </div>
                     <div>
-                      <span className="text-xs font-mono-tech text-gray-400 uppercase tracking-wider block">Direct Email</span>
-                      <a href="mailto:hello@oakivo.com" className="text-sm font-semibold text-white hover:text-emerald-400 transition-colors block mt-0.5">
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">Direct Email</span>
+                      <a href="mailto:hello@oakivo.com" className="text-sm font-semibold text-white hover:text-cyan-400 transition-colors block mt-0.5">
                         hello@oakivo.com
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-emerald-400 shrink-0">
+                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-cyan-400 shrink-0">
                       <Clock size={18} />
                     </div>
                     <div>
-                      <span className="text-xs font-mono-tech text-gray-400 uppercase tracking-wider block">Direct SLA</span>
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">Direct SLA</span>
                       <span className="text-sm font-semibold text-white block mt-0.5">&lt; 15 Minute Critical Incident SLA</span>
                       <span className="text-xs text-gray-400 block mt-0.5">Atlantic Standard Time</span>
                     </div>
@@ -284,8 +284,8 @@ const Contact: React.FC = () => {
               </div>
 
               {/* FAQs */}
-              <div className="linear-card rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/[0.08] space-y-4">
-                <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono-tech font-bold uppercase tracking-wider">
+              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/[0.08] space-y-4">
+                <div className="flex items-center gap-2 text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider">
                   <HelpCircle size={16} /> Frequently Asked Questions
                 </div>
 

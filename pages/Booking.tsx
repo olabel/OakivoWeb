@@ -51,23 +51,23 @@ const Booking: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Schedule 30-Minute Security Audit | Oakivo Solutions — Dieppe, NB"
+        title="Schedule 30-Minute Security Audit | Oakivo Solutions  -  Dieppe, NB"
         description="Schedule your 30-minute DevSecOps and Cloud Security Architecture Audit with Oakivo Solutions. Live technical consultation for Atlantic Canadian businesses."
         canonical="/booking"
       />
 
-      <section className="bg-[#070A0F] text-white pt-40 pb-16 relative overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <section className="bg-slate-950 text-white pt-40 pb-16 relative overflow-hidden">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="container mx-auto px-4 text-center max-w-3xl relative z-10">
           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-6">
-            <Terminal size={14} className="text-emerald-400" />
-            <span className="text-[10px] font-mono-tech text-emerald-400 font-bold uppercase tracking-widest">
+            <Terminal size={14} className="text-cyan-400" />
+            <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest">
               Live Senior DevSecOps Consultation
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-linear-heading mb-4">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-100 mb-4">
             {bData.hero_title}
           </h1>
           <p className="text-sm md:text-base text-[#8A8F98] font-normal leading-relaxed">
@@ -76,14 +76,14 @@ const Booking: React.FC = () => {
         </div>
       </section>
 
-      <Section className="py-16 bg-[#0B0F17] text-white border-t border-white/10">
+      <Section className="py-16 bg-slate-900 text-white border-t border-white/10">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-4xl mx-auto linear-card rounded-3xl border border-white/10 overflow-hidden flex flex-col md:flex-row">
+          <div className="max-w-4xl mx-auto bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-3xl border border-white/10 overflow-hidden flex flex-col md:flex-row">
             
             {/* Sidebar Details */}
-            <div className="md:w-1/3 bg-[#070A0F] p-8 text-white border-r border-white/10 space-y-6">
+            <div className="md:w-1/3 bg-slate-950 p-8 text-white border-r border-white/10 space-y-6">
               <div>
-                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 mb-4 border border-emerald-500/20">
+                <div className="w-10 h-10 bg-cyan-500/10 rounded-xl flex items-center justify-center text-cyan-400 mb-4 border border-cyan-500/20">
                   <Video size={20} />
                 </div>
                 <h3 className="text-lg font-bold">30-Min Security Audit</h3>
@@ -92,23 +92,23 @@ const Booking: React.FC = () => {
                
               <div className="space-y-4 pt-4 border-t border-white/10 text-xs text-gray-400">
                 <div className="flex items-center gap-2">
-                  <Clock size={14} className="text-emerald-400" /> <span>30 Minutes</span>
+                  <Clock size={14} className="text-cyan-400" /> <span>30 Minutes</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Globe size={14} className="text-emerald-400" /> <span>Atlantic Standard Time (AST)</span>
+                  <Globe size={14} className="text-cyan-400" /> <span>Atlantic Standard Time (AST)</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <ShieldCheck size={14} className="text-emerald-400" /> <span>100% Confidential • Senior Lead</span>
+                  <ShieldCheck size={14} className="text-cyan-400" /> <span>100% Confidential • Senior Lead</span>
                 </div>
               </div>
                
               <div className="pt-6 border-t border-white/10">
-                <p className="text-[10px] font-mono-tech uppercase text-gray-500 mb-2">DevSecOps Architect</p>
+                <p className="text-[10px] font-mono uppercase text-gray-500 mb-2">DevSecOps Architect</p>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-emerald-400 rounded-full flex items-center justify-center text-black font-bold text-xs">OS</div>
                   <div>
                     <p className="text-xs font-bold text-white">Senior DevSecOps Lead</p>
-                    <p className="text-[10px] text-emerald-400 font-mono-tech">Oakivo Solutions Inc. (Dieppe, NB)</p>
+                    <p className="text-[10px] text-cyan-400 font-mono">Oakivo Solutions Inc. (Dieppe, NB)</p>
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@ const Booking: React.FC = () => {
             <div className="md:w-2/3 p-8 flex flex-col justify-center">
               {status === 'success' ? (
                 <div className="text-center py-12 space-y-4">
-                  <CheckCircle2 size={48} className="text-emerald-400 mx-auto" />
+                  <CheckCircle2 size={48} className="text-cyan-400 mx-auto" />
                   <h3 className="text-2xl font-bold text-white">{bData.success_title}</h3>
                   <p className="text-xs text-gray-400 max-w-md mx-auto">{bData.success_message}</p>
                 </div>
@@ -136,7 +136,7 @@ const Booking: React.FC = () => {
                             : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
                         }`}
                       >
-                        <span className="text-[10px] font-mono-tech uppercase text-gray-400 mb-1">{d.day}</span>
+                        <span className="text-[10px] font-mono uppercase text-gray-400 mb-1">{d.day}</span>
                         <span className="text-lg font-bold">{d.date}</span>
                       </button>
                     ))}
@@ -144,7 +144,7 @@ const Booking: React.FC = () => {
                   
                   {selectedDate && (
                     <div className="space-y-3 pt-2">
-                      <h4 className="text-[10px] font-mono-tech uppercase text-gray-400">Available Timeslots (AST)</h4>
+                      <h4 className="text-[10px] font-mono uppercase text-gray-400">Available Timeslots (AST)</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {times.map((t, i) => (
                           <button 
@@ -188,28 +188,28 @@ const Booking: React.FC = () => {
                   />
 
                   <h3 className="text-lg font-bold text-white">Confirm Your Details</h3>
-                  <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-xs text-emerald-400 font-mono-tech flex justify-between items-center">
+                  <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-xs text-cyan-400 font-mono flex justify-between items-center">
                     <span>{selectedDate} at {selectedTime} (AST)</span>
                     <button type="button" onClick={() => setStep(1)} className="text-gray-300 hover:text-white underline text-[10px]">Change</button>
                   </div>
                   
                   <div>
-                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Your Name *</label>
+                    <label className="text-[10px] font-mono uppercase text-gray-300 block mb-1">Your Name *</label>
                     <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="Sarah Jenkins" />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Work Email *</label>
+                    <label className="text-[10px] font-mono uppercase text-gray-300 block mb-1">Work Email *</label>
                     <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="sarah@company.ca" />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Company / Organization Name</label>
+                    <label className="text-[10px] font-mono uppercase text-gray-300 block mb-1">Company / Organization Name</label>
                     <input type="text" value={form.company} onChange={e => setForm({...form, company: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="Acme Logistics Inc." />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Current Infrastructure / Security Challenge *</label>
+                    <label className="text-[10px] font-mono uppercase text-gray-300 block mb-1">Current Infrastructure / Security Challenge *</label>
                     <textarea rows={2} required value={form.bottleneck} onChange={e => setForm({...form, bottleneck: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white resize-none" placeholder="e.g. SOC 2 audit readiness, securing CI/CD pipelines, ERP access controls..." />
                   </div>
 

@@ -34,7 +34,7 @@ const BentoServices: React.FC = () => {
       category: 'modernization',
       title: 'Stop Bleeding Engineering Hours to Manual Workflows.',
       subtitle: 'Legacy System Modernization & Custom API Automation',
-      description: 'Connect legacy ERPs to modern cloud applications with custom API bridges—no risky, multi-year rebuilds required.',
+      description: 'Connect legacy ERPs to modern cloud applications with custom API bridges - no risky, multi-year rebuilds required.',
       impactMetric: '0',
       impactLabel: 'Risky Multi-Year Monolith Rebuilds Required',
       icon: <Layers className="text-oakivo-secondary" size={24} />,
@@ -135,7 +135,7 @@ const BentoServices: React.FC = () => {
             {[
               { id: 'all', label: 'All Architectures' },
               { id: 'odoo', label: 'Odoo 19 ERP' },
-              { id: 'ai', label: 'Agentic AI' },
+              { id: 'ai', label: 'Automated Remediation' },
               { id: 'cyber', label: 'Zero-Trust Cyber' },
               { id: 'modernization', label: 'Legacy Modernization' }
             ].map((tab) => (

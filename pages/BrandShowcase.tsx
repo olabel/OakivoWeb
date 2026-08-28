@@ -40,7 +40,7 @@ export const BrandShowcase: React.FC = () => {
           </svg>
         );
       },
-      qaAudit: 'PASS — Zero forbidden elements. Grounded timber joinery motif. Legible at 24px favicon. Distinctly Oakivo.'
+      qaAudit: 'PASS  -  Zero forbidden elements. Grounded timber joinery motif. Legible at 24px favicon. Distinctly Oakivo.'
     },
     {
       id: 'concept-2',
@@ -48,7 +48,7 @@ export const BrandShowcase: React.FC = () => {
       metaphor: 'Atlantic Maritime Motif Reinterpreted Abstractly',
       subtitle: 'Maritime coastal bedrock framing an unchoked operational channel',
       colorsUsed: ['#0F172A (Bay Navy)', '#D4A373 (Coast Sandstone)', '#059669 (Harbor Teal)'],
-      description: 'A heavy squircle keystone split by a crisp 45° negative space channel, forming dual bedrock pillars enclosing a central flow path. Rooted in Atlantic Canadian coastal resilience—signifying fluid data movement through solid operational foundations.',
+      description: 'A heavy squircle keystone split by a crisp 45° negative space channel, forming dual bedrock pillars enclosing a central flow path. Rooted in Atlantic Canadian coastal resilience - signifying fluid data movement through solid operational foundations.',
       svgMark: (fg = 'default') => {
         if (fg === 'mono-dark') {
           return (
@@ -73,7 +73,7 @@ export const BrandShowcase: React.FC = () => {
           </svg>
         );
       },
-      qaAudit: 'PASS — Zero forbidden items. Atlantic maritime keystone theme. Crisp single-color performance. High regional authenticity.'
+      qaAudit: 'PASS  -  Zero forbidden items. Atlantic maritime keystone theme. Crisp single-color performance. High regional authenticity.'
     },
     {
       id: 'concept-3',
@@ -107,7 +107,7 @@ export const BrandShowcase: React.FC = () => {
           </svg>
         );
       },
-      qaAudit: 'PASS — Zero forbidden tech clichés. Direct O-K typographic ligature. Maximum legibility at micro favicon sizes.'
+      qaAudit: 'PASS  -  Zero forbidden tech clichés. Direct O-K typographic ligature. Maximum legibility at micro favicon sizes.'
     },
     {
       id: 'concept-4',
@@ -139,7 +139,7 @@ export const BrandShowcase: React.FC = () => {
           </svg>
         );
       },
-      qaAudit: 'PASS — Zero abstract swooshes or circuit nodes. Clear systems-bridge metaphor. Exceptional flat single-color clarity.'
+      qaAudit: 'PASS  -  Zero abstract swooshes or circuit nodes. Clear systems-bridge metaphor. Exceptional flat single-color clarity.'
     }
   ];
 
@@ -151,22 +151,22 @@ export const BrandShowcase: React.FC = () => {
         canonical="/brand-identity"
       />
 
-      <div className="bg-[#070A0F] text-white min-h-screen pt-32 pb-24 px-4 md:px-8">
+      <div className="bg-slate-950 text-white min-h-screen pt-32 pb-24 px-4 md:px-8">
         <div className="max-w-7xl mx-auto space-y-12">
 
           {/* Header */}
           <div className="space-y-4 max-w-4xl border-b border-white/10 pb-8">
-            <Link to={NavRoute.HOME} className="inline-flex items-center gap-2 text-xs font-mono-tech text-emerald-400 hover:underline mb-2">
+            <Link to={NavRoute.HOME} className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 hover:underline mb-2">
               <ArrowLeft size={14} /> Back to Homepage
             </Link>
-            <div className="inline-block px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono-tech text-xs uppercase font-bold tracking-widest">
+            <div className="inline-block px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs uppercase font-bold tracking-widest">
               Brand Identity Audit & Concept Directions
             </div>
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white">
               Oakivo Solutions Brand Identity Directions
             </h1>
             <p className="text-sm md:text-base text-gray-400 leading-relaxed max-w-3xl">
-              Prepared for Atlantic Canadian small-to-mid-size business owners. Designed to project grounded competence, quiet reliability, and seamless software integration—strictly eliminating tech marketing clichés, gradient hexagons, and artificial AI hype.
+              Prepared for Atlantic Canadian small-to-mid-size business owners. Designed to project grounded competence, quiet reliability, and seamless software integration - strictly eliminating tech marketing clichés, gradient hexagons, and artificial hype.
             </p>
           </div>
 
@@ -178,7 +178,7 @@ export const BrandShowcase: React.FC = () => {
                 {/* Concept Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
                   <div>
-                    <span className="text-xs font-mono-tech font-bold uppercase tracking-widest text-amber-400 block mb-1">
+                    <span className="text-xs font-mono font-bold uppercase tracking-widest text-amber-400 block mb-1">
                       {concept.metaphor}
                     </span>
                     <h2 className="text-2xl md:text-3xl font-extrabold text-white">
@@ -189,7 +189,7 @@ export const BrandShowcase: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono-tech font-semibold whitespace-nowrap">
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-semibold whitespace-nowrap">
                     <ShieldCheck size={16} />
                     <span>{concept.qaAudit}</span>
                   </div>
@@ -197,13 +197,13 @@ export const BrandShowcase: React.FC = () => {
 
                 {/* Concept Explanation */}
                 <div className="bg-black/30 p-5 rounded-2xl border border-white/5 text-xs md:text-sm text-gray-300 leading-relaxed space-y-2">
-                  <span className="text-[10px] font-mono-tech uppercase tracking-wider text-gray-500 block font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-gray-500 block font-bold">
                     Strategic Rationale & Brief Alignment
                   </span>
                   <p>{concept.description}</p>
                   <div className="flex flex-wrap gap-2 pt-2">
                     {concept.colorsUsed.map((c, idx) => (
-                      <span key={idx} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-mono-tech text-gray-400">
+                      <span key={idx} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-mono text-gray-400">
                         {c}
                       </span>
                     ))}
@@ -215,17 +215,17 @@ export const BrandShowcase: React.FC = () => {
                   
                   {/* Test 1: Near Black */}
                   <div className="space-y-3">
-                    <span className="text-[11px] font-mono-tech uppercase tracking-wider text-gray-400 block font-bold">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 block font-bold">
                       1. Large Mark (#070A0F)
                     </span>
-                    <div className="bg-[#070A0F] border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center h-48 relative group">
+                    <div className="bg-slate-950 border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center h-48 relative group">
                       <div className="w-16 h-16">
                         {concept.svgMark()}
                       </div>
                       <span className="mt-4 text-xs font-bold tracking-widest text-white uppercase font-sans">
                         OAKIVO
                       </span>
-                      <span className="text-[8px] font-mono-tech text-gray-400 tracking-[0.2em]">
+                      <span className="text-[8px] font-mono text-gray-400 tracking-[0.2em]">
                         SOLUTIONS
                       </span>
                     </div>
@@ -233,7 +233,7 @@ export const BrandShowcase: React.FC = () => {
 
                   {/* Test 2: White Background */}
                   <div className="space-y-3">
-                    <span className="text-[11px] font-mono-tech uppercase tracking-wider text-gray-400 block font-bold">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 block font-bold">
                       2. Large Mark (#FFFFFF)
                     </span>
                     <div className="bg-white border border-gray-200 rounded-2xl p-8 flex flex-col items-center justify-center h-48">
@@ -243,7 +243,7 @@ export const BrandShowcase: React.FC = () => {
                       <span className="mt-4 text-xs font-bold tracking-widest text-slate-900 uppercase font-sans">
                         OAKIVO
                       </span>
-                      <span className="text-[8px] font-mono-tech text-slate-500 tracking-[0.2em]">
+                      <span className="text-[8px] font-mono text-slate-500 tracking-[0.2em]">
                         SOLUTIONS
                       </span>
                     </div>
@@ -251,7 +251,7 @@ export const BrandShowcase: React.FC = () => {
 
                   {/* Test 3: Favicon 24px */}
                   <div className="space-y-3">
-                    <span className="text-[11px] font-mono-tech uppercase tracking-wider text-gray-400 block font-bold">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 block font-bold">
                       3. Simulated 24px Favicon
                     </span>
                     <div className="bg-[#0F172A] border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center h-48 space-y-4">
@@ -264,7 +264,7 @@ export const BrandShowcase: React.FC = () => {
                           <span className="text-[10px] text-gray-300 font-medium">Oakivo Solutions</span>
                         </div>
                       </div>
-                      <span className="text-[10px] text-emerald-400 font-mono-tech text-center">
+                      <span className="text-[10px] text-cyan-400 font-mono text-center">
                         ✓ Survives 24×24px micro reduction cleanly
                       </span>
                     </div>
@@ -272,14 +272,14 @@ export const BrandShowcase: React.FC = () => {
 
                   {/* Test 4: Flat Single Color */}
                   <div className="space-y-3">
-                    <span className="text-[11px] font-mono-tech uppercase tracking-wider text-gray-400 block font-bold">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 block font-bold">
                       4. Flat 1-Color (Monochrome)
                     </span>
                     <div className="bg-gray-900 border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center h-48">
                       <div className="w-16 h-16">
                         {concept.svgMark('mono-dark')}
                       </div>
-                      <span className="mt-3 text-[10px] font-mono-tech text-gray-400">
+                      <span className="mt-3 text-[10px] font-mono text-gray-400">
                         100% Solid Single Color
                       </span>
                     </div>
@@ -292,23 +292,23 @@ export const BrandShowcase: React.FC = () => {
           </div>
 
           {/* QA Verification Banner */}
-          <div className="bg-gradient-to-r from-emerald-950/40 via-emerald-900/20 to-emerald-950/40 border border-emerald-500/30 rounded-3xl p-8 space-y-4">
-            <div className="flex items-center gap-3 text-emerald-400">
+          <div className="bg-gradient-to-r from-emerald-950/40 via-emerald-900/20 to-emerald-950/40 border border-cyan-500/30 rounded-3xl p-8 space-y-4">
+            <div className="flex items-center gap-3 text-cyan-400">
               <CheckCircle2 size={24} />
               <h3 className="text-xl font-bold">QA Reviewer Audit & Final Sign-Off</h3>
             </div>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs md:text-sm text-gray-300 font-mono-tech">
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs md:text-sm text-gray-300 font-mono">
               <li className="flex items-center gap-2">
-                <span className="text-emerald-400 font-bold">✓</span> No gradient hexagons or generic 3D shapes used.
+                <span className="text-cyan-400 font-bold">✓</span> No gradient hexagons or generic 3D shapes used.
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-emerald-400 font-bold">✓</span> Zero circuit-board lines, node dots, or AI swooshes.
+                <span className="text-cyan-400 font-bold">✓</span> Zero circuit-board lines, node dots, or complex swooshes.
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-emerald-400 font-bold">✓</span> No generic rocket ships, upward arrows, or hidden checkmarks.
+                <span className="text-cyan-400 font-bold">✓</span> No generic rocket ships, upward arrows, or hidden checkmarks.
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-emerald-400 font-bold">✓</span> Replaced overused blue-cyan gradients with grounded Atlantic copper/amber & bay slate tones.
+                <span className="text-cyan-400 font-bold">✓</span> Replaced overused blue-cyan gradients with grounded Atlantic copper/amber & bay slate tones.
               </li>
             </ul>
           </div>

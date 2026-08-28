@@ -14,12 +14,10 @@ export const translations: Record<Language, Record<string, any>> = {
   en: {
     nav: { 
       home: 'Home', 
-      arsenal: 'DevSecOps Arsenal', 
-      services: 'Services & Pillars', 
-      process: '3-Step Journey',
-      work: 'Case Studies',
-      case_studies: 'Case Studies', 
-      about: 'About Us', 
+      capabilities: 'Capabilities', 
+      industries: 'Industries', 
+      insights: 'Methodology',
+      firm: 'Our Firm', 
       contact: 'Security Audit', 
       careers: 'Careers',
       booking: 'Schedule Audit',
@@ -29,7 +27,7 @@ export const translations: Record<Language, Record<string, any>> = {
       locations: 'Locations'
     },
     common: {
-      cta_book_audit: "Request 30-Minute Security Architecture Audit",
+      cta_book_audit: "Request an Architectural Briefing",
       cta_audit: "Request 30-Min Audit",
       cta_blueprint: "Get Remediation Blueprint",
       cta_explore_arsenal: "Explore DevSecOps Arsenal",
@@ -47,7 +45,7 @@ export const translations: Record<Language, Record<string, any>> = {
       badge: "DevSecOps & Cloud Security Automation • Dieppe, NB & Atlantic Canada",
       headline_main: "Ship Faster. Stay Unbreachable.",
       headline_accent: "Guaranteed.",
-      subtitle: "We engineer automated cloud security, compliance guardrails, and DevSecOps pipelines for Atlantic Canadian businesses—protecting your mission-critical ERP, patient, customer, and logistics data without slowing down your software releases.",
+      subtitle: "We engineer automated cloud security, compliance guardrails, and DevSecOps pipelines for Atlantic Canadian businesses - protecting your mission-critical ERP, patient, customer, and logistics data without slowing down your software releases.",
       cta: "Request 30-Minute Security Architecture Audit",
       secondary_cta: "Explore Our DevSecOps Arsenal",
       guarantee: "100% Bilingual (EN/FR) • Dieppe, New Brunswick Headquarters • Zero Daily Pipeline Disruption",
@@ -66,9 +64,9 @@ export const translations: Record<Language, Record<string, any>> = {
       point2_title: "Stalled CI/CD Pipelines & Release Friction",
       point2_desc: "Security reviews done at the end of the development cycle block software deployments for weeks, creating bitter friction between engineering teams and risk officers.",
       point2_solution: "We embed automated static analysis, container scanning, and policy-as-code directly into your CI/CD pipelines so vulnerabilities are caught and resolved before code reaches staging. Your engineers ship rapidly with total confidence.",
-      point2_stat: "10x faster release velocity with shift-left gates",
+      point2_stat: "Accelerated release velocity with shift-left gates",
       point3_title: "Unsecured ERP Data & Zombie Access Permissions",
-      point3_desc: "Core operational hubs—like SAP, Odoo, custom logistics dispatch systems, and accounting databases—are often riddled with over-privileged accounts, exposed API endpoints, and former employee credentials.",
+      point3_desc: "Core operational hubs - like SAP, Odoo, custom logistics dispatch systems, and accounting databases - are often riddled with over-privileged accounts, exposed API endpoints, and former employee credentials.",
       point3_solution: "We enforce strict Zero Trust architecture and automated identity lifecycle management across your ERP and connected microservices. Every transaction and credential is cryptographically validated and rotated automatically.",
       point3_stat: "Zero Trust least-privilege & instant de-provisioning"
     },
@@ -117,7 +115,7 @@ export const translations: Record<Language, Record<string, any>> = {
       step1_num: "1",
       step1_title: "Step 1: Security & Architecture Audit",
       step1_time: "Days 1–5",
-      step1_desc: "We perform a deep-dive scan of your cloud infrastructure, deployment pipelines, ERP access topologies, and compliance gaps. You receive a clear, plain-English Threat & Remediation Blueprint with prioritized risk scoring—not an impenetrable 200-page jargon PDF.",
+      step1_desc: "We perform a deep-dive scan of your cloud infrastructure, deployment pipelines, ERP access topologies, and compliance gaps. You receive a clear, plain-English Threat & Remediation Blueprint with prioritized risk scoring - not an impenetrable 200-page jargon PDF.",
       step2_num: "2",
       step2_title: "Step 2: Automated Pipeline & Policy Deployment",
       step2_time: "Weeks 2–4",
@@ -141,7 +139,7 @@ export const translations: Record<Language, Record<string, any>> = {
       metric1_val: "0 Min",
       metric1_title: "Audit Preparation Panic",
       metric1_desc: "Continuous automated compliance evidence generation replaces chaotic manual spreadsheet gathering for SOC 2 and PIPEDA.",
-      metric2_val: "10x",
+      metric2_val: "2x",
       metric2_title: "Faster Safe Deployments",
       metric2_desc: "Security automated into CI/CD pipelines eliminates weeks of manual security gatekeeper delays.",
       metric3_val: "100%",
@@ -162,10 +160,32 @@ export const translations: Record<Language, Record<string, any>> = {
       security3_title: "Canadian Data Sovereignty",
       security3_desc: "Architected strictly within Canadian sovereign cloud regions (AWS ca-central-1, Azure Canada Central)."
     },
+    landing: {
+      hero_headline: "Engineering Digital Resilience.",
+      hero_subheadline: "Oakivo architects secure, self-healing cloud infrastructures. We deploy advanced DevSecOps and compliance automation for Atlantic Canadian enterprises that cannot afford operational friction.",
+      strategic_headline: "The Automation Imperative",
+      strategic_body: "In an era of escalating cyber threats and stringent regulatory demands, manual security interventions are a liability. Modern enterprises require security models that scale seamlessly with their infrastructure. We architect automated security postures that embed compliance, identity governance, and threat remediation directly into your operational pipelines - ensuring agility without compromising risk management.",
+      capabilities_headline: "Enterprise Security Architecture",
+      cap1_title: "Cloud Security Posture Management (CSPM)",
+      cap1_body: "Continuous compliance and risk mitigation across AWS, Azure, and hybrid environments. We enforce Policy-as-Code to eliminate configuration drift, audit cloud storage, and automatically remediate vulnerabilities before they are exploited.",
+      cap2_title: "DevSecOps & Pipeline Engineering",
+      cap2_body: "Accelerate deployment cycles while maintaining rigorous security standards. We integrate Static Application Security Testing (SAST) and secrets management natively into your CI/CD pipelines, ensuring secure-by-design software delivery.",
+      cap3_title: "Identity & Access Governance",
+      cap3_body: "Protect critical ERP data and operational workflows. We deploy Zero Trust architectures and strict Role-Based Access Control (RBAC) to manage the entire identity lifecycle, mitigating the risk of credential compromise.",
+      cap4_title: "Automated Incident Remediation",
+      cap4_body: "Shift from reactive monitoring to proactive, self-healing infrastructure. Leveraging core Site Reliability Engineering (SRE) principles, our systems automatically isolate threats and revoke access with zero human intervention.",
+      methodology_headline: "Our Methodology",
+      step1_title: "Infrastructure Diagnostic & Threat Assessment",
+      step1_body: "A comprehensive audit of your existing cloud architecture and ERP environments to identify compliance gaps, misconfigurations, and unauthorized access vectors.",
+      step2_title: "Architecture & Pipeline Engineering",
+      step2_body: "The design and deployment of custom Policy-as-Code guardrails and automated remediation workflows, engineered specifically for your operational requirements.",
+      step3_title: "Continuous Posture Management",
+      step3_body: "Ongoing, SRE-driven governance and automated monitoring to ensure lasting digital resilience, operational continuity, and strict regulatory compliance.",
+    },
     drawer: {
       tag: "Oakivo 30-Minute Security Audit",
       title: "Request Your 30-Minute Security Architecture Audit",
-      desc: "No high-pressure sales pitch. One of our senior DevSecOps specialists will evaluate your cloud infrastructure, deployment pipelines, or ERP access topology and provide a prioritized Threat & Remediation Blueprint—100% free.",
+      desc: "No high-pressure sales pitch. One of our senior DevSecOps specialists will evaluate your cloud infrastructure, deployment pipelines, or ERP access topology and provide a prioritized Threat & Remediation Blueprint .",
       name_label: "Your Name *",
       name_placeholder: "e.g. David Cormier",
       email_label: "Work Email *",
@@ -191,7 +211,7 @@ export const translations: Record<Language, Record<string, any>> = {
       callout_title: "Ready to ship faster without compromising security?",
       callout_desc: "Request a 30-minute architecture review with our senior DevSecOps team in Dieppe. We'll identify your highest-risk vulnerabilities and map out an automated remediation path.",
       callout_btn: "Request 30-Minute Security Architecture Audit",
-      brand_desc: "Oakivo Solutions Inc. is a premium DevSecOps, Cloud Security, and Automation engineering firm based in Dieppe, New Brunswick—protecting Atlantic Canadian businesses across logistics, retail, healthcare, and enterprise.",
+      brand_desc: "Oakivo Solutions Inc. is a premium DevSecOps, Cloud Security, and Automation engineering firm based in Dieppe, New Brunswick - protecting Atlantic Canadian businesses across logistics, retail, healthcare, and enterprise.",
       badge_title: "Dieppe, NB & Atlantic Canada",
       badge_desc: "Bilingual, senior-level DevSecOps engineering for organizations across New Brunswick, Nova Scotia, PEI, and Newfoundland.",
       focus_tag: "Atlantic Canada Security Partner",
@@ -239,7 +259,7 @@ export const translations: Record<Language, Record<string, any>> = {
       service4_title: "Automated SRE Threat Remediation",
       list: [
         { title: "Cloud Security Posture Management", desc: "Continuous multi-cloud scanning, drift detection, and automated compliance evidence for PIPEDA, SOC 2, and ISO 27001.", insight: "24/7 audit readiness with automated remediation.", magnet: "cspm" },
-        { title: "DevSecOps Pipeline Engineering", desc: "Embed SAST, DAST, SBOM generation, and container image security directly into GitHub Actions or GitLab CI.", insight: "Ship code 10x faster with zero unvetted dependencies.", magnet: "devsecops" },
+        { title: "DevSecOps Pipeline Engineering", desc: "Embed SAST, DAST, SBOM generation, and container image security directly into GitHub Actions or GitLab CI.", insight: "Ship code faster with zero unvetted dependencies.", magnet: "devsecops" },
         { title: "ERP Security & Identity Lifecycle", desc: "Granular Zero Trust role matrices, automated onboarding/offboarding de-provisioning, and tokenized API gateways for ERPs.", insight: "Eliminate zombie credentials and insider risk.", magnet: "erp" },
         { title: "Automated Incident Remediation", desc: "Event-driven security runbooks built with SRE principles to quarantine threats, rotate breached keys, and maintain 99.99% uptime.", insight: "Machine-speed mitigation without waiting for manual triage.", magnet: "sre" }
       ],
@@ -266,14 +286,6 @@ export const translations: Record<Language, Record<string, any>> = {
       team: [
         { name: "DevSecOps Lead Architect", role: "Principal Cloud Security Architect", bio: "Over 12 years engineering high-availability cloud infrastructure, Kubernetes security gates, and automated compliance pipelines.", credentials: "CISSP, AWS Certified Security Specialist, CKA", linkedin: "#" },
         { name: "Automation & SRE Lead", role: "Site Reliability & Security Engineer", bio: "Specialist in event-driven security runbooks, Zero Trust ERP gateways, and automated threat containment.", credentials: "BSc Computer Science, Terraform Certified Associate", linkedin: "#" }
-      ]
-    },
-    blog: {
-      hero_title: "DevSecOps & Cloud Security Insights.",
-      hero_subtitle: "Technical frameworks, threat analyses, and automation strategies for engineering leaders in Atlantic Canada.",
-      posts: [
-        { id: 1, title: "Why Traditional Security Audits Fail Modern Atlantic Enterprises", excerpt: "Annual point-in-time audits leave months of blind spots. Here is how continuous CSPM automation keeps your infrastructure permanently compliant.", category: "Cloud Security", author: "Oakivo Engineering", date: "Aug 15, 2026", keyTakeawaysSummary: "Continuous automated compliance reduces audit prep time by 90% and eliminates configuration drift.", sections: { introduction: "Point-in-time audits provide a false sense of security.", discussion: "Between annual reviews, infrastructure drifts, new cloud resources are spawned, and credentials leak. Continuous policy-as-code is the only sustainable answer.", conclusion: "Automate your evidence collection and stay audit-ready 365 days a year.", takeaways: ["Zero Audit Panic", "Continuous Evidence"] } },
-        { id: 2, title: "Shifting Left: How Automated CI/CD Gates Eliminate Release Bottlenecks", excerpt: "Discover how embedding automated SAST, DAST, and container vulnerability scanning accelerates feature delivery rather than slowing it down.", category: "DevSecOps", author: "Oakivo Engineering", date: "Aug 20, 2026", keyTakeawaysSummary: "Catching vulnerabilities in CI/CD is 100x cheaper and 10x faster than fixing production breaches.", sections: { introduction: "Security reviews at the end of the sprint cause release delays and team friction.", discussion: "By automating security tests within the pull request workflow, engineers get instant feedback and fix issues before code merges.", conclusion: "Security becomes an automated velocity booster rather than a gatekeeper.", takeaways: ["10x Faster Releases", "Zero Unvetted Code"] } }
       ]
     },
     careers: {
@@ -314,12 +326,10 @@ export const translations: Record<Language, Record<string, any>> = {
   fr: {
     nav: { 
       home: 'Accueil', 
-      arsenal: 'Arsenal DevSecOps', 
-      services: 'Services & Piliers', 
-      process: 'Processus en 3 Étapes',
-      work: 'Études de Cas',
-      case_studies: 'Études de Cas', 
-      about: 'À Propos', 
+      capabilities: 'Capacités', 
+      industries: 'Industries', 
+      insights: 'Méthodologie',
+      firm: 'Notre Cabinet', 
       contact: 'Audit de Sécurité', 
       careers: 'Carrières',
       booking: 'Planifier un Audit',
@@ -329,7 +339,7 @@ export const translations: Record<Language, Record<string, any>> = {
       locations: 'Emplacements'
     },
     common: {
-      cta_book_audit: "Demandez Votre Audit d'Architecture de Sécurité (30 min)",
+      cta_book_audit: "Demander une séance d'information architecturale",
       cta_audit: "Demander l'Audit (30 min)",
       cta_blueprint: "Obtenir le Plan de Remédiation",
       cta_explore_arsenal: "Explorer l'Arsenal DevSecOps",
@@ -347,7 +357,7 @@ export const translations: Record<Language, Record<string, any>> = {
       badge: "Automatisation DevSecOps & Sécurité Infonuagique • Dieppe, N.-B. & Canada Atlantique",
       headline_main: "Déployez plus vite. Restez invulnérable.",
       headline_accent: "Garanti.",
-      subtitle: "Nous concevons la sécurité infonuagique automatisée, les balises de conformité et les pipelines DevSecOps pour les entreprises du Canada atlantique—protégeant vos données ERP, clients, santé et logistique sans ralentir vos livraisons logicielles.",
+      subtitle: "Nous concevons la sécurité infonuagique automatisée, les balises de conformité et les pipelines DevSecOps pour les entreprises du Canada atlantique - protégeant vos données ERP, clients, santé et logistique sans ralentir vos livraisons logicielles.",
       cta: "Demandez Votre Audit d'Architecture de Sécurité (30 min)",
       secondary_cta: "Explorer Notre Arsenal DevSecOps",
       guarantee: "100 % Bilingue (FR/EN) • Siège Social à Dieppe, Nouveau-Brunswick • Zéro Interruption de Service",
@@ -366,7 +376,7 @@ export const translations: Record<Language, Record<string, any>> = {
       point2_title: "Pipelines CI/CD Bloqués et Lenteur de Livraison",
       point2_desc: "Les révisions de sécurité en fin de cycle bloquent les déploiements logiciels pendant des semaines, créant des frictions majeures entre développeurs et responsables du risque.",
       point2_solution: "Nous intégrons l'analyse statique automatisée, l'analyse des conteneurs et la politique sous forme de code directement dans vos pipelines CI/CD. Les vulnérabilités sont corrigées avant la mise en production. Vos équipes déploient vite et en toute confiance.",
-      point2_stat: "Déploiements 10x plus rapides grâce à la sécurité intégrée (Shift-Left)",
+      point2_stat: "Déploiements accélérés grâce à la sécurité intégrée (Shift-Left)",
       point3_title: "Données ERP Non Sécurisées et Accès Orphelins",
       point3_desc: "Les systèmes centraux (SAP, Odoo, logiciels de répartition logistique, bases comptables) regorgent souvent de comptes surprivilégiés, d'API exposées et d'identifiants d'anciens employés.",
       point3_solution: "Nous appliquons une architecture Zéro Confiance stricte et la gestion automatisée du cycle de vie des identités sur vos ERP et microservices. Chaque transaction et jeton d'accès est validé cryptographiquement et renouvelé automatiquement.",
@@ -441,7 +451,7 @@ export const translations: Record<Language, Record<string, any>> = {
       metric1_val: "0 Min",
       metric1_title: "De Panique Avant les Audits",
       metric1_desc: "La collecte continue et automatisée des preuves de conformité remplace la recherche manuelle chaotique dans les tableurs pour SOC 2 et LPRPDE.",
-      metric2_val: "10x",
+      metric2_val: "2x",
       metric2_title: "Déploiements Sécurisés Plus Rapides",
       metric2_desc: "La sécurité intégrée aux pipelines CI/CD élimine les semaines d'attente des approbations manuelles.",
       metric3_val: "100%",
@@ -462,10 +472,32 @@ export const translations: Record<Language, Record<string, any>> = {
       security3_title: "Souveraineté des Données Canadiennes",
       security3_desc: "Architecturé rigoureusement dans les régions infonuagiques souveraines canadiennes (AWS ca-central-1, Azure Canada Central)."
     },
+    landing: {
+      hero_headline: "Ingénierie de la Résilience Numérique.",
+      hero_subheadline: "Oakivo conçoit des infrastructures infonuagiques sécurisées et auto-réparatrices. Nous déployons l'automatisation avancée DevSecOps et de conformité pour les entreprises du Canada atlantique qui ne peuvent se permettre aucune friction opérationnelle.",
+      strategic_headline: "L'Impératif d'Automatisation",
+      strategic_body: "À l'ère de l'escalade des cybermenaces et des exigences réglementaires rigoureuses, les interventions de sécurité manuelles sont un handicap. Les entreprises modernes ont besoin de modèles de sécurité qui s'adaptent parfaitement à leur infrastructure. Nous concevons des postures de sécurité automatisées qui intègrent la conformité, la gouvernance des identités et la remédiation des menaces directement dans vos pipelines opérationnels, garantissant l'agilité sans compromettre la gestion des risques.",
+      capabilities_headline: "Architecture de Sécurité d'Entreprise",
+      cap1_title: "Gestion de la Posture de Sécurité Infonuagique (CSPM)",
+      cap1_body: "Conformité continue et atténuation des risques sur AWS, Azure et environnements hybrides. Nous appliquons la politique en tant que code (Policy-as-Code) pour éliminer les dérives de configuration, auditer le stockage infonuagique et corriger automatiquement les vulnérabilités avant qu'elles ne soient exploitées.",
+      cap2_title: "DevSecOps et Ingénierie de Pipeline",
+      cap2_body: "Accélérez les cycles de déploiement tout en maintenant des normes de sécurité rigoureuses. Nous intégrons les tests statiques (SAST) et la gestion des secrets nativement dans vos pipelines CI/CD, garantissant une livraison logicielle sécurisée dès la conception.",
+      cap3_title: "Identité et Gouvernance des Accès",
+      cap3_body: "Protégez les données ERP critiques et les flux opérationnels. Nous déployons des architectures Zéro Confiance (Zero Trust) et des contrôles d'accès basés sur les rôles (RBAC) stricts pour gérer l'ensemble du cycle de vie des identités, atténuant le risque de compromission des informations d'identification.",
+      cap4_title: "Remédiation Automatisée des Incidents",
+      cap4_body: "Passez d'une surveillance réactive à une infrastructure proactive et auto-réparatrice. En s'appuyant sur les principes fondamentaux de l'Ingénierie de Fiabilité de Site (SRE), nos systèmes isolent automatiquement les menaces et révoquent les accès sans aucune intervention humaine.",
+      methodology_headline: "Notre Méthodologie",
+      step1_title: "Diagnostic d'Infrastructure et Évaluation des Menaces",
+      step1_body: "Un audit complet de votre architecture infonuagique et de vos environnements ERP existants pour identifier les lacunes de conformité, les mauvaises configurations et les vecteurs d'accès non autorisés.",
+      step2_title: "Architecture et Ingénierie de Pipeline",
+      step2_body: "La conception et le déploiement de garde-fous personnalisés (Policy-as-Code) et de flux de remédiation automatisés, conçus spécifiquement pour vos exigences opérationnelles.",
+      step3_title: "Gestion Continue de la Posture",
+      step3_body: "Une gouvernance continue, pilotée par les principes SRE, et une surveillance automatisée pour garantir une résilience numérique durable, la continuité opérationnelle et une stricte conformité réglementaire.",
+    },
     drawer: {
       tag: "Audit de Sécurité Oakivo (30 Min)",
       title: "Demandez Votre Audit d'Architecture de Sécurité (30 Min)",
-      desc: "Sans pression commerciale. Un de nos spécialistes DevSecOps seniors évaluera votre infrastructure infonuagique, vos pipelines ou vos accès ERP et vous remettra un plan de remédiation hiérarchisé—100 % gratuit.",
+      desc: "Sans pression commerciale. Un de nos spécialistes DevSecOps seniors évaluera votre infrastructure infonuagique, vos pipelines ou vos accès ERP et vous remettra un plan de remédiation hiérarchisé .",
       name_label: "Votre nom *",
       name_placeholder: "ex. David Cormier",
       email_label: "Courriel professionnel *",
@@ -491,7 +523,7 @@ export const translations: Record<Language, Record<string, any>> = {
       callout_title: "Prêt à déployer plus vite sans compromettre votre sécurité ?",
       callout_desc: "Demandez une révision d'architecture de 30 minutes avec nos experts DevSecOps à Dieppe. Nous identifierons vos risques prioritaires et tracerons une voie de remédiation automatisée.",
       callout_btn: "Demander Mon Audit d'Architecture de Sécurité (30 Min)",
-      brand_desc: "Oakivo Solutions Inc. est une firme d'ingénierie DevSecOps, de sécurité infonuagique et d'automatisation basée à Dieppe, Nouveau-Brunswick—protégeant les entreprises du Canada atlantique en logistique, commerce, santé et services corporatifs.",
+      brand_desc: "Oakivo Solutions Inc. est une firme d'ingénierie DevSecOps, de sécurité infonuagique et d'automatisation basée à Dieppe, Nouveau-Brunswick - protégeant les entreprises du Canada atlantique en logistique, commerce, santé et services corporatifs.",
       badge_title: "Dieppe, N.-B. & Canada Atlantique",
       badge_desc: "Ingénierie DevSecOps bilingue de niveau senior pour les entreprises du Nouveau-Brunswick, de la Nouvelle-Écosse, de l'Î.-P.-É. et de Terre-Neuve.",
       focus_tag: "Partenaire de Sécurité au Canada Atlantique",
@@ -539,7 +571,7 @@ export const translations: Record<Language, Record<string, any>> = {
       service4_title: "Remédiation d'Incidents Automatisée SRE",
       list: [
         { title: "Gestion de Posture Infonuagique (CSPM)", desc: "Analyse continue multi-cloud, détection des dérives et preuves automatisées de conformité pour LPRPDE, SOC 2 et ISO 27001.", insight: "Prêt pour les audits 24/7 avec remédiation instantanée.", magnet: "cspm" },
-        { title: "Ingénierie de Pipelines DevSecOps", desc: "Intégrez SAST, DAST, inventaire SBOM et sécurité des conteneurs directement dans GitHub Actions ou GitLab CI.", insight: "Déployez 10x plus vite sans dépendances vulnérables.", magnet: "devsecops" },
+        { title: "Ingénierie de Pipelines DevSecOps", desc: "Intégrez SAST, DAST, inventaire SBOM et sécurité des conteneurs directement dans GitHub Actions ou GitLab CI.", insight: "Déployez plus rapidement sans dépendances vulnérables.", magnet: "devsecops" },
         { title: "Sécurité ERP & Cycle de Vie des Identités", desc: "Matrices de rôles Zéro Confiance, attribution/révocation automatique des accès et passerelles d'API sécurisées.", insight: "Éliminez les accès orphelins et les risques internes.", magnet: "erp" },
         { title: "Remédiation Automatisée des Incidents", desc: "Scénarios de sécurité automatisés inspirés du SRE pour isoler les menaces, renouveler les clés compromises et maintenir 99,99 % de disponibilité.", insight: "Mitigation à la vitesse machine sans attente de tri manuel.", magnet: "sre" }
       ],
@@ -566,14 +598,6 @@ export const translations: Record<Language, Record<string, any>> = {
       team: [
         { name: "Architecte Principal DevSecOps", role: "Architecte de Sécurité Infonuagique", bio: "Plus de 12 ans d'expérience dans la conception d'infrastructures infonuagiques haute disponibilité, la sécurité Kubernetes et les pipelines de conformité automatisée.", credentials: "CISSP, AWS Certified Security Specialist, CKA", linkedin: "#" },
         { name: "Responsable Automatisation & SRE", role: "Ingénieur en Fiabilité de Site & Sécurité", bio: "Spécialiste des procédures de sécurité réactives, des passerelles ERP Zéro Confiance et du confinement autonome des menaces.", credentials: "B.Sc. Informatique, Terraform Certified Associate", linkedin: "#" }
-      ]
-    },
-    blog: {
-      hero_title: "Perspectives DevSecOps & Sécurité Infonuagique.",
-      hero_subtitle: "Cadres techniques, analyses de menaces et stratégies d'automatisation pour les leaders de l'ingénierie au Canada atlantique.",
-      posts: [
-        { id: 1, title: "Pourquoi les Audits Traditionnels Échouent Face aux Entreprises Modernes", excerpt: "Les audits annuels ponctuels laissent des mois d'angles morts. Découvrez comment l'automatisation CSPM continue maintient votre conformité 365 jours par an.", category: "Sécurité Infonuagique", author: "Ingénierie Oakivo", date: "15 Août 2026", keyTakeawaysSummary: "La conformité automatisée réduit le temps de préparation d'audit de 90 % et élimine les dérives de configuration.", sections: { introduction: "Les audits ponctuels procurent un faux sentiment de sécurité.", discussion: "Entre deux audits annuels, l'infrastructure dérive et les clés s'exposent. La politique sous forme de code continue est la seule solution durable.", conclusion: "Automatisez vos preuves et restez prêts pour l'audit 365 jours par an.", takeaways: ["Zéro Panique d'Audit", "Preuves Continues"] } },
-        { id: 2, title: "Sécurité Intégrée (Shift-Left) : Accélérer les Déploiements Sans Risque", excerpt: "Découvrez comment l'intégration de SAST, DAST et de l'analyse des conteneurs dans vos flux Git accélère la livraison au lieu de la freiner.", category: "DevSecOps", author: "Ingénierie Oakivo", date: "20 Août 2026", keyTakeawaysSummary: "Détecter les failles dans le pipeline CI/CD est 100x moins cher et 10x plus rapide que de corriger des failles en production.", sections: { introduction: "Vérifier la sécurité en fin de sprint crée des retards et des tensions.", discussion: "En automatisant les tests dans les demandes de fusion, les développeurs corrigent les failles immédiatement avant déploiement.", conclusion: "La sécurité devient un propulseur de vélocité automatisé.", takeaways: ["Déploiements 10x Plus Rapides", "Zéro Code Vulnérable"] } }
       ]
     },
     careers: {

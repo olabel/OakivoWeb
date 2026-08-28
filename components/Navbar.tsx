@@ -18,7 +18,14 @@ const Navbar: React.FC = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    const openDrawer = () => setIsDrawerOpen(true);
+    window.addEventListener('open-lead-drawer', openDrawer);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('open-lead-drawer', openDrawer);
+    };
   }, []);
 
   useEffect(() => setIsOpen(false), [location]);
@@ -29,10 +36,10 @@ const Navbar: React.FC = () => {
   }, [language, setLanguage]);
 
   const navLinks = [
-    { name: t('nav.home'), path: NavRoute.HOME },
-    { name: t('nav.services'), path: NavRoute.SERVICES },
-    { name: t('nav.about'), path: NavRoute.ABOUT },
-    { name: t('nav.contact'), path: NavRoute.CONTACT },
+    { name: t('nav.capabilities'), path: NavRoute.CAPABILITIES },
+    { name: t('nav.industries'), path: NavRoute.INDUSTRIES },
+    { name: t('nav.insights'), path: NavRoute.METHODOLOGY },
+    { name: t('nav.firm'), path: NavRoute.FIRM },
   ];
 
   return (
@@ -71,9 +78,9 @@ const Navbar: React.FC = () => {
             <div className="hidden md:block">
               <button 
                 onClick={() => setIsDrawerOpen(true)}
-                className="text-xs font-semibold tracking-widest uppercase bg-white/5 hover:bg-white/10 border border-white/10 px-6 py-2.5 rounded-full transition-all duration-300 text-white cursor-pointer"
+                className="text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white border border-slate-200 px-6 py-2.5 rounded-full transition-all duration-300 text-slate-950 cursor-pointer"
               >
-                  Book Audit
+                  {t('common.cta_book_audit')}
               </button>
             </div>
 
@@ -113,9 +120,9 @@ const Navbar: React.FC = () => {
             </button>
             <button 
               onClick={() => { setIsOpen(false); setIsDrawerOpen(true); }}
-              className="w-full text-center text-xs font-semibold tracking-widest uppercase bg-indigo-600 hover:bg-indigo-500 px-6 py-3.5 rounded-full transition-all duration-300 text-white cursor-pointer"
+              className="w-full text-center text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white text-slate-950 px-6 py-3.5 rounded-full transition-all duration-300 cursor-pointer"
             >
-                Book Audit
+                {t('common.cta_book_audit')}
             </button>
           </div>
         </div>

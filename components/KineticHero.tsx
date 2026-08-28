@@ -105,7 +105,7 @@ const KineticHero: React.FC = () => {
                 <div className="flex items-center justify-between border-b border-white/10 pb-2">
                   <div className="flex items-center gap-2 text-emerald-400 font-bold">
                     <Cpu size={14} />
-                    <span>LIVING INFRASTRUCTURE MESH — VIDEO ARCHITECTURE</span>
+                    <span>LIVING INFRASTRUCTURE MESH  -  VIDEO ARCHITECTURE</span>
                   </div>
                   <span className="text-[10px] text-gray-500">60 FPS REAL-TIME</span>
                 </div>

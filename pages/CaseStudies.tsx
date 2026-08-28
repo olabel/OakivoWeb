@@ -41,7 +41,7 @@ const caseStudiesData: CaseStudyItem[] = [
       { metric: 'Same-Day', label: 'Fulfillment Processing Time' }
     ],
     testimonial: {
-      quote: 'Oakivo saved our office staff 15 hours of painful data entry every single week. Peak harvest season used to be pure panic—now our orders flow automatically without missing a beat.',
+      quote: 'Oakivo saved our office staff 15 hours of painful data entry every single week. Peak harvest season used to be pure panic - now our orders flow automatically without missing a beat.',
       author: 'Robert LeBlanc',
       role: 'General Manager'
     }
@@ -100,13 +100,13 @@ const CaseStudies: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
           <div className="max-w-4xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
-              <TrendingUp size={13} className="text-emerald-400" />
-              <span className="text-[11px] font-mono-tech font-medium text-gray-300">
+              <TrendingUp size={13} className="text-cyan-400" />
+              <span className="text-[11px] font-mono font-medium text-gray-300">
                 Atlantic Canada Client Results
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-linear-heading leading-[1.06]">
+            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-slate-100 leading-[1.06]">
               Real Hours Saved for <span className="text-linear-accent font-semibold">Atlantic Canada Businesses</span>
             </h1>
 
@@ -118,20 +118,20 @@ const CaseStudies: React.FC = () => {
       </section>
 
       {/* Case Studies Cards */}
-      <section className="py-20 md:py-28 relative border-b border-white/[0.08]">
+      <section className="py-32 md:py-48 relative border-b border-white/[0.08]">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="space-y-16">
             {caseStudiesData.map((study, idx) => (
               <div 
                 key={study.id}
-                className="linear-card rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] relative overflow-hidden"
+                className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] relative overflow-hidden"
               >
                 <div className="space-y-8">
                   
                   {/* Card Header */}
                   <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
                     <div>
-                      <span className="text-xs font-mono-tech text-emerald-400 uppercase tracking-wider block">
+                      <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider block">
                         Case Study 0{idx + 1} • {study.location}
                       </span>
                       <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white mt-1">
@@ -144,10 +144,10 @@ const CaseStudies: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {study.results.map((res, rIdx) => (
                       <div key={rIdx} className="p-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-center">
-                        <span className="text-2xl md:text-3xl font-extrabold font-mono-tech text-white block">
+                        <span className="text-2xl md:text-3xl font-extrabold font-mono text-white block">
                           {res.metric}
                         </span>
-                        <span className="text-xs font-mono-tech text-emerald-400 mt-1 block">
+                        <span className="text-xs font-mono text-cyan-400 mt-1 block">
                           {res.label}
                         </span>
                       </div>
@@ -157,7 +157,7 @@ const CaseStudies: React.FC = () => {
                   {/* Challenge & Solution Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2 p-5 rounded-xl bg-black/40 border border-white/[0.06]">
-                      <h3 className="text-xs font-mono-tech font-bold uppercase tracking-wider text-amber-400">
+                      <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
                         Operational Challenge
                       </h3>
                       <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
@@ -166,7 +166,7 @@ const CaseStudies: React.FC = () => {
                     </div>
 
                     <div className="space-y-2 p-5 rounded-xl bg-black/40 border border-white/[0.06]">
-                      <h3 className="text-xs font-mono-tech font-bold uppercase tracking-wider text-emerald-400">
+                      <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
                         The Done-For-You Solution
                       </h3>
                       <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
@@ -176,14 +176,14 @@ const CaseStudies: React.FC = () => {
                   </div>
 
                   {/* Testimonial Quote */}
-                  <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/20 space-y-3">
+                  <div className="p-6 rounded-xl bg-cyan-500/10 border border-cyan-500/20 space-y-3">
                     <p className="text-sm md:text-base text-gray-200 italic font-normal leading-relaxed">
                       "{study.testimonial.quote}"
                     </p>
-                    <div className="flex items-center gap-2 text-xs font-mono-tech text-gray-400">
+                    <div className="flex items-center gap-2 text-xs font-mono text-gray-400">
                       <span className="text-white font-bold">{study.testimonial.author}</span>
-                      <span>—</span>
-                      <span className="text-emerald-400">{study.testimonial.role}, {study.client}</span>
+                      <span> - </span>
+                      <span className="text-cyan-400">{study.testimonial.role}, {study.client}</span>
                     </div>
                   </div>
 
@@ -195,11 +195,11 @@ const CaseStudies: React.FC = () => {
       </section>
 
       {/* Bottom CTA Banner */}
-      <section className="py-20 md:py-28 relative">
+      <section className="py-32 md:py-48 relative">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-          <div className="linear-card rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
+          <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
             <div className="max-w-3xl mx-auto space-y-4">
-              <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-slate-100">
                 Ready to Reclaim Your Staff Hours?
               </h2>
               <p className="text-sm md:text-base text-[#8A8F98] max-w-2xl mx-auto">

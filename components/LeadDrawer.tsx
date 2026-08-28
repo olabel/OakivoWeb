@@ -20,6 +20,24 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
   });
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [errors, setErrors] = useState<Partial<Record<keyof typeof formData, string>>>({});
+
+  const validateForm = () => {
+    const newErrors: Partial<Record<keyof typeof formData, string>> = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    else if (formData.name.trim().length < 2) newErrors.name = "Name must be at least 2 characters";
+
+    if (!formData.email.trim()) newErrors.email = "Work Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Please enter a valid email format";
+
+    if (!formData.company.trim()) newErrors.company = "Company name is required";
+    
+    if (!formData.bottleneck.trim()) newErrors.bottleneck = "Please provide details about your challenge";
+    else if (formData.bottleneck.trim().length < 10) newErrors.bottleneck = "Please provide a bit more detail";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +46,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
       setStatus('success');
       return;
     }
-    if (!formData.email || !formData.name || !formData.bottleneck) return;
+    if (!validateForm()) return;
 
     setStatus('submitting');
     
@@ -39,7 +57,14 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
       submittedAt: new Date().toISOString()
     });
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Simulate API call for industry standard form submission
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Send email to stakeholders
+    const subject = encodeURIComponent("Security Architecture Audit Request");
+    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\n\nSecurity Challenge / Bottleneck:\n${formData.bottleneck}`);
+    window.location.href = `mailto:olabel@gmail.com,ahmed.bello@oakivo.com?subject=${subject}&body=${body}`;
+
     setStatus('success');
   };
 
@@ -51,6 +76,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
       company: '',
       bottleneck: ''
     });
+    setErrors({});
     setHoneypot('');
     onClose();
   };
@@ -77,13 +103,13 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
             className="fixed top-0 right-0 bottom-0 w-full max-w-2xl bg-[#0B0F17] text-white z-[101] border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="p-6 md:p-8 bg-[#070A0F] border-b border-white/10 flex items-center justify-between">
+            <div className="p-6 md:p-8 bg-slate-950 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                   <Terminal size={20} />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono-tech font-bold uppercase tracking-[0.2em] text-emerald-400 block">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-cyan-400 block">
                     {t('drawer.tag')}
                   </span>
                   <h3 className="text-lg md:text-xl font-bold text-white">
@@ -109,7 +135,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   animate={{ opacity: 1, scale: 1 }}
                   className="py-12 text-center space-y-6"
                 >
-                  <div className="w-20 h-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 mx-auto">
+                  <div className="w-20 h-20 rounded-full bg-cyan-500/20 border-2 border-cyan-400 flex items-center justify-center text-cyan-400 mx-auto">
                     <CheckCircle2 size={40} />
                   </div>
                   <div className="space-y-2">
@@ -148,70 +174,83 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
 
                   {/* Field 1: Name */}
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
+                    <label className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-300 block">
                       {t('drawer.name_label')}
                     </label>
                     <div className="relative">
-                      <User size={16} className="absolute left-4 top-3.5 text-gray-400" />
+                      <User size={16} className={`absolute left-4 top-3.5 ${errors.name ? 'text-red-400' : 'text-gray-400'}`} />
                       <input
                         type="text"
-                        required
                         placeholder={t('drawer.name_placeholder')}
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-white/5 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white"
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: '' });
+                        }}
+                        className={`w-full bg-white/5 border ${errors.name ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors`}
                       />
                     </div>
+                    {errors.name && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.name}</p>}
                   </div>
 
                   {/* Field 2: Work Email */}
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
+                    <label className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-300 block">
                       {t('drawer.email_label')}
                     </label>
                     <div className="relative">
-                      <Mail size={16} className="absolute left-4 top-3.5 text-gray-400" />
+                      <Mail size={16} className={`absolute left-4 top-3.5 ${errors.email ? 'text-red-400' : 'text-gray-400'}`} />
                       <input
                         type="email"
-                        required
                         placeholder={t('drawer.email_placeholder')}
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-white/5 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white"
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: '' });
+                        }}
+                        className={`w-full bg-white/5 border ${errors.email ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors`}
                       />
                     </div>
+                    {errors.email && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.email}</p>}
                   </div>
 
                   {/* Field 3: Company */}
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
+                    <label className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-300 block">
                       {t('drawer.company_label')}
                     </label>
                     <div className="relative">
-                      <Building size={16} className="absolute left-4 top-3.5 text-gray-400" />
+                      <Building size={16} className={`absolute left-4 top-3.5 ${errors.company ? 'text-red-400' : 'text-gray-400'}`} />
                       <input
                         type="text"
                         placeholder={t('drawer.company_placeholder')}
                         value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full bg-white/5 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white"
+                        onChange={(e) => {
+                          setFormData({ ...formData, company: e.target.value });
+                          if (errors.company) setErrors({ ...errors, company: '' });
+                        }}
+                        className={`w-full bg-white/5 border ${errors.company ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors`}
                       />
                     </div>
+                    {errors.company && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.company}</p>}
                   </div>
 
                   {/* Field 4: Bottleneck / Security Challenge */}
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
+                    <label className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-300 block">
                       {t('drawer.bottleneck_label')}
                     </label>
                     <textarea
                       rows={4}
-                      required
                       placeholder={t('drawer.bottleneck_placeholder')}
                       value={formData.bottleneck}
-                      onChange={(e) => setFormData({ ...formData, bottleneck: e.target.value })}
-                      className="w-full bg-white/5 border border-white/15 rounded-2xl p-4 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white resize-none"
+                      onChange={(e) => {
+                        setFormData({ ...formData, bottleneck: e.target.value });
+                        if (errors.bottleneck) setErrors({ ...errors, bottleneck: '' });
+                      }}
+                      className={`w-full bg-white/5 border ${errors.bottleneck ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl p-4 text-xs text-white placeholder-gray-400 focus:outline-none resize-none transition-colors`}
                     />
+                    {errors.bottleneck && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.bottleneck}</p>}
                   </div>
 
                   {/* Submit CTA */}
@@ -237,8 +276,8 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Footer badge */}
-            <div className="p-4 bg-[#070A0F] border-t border-white/10 flex items-center justify-between text-[11px] text-gray-500 font-mono-tech">
-              <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
+            <div className="p-4 bg-slate-950 border-t border-white/10 flex items-center justify-between text-[11px] text-gray-500 font-mono">
+              <span className="flex items-center gap-1.5 text-cyan-400 font-bold">
                 <ShieldCheck size={14} /> {t('drawer.footer_badge')}
               </span>
               <span>{t('drawer.footer_region')}</span>

@@ -72,10 +72,10 @@ const CaseStudiesShowcase: React.FC = () => {
       location: 'Montreal, QC',
       impactMetric: '30% Latency Drop',
       impactLabel: 'Supply Chain Routing Velocity',
-      title: 'Agentic AI Autonomous Invoice Parsing & Dispatch',
+      title: 'Autonomous Invoice Parsing & Dispatch',
       problem: 'Manual processing of over 5,000 monthly customs and shipping manifests created severe port bottleneck delays.',
-      solution: 'Integrated an autonomous Agentic AI reasoning engine that parses PDFs, performs 3-way matching in Odoo 19, and dispatches drivers automatically.',
-      quote: "Our manifest processing speed went from hours to seconds. Oakivo's AI engine is the brain of our logistics network.",
+      solution: 'Integrated an autonomous reasoning engine that parses PDFs, performs 3-way matching in Odoo 19, and dispatches drivers automatically.',
+      quote: "Our manifest processing speed went from hours to seconds. Oakivo's automation engine is the brain of our logistics network.",
       author: "Jean-Francois Gagnon",
       authorRole: "Director of Logistics Engine",
       keyAchievements: [

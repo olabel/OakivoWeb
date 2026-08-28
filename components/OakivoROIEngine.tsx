@@ -40,11 +40,11 @@ const OakivoROIEngine: React.FC = () => {
       ]
     },
     {
-      q: "To what extent are repetitive tasks automated with AI or workflow logic?",
+      q: "To what extent are repetitive tasks automated with rules or workflow logic?",
       options: [
-        { label: "Autonomous Agentic AI handles routing, verification & alerts", points: 25 },
+        { label: "Autonomous engine handles routing, verification & alerts", points: 25 },
         { label: "Basic rule-based email/document automation tools", points: 15 },
-        { label: "Zero AI automation — entirely human-driven", points: 5 },
+        { label: "Zero automation  -  entirely human-driven", points: 5 },
       ]
     },
     {
@@ -255,7 +255,7 @@ const OakivoROIEngine: React.FC = () => {
                   {Math.round(calculations.totalAnnualRecovery).toLocaleString()}
                 </p>
                 <p className="text-xs text-white/40 font-light mt-3">
-                  Calculated based on Odoo 19 core unification & Agentic AI automation multipliers.
+                  Calculated based on Odoo 19 core unification & workflow automation multipliers.
                 </p>
               </div>
 
@@ -348,7 +348,7 @@ const OakivoROIEngine: React.FC = () => {
               Canadian Industrial <span className="text-oakivo-secondary italic font-light">Resilience Scorecard</span>
             </h2>
             <p className="text-sm text-white/60 font-light mt-2 max-w-xl mx-auto">
-              Evaluate your operational digital core across CRA compliance, PIPEDA data residency, and AI automation readiness.
+              Evaluate your operational digital core across CRA compliance, PIPEDA data residency, and workflow automation readiness.
             </p>
           </header>
 
