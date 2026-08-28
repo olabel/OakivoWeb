@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink, useLocation, Link } from 'react-router-dom';
-import { Menu, X, Globe, ChevronRight, Zap, Lock, Sparkles } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { NavRoute } from '../types';
-import Logo from './Logo';
 import { useLanguage } from '../context/LanguageContext';
 import LeadDrawer from './LeadDrawer';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showSticky, setShowSticky] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
   const location = useLocation();
@@ -18,7 +16,6 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-      setShowSticky(window.scrollY > 500);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -34,126 +31,88 @@ const Navbar: React.FC = () => {
   const navLinks = [
     { name: t('nav.home'), path: NavRoute.HOME },
     { name: t('nav.services'), path: NavRoute.SERVICES },
-    { name: t('nav.work'), path: NavRoute.CASE_STUDIES },
     { name: t('nav.about'), path: NavRoute.ABOUT },
     { name: t('nav.contact'), path: NavRoute.CONTACT },
   ];
 
   return (
     <>
-      <header 
-        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${
-          isScrolled ? 'py-3' : 'py-5'
-        }`}
-      >
-        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-          <div className={`flex items-center justify-between transition-all duration-500 rounded-full px-6 md:px-8 py-3 ${
-            isScrolled 
-              ? 'bg-[#0B0F17]/90 backdrop-blur-xl shadow-2xl border border-white/10' 
-              : 'bg-[#070A0F]/60 backdrop-blur-md border border-white/10'
-          }`}>
-            <div className="flex items-center gap-8 xl:gap-10">
-              <NavLink to="/" className="flex items-center group">
-                <Logo className="group-hover:scale-105 transition-transform" />
-              </NavLink>
+      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'glass-panel border-b border-white/[0.04]' : 'bg-transparent border-b border-transparent'}`}>
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+            <Link to={NavRoute.HOME} className="text-xl font-display font-bold tracking-tight text-white flex items-center">
+                OAKIVO<span className="text-cyan-500">.</span>
+            </Link>
 
-              <nav className="hidden lg:flex items-center gap-6">
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-8 text-sm font-light text-slate-300">
                 {navLinks.map((link) => (
-                  <NavLink 
-                    key={link.path} 
+                  <NavLink
+                    key={link.path}
                     to={link.path}
                     className={({ isActive }) => 
-                      `text-xs font-semibold tracking-normal transition-all relative group py-1 ${
-                        isActive ? 'text-white' : 'text-[#8A8F98] hover:text-white'
-                      }`
+                      `transition-colors hover:text-white ${isActive ? 'text-white font-medium' : ''}`
                     }
                   >
                     {link.name}
-                    <span className={`absolute -bottom-1 left-0 h-[2px] bg-emerald-400 transition-all duration-300 ${
-                      location.pathname === link.path ? 'w-full shadow-[0_0_10px_#10B981]' : 'w-0 group-hover:w-full'
-                    }`}></span>
                   </NavLink>
                 ))}
-              </nav>
+                
+                <button 
+                  onClick={toggleLanguage}
+                  className="text-xs font-mono-tech uppercase tracking-wider text-slate-400 hover:text-white transition-colors"
+                >
+                  {language === 'en' ? 'FR' : 'EN'}
+                </button>
             </div>
 
-            <div className="hidden lg:flex items-center gap-3">
-              <button 
-                onClick={toggleLanguage} 
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full linear-pill text-[11px] font-mono-tech font-medium text-gray-300 hover:text-white hover:border-white/20 transition-all uppercase"
-                title="Switch Language (EN / FR)"
-              >
-                <Globe size={12} className="text-emerald-400" />
-                <span>{language.toUpperCase()}</span>
-              </button>
-
+            <div className="hidden md:block">
               <button 
                 onClick={() => setIsDrawerOpen(true)}
-                className="px-5 py-2.5 rounded-full bg-white hover:bg-gray-100 text-black font-bold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.25)] flex items-center gap-2 cursor-pointer"
+                className="text-xs font-semibold tracking-widest uppercase bg-white/5 hover:bg-white/10 border border-white/10 px-6 py-2.5 rounded-full transition-all duration-300 text-white cursor-pointer"
               >
-                <Sparkles size={14} className="text-black" />
-                <span>{t('common.cta_book_invoice_audit')}</span>
+                  Book Audit
               </button>
             </div>
 
+            {/* Mobile Toggle */}
             <button 
-              className="lg:hidden p-2.5 rounded-2xl bg-white/5 text-white border border-white/10" 
+              className="md:hidden text-white p-2"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle navigation menu"
             >
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+        </div>
+
+        {/* Mobile Nav */}
+        <div className={`md:hidden absolute top-20 left-0 w-full glass-panel border-b border-white/[0.04] transition-all duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+          <div className="px-6 py-6 flex flex-col gap-6">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) => 
+                  `text-sm font-medium transition-colors ${isActive ? 'text-cyan-400' : 'text-slate-300'}`
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
+            <button 
+              onClick={toggleLanguage}
+              className="text-left text-sm font-mono-tech uppercase tracking-wider text-slate-400"
+            >
+              Language: {language === 'en' ? 'FR' : 'EN'}
+            </button>
+            <button 
+              onClick={() => { setIsOpen(false); setIsDrawerOpen(true); }}
+              className="w-full text-center text-xs font-semibold tracking-widest uppercase bg-indigo-600 hover:bg-indigo-500 px-6 py-3.5 rounded-full transition-all duration-300 text-white cursor-pointer"
+            >
+                Book Audit
             </button>
           </div>
         </div>
+      </nav>
 
-        {/* Mobile Navigation Drawer */}
-        <div className={`lg:hidden fixed inset-0 top-0 bg-[#070A0F] z-[59] transition-transform duration-500 pt-24 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="flex flex-col p-8 gap-6 h-full overflow-y-auto">
-            <div className="flex justify-between items-center pb-4 border-b border-white/10">
-               <button onClick={toggleLanguage} className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full text-xs font-mono-tech font-bold text-emerald-400 uppercase tracking-wider border border-white/10">
-                  <Globe size={16} /> Language: {language.toUpperCase()}
-               </button>
-            </div>
-
-            {navLinks.map((link) => (
-              <NavLink 
-                key={link.path} 
-                to={link.path} 
-                className="text-2xl font-bold text-white border-b border-white/5 pb-4 flex justify-between items-center"
-              >
-                {link.name}
-                <ChevronRight size={20} className="text-emerald-400" />
-              </NavLink>
-            ))}
-
-            <div className="mt-auto space-y-4 pt-6">
-              <button 
-                onClick={() => { setIsOpen(false); setIsDrawerOpen(true); }}
-                className="w-full py-4 text-xs font-extrabold rounded-2xl bg-white text-black uppercase tracking-wider shadow-2xl flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Sparkles size={16} /> {t('common.cta_book_invoice_audit')}
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* MOBILE STICKY COMMAND PILL */}
-      <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[55] lg:hidden transition-all duration-700 ${showSticky && !isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}>
-        <button 
-          onClick={() => setIsDrawerOpen(true)}
-          className="bg-[#0B0F17] text-white px-7 py-3.5 rounded-full shadow-2xl flex items-center gap-3 border border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-95 transition-transform"
-        >
-          <div className="w-7 h-7 bg-emerald-400 rounded-full flex items-center justify-center text-black">
-             <Zap size={14} />
-          </div>
-          <span className="text-[11px] font-mono-tech font-extrabold uppercase tracking-wider text-emerald-400 whitespace-nowrap">
-            {t('common.cta_book_invoice_audit')}
-          </span>
-        </button>
-      </div>
-
-      {/* Slide-over Lead Intake Drawer */}
       <LeadDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
     </>
   );

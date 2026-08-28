@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Send, CheckCircle2, ShieldCheck, Sparkles, Mail, User, Loader2 } from 'lucide-react';
+import { X, Send, CheckCircle2, ShieldCheck, Sparkles, Mail, User, Loader2, Building, Terminal } from 'lucide-react';
 import { db } from '../utils/database';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -15,10 +15,10 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    company: '',
     bottleneck: ''
   });
   const [honeypot, setHoneypot] = useState('');
-
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,7 +35,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
     // Persist lead to database
     db.saveEntry('lead', {
       ...formData,
-      type: 'OPERATIONAL_AUDIT_INTAKE',
+      type: 'SECURITY_ARCHITECTURE_AUDIT',
       submittedAt: new Date().toISOString()
     });
 
@@ -48,6 +48,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
     setFormData({
       name: '',
       email: '',
+      company: '',
       bottleneck: ''
     });
     setHoneypot('');
@@ -79,13 +80,13 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
             <div className="p-6 md:p-8 bg-[#070A0F] border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                  <Sparkles size={20} />
+                  <Terminal size={20} />
                 </div>
                 <div>
                   <span className="text-[10px] font-mono-tech font-bold uppercase tracking-[0.2em] text-emerald-400 block">
                     {t('drawer.tag')}
                   </span>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-lg md:text-xl font-bold text-white">
                     {t('drawer.title')}
                   </h3>
                 </div>
@@ -124,15 +125,15 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                     onClick={handleReset}
                     className="px-8 py-3.5 rounded-full bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-gray-100 transition-all cursor-pointer"
                   >
-                    {t('drawer.close') || t('drawer.success_close') || "Close & Return to Page"}
+                    {t('drawer.success_close') || "Close & Return to Site"}
                   </button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Hidden Honeypot Field for Bot Anti-Spam */}
                   <input
                     type="text"
-                    name="b_fax_number"
+                    name="b_security_code"
                     tabIndex={-1}
                     autoComplete="off"
                     value={honeypot}
@@ -142,20 +143,20 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   />
 
                   <p className="text-sm text-gray-300 leading-relaxed font-light">
-                    {t('drawer.desc') || "No high-pressure sales pitch. One of our senior automation specialists will review your daily workflow and show you exactly where time is being lost—100% free of charge."}
+                    {t('drawer.desc')}
                   </p>
 
                   {/* Field 1: Name */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      {t('drawer.name_label') || "Your Name *"}
+                      {t('drawer.name_label')}
                     </label>
                     <div className="relative">
                       <User size={16} className="absolute left-4 top-3.5 text-gray-400" />
                       <input
                         type="text"
                         required
-                        placeholder={t('drawer.name_placeholder') || "e.g. Sarah Jenkins"}
+                        placeholder={t('drawer.name_placeholder')}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full bg-white/5 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white"
@@ -166,14 +167,14 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   {/* Field 2: Work Email */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      {t('drawer.email_label') || "Work Email *"}
+                      {t('drawer.email_label')}
                     </label>
                     <div className="relative">
                       <Mail size={16} className="absolute left-4 top-3.5 text-gray-400" />
                       <input
                         type="email"
                         required
-                        placeholder={t('drawer.email_placeholder') || "e.g. sarah@company.ca"}
+                        placeholder={t('drawer.email_placeholder')}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-white/5 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white"
@@ -181,15 +182,32 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                     </div>
                   </div>
 
-                  {/* Field 3: Task Description */}
+                  {/* Field 3: Company */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
-                      {t('drawer.bottleneck_label') || "What is your biggest manual invoicing pain point right now? *"}
+                      {t('drawer.company_label')}
+                    </label>
+                    <div className="relative">
+                      <Building size={16} className="absolute left-4 top-3.5 text-gray-400" />
+                      <input
+                        type="text"
+                        placeholder={t('drawer.company_placeholder')}
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        className="w-full bg-white/5 border border-white/15 rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Field 4: Bottleneck / Security Challenge */}
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-mono-tech font-bold uppercase tracking-wider text-gray-300 block">
+                      {t('drawer.bottleneck_label')}
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder={t('drawer.bottleneck_placeholder') || "e.g. Typing invoice details from PDFs into QuickBooks, copy-pasting customer orders into accounting sheets..."}
+                      placeholder={t('drawer.bottleneck_placeholder')}
                       value={formData.bottleneck}
                       onChange={(e) => setFormData({ ...formData, bottleneck: e.target.value })}
                       className="w-full bg-white/5 border border-white/15 rounded-2xl p-4 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white resize-none"
@@ -200,7 +218,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                   <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="w-full py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-[1.01] transition-transform flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-4 rounded-full bg-white hover:bg-gray-100 text-black font-extrabold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-[1.01] transition-transform flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {status === 'submitting' ? (
                       <>
@@ -210,7 +228,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                     ) : (
                       <>
                         <Send size={15} />
-                        <span>{t('common.cta_book_invoice_audit')}</span>
+                        <span>{t('drawer.submit_btn')}</span>
                       </>
                     )}
                   </button>
@@ -221,9 +239,9 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
             {/* Footer badge */}
             <div className="p-4 bg-[#070A0F] border-t border-white/10 flex items-center justify-between text-[11px] text-gray-500 font-mono-tech">
               <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
-                <ShieldCheck size={14} /> Grounded Done-For-You Business Automation
+                <ShieldCheck size={14} /> {t('drawer.footer_badge')}
               </span>
-              <span>Atlantic Canada Regional Operations</span>
+              <span>{t('drawer.footer_region')}</span>
             </div>
           </motion.div>
         </>

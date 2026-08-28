@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   ArrowRight, ShieldCheck, Zap, Layers, CheckCircle2, 
-  Sparkles, RefreshCw, Clock, ArrowUpRight
+  Sparkles, RefreshCw, Clock, ArrowUpRight, GitBranch, Database, Activity, Terminal, Shield
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
@@ -13,49 +13,68 @@ const Services: React.FC = () => {
 
   const corePillars = [
     {
-      id: 'software-integration',
-      title: 'Connecting the Software Tools You Already Use.',
-      tagline: 'Seamless System Integration & Custom Data Bridges',
-      icon: <RefreshCw size={28} className="text-emerald-400" />,
-      problem: 'Your team is forced to act as human bridges—manually copy-pasting data between separate accounting, scheduling, and inventory systems.',
+      id: 'cspm-compliance',
+      title: 'Cloud Security Posture Management (CSPM)',
+      tagline: 'Continuous Multi-Cloud Scanning & Compliance',
+      icon: <ShieldCheck size={28} className="text-emerald-400" />,
+      headline: 'Turn Compliance from an Annual Nightmare into Continuous Assurance.',
+      problem: 'Engineering teams spend weeks capturing manual screenshots and log extracts before PIPEDA, SOC 2, and ISO 27001 audits while cloud drift goes unnoticed.',
       capabilities: [
-        'Automatic invoice and order data transfer',
-        'Real-time inventory and customer record sync',
-        'Elimination of double data entry and typo errors',
-        'Zero forced software upgrades or subscription changes'
+        'Automated cloud misconfiguration detection across AWS, Azure, GCP',
+        'Real-time drift detection for Infrastructure-as-Code (Terraform, OpenTofu)',
+        'Continuous compliance mapping (SOC 2, PIPEDA, ISO 27001, NIST)',
+        'Push-button cryptographic audit evidence and compliance archives'
       ],
-      outcomeMetric: '100% Automated Data Sync',
-      outcomeDesc: 'Eliminated manual copy-pasting across accounting, shipping, and sales tools with zero disruption to daily work.'
+      outcomeMetric: '24/7 Continuous Proof',
+      outcomeDesc: 'Replaced weeks of stressful pre-audit panic with automated 24/7 compliance evidence and zero cloud configuration drift.'
     },
     {
-      id: 'admin-automation',
-      title: 'Eliminating Hours of Repetitive Admin Work Every Week.',
-      tagline: 'Done-For-You Workflow Automation',
-      icon: <Zap size={28} className="text-emerald-400" />,
-      problem: 'Staff spends valuable payroll hours on tedious manual tasks instead of serving customers and growing your revenue.',
+      id: 'devsecops-pipelines',
+      title: 'DevSecOps Pipeline Engineering',
+      tagline: 'Shift-Left CI/CD Security Automation',
+      icon: <GitBranch size={28} className="text-cyan-400" />,
+      headline: 'Build Fast. Break Nothing. Secure Every Single Commit.',
+      problem: 'Security reviews happen at the end of release sprints, stalling deployments and forcing developers into expensive last-minute code rewrites.',
       capabilities: [
-        'Automated order processing and confirmation emails',
-        'Instant digital document generation and filing',
-        'Scheduled automated status reports for management',
-        'Custom workflow triggers for immediate team notifications'
+        'Automated SAST, DAST, and Software Bill of Materials (SBOM) generation',
+        'Container image scanning and cryptographic cosign verification',
+        'Secret leakage detection and credential gating in pull requests',
+        'Policy-as-Code enforcement guaranteeing zero unsecured code deploys'
       ],
-      outcomeMetric: '10–15 Hrs Saved / Week',
-      outcomeDesc: 'Reclaimed hundreds of staff payroll hours every month by automating repetitive daily paperwork.'
+      outcomeMetric: '10x Release Velocity',
+      outcomeDesc: 'Eliminated release security bottlenecks while shifting vulnerability scans directly into developer pull requests.'
     },
     {
-      id: 'operational-visibility',
-      title: 'Real-Time Operational Visibility Without Manual Spreadsheets.',
-      tagline: 'Unified Business Data & Reporting',
-      icon: <Layers size={28} className="text-emerald-400" />,
-      problem: 'Owners and general managers wait days for weekly numbers because operational data lives scattered across disconnected spreadsheets.',
+      id: 'erp-security-iam',
+      title: 'ERP Security & Identity Management',
+      tagline: 'Zero Trust Access & Financial Data Protection',
+      icon: <Database size={28} className="text-indigo-400" />,
+      headline: 'Protect the Financial & Operational Core of Your Business.',
+      problem: 'Former staff and third-party contractors retain active access across disconnected ERP, finance, and operational databases without centralized controls.',
       capabilities: [
-        'Automated weekly operational summary reports',
-        'Live tracking of active orders and fulfillment queues',
-        'Error detection alerts before wrong billing goes out',
-        'Clean data structure tailored specifically for your team\'s needs'
+        'Sub-second automated offboarding and credential de-provisioning',
+        'Least-privilege role matrix implementation and tokenized API gateways',
+        'Zero Trust mutual TLS (mTLS) database perimeter security',
+        'Real-time anomalous database exfiltration radar'
       ],
-      outcomeMetric: 'Real-Time Decision Intelligence',
-      outcomeDesc: 'Gave owners instant access to exact business numbers without waiting for manual weekly report collation.'
+      outcomeMetric: '< 1 Sec Offboarding',
+      outcomeDesc: 'Zero unauthorized access and instantaneous credential revocation across core enterprise and ERP systems.'
+    },
+    {
+      id: 'sre-incident-remediation',
+      title: 'Automated Incident Remediation (SRE)',
+      tagline: 'Autonomous Threat Neutralization & Uptime',
+      icon: <Activity size={28} className="text-amber-400" />,
+      headline: 'Neutralize Threats at Machine Speed Before They Impact Operations.',
+      problem: 'Human analysts cannot respond in milliseconds when brute-force or credential stuff attacks hit cloud infrastructure at 3 AM.',
+      capabilities: [
+        'Automated event-driven runbooks that isolate compromised nodes instantly',
+        'Sub-millisecond secret and API key rotation upon anomaly detection',
+        'Immutable audit logging and centralized SIEM streaming',
+        'Self-healing cloud architectures guaranteeing 99.99% operational uptime'
+      ],
+      outcomeMetric: '99.99% Cloud Uptime',
+      outcomeDesc: 'Autonomous event-driven remediation neutralizing threats in milliseconds with zero operational downtime.'
     }
   ];
 
@@ -63,19 +82,19 @@ const Services: React.FC = () => {
     {
       step: '01',
       title: t('steps.step1_title'),
-      subtitle: t('drawer.tag'),
+      subtitle: t('steps.step1_time'),
       description: t('steps.step1_desc')
     },
     {
       step: '02',
       title: t('steps.step2_title'),
-      subtitle: 'Seamless System Integration',
+      subtitle: t('steps.step2_time'),
       description: t('steps.step2_desc')
     },
     {
       step: '03',
       title: t('steps.step3_title'),
-      subtitle: 'Full Workflow Handoff & Support',
+      subtitle: t('steps.step3_time'),
       description: t('steps.step3_desc')
     }
   ];
@@ -83,8 +102,8 @@ const Services: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Invoice Automation Services & Process | Oakivo Solutions"
-        description="Explore our done-for-you invoice & bookkeeping automation services. Connect your existing accounting software with zero disruption across Atlantic Canada."
+        title="DevSecOps & Cloud Security Services | Oakivo Solutions"
+        description="Explore Oakivo's 4 core DevSecOps pillars: Cloud Security Posture Management (CSPM), CI/CD Pipeline Security, ERP Zero Trust IAM, and Automated SRE Incident Remediation in Atlantic Canada."
         canonical="/services"
       />
 
@@ -113,7 +132,7 @@ const Services: React.FC = () => {
                 to={NavRoute.CONTACT}
                 className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group"
               >
-                <span>{t('common.cta_book_invoice_audit')}</span>
+                <span>{t('common.cta_book_audit')}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
@@ -126,13 +145,13 @@ const Services: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="max-w-3xl mb-16 space-y-3">
             <span className="text-xs font-mono-tech font-medium uppercase tracking-wider text-emerald-400">
-              {t('services.badge')}
+              {t('arsenal.badge')}
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-linear-tight text-linear-heading">
-              {t('services.title')}
+              {t('arsenal.title_main')} {t('arsenal.title_accent')}
             </h2>
             <p className="text-sm md:text-base text-[#8A8F98]">
-              {t('services.subtitle')}
+              {t('arsenal.subtitle')}
             </p>
           </div>
 
@@ -157,11 +176,14 @@ const Services: React.FC = () => {
                       <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mt-1">
                         {pillar.title}
                       </h3>
+                      <p className="text-xs md:text-sm font-semibold text-emerald-400 mt-2">
+                        {pillar.headline}
+                      </p>
                     </div>
 
                     <div className="p-4 rounded-xl bg-black/40 border border-white/[0.06] space-y-1.5">
                       <span className="text-[10px] font-mono-tech font-semibold text-amber-400 uppercase tracking-wider block">
-                        Common Problem
+                        Common Operational Risk
                       </span>
                       <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
                         {pillar.problem}
@@ -173,7 +195,7 @@ const Services: React.FC = () => {
                   <div className="lg:col-span-7 space-y-6 lg:pl-6 lg:border-l lg:border-white/[0.08]">
                     <div>
                       <h4 className="text-xs font-mono-tech font-medium uppercase tracking-wider text-[#8A8F98] mb-4">
-                        What We Implement
+                        What Oakivo Engineers Implement
                       </h4>
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {pillar.capabilities.map((cap, i) => (
@@ -273,7 +295,7 @@ const Services: React.FC = () => {
                 to={NavRoute.CONTACT}
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
               >
-                <span>{t('common.cta_book_invoice_audit')}</span>
+                <span>{t('common.cta_book_audit')}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>

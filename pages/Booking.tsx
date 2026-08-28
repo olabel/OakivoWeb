@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { Calendar as CalendarIcon, Clock, Globe, ShieldCheck, CheckCircle2, ArrowRight, User, Mail, Video, Sparkles } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, Globe, ShieldCheck, CheckCircle2, ArrowRight, User, Mail, Video, Sparkles, Terminal } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
 import SEO from '../components/SEO';
 import Section from '../components/Section';
 import { db } from '../utils/database';
 
 const Booking: React.FC = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const langDict = translations[language] || translations['en'];
   const bData = langDict?.booking || translations['en'].booking || {
-    hero_title: "15-Minute Operational Audit.",
-    hero_subtitle: "Select a timeslot for a brief evaluation of your invoicing bottlenecks.",
-    success_title: "Audit Confirmed.",
-    success_message: "A calendar invitation has been sent to your work email address."
+    hero_title: "30-Minute Security Architecture Audit.",
+    hero_subtitle: "Select a timeslot for a live technical evaluation with a senior DevSecOps engineer.",
+    success_title: "Security Audit Confirmed.",
+    success_message: "A calendar invitation with meeting details has been sent to your work email."
   };
   
   const [step, setStep] = useState(1);
@@ -43,7 +43,7 @@ const Booking: React.FC = () => {
       ...form,
       selectedDate,
       selectedTime,
-      type: '15_MIN_OPERATIONAL_AUDIT_BOOKING'
+      type: '30_MIN_SECURITY_AUDIT_BOOKING'
     });
     setStatus('success');
   };
@@ -51,8 +51,8 @@ const Booking: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Schedule Free 15-Minute Audit | Oakivo Solutions"
-        description="Schedule your free 15-minute invoice audit with an automation specialist at Oakivo Solutions. Discover how to automate billing across Atlantic Canada."
+        title="Schedule 30-Minute Security Audit | Oakivo Solutions — Dieppe, NB"
+        description="Schedule your 30-minute DevSecOps and Cloud Security Architecture Audit with Oakivo Solutions. Live technical consultation for Atlantic Canadian businesses."
         canonical="/booking"
       />
 
@@ -61,9 +61,9 @@ const Booking: React.FC = () => {
 
         <div className="container mx-auto px-4 text-center max-w-3xl relative z-10">
           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-6">
-            <Sparkles size={14} className="text-emerald-400" />
+            <Terminal size={14} className="text-emerald-400" />
             <span className="text-[10px] font-mono-tech text-emerald-400 font-bold uppercase tracking-widest">
-              Free Operational Audit
+              Live Senior DevSecOps Consultation
             </span>
           </div>
 
@@ -86,29 +86,29 @@ const Booking: React.FC = () => {
                 <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 mb-4 border border-emerald-500/20">
                   <Video size={20} />
                 </div>
-                <h3 className="text-lg font-bold">15-Min Operational Audit</h3>
-                <p className="text-xs text-gray-400 font-light mt-1">15 Minutes • Live Video or Phone</p>
+                <h3 className="text-lg font-bold">30-Min Security Audit</h3>
+                <p className="text-xs text-gray-400 font-light mt-1">30 Minutes • Live Video or Call</p>
               </div>
                
               <div className="space-y-4 pt-4 border-t border-white/10 text-xs text-gray-400">
                 <div className="flex items-center gap-2">
-                  <Clock size={14} className="text-emerald-400" /> <span>15 Minutes</span>
+                  <Clock size={14} className="text-emerald-400" /> <span>30 Minutes</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Globe size={14} className="text-emerald-400" /> <span>Atlantic Standard Time</span>
+                  <Globe size={14} className="text-emerald-400" /> <span>Atlantic Standard Time (AST)</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <ShieldCheck size={14} className="text-emerald-400" /> <span>100% Free • No Hard Sales</span>
+                  <ShieldCheck size={14} className="text-emerald-400" /> <span>100% Confidential • Senior Lead</span>
                 </div>
               </div>
                
               <div className="pt-6 border-t border-white/10">
-                <p className="text-[10px] font-mono-tech uppercase text-gray-500 mb-2">Automation Specialist</p>
+                <p className="text-[10px] font-mono-tech uppercase text-gray-500 mb-2">DevSecOps Architect</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-emerald-400 rounded-full flex items-center justify-center text-black font-bold text-xs">MV</div>
+                  <div className="w-8 h-8 bg-emerald-400 rounded-full flex items-center justify-center text-black font-bold text-xs">OS</div>
                   <div>
-                    <p className="text-xs font-bold text-white">Marcus Vance</p>
-                    <p className="text-[10px] text-emerald-400 font-mono-tech">Lead Automation Specialist</p>
+                    <p className="text-xs font-bold text-white">Senior DevSecOps Lead</p>
+                    <p className="text-[10px] text-emerald-400 font-mono-tech">Oakivo Solutions Inc. (Dieppe, NB)</p>
                   </div>
                 </div>
               </div>
@@ -144,7 +144,7 @@ const Booking: React.FC = () => {
                   
                   {selectedDate && (
                     <div className="space-y-3 pt-2">
-                      <h4 className="text-[10px] font-mono-tech uppercase text-gray-400">Available Timeslots</h4>
+                      <h4 className="text-[10px] font-mono-tech uppercase text-gray-400">Available Timeslots (AST)</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {times.map((t, i) => (
                           <button 
@@ -189,28 +189,33 @@ const Booking: React.FC = () => {
 
                   <h3 className="text-lg font-bold text-white">Confirm Your Details</h3>
                   <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-xs text-emerald-400 font-mono-tech flex justify-between items-center">
-                    <span>{selectedDate} at {selectedTime}</span>
+                    <span>{selectedDate} at {selectedTime} (AST)</span>
                     <button type="button" onClick={() => setStep(1)} className="text-gray-300 hover:text-white underline text-[10px]">Change</button>
                   </div>
                   
                   <div>
                     <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Your Name *</label>
-                    <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="Marcus Vance" />
+                    <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="Sarah Jenkins" />
                   </div>
 
                   <div>
                     <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Work Email *</label>
-                    <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="m.vance@company.ca" />
+                    <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="sarah@company.ca" />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Main Bottleneck Task *</label>
-                    <textarea rows={2} required value={form.bottleneck} onChange={e => setForm({...form, bottleneck: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white resize-none" placeholder="e.g. Typing paper invoices into QuickBooks..." />
+                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Company / Organization Name</label>
+                    <input type="text" value={form.company} onChange={e => setForm({...form, company: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white" placeholder="Acme Logistics Inc." />
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] font-mono-tech uppercase text-gray-300 block mb-1">Current Infrastructure / Security Challenge *</label>
+                    <textarea rows={2} required value={form.bottleneck} onChange={e => setForm({...form, bottleneck: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white resize-none" placeholder="e.g. SOC 2 audit readiness, securing CI/CD pipelines, ERP access controls..." />
                   </div>
 
                   <button type="submit" className="w-full py-3.5 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 cursor-pointer">
                     <Sparkles size={14} />
-                    <span>Confirm Free 15-Minute Audit</span>
+                    <span>Confirm 30-Minute Security Audit</span>
                   </button>
                 </form>
               )}

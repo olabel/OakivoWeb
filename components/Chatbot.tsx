@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
 import { 
   X, Sparkles, ArrowRight, User, Send, CheckCircle2, 
-  Bot, Clock, ShieldCheck, Activity, MessageSquare
+  Bot, Clock, ShieldCheck, Activity, MessageSquare, Terminal, Building2
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { db } from '../utils/database';
@@ -21,10 +21,10 @@ const Chatbot: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const quickPrompts = [
-    language === 'en' ? "Free 15-Min Operational Audit?" : "Audit opérationnel gratuit ?",
-    language === 'en' ? "Do we need to buy new software?" : "Faut-il acheter de nouveaux logiciels ?",
-    language === 'en' ? "How fast is setup?" : "Combien de temps prend l'installation ?",
-    language === 'en' ? "Which tools can you connect?" : "Quels outils pouvez-vous connecter ?"
+    language === 'en' ? "Book 30-Min Security Audit" : "Réserver un audit de sécurité 30 min",
+    language === 'en' ? "How does DevSecOps speed up shipping?" : "Comment DevSecOps accélère les livraisons ?",
+    language === 'en' ? "Continuous SOC 2 / PIPEDA compliance?" : "Conformité continue SOC 2 / PIPEDA ?",
+    language === 'en' ? "Local presence in Dieppe, NB?" : "Présence locale à Dieppe, NB ?"
   ];
 
   useEffect(() => {
@@ -33,8 +33,8 @@ const Chatbot: React.FC = () => {
       setMessages([{ 
         role: 'model', 
         text: language === 'en' 
-          ? "Welcome to Oakivo Solutions! I am your AI Automation Assistant. We connect the software tools you already use so your team stops wasting hours on manual data entry across Atlantic Canada. How can I help you today?" 
-          : "Bienvenue chez Oakivo Solutions ! Je suis votre assistant d'automatisation. Nous connectons vos logiciels actuels pour éliminer la saisie manuelle de données au Canada atlantique. Comment puis-je vous aider aujourd'hui ?" 
+          ? "Welcome to Oakivo Solutions Inc. Headquartered in Dieppe, New Brunswick, we engineer premium DevSecOps pipelines, automated cloud security (CSPM), and autonomous incident remediation for Atlantic Canadian enterprises. How can I assist your engineering and security teams today?" 
+          : "Bienvenue chez Oakivo Solutions Inc. Basés à Dieppe au Nouveau-Brunswick, nous concevons des pipelines DevSecOps de pointe, la sécurité infonuagique automatisée (CSPM) et la remédiation autonome d'incidents pour les entreprises du Canada atlantique. Comment puis-je vous aider aujourd'hui ?" 
       }]);
     }
   }, [language]);
@@ -59,23 +59,28 @@ const Chatbot: React.FC = () => {
       try {
         const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || process.env.API_KEY || '' });
         const response = await ai.models.generateContent({
-          model: 'gemini-3.6-flash',
+          model: 'gemini-2.5-flash',
           contents: [...messages, { role: 'user', text: messageToSend }].map(m => ({
             role: m.role,
             parts: [{ text: m.text }]
           })),
           config: {
-            systemInstruction: `You are Oakivo's AI Automation Assistant for Oakivo Solutions Inc.
-            Core Focus: Done-For-You Business Workflow & System Automation in Atlantic Canada (New Brunswick, Nova Scotia, PEI, Newfoundland).
-            Key Value Proposition: We connect the software businesses ALREADY use (QuickBooks, Excel, Shopify, custom CRMs, email, Google Workspace) so teams stop wasting hours on manual data entry, copy-pasting between systems, and repetitive admin work.
-            Key Facts:
-            - NO new software subscriptions to buy.
-            - Setup takes 5 to 10 business days.
-            - Reclaims 10 to 20 hours per employee every week.
-            - Zero human copy-paste errors across orders & billing.
-            - Primary CTA: Free 15-Minute Operational Audit with an automation specialist.
-            Tone: High-clarity, practical, zero technical jargon, friendly, direct.
-            Language: Respond in ${language === 'en' ? 'English' : 'French'}.`,
+            systemInstruction: `You are Oakivo's Senior DevSecOps & Cloud Security Technical Assistant for Oakivo Solutions Inc. (Dieppe, New Brunswick).
+            Core Pillars:
+            1. Cloud Security Posture Management (CSPM): Continuous multi-cloud scanning (AWS, Azure, GCP), Infrastructure-as-Code drift detection (Terraform, OpenTofu), and automated compliance archives for SOC 2, PIPEDA, ISO 27001.
+            2. DevSecOps Pipeline Engineering: Shift-left automated security gates (SAST, DAST, SBOM, container signing) in GitHub Actions, GitLab CI, ArgoCD. Catch issues in milliseconds in pull requests.
+            3. ERP Security & IAM: Zero Trust identity mesh, sub-second offboarding, role matrix implementation, and automated token rotation.
+            4. Automated Incident Remediation (SRE): Autonomous threat neutralization, secret rotation, and immutable audit trails with 99.99% uptime.
+            
+            Key Local Differentiator:
+            - Headquartered in Dieppe, New Brunswick.
+            - Direct bilingual (EN/FR) senior DevSecOps architects.
+            - Local Atlantic Standard Time (AST) operations and < 15 minute critical response SLA.
+            - 100% Canadian Data Sovereignty.
+            - Primary CTA: 30-Minute Security Architecture Audit with a senior DevSecOps lead.
+            
+            Tone: Highly knowledgeable, precise, grounded, zero fluff, friendly, professional.
+            Language: Always respond in ${language === 'en' ? 'English' : 'French'}.`,
           },
         });
         generatedText = response.text || "";
@@ -85,26 +90,26 @@ const Chatbot: React.FC = () => {
 
       if (!generatedText) {
         const lowerMsg = messageToSend.toLowerCase();
-        if (lowerMsg.includes('buy') || lowerMsg.includes('software') || lowerMsg.includes('new') || lowerMsg.includes('cost')) {
+        if (lowerMsg.includes('audit') || lowerMsg.includes('30') || lowerMsg.includes('free') || lowerMsg.includes('book') || lowerMsg.includes('schedule')) {
           generatedText = language === 'en'
-            ? "No, you do NOT need to buy any new software! We build custom automated bridges between the exact tools you already use (like QuickBooks, Excel, Shopify, email, or your current CRM). Everything happens seamlessly in the background."
-            : "Non, vous n'avez AUCUN nouveau logiciel à acheter ! Nous créons des ponts automatisés sur mesure entre les outils que vous utilisez déjà (QuickBooks, Excel, Shopify, courriels, CRM). Tout fonctionne en arrière-plan.";
-        } else if (lowerMsg.includes('fast') || lowerMsg.includes('time') || lowerMsg.includes('setup') || lowerMsg.includes('long')) {
+            ? "Our 30-Minute Security Architecture Audit pairs your team directly with a senior DevSecOps engineer. We evaluate your current cloud configuration, CI/CD pipelines, and compliance exposure, providing a prioritized remediation blueprint with zero sales pressure."
+            : "Notre audit d'architecture de sécurité de 30 minutes vous met directement en relation avec un ingénieur DevSecOps sénior. Nous analysons vos infrastructures infonuagiques, vos pipelines CI/CD et votre conformité réglementaire pour vous fournir un plan d'action concret.";
+        } else if (lowerMsg.includes('speed') || lowerMsg.includes('fast') || lowerMsg.includes('devsecops') || lowerMsg.includes('pipeline') || lowerMsg.includes('slow')) {
           generatedText = language === 'en'
-            ? "Our done-for-you workflow automation is typical setup and live in 5 to 10 business days. We handle 100% of the technical connection, testing, and verification so your team doesn't have to lift a finger."
-            : "Nos automatisations clé en main sont configurées et opérationnelles en 5 à 10 jours ouvrables. Nous gérons 100 % de l'installation et des tests sans vous déranger.";
-        } else if (lowerMsg.includes('audit') || lowerMsg.includes('15') || lowerMsg.includes('free') || lowerMsg.includes('book')) {
+            ? "DevSecOps actually speeds up deployment cycles! By shifting security checks directly into automated CI/CD pull requests (SAST, container scanning, secret detection), vulnerabilities are caught in milliseconds during development instead of causing weeks of pre-release delays."
+            : "DevSecOps accélère vos cycles de déploiement ! En intégrant les vérifications directement dans vos pipelines CI/CD (SAST, conteneurs, détection de secrets), les vulnérabilités sont corrigées en millisecondes sans bloquer les livraisons.";
+        } else if (lowerMsg.includes('soc') || lowerMsg.includes('pipeda') || lowerMsg.includes('compliance') || lowerMsg.includes('audit')) {
           generatedText = language === 'en'
-            ? "Our Free 15-Minute Operational Audit is a quick, no-pressure chat where an automation specialist looks at your daily workflow to pinpoint exact areas where staff is losing hours on manual data entry."
-            : "Notre audit opérationnel gratuit de 15 minutes est un échange simple sans pression. Un spécialiste étudie vos processus quotidiens pour identifier où votre équipe perd du temps en saisie manuelle.";
-        } else if (lowerMsg.includes('tool') || lowerMsg.includes('connect') || lowerMsg.includes('quickbooks') || lowerMsg.includes('excel')) {
+            ? "Our CSPM engines continuously scan multi-cloud infrastructure and automatically archive cryptographically signed compliance evidence 24/7/365. This eliminates stressful annual manual audit preparations for SOC 2, PIPEDA, and ISO 27001."
+            : "Nos moteurs CSPM analysent vos environnements infonuagiques en continu et archivent automatiquement les preuves cryptographiques pour SOC 2 et la LPRPDE (PIPEDA) 24/7/365.";
+        } else if (lowerMsg.includes('dieppe') || lowerMsg.includes('local') || lowerMsg.includes('atlantic') || lowerMsg.includes('canada') || lowerMsg.includes('bilingual')) {
           generatedText = language === 'en'
-            ? "We connect almost any software tool with an open API or export capability—including QuickBooks, Xero, Excel, Google Sheets, Shopify, WooCommerce, HubSpot, Salesforce, and custom SQL/inventory databases!"
-            : "Nous connectons presque tous les outils logiciels—QuickBooks, Excel, Google Sheets, Shopify, WooCommerce, HubSpot, Salesforce et bases de données sur mesure !";
+            ? "We are proudly headquartered in Dieppe, New Brunswick! Our entire team operates in Atlantic Standard Time, providing 100% bilingual (EN/FR) senior engineering and a sub-15-minute response SLA for Atlantic Canadian enterprises."
+            : "Nous sommes fièrement basés à Dieppe, au Nouveau-Brunswick ! Notre équipe opère à l'heure de l'Atlantique et offre un service 100 % bilingue (FR/EN) avec un SLA de réponse critique de moins de 15 minutes.";
         } else {
           generatedText = language === 'en'
-            ? "I'd love to help you reclaim staff hours! Oakivo connects your existing tools so you stop copy-pasting data. Would you like to request a free 15-minute operational audit with one of our specialists?"
-            : "Je serais ravi de vous aider à gagner du temps ! Oakivo connecte vos outils actuels pour éliminer le copié-collé. Souhaitez-vous demander un audit opérationnel gratuit de 15 minutes ?";
+            ? "Oakivo Solutions protects mission-critical systems across Atlantic Canada through automated DevSecOps, CSPM compliance, and autonomous threat remediation. Would you like to schedule a 30-minute security architecture audit with one of our senior engineers?"
+            : "Oakivo Solutions sécurise les infrastructures critiques au Canada atlantique par le DevSecOps automatisé et la conformité continue. Souhaitez-vous planifier un audit d'architecture de sécurité de 30 minutes ?";
         }
       }
 
@@ -112,12 +117,12 @@ const Chatbot: React.FC = () => {
 
       const keywords = ['audit', 'book', 'schedule', 'speak', 'meet', 'cost', 'quote', 'réserver', 'contact'];
       if (keywords.some(k => messageToSend.toLowerCase().includes(k) || generatedText.toLowerCase().includes(k))) {
-         setMessages(prev => [...prev, { role: 'model', text: language === 'en' ? "Would you like to book your free 15-minute operational audit right now?" : "Souhaitez-vous réserver votre audit opérationnel gratuit de 15 minutes dès maintenant ?", isAction: true }]);
+         setMessages(prev => [...prev, { role: 'model', text: language === 'en' ? "Would you like to schedule your 30-minute security architecture audit right now?" : "Souhaitez-vous planifier votre audit de sécurité de 30 minutes dès maintenant ?", isAction: true }]);
       }
     } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'model', 
-        text: language === 'en' ? "Connection temporarily delayed. Please use our Free Operational Audit form on the website!" : "Connexion temporairement différée. Veuillez utiliser notre formulaire d'audit gratuit !" 
+        text: language === 'en' ? "Connection temporarily delayed. Please use our Security Architecture Audit form on the site!" : "Connexion temporairement différée. Veuillez utiliser le formulaire d'audit sur le site !" 
       }]);
     } finally {
       setIsTyping(false);
@@ -126,7 +131,7 @@ const Chatbot: React.FC = () => {
 
   const handleLeadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    db.saveEntry('lead', { ...leadForm, source: 'Chat Assistant Operational Audit Intake', type: 'CHATBOT_AUDIT_REQUEST' });
+    db.saveEntry('lead', { ...leadForm, source: 'Chat Assistant Security Audit Intake', type: 'CHATBOT_SECURITY_AUDIT_REQUEST' });
     setLeadStatus('success');
     setTimeout(() => {
       setShowLeadForm(false);
@@ -134,7 +139,7 @@ const Chatbot: React.FC = () => {
       setLeadForm({ name: '', email: '', company: '', bottleneck: '' });
       setMessages(prev => [...prev, { 
         role: 'model', 
-        text: language === 'en' ? "Thank you! An automation specialist will review your details and reach out within 24 hours to schedule your free 15-minute audit." : "Merci ! Un spécialiste de l'automatisation examinera vos détails et vous contactera sous 24h pour planifier votre audit gratuit." 
+        text: language === 'en' ? "Thank you! A senior DevSecOps engineer will review your details and reach out within 24 hours to coordinate your 30-minute security audit." : "Merci ! Un ingénieur DevSecOps sénior examinera vos informations et vous contactera sous 24h pour organiser votre audit de sécurité." 
       }]);
     }, 1500);
   };
@@ -146,15 +151,15 @@ const Chatbot: React.FC = () => {
         className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] transition-all relative border border-white/20 cursor-pointer ${
           isOpen ? 'bg-white text-black scale-105' : 'bg-[#0B0F17] text-white hover:scale-105'
         }`}
-        aria-label="Toggle Oakivo AI Assistant"
+        aria-label="Toggle Oakivo Security Assistant"
       >
-        {isOpen ? <X size={26} /> : <Bot size={28} className="text-emerald-400" />}
+        {isOpen ? <X size={26} /> : <Terminal size={26} className="text-emerald-400" />}
         {!isOpen && (
           <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-[#070A0F] animate-pulse" />
         )}
       </button>
 
-      <div className={`absolute bottom-20 right-0 w-[420px] max-w-[90vw] h-[600px] bg-[#0B0F17] rounded-[32px] shadow-2xl border border-white/10 flex flex-col transition-all duration-300 origin-bottom-right overflow-hidden ${
+      <div className={`absolute bottom-20 right-0 w-[440px] max-w-[92vw] h-[620px] bg-[#0B0F17] rounded-[32px] shadow-2xl border border-white/10 flex flex-col transition-all duration-300 origin-bottom-right overflow-hidden ${
         isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
       }`}>
         
@@ -162,11 +167,11 @@ const Chatbot: React.FC = () => {
         <div className="p-5 bg-[#070A0F] text-white rounded-t-[32px] flex items-center justify-between border-b border-white/10">
            <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                 <Bot size={22} />
+                 <Terminal size={20} />
               </div>
               <div>
-                 <span className="font-extrabold text-sm block leading-none text-white">Oakivo Assistant</span>
-                 <span className="text-[10px] font-mono-tech text-emerald-400 font-bold uppercase tracking-wider">Done-For-You Workflow Automation</span>
+                 <span className="font-extrabold text-sm block leading-none text-white">Oakivo Security AI</span>
+                 <span className="text-[10px] font-mono-tech text-emerald-400 font-bold uppercase tracking-wider">DevSecOps & Cloud Security</span>
               </div>
            </div>
            <button 
@@ -192,7 +197,7 @@ const Chatbot: React.FC = () => {
                       onClick={() => setShowLeadForm(true)} 
                       className="mt-3 w-full bg-emerald-400 text-black py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-emerald-300 transition-colors flex items-center justify-center gap-2 cursor-pointer"
                      >
-                       <Clock size={14} /> Book Free 15-Min Audit
+                       <Clock size={14} /> Request 30-Min Security Audit
                      </button>
                    )}
                 </div>
@@ -200,97 +205,104 @@ const Chatbot: React.FC = () => {
            ))}
 
            {isTyping && (
-             <div className="flex items-center gap-2 text-[10px] font-mono-tech text-gray-400 font-bold uppercase tracking-wider p-2">
-                <Activity size={14} className="animate-spin text-emerald-400" /> Analyzing request...
+             <div className="flex justify-start">
+               <div className="bg-[#121722] border border-white/10 p-3.5 rounded-2xl text-xs text-gray-400 flex items-center gap-2">
+                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                 <span className="font-mono-tech text-[11px]">Analyzing security context...</span>
+               </div>
              </div>
            )}
 
            {showLeadForm && (
-             <form onSubmit={handleLeadSubmit} className="p-5 bg-[#121722] rounded-2xl space-y-3 border border-white/10 shadow-lg animate-fade-in-up">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs font-bold text-white flex items-center gap-1.5">
-                    <Sparkles size={14} className="text-emerald-400" /> Free 15-Min Audit Request
-                  </p>
-                  <button type="button" onClick={() => setShowLeadForm(false)} className="text-gray-400 hover:text-white">
-                    <X size={16} />
-                  </button>
-                </div>
+             <div className="bg-[#121722] border border-emerald-500/30 p-5 rounded-2xl space-y-3 shadow-lg">
+               <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                 <span className="text-xs font-bold text-white uppercase font-mono-tech tracking-wider">30-Min Security Audit Intake</span>
+                 <button onClick={() => setShowLeadForm(false)} className="text-gray-400 hover:text-white text-xs">Cancel</button>
+               </div>
 
-                <input 
-                  type="text" 
-                  required 
-                  placeholder="Your Name *" 
-                  value={leadForm.name} 
-                  onChange={e => setLeadForm({...leadForm, name: e.target.value})} 
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-white focus:outline-none" 
-                />
-                <input 
-                  type="email" 
-                  required 
-                  placeholder="Work Email *" 
-                  value={leadForm.email} 
-                  onChange={e => setLeadForm({...leadForm, email: e.target.value})} 
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-white focus:outline-none" 
-                />
-                <textarea 
-                  rows={2}
-                  required 
-                  placeholder="What manual task takes up most of your team's time?" 
-                  value={leadForm.bottleneck} 
-                  onChange={e => setLeadForm({...leadForm, bottleneck: e.target.value})} 
-                  className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-white focus:outline-none resize-none" 
-                />
-                <button 
-                  type="submit" 
-                  className="w-full bg-white text-black py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-gray-100 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  {leadStatus === 'success' ? (
-                    <>
-                      <CheckCircle2 size={16} className="text-emerald-500" />
-                      <span>Audit Request Sent!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send size={14} />
-                      <span>Book Free Operational Audit</span>
-                    </>
-                  )}
-                </button>
-             </form>
+               {leadStatus === 'success' ? (
+                 <div className="py-4 text-center space-y-2">
+                   <CheckCircle2 size={28} className="text-emerald-400 mx-auto" />
+                   <p className="text-xs font-bold text-white">Security Audit Request Received!</p>
+                 </div>
+               ) : (
+                 <form onSubmit={handleLeadSubmit} className="space-y-2.5">
+                   <input
+                     type="text"
+                     required
+                     placeholder="Full Name *"
+                     value={leadForm.name}
+                     onChange={e => setLeadForm({ ...leadForm, name: e.target.value })}
+                     className="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white"
+                   />
+                   <input
+                     type="email"
+                     required
+                     placeholder="Work Email *"
+                     value={leadForm.email}
+                     onChange={e => setLeadForm({ ...leadForm, email: e.target.value })}
+                     className="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white"
+                   />
+                   <input
+                     type="text"
+                     placeholder="Company / Organization"
+                     value={leadForm.company}
+                     onChange={e => setLeadForm({ ...leadForm, company: e.target.value })}
+                     className="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white"
+                   />
+                   <textarea
+                     required
+                     rows={2}
+                     placeholder="Primary security or cloud challenge *"
+                     value={leadForm.bottleneck}
+                     onChange={e => setLeadForm({ ...leadForm, bottleneck: e.target.value })}
+                     className="w-full bg-black/50 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white resize-none"
+                   />
+                   <button
+                     type="submit"
+                     className="w-full py-2.5 rounded-xl bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-gray-100 transition-all cursor-pointer"
+                   >
+                     Confirm Audit Request
+                   </button>
+                 </form>
+               )}
+             </div>
            )}
         </div>
 
         {/* Quick Prompts */}
-        <div className="px-3 py-2 bg-[#070A0F] border-t border-white/10 flex gap-2 overflow-x-auto no-scrollbar">
-          {quickPrompts.map((qp, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleSend(qp)}
-              className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-semibold text-gray-300 whitespace-nowrap hover:bg-white hover:text-black transition-all cursor-pointer shrink-0"
-            >
-              {qp}
-            </button>
-          ))}
+        <div className="p-3 bg-[#070A0F] border-t border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar">
+           {quickPrompts.map((prompt, i) => (
+             <button
+               key={i}
+               onClick={() => handleSend(prompt)}
+               className="shrink-0 text-[11px] font-mono-tech px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-emerald-500/40 transition-all cursor-pointer"
+             >
+               {prompt}
+             </button>
+           ))}
         </div>
 
-        {/* Input Bar */}
-        <div className="p-3.5 bg-[#070A0F] border-t border-white/10 flex gap-2 rounded-b-[32px]">
-           <input 
-            type="text" 
-            value={input} 
-            onChange={e => setInput(e.target.value)} 
-            onKeyDown={e => e.key === 'Enter' && handleSend()} 
-            placeholder={language === 'en' ? "Ask about workflow automation or audits..." : "Posez une question sur l'automatisation..."} 
-            className="flex-grow bg-white/5 border border-white/10 rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white" 
-           />
-           <button 
-            onClick={() => handleSend()} 
-            className="w-10 h-10 bg-white text-black rounded-2xl flex items-center justify-center hover:bg-gray-200 transition-colors cursor-pointer shrink-0"
-            aria-label="Send Message"
-           >
-            <ArrowRight size={18} />
-           </button>
+        {/* Footer Input */}
+        <div className="p-4 bg-[#0B0F17] border-t border-white/10">
+           <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="relative flex items-center">
+              <input 
+                type="text" 
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder={language === 'en' ? "Ask about DevSecOps, CSPM, or compliance..." : "Posez une question sur DevSecOps, CSPM, conformité..."} 
+                className="w-full bg-white/5 border border-white/15 rounded-full pl-4 pr-12 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors"
+              />
+              <button 
+                type="submit" 
+                disabled={!input.trim() || isTyping}
+                className="absolute right-1.5 w-8 h-8 rounded-full bg-white hover:bg-gray-100 disabled:opacity-30 text-black flex items-center justify-center transition-all cursor-pointer"
+              >
+                 <Send size={13} />
+              </button>
+           </form>
         </div>
+
       </div>
     </div>
   );
