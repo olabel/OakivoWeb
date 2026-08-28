@@ -10,15 +10,19 @@ const Home: React.FC = () => {
       <SEO 
         title="Oakivo Solutions Inc. | Premium DevSecOps & Cloud Security"
         description="We architect bespoke, self-healing cloud infrastructure and shift-left pipelines. Ship faster without failing another compliance audit."
+        keywords="DevSecOps, Cloud Security, Infrastructure as Code, Kubernetes Security, Zero-Trust Architecture, Shift-Left Pipelines"
       />
       
       {/* Hero Section */}
       <header className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-20 lg:-mt-24 pt-20">
         {/* Video Placeholder */}
-        <div className="absolute inset-0 w-full h-full bg-slate-900">
-            <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity">
-                <source src="https://cdn.pixabay.com/video/2020/05/25/40118-425667305_large.mp4" type="video/mp4" />
-            </video>
+        <div className="absolute inset-0 w-full h-full bg-slate-900 pointer-events-none overflow-hidden">
+            <iframe
+                className="absolute w-[300vw] h-[300vh] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[150vw] md:h-[150vh] lg:w-[120vw] lg:h-[150vh] opacity-30 mix-blend-luminosity"
+                src="https://www.youtube.com/embed/W3xvFiHXsNI?autoplay=1&mute=1&controls=0&loop=1&playlist=W3xvFiHXsNI&showinfo=0&rel=0&modestbranding=1"
+                allow="autoplay; encrypted-media"
+                style={{ border: 'none' }}
+            ></iframe>
         </div>
         {/* Overlay Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950"></div>

@@ -29,7 +29,7 @@ const SEO: React.FC<SEOProps> = ({
     'url': siteUrl,
     'logo': `${siteUrl}/logo.png`,
     'image': `${siteUrl}/logo.png`,
-    'description': 'Done-For-You Business Workflow & System Automation in Atlantic Canada. We connect your existing software so your team stops wasting hours on manual data entry.',
+    'description': 'Elite DevSecOps automation, autonomous infrastructure design, and zero-trust cloud security for Atlantic Canadian enterprises.',
     'address': {
       '@type': 'PostalAddress',
       'addressRegion': 'Atlantic Canada',
@@ -42,19 +42,19 @@ const SEO: React.FC<SEOProps> = ({
       { '@type': 'AdministrativeArea', 'name': 'Newfoundland and Labrador' }
     ],
     'serviceType': [
-      'Done-For-You Business Workflow Automation',
-      'Software System Integration',
-      'Accounting & Invoice Synchronization',
-      'Order & Inventory Automation'
+      'DevSecOps Automation',
+      'Cloud Security Posture Management (CSPM)',
+      'Zero-Trust Architecture',
+      'CI/CD Pipeline Security'
     ],
-    'priceRange': '$$',
+    'priceRange': '$$$',
     'knowsAbout': [
-      'Workflow Automation',
-      'System Integration',
-      'Manual Data Entry Elimination',
-      'QuickBooks Integration',
-      'Shopify Integration',
-      'Operational Efficiency'
+      'DevSecOps',
+      'Cloud Security',
+      'Infrastructure as Code (IaC)',
+      'Kubernetes Security',
+      'Compliance Automation',
+      'Zero-Trust'
     ]
   };
 
@@ -63,7 +63,7 @@ const SEO: React.FC<SEOProps> = ({
     '@type': 'WebSite',
     'name': 'Oakivo Solutions',
     'url': siteUrl,
-    'description': 'Done-For-You Business Workflow & System Automation in Atlantic Canada.',
+    'description': 'Premium DevSecOps & Cloud Security for Atlantic Canadian enterprises.',
     'publisher': {
       '@type': 'Organization',
       'name': 'Oakivo Solutions'

@@ -59,9 +59,12 @@ const Navbar: React.FC = () => {
                 
                 <button 
                   onClick={toggleLanguage}
-                  className="text-xs font-mono-tech uppercase tracking-wider text-slate-400 hover:text-white transition-colors"
+                  className="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-slate-400 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/5"
+                  aria-label="Toggle language"
                 >
-                  {language === 'en' ? 'FR' : 'EN'}
+                  <span className={language === 'en' ? 'text-white' : ''}>EN</span>
+                  <span className="text-white/20">/</span>
+                  <span className={language === 'fr' ? 'text-white' : ''}>FR</span>
                 </button>
             </div>
 
@@ -99,9 +102,14 @@ const Navbar: React.FC = () => {
             ))}
             <button 
               onClick={toggleLanguage}
-              className="text-left text-sm font-mono-tech uppercase tracking-wider text-slate-400"
+              className="flex items-center gap-2 text-sm font-semibold tracking-widest text-slate-400 hover:text-white transition-colors"
             >
-              Language: {language === 'en' ? 'FR' : 'EN'}
+              <span>Language:</span>
+              <div className="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded-md border border-white/5">
+                <span className={language === 'en' ? 'text-white' : ''}>EN</span>
+                <span className="text-white/20">/</span>
+                <span className={language === 'fr' ? 'text-white' : ''}>FR</span>
+              </div>
             </button>
             <button 
               onClick={() => { setIsOpen(false); setIsDrawerOpen(true); }}
