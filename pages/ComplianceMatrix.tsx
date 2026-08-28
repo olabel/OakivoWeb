@@ -22,7 +22,7 @@ const ComplianceMatrix: React.FC = () => {
         canonical="/compliance-matrix"
       />
 
-      <section className="bg-slate-950 text-white pt-40 pb-20 relative overflow-hidden">
+      <section className="bg-slate-950 text-white pt-32 pb-16 relative overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-cyan-500/5 rounded-sm blur-[140px] pointer-events-none" />
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center max-w-4xl">

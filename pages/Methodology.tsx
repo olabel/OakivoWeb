@@ -15,7 +15,7 @@ const Methodology: React.FC = () => {
         keywords="DevSecOps Methodology, Zero Trust Framework, Automated Compliance, Infrastructure as Code, IaC Standardization"
       />
 
-      <section className="bg-slate-950 text-slate-100 pt-48 pb-32 relative overflow-hidden border-b border-slate-900/50">
+      <section className="bg-slate-950 text-slate-100 pt-32 pb-24 relative overflow-hidden border-b border-slate-900/50">
         {/* Cinematic Video Background */}
         <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
           <video autoPlay loop muted playsInline className="w-full h-full object-cover">
@@ -40,7 +40,7 @@ const Methodology: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-slate-950 text-slate-100 py-32 border-b border-slate-900/50">
+      <section className="bg-slate-950 text-slate-100 py-24 border-b border-slate-900/50">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
@@ -99,7 +99,7 @@ const Methodology: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-slate-950 text-slate-100 py-32 border-b border-slate-900/50">
+      <section className="bg-slate-950 text-slate-100 py-24 border-b border-slate-900/50">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center flex-col-reverse md:flex-row">
             <div className="bg-slate-900/40 backdrop-blur-md rounded-sm p-10 border border-slate-800 shadow-2xl">
@@ -148,7 +148,7 @@ const Methodology: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-32 bg-slate-950 relative">
+      <section className="py-24 bg-slate-950 relative">
         <div className="container mx-auto px-6">
           <div className="bg-slate-900/40 backdrop-blur-md rounded-sm p-14 border border-slate-800 text-slate-100 max-w-5xl mx-auto text-center space-y-6">
             <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest block">

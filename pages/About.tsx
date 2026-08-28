@@ -102,7 +102,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Trust Metrics */}
-      <section className="py-32 md:py-48 relative border-b border-white/[0.08]">
+      <section className="py-24 md:py-32 relative border-b border-white/[0.08]">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {TrustMetrics.map((metric, idx) => (
@@ -126,7 +126,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Core Operating Principles */}
-      <section className="py-32 md:py-48 relative border-b border-white/[0.08]">
+      <section className="py-24 md:py-32 relative border-b border-white/[0.08]">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="max-w-3xl mb-16 space-y-3">
             <span className="text-xs font-mono font-medium uppercase tracking-wider text-cyan-400">
@@ -170,7 +170,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Comparison Matrix */}
-      <section className="py-32 md:py-48 relative border-b border-white/[0.08]">
+      <section className="py-24 md:py-32 relative border-b border-white/[0.08]">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="max-w-3xl mb-12 space-y-3">
             <span className="text-xs font-mono font-medium uppercase tracking-wider text-cyan-400">
@@ -230,7 +230,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Bottom CTA Banner */}
-      <section className="py-32 md:py-48 relative">
+      <section className="py-24 md:py-32 relative">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
             <div className="max-w-3xl mx-auto space-y-4">

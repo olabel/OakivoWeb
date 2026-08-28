@@ -12,7 +12,7 @@ const Privacy: React.FC = () => {
         keywords="Privacy Policy, Data Residency, PIPEDA, Zero Trust, Oakivo Solutions"
       />
 
-      <section className="bg-slate-950 text-slate-100 pt-48 pb-32 border-b border-slate-900/50">
+      <section className="bg-slate-950 text-slate-100 pt-32 pb-24 border-b border-slate-900/50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
              <div className="inline-flex items-center gap-2 bg-slate-900/50 border border-slate-800 px-4 py-2 rounded-sm mb-8">
@@ -26,7 +26,7 @@ const Privacy: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-slate-950 text-slate-100 py-32">
+      <section className="bg-slate-950 text-slate-100 py-24">
         <div className="max-w-4xl mx-auto space-y-24 px-6">
            
            <div className="space-y-8">

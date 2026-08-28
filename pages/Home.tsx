@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import TrustCarousel from '../components/TrustCarousel';
 import { ShieldCheck, Server, Lock, ArrowRight, Video, Sparkles, Terminal } from 'lucide-react';
 import { NavRoute } from '../types';
 import { useLanguage } from '../context/LanguageContext';
@@ -99,8 +100,10 @@ const Home: React.FC = () => {
         </div>
       </header>
 
+      <TrustCarousel />
+
       {/* The Strategic Imperative */}
-      <section className="py-32 md:py-48 px-6 bg-slate-950 relative border-t border-slate-900/50">
+      <section className="py-24 md:py-32 px-6 bg-slate-950 relative border-t border-slate-900/50">
         <div className="container mx-auto max-w-7xl relative z-10">
             <div className="max-w-4xl">
                 <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8 text-slate-100">{t('landing.strategic_headline')}</h2>
@@ -112,7 +115,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Core Capabilities - Bento Box Grid */}
-      <section id="capabilities" className="py-32 md:py-48 px-6 bg-slate-950 relative border-t border-slate-900/50">
+      <section id="capabilities" className="py-24 md:py-32 px-6 bg-slate-950 relative border-t border-slate-900/50">
         <div className="absolute inset-0 bg-slate-950 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
         <div className="container mx-auto max-w-7xl relative z-10">
             <div className="mb-20">
@@ -176,7 +179,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* The Engagement Model - 3-Step Layout */}
-      <section className="py-32 md:py-48 px-6 border-t border-slate-800/50 bg-slate-950 relative">
+      <section className="py-24 md:py-32 px-6 border-t border-slate-800/50 bg-slate-950 relative">
         <div className="container mx-auto max-w-7xl relative z-10">
             <div className="mb-24">
                 <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6 text-slate-100">{t('landing.methodology_headline')}</h2>

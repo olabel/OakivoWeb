@@ -53,7 +53,7 @@ const Verticals: React.FC = () => {
         keywords="DevSecOps Healthcare, Logistics API Security, Retail PCI-DSS, Financial SOC 2, Manufacturing Zero Trust, Atlantic Canada"
       />
 
-      <section className="bg-slate-950 text-slate-100 pt-48 pb-32 relative overflow-hidden border-b border-slate-900/50">
+      <section className="bg-slate-950 text-slate-100 pt-32 pb-24 relative overflow-hidden border-b border-slate-900/50">
         {/* Cinematic Video Background */}
         <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
           <video autoPlay loop muted playsInline className="w-full h-full object-cover">
@@ -83,7 +83,7 @@ const Verticals: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-slate-950 text-slate-100 py-32 border-b border-slate-900/50">
+      <section className="bg-slate-950 text-slate-100 py-24 border-b border-slate-900/50">
         <div className="mb-16 text-center max-w-3xl mx-auto space-y-3 px-6">
           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400">
             Operational Blueprint
@@ -110,7 +110,7 @@ const Verticals: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-32 bg-slate-950 relative">
+      <section className="py-24 bg-slate-950 relative">
         <div className="container mx-auto px-6">
           <div className="bg-slate-900/40 backdrop-blur-md rounded-sm p-14 border border-slate-800 text-slate-100 max-w-5xl mx-auto text-center space-y-6">
             <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest block">
