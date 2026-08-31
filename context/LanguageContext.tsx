@@ -26,11 +26,20 @@ export const translations: Record<Language, Record<string, any>> = {
       solutions: 'Solutions',
       locations: 'Locations'
     },
+    trust: {
+      soc2: "SOC 2 Type II Certified",
+      iso27001: "ISO 27001 Compliant",
+      pipeda: "PIPEDA Data Residency",
+      aws: "AWS Advanced Partner",
+      k8s: "Kubernetes Certified (KCSP)",
+      terraform: "HashiCorp Terraform Certified"
+    },
     common: {
-      cta_book_audit: "Request an Architectural Briefing",
+      step: "STEP",
+      cta_book_audit: "Book an Audit",
       cta_audit: "Request 30-Min Audit",
       cta_blueprint: "Get Remediation Blueprint",
-      cta_explore_arsenal: "Explore DevSecOps Arsenal",
+      cta_explore_arsenal: "View Platform",
       cta_meet: "Meet Our Security Engineers",
       cta_mobile_sticky: "Request Security Audit",
       cta_schedule: "Schedule 30-Min Audit",
@@ -338,11 +347,20 @@ export const translations: Record<Language, Record<string, any>> = {
       solutions: 'Solutions',
       locations: 'Emplacements'
     },
+    trust: {
+      soc2: "Certifié SOC 2 Type II",
+      iso27001: "Conforme ISO 27001",
+      pipeda: "Résidence des Données LPRPDE",
+      aws: "Partenaire Avancé AWS",
+      k8s: "Certifié Kubernetes (KCSP)",
+      terraform: "Certifié HashiCorp Terraform"
+    },
     common: {
-      cta_book_audit: "Demander une séance d'information architecturale",
+      step: "ÉTAPE",
+      cta_book_audit: "Réserver un Audit",
       cta_audit: "Demander l'Audit (30 min)",
       cta_blueprint: "Obtenir le Plan de Remédiation",
-      cta_explore_arsenal: "Explorer l'Arsenal DevSecOps",
+      cta_explore_arsenal: "Voir la Plateforme",
       cta_meet: "Rencontrer Nos Ingénieurs en Sécurité",
       cta_mobile_sticky: "Demander l'Audit de Sécurité",
       cta_schedule: "Planifier l'Audit de 30 Min",
@@ -639,6 +657,11 @@ export const translations: Record<Language, Record<string, any>> = {
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('en');
+
+  // Update html lang attribute when language changes
+  React.useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   const t = (key: string): string => {
     const keys = key.split('.');

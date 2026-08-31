@@ -44,8 +44,23 @@ const Contact: React.FC = () => {
     }
     setStatus('submitting');
     try {
+      const response = await fetch('/api/book-audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          company: formState.company,
+          message: `Location: ${formState.location}\n\nChallenge: ${formState.bottleneck}`,
+          urgency: 'Standard'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Network error');
+      }
+
       db.saveEntry('lead', { ...formState, source: 'Contact & 30-Min Security Audit Page' });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       setStatus('success');
     } catch (err) {
       setStatus('error');

@@ -22,6 +22,7 @@ import LocationDetail from './pages/LocationDetail';
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
 import { analytics } from './utils/analytics';
+import LiveChat from './components/LiveChat';
 
 // Scroll to top and track analytics
 const ScrollToTopAndTrack = () => {
@@ -67,6 +68,7 @@ const App: React.FC = () => {
               </Routes>
             </main>
             <Footer />
+            <LiveChat />
           </div>
         </Router>
       </LanguageProvider>

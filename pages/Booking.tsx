@@ -32,20 +32,49 @@ const Booking: React.FC = () => {
 
   const times = ['09:00 AM', '10:30 AM', '01:00 PM', '02:30 PM', '04:00 PM'];
 
-  const handleComplete = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleComplete = async (e: React.FormEvent) => {
     e.preventDefault();
     if (honeypot) {
       // Bot detected via honeypot: silently simulate success
       setStatus('success');
       return;
     }
-    db.saveEntry('lead', {
-      ...form,
-      selectedDate,
-      selectedTime,
-      type: '30_MIN_SECURITY_AUDIT_BOOKING'
-    });
-    setStatus('success');
+
+    setIsSubmitting(true);
+    setErrorMessage('');
+    
+    try {
+      const response = await fetch('/api/book-audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          message: `Booking Request: ${selectedDate} at ${selectedTime}\n\nChallenge: ${form.bottleneck}`,
+          urgency: 'High Priority (Audit Booking)'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit booking');
+      }
+
+      db.saveEntry('lead', {
+        ...form,
+        selectedDate,
+        selectedTime,
+        type: '30_MIN_SECURITY_AUDIT_BOOKING'
+      });
+      setStatus('success');
+    } catch (err) {
+      setErrorMessage('A network error occurred. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -213,9 +242,21 @@ const Booking: React.FC = () => {
                     <textarea rows={2} required value={form.bottleneck} onChange={e => setForm({...form, bottleneck: e.target.value})} className="w-full bg-white/5 border border-white/15 rounded-xl p-3 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-white resize-none" placeholder="e.g. SOC 2 audit readiness, securing CI/CD pipelines, ERP access controls..." />
                   </div>
 
-                  <button type="submit" className="w-full py-3.5 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 cursor-pointer">
-                    <Sparkles size={14} />
-                    <span>Confirm 30-Minute Security Audit</span>
+                  {errorMessage && (
+                    <div className="text-red-400 text-xs font-semibold bg-red-400/10 border border-red-400/20 p-3 rounded-xl">
+                      {errorMessage}
+                    </div>
+                  )}
+
+                  <button type="submit" disabled={isSubmitting} className="w-full py-3.5 rounded-full bg-white hover:bg-gray-100 disabled:opacity-50 text-black font-semibold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all">
+                    {isSubmitting ? (
+                      <span className="animate-pulse">Securing Booking...</span>
+                    ) : (
+                      <>
+                        <Sparkles size={14} />
+                        <span>Confirm 30-Minute Security Audit</span>
+                      </>
+                    )}
                   </button>
                 </form>
               )}

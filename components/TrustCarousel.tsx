@@ -1,23 +1,27 @@
 import React from 'react';
 import { ShieldCheck, Lock, Server, FileCheck, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
-const certifications = [
-  { name: 'SOC 2 Type II Certified', icon: ShieldCheck },
-  { name: 'ISO 27001 Compliant', icon: Lock },
-  { name: 'PIPEDA Data Residency', icon: Server },
-  { name: 'AWS Advanced Partner', icon: CheckCircle2 },
-  { name: 'Kubernetes Certified (KCSP)', icon: FileCheck },
-  { name: 'HashiCorp Terraform Certified', icon: ShieldCheck },
+const getCertifications = (t: (key: string) => string) => [
+  { name: t('trust.soc2'), icon: ShieldCheck },
+  { name: t('trust.iso27001'), icon: Lock },
+  { name: t('trust.pipeda'), icon: Server },
+  { name: t('trust.aws'), icon: CheckCircle2 },
+  { name: t('trust.k8s'), icon: FileCheck },
+  { name: t('trust.terraform'), icon: ShieldCheck },
   // Duplicate for seamless marquee
-  { name: 'SOC 2 Type II Certified', icon: ShieldCheck },
-  { name: 'ISO 27001 Compliant', icon: Lock },
-  { name: 'PIPEDA Data Residency', icon: Server },
-  { name: 'AWS Advanced Partner', icon: CheckCircle2 },
-  { name: 'Kubernetes Certified (KCSP)', icon: FileCheck },
-  { name: 'HashiCorp Terraform Certified', icon: ShieldCheck },
+  { name: t('trust.soc2'), icon: ShieldCheck },
+  { name: t('trust.iso27001'), icon: Lock },
+  { name: t('trust.pipeda'), icon: Server },
+  { name: t('trust.aws'), icon: CheckCircle2 },
+  { name: t('trust.k8s'), icon: FileCheck },
+  { name: t('trust.terraform'), icon: ShieldCheck },
 ];
 
 const TrustCarousel: React.FC = () => {
+  const { t } = useLanguage();
+  const certifications = getCertifications(t);
+  
   return (
     <div className="w-full bg-slate-950 border-b border-slate-900/50 py-6 overflow-hidden relative flex">
       {/* Edge Gradients for smooth fade in/out */}

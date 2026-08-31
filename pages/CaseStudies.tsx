@@ -118,7 +118,7 @@ const CaseStudies: React.FC = () => {
       </section>
 
       {/* Case Studies Cards */}
-      <section className="py-24 md:py-32 relative border-b border-white/[0.08]">
+      <section className="py-16 md:py-24 relative border-b border-white/[0.08]">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="space-y-16">
             {caseStudiesData.map((study, idx) => (
@@ -195,7 +195,7 @@ const CaseStudies: React.FC = () => {
       </section>
 
       {/* Bottom CTA Banner */}
-      <section className="py-24 md:py-32 relative">
+      <section className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-8 md:p-14 border border-white/[0.08] text-center space-y-6 relative overflow-hidden">
             <div className="max-w-3xl mx-auto space-y-4">

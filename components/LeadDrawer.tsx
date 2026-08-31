@@ -57,15 +57,28 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
       submittedAt: new Date().toISOString()
     });
 
-    // Simulate API call for industry standard form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch('/api/book-audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          message: `Challenge / Bottleneck:\n${formData.bottleneck}`,
+          urgency: 'High Priority (Audit Booking)'
+        })
+      });
 
-    // Send email to stakeholders
-    const subject = encodeURIComponent("Security Architecture Audit Request");
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\n\nSecurity Challenge / Bottleneck:\n${formData.bottleneck}`);
-    window.location.href = `mailto:olabel@gmail.com,ahmed.bello@oakivo.com?subject=${subject}&body=${body}`;
+      if (!response.ok) {
+        throw new Error('Failed to submit booking');
+      }
 
-    setStatus('success');
+      setStatus('success');
+    } catch (err) {
+      setErrors({ ...errors, submit: 'A network error occurred. Please try again.' });
+      setStatus('idle');
+    }
   };
 
   const handleReset = () => {
