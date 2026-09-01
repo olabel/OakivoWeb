@@ -51,7 +51,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
     setStatus('submitting');
     
     // Persist lead to database
-    db.saveEntry('lead', {
+    await db.saveEntry('lead', {
       ...formData,
       type: 'SECURITY_ARCHITECTURE_AUDIT',
       submittedAt: new Date().toISOString()

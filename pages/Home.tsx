@@ -1,55 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import TrustCarousel from '../components/TrustCarousel';
-import { ShieldCheck, Server, Lock, ArrowRight, Video, Sparkles, Terminal } from 'lucide-react';
-import { NavRoute } from '../types';
+import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-
-const ParallaxCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
-    const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        x.set((e.clientX - centerX) / (rect.width / 2));
-        y.set((e.clientY - centerY) / (rect.height / 2));
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
-    const rotateX = useTransform(mouseYSpring, [-1, 1], [4, -4]);
-    const rotateY = useTransform(mouseXSpring, [-1, 1], [-4, 4]);
-    
-    return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            className={`relative perspective-1000 ${className}`}
-        >
-            <motion.div 
-                style={{ transform: "translateZ(30px)" }}
-                className="w-full h-full flex flex-col justify-between"
-            >
-                {children}
-            </motion.div>
-        </motion.div>
-    );
-};
+import OakivoROIEngine from '../components/OakivoROIEngine';
+import BentoServices from '../components/BentoServices';
+import CaseStudiesShowcase from '../components/CaseStudiesShowcase';
 
 const Home: React.FC = () => {
   const { t } = useLanguage();
@@ -57,9 +14,10 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Oakivo Solutions Inc. | Premium DevSecOps & Cloud Security"
-        description="We architect bespoke, self-healing cloud infrastructure and shift-left pipelines. Ship faster without failing another compliance audit."
-        keywords="DevSecOps, Cloud Security, Infrastructure as Code, Kubernetes Security, Zero-Trust Architecture, Shift-Left Pipelines"
+        title="DevSecOps & Cloud Security Automation | Oakivo Solutions Canada"
+        description="Atlantic Canada's elite DevSecOps engineers. We automate continuous compliance (SOC 2, PIPEDA), lock down cloud infrastructure, and build zero-trust CI/CD pipelines."
+        keywords="DevSecOps Atlantic Canada, Cloud Security New Brunswick, CSPM Compliance, CI/CD Pipeline Security, Zero Trust Cloud Architecture, Kubernetes Security Canada"
+        canonical="/"
       />
       
       {/* Hero Section */}
@@ -120,69 +78,16 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Core Capabilities - Bento Box Grid */}
-      <section id="capabilities" className="py-16 md:py-24 px-6 bg-slate-950 relative border-t border-slate-900/50">
-        <div className="absolute inset-0 bg-slate-950 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
-        <div className="container mx-auto max-w-7xl relative z-10">
-            <div className="mb-20">
-                <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6 text-slate-100">{t('landing.capabilities_headline')}</h2>
-            </div>
+      {/* Interactive ROI Engine */}
+      <OakivoROIEngine />
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 perspective-[2000px]">
-                {/* Item 1 */}
-                <ParallaxCard className="col-span-1 md:col-span-8 bg-slate-900/40 backdrop-blur-md border border-slate-800 p-10 md:p-14 group hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all duration-500 min-h-[400px]">
-                    <div className="w-12 h-12 bg-cyan-500/10 flex items-center justify-center mb-8 border border-cyan-500/20 text-cyan-400 rounded-sm">
-                        <ShieldCheck className="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl md:text-3xl font-display font-bold mb-4 tracking-tight text-slate-100">{t('landing.cap1_title')}</h3>
-                        <p className="text-slate-400 leading-relaxed font-light md:text-lg max-w-2xl">
-                            {t('landing.cap1_body')}
-                        </p>
-                    </div>
-                </ParallaxCard>
-
-                {/* Item 2 */}
-                <ParallaxCard className="col-span-1 md:col-span-4 bg-slate-900/40 backdrop-blur-md border border-slate-800 p-10 group hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all duration-500 min-h-[400px]">
-                    <div className="w-12 h-12 bg-cyan-500/10 flex items-center justify-center mb-8 border border-cyan-500/20 text-cyan-400 rounded-sm">
-                        <Terminal className="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h3 className="text-xl md:text-2xl font-display font-bold mb-4 tracking-tight text-slate-100">{t('landing.cap2_title')}</h3>
-                        <p className="text-slate-400 font-light leading-relaxed">
-                            {t('landing.cap2_body')}
-                        </p>
-                    </div>
-                </ParallaxCard>
-
-                {/* Item 3 */}
-                <ParallaxCard className="col-span-1 md:col-span-4 bg-slate-900/40 backdrop-blur-md border border-slate-800 p-10 group hover:bg-slate-900/60 hover:border-slate-500/50 transition-all duration-500 min-h-[400px]">
-                    <div className="w-12 h-12 bg-slate-800/50 flex items-center justify-center mb-8 border border-slate-700/50 text-slate-300 rounded-sm">
-                        <Lock className="w-5 h-5" />
-                    </div>
-                    <div>
-                        <h3 className="text-xl md:text-2xl font-display font-bold mb-4 tracking-tight text-slate-100">{t('landing.cap3_title')}</h3>
-                        <p className="text-slate-400 font-light leading-relaxed">
-                            {t('landing.cap3_body')}
-                        </p>
-                    </div>
-                </ParallaxCard>
-
-                {/* Item 4 */}
-                <ParallaxCard className="col-span-1 md:col-span-8 bg-slate-900/40 backdrop-blur-md border border-slate-800 p-10 md:p-14 group hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all duration-500 min-h-[400px]">
-                    <div className="w-12 h-12 bg-cyan-500/10 flex items-center justify-center mb-8 border border-cyan-500/20 text-cyan-400 rounded-sm">
-                        <Sparkles className="w-5 h-5" />
-                    </div>
-                    <div className="max-w-2xl">
-                        <h3 className="text-2xl md:text-3xl font-display font-bold mb-4 tracking-tight text-slate-100">{t('landing.cap4_title')}</h3>
-                        <p className="text-slate-400 font-light leading-relaxed md:text-lg">
-                            {t('landing.cap4_body')}
-                        </p>
-                    </div>
-                </ParallaxCard>
-            </div>
-        </div>
-      </section>
+      {/* Interactive Bento Capabilities */}
+      <div id="capabilities">
+        <BentoServices />
+      </div>
+      
+      {/* Interactive Case Studies */}
+      <CaseStudiesShowcase />
 
       {/* The Engagement Model - 3-Step Layout */}
       <section className="py-16 md:py-24 px-6 border-t border-slate-800/50 bg-slate-950 relative">

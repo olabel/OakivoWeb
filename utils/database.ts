@@ -3,6 +3,9 @@
  * Simulates a secure backend database for lead and applicant tracking.
  */
 
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { db as firestoreDb } from './firebase';
+
 export interface DatabaseEntry {
   id: string;
   createdAt: string;
@@ -12,52 +15,36 @@ export interface DatabaseEntry {
 }
 
 class OakivoDatabase {
-  private STORAGE_KEY = 'oakivo_vault_v1';
-
-  private getStore(): DatabaseEntry[] {
-    const data = localStorage.getItem(this.STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+  private getCollection() {
+    return collection(firestoreDb, 'entries');
   }
 
-  private saveStore(entries: DatabaseEntry[]) {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(entries));
-  }
-
-  public saveEntry(type: DatabaseEntry['type'], data: any): DatabaseEntry {
-    const entries = this.getStore();
-    const newEntry: DatabaseEntry = {
-      id: crypto.randomUUID(),
+  public async saveEntry(type: DatabaseEntry['type'], data: any): Promise<DatabaseEntry> {
+    const entryData = {
       createdAt: new Date().toISOString(),
       type,
       data,
       status: 'new'
     };
     
-    entries.unshift(newEntry); // Newest first
-    this.saveStore(entries);
-    return newEntry;
+    const docRef = await addDoc(this.getCollection(), entryData);
+    return { id: docRef.id, ...entryData } as DatabaseEntry;
   }
 
-  public getAllEntries(): DatabaseEntry[] {
-    return this.getStore();
+  public async getAllEntries(): Promise<DatabaseEntry[]> {
+    const q = query(this.getCollection(), orderBy('createdAt', 'desc'));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as DatabaseEntry));
   }
 
-  public updateStatus(id: string, status: DatabaseEntry['status']) {
-    const entries = this.getStore();
-    const index = entries.findIndex(e => e.id === id);
-    if (index !== -1) {
-      entries[index].status = status;
-      this.saveStore(entries);
-    }
+  public async updateStatus(id: string, status: DatabaseEntry['status']) {
+    const docRef = doc(firestoreDb, 'entries', id);
+    await updateDoc(docRef, { status });
   }
 
-  public deleteEntry(id: string) {
-    const entries = this.getStore().filter(e => e.id !== id);
-    this.saveStore(entries);
-  }
-
-  public clear() {
-    this.saveStore([]);
+  public async deleteEntry(id: string) {
+    const docRef = doc(firestoreDb, 'entries', id);
+    await deleteDoc(docRef);
   }
 }
 

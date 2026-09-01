@@ -101,7 +101,7 @@ const OakivoROIEngine: React.FC = () => {
     setStatus('submitting');
     
     // Save lead data to Vault
-    const entry = db.saveEntry('lead', { 
+    const entry = await db.saveEntry('lead', { 
       email, 
       company: companyName,
       roiMetrics: { 

@@ -63,7 +63,7 @@ const Booking: React.FC = () => {
         throw new Error('Failed to submit booking');
       }
 
-      db.saveEntry('lead', {
+      await db.saveEntry('lead', {
         ...form,
         selectedDate,
         selectedTime,

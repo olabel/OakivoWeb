@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import Button from '../components/Button';
 import Logo from '../components/Logo';
+import AdminAnalyticsDashboard from '../components/AdminAnalyticsDashboard';
 
 const AdminPortal: React.FC = () => {
   const [entries, setEntries] = useState<DatabaseEntry[]>([]);
@@ -34,14 +35,21 @@ const AdminPortal: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      setEntries(db.getAllEntries());
+      loadEntries();
       loadAnalyticsAndSEO();
     }
   }, [isAuthenticated]);
 
-  const loadAnalyticsAndSEO = () => {
-    setAnalyticsSummary(analytics.getSummary());
-    setRecentPageViews(analytics.getAllEvents());
+  const loadEntries = async () => {
+    const data = await db.getAllEntries();
+    setEntries(data);
+  };
+
+  const loadAnalyticsAndSEO = async () => {
+    const summary = await analytics.getSummary();
+    const views = await analytics.getAllEvents();
+    setAnalyticsSummary(summary);
+    setRecentPageViews(views);
     setSeoHealth(analytics.getSEOHealthAudit());
   };
 
@@ -56,18 +64,18 @@ const AdminPortal: React.FC = () => {
     }
   };
 
-  const handleUpdateStatus = (id: string, status: DatabaseEntry['status']) => {
-    db.updateStatus(id, status);
-    setEntries(db.getAllEntries());
+  const handleUpdateStatus = async (id: string, status: DatabaseEntry['status']) => {
+    await db.updateStatus(id, status);
+    loadEntries();
     if (selectedEntry?.id === id) {
       setSelectedEntry(prev => prev ? { ...prev, status } : null);
     }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Permanently wipe this intelligence asset from the Vault?')) {
-      db.deleteEntry(id);
-      setEntries(db.getAllEntries());
+      await db.deleteEntry(id);
+      loadEntries();
       if (selectedEntry?.id === id) setSelectedEntry(null);
     }
   };
@@ -416,6 +424,15 @@ const AdminPortal: React.FC = () => {
                 </div>
               </div>
             </div>
+
+            {/* Custom Recharts Dashboard */}
+            <div className="flex justify-end mt-4">
+              <Button onClick={() => analytics.seedMockData().then(loadAnalyticsAndSEO)} variant="outline" size="sm">
+                <RefreshCw size={16} className="mr-2" />
+                Generate Traffic Simulation Data
+              </Button>
+            </div>
+            <AdminAnalyticsDashboard events={recentPageViews} />
 
             {/* Live Visitor Feed */}
             <div className="bg-white rounded-[32px] p-8 border border-gray-100 shadow-sm space-y-6">

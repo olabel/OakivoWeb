@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 
 interface SEOProps {
   title: string;
@@ -8,6 +9,7 @@ interface SEOProps {
   schema?: Record<string, any> | Record<string, any>[];
   type?: 'website' | 'article' | 'profile';
   keywords?: string;
+  image?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({ 
@@ -16,10 +18,14 @@ const SEO: React.FC<SEOProps> = ({
   canonical, 
   schema, 
   type = 'website',
-  keywords
+  keywords,
+  image = '/og-image.png'
 }) => {
   const siteUrl = 'https://www.oakivo.com';
-  const fullUrl = canonical ? (canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`) : siteUrl;
+  const location = useLocation();
+  const currentPath = location.pathname === '/' ? '' : location.pathname;
+  const fullUrl = canonical ? (canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`) : `${siteUrl}${currentPath}`;
+  const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
   const organizationSchema = {
     '@context': 'https://schema.org',
@@ -28,7 +34,7 @@ const SEO: React.FC<SEOProps> = ({
     'legalName': 'Oakivo Solutions Inc.',
     'url': siteUrl,
     'logo': `${siteUrl}/logo.png`,
-    'image': `${siteUrl}/logo.png`,
+    'image': fullImageUrl,
     'description': 'Elite DevSecOps automation, autonomous infrastructure design, and zero-trust cloud security for Atlantic Canadian enterprises.',
     'address': {
       '@type': 'PostalAddress',
@@ -45,7 +51,8 @@ const SEO: React.FC<SEOProps> = ({
       'DevSecOps Automation',
       'Cloud Security Posture Management (CSPM)',
       'Zero-Trust Architecture',
-      'CI/CD Pipeline Security'
+      'CI/CD Pipeline Security',
+      'Site Reliability Engineering (SRE)'
     ],
     'priceRange': '$$$',
     'knowsAbout': [
@@ -54,7 +61,10 @@ const SEO: React.FC<SEOProps> = ({
       'Infrastructure as Code (IaC)',
       'Kubernetes Security',
       'Compliance Automation',
-      'Zero-Trust'
+      'Zero-Trust',
+      'SOC 2',
+      'PIPEDA',
+      'ISO 27001'
     ]
   };
 
@@ -67,12 +77,40 @@ const SEO: React.FC<SEOProps> = ({
     'publisher': {
       '@type': 'Organization',
       'name': 'Oakivo Solutions'
+    },
+    'potentialAction': {
+      '@type': 'SearchAction',
+      'target': `${siteUrl}/?s={search_term_string}`,
+      'query-input': 'required name=search_term_string'
     }
   };
 
+  // Generate dynamic breadcrumb schema based on current path
+  const pathParts = currentPath.split('/').filter(Boolean);
+  const breadcrumbSchema = pathParts.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': siteUrl
+      },
+      ...pathParts.map((part, index) => ({
+        '@type': 'ListItem',
+        'position': index + 2,
+        'name': part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, ' '),
+        'item': `${siteUrl}/${pathParts.slice(0, index + 1).join('/')}`
+      }))
+    ]
+  } : null;
+
   const renderSchema = () => {
     const userSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
-    const allSchemas = [organizationSchema, websiteSchema, ...userSchemas];
+    const allSchemas: any[] = [organizationSchema, websiteSchema];
+    if (breadcrumbSchema) allSchemas.push(breadcrumbSchema);
+    allSchemas.push(...userSchemas);
 
     return allSchemas.map((s, idx) => (
       <script key={idx} type="application/ld+json">
@@ -83,11 +121,16 @@ const SEO: React.FC<SEOProps> = ({
 
   return (
     <Helmet>
-      {/* Basic Meta Tags */}
+      {/* Primary Meta Tags */}
       <title>{title}</title>
+      <meta name="title" content={title} />
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={fullUrl} />
+      
+      {/* Advanced Robot Directives */}
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
@@ -96,13 +139,18 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content="Oakivo Solutions" />
       <meta property="og:locale" content="en_CA" />
+      <meta property="og:image" content={fullImageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={fullUrl} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={fullImageUrl} />
 
-      {/* JSON-LD Schema */}
+      {/* Structured Data (JSON-LD) */}
       {renderSchema()}
     </Helmet>
   );

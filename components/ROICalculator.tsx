@@ -33,7 +33,7 @@ const ROICalculator: React.FC = () => {
       return;
     }
     setStatus('submitting');
-    db.saveEntry('subscriber', { 
+    await db.saveEntry('subscriber', { 
         email, 
         calculatorData: { 
             hours, 

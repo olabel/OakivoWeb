@@ -60,7 +60,7 @@ const Contact: React.FC = () => {
         throw new Error('Network error');
       }
 
-      db.saveEntry('lead', { ...formState, source: 'Contact & 30-Min Security Audit Page' });
+      await db.saveEntry('lead', { ...formState, source: 'Contact & 30-Min Security Audit Page' });
       setStatus('success');
     } catch (err) {
       setStatus('error');

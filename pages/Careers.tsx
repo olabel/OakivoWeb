@@ -31,7 +31,7 @@ const Careers: React.FC = () => {
     setStatus('submitting');
     
     try {
-      db.saveEntry('applicant', formState);
+      await db.saveEntry('applicant', formState);
       await new Promise(resolve => setTimeout(resolve, 1000));
       setStatus('success');
       setFormState({ name: '', email: '', linkedin: '', message: '' });

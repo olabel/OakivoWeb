@@ -30,7 +30,7 @@ const LeadMagnet: React.FC<LeadMagnetProps> = ({ type }) => {
       return;
     }
     setStatus('submitting');
-    db.saveEntry('subscriber', { email, magnetType: type });
+    await db.saveEntry('subscriber', { email, magnetType: type });
     await new Promise(resolve => setTimeout(resolve, 1500));
     setStatus('success');
   };
