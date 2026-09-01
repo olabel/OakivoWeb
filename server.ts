@@ -98,7 +98,7 @@ async function startServer() {
   // Chat API Endpoint
   app.post('/api/chat', async (req, res) => {
     try {
-      const { messages } = req.body;
+      const { messages, language } = req.body;
       
       if (!messages || !Array.isArray(messages)) {
         return res.status(400).json({ error: 'Valid messages array is required.' });
@@ -123,12 +123,16 @@ async function startServer() {
         role: msg.type === 'user' ? 'user' : 'model',
         parts: [{ text: msg.content }]
       }));
+      
+      const langInstruction = language === 'fr' 
+        ? "Vous devez répondre en français. " 
+        : "You must reply in English. ";
 
       const response = await ai.models.generateContent({
         model: "gemini-3.6-flash",
         contents: formattedContents,
         config: {
-          systemInstruction: "You are an expert DevSecOps sales engineer and security consultant for Oakivo. Keep your answers concise, professional, and helpful. Guide the user towards scheduling a compliance audit or security consultation.",
+          systemInstruction: langInstruction + "You are an expert DevSecOps sales engineer and security consultant for Oakivo. Keep your answers concise, professional, and helpful. Guide the user towards scheduling a compliance audit or security consultation.",
         }
       });
 

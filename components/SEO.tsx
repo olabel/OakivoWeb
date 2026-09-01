@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SEOProps {
   title: string;
@@ -21,6 +22,7 @@ const SEO: React.FC<SEOProps> = ({
   keywords,
   image = '/og-image.png'
 }) => {
+  const { language } = useLanguage();
   const siteUrl = 'https://www.oakivo.com';
   const location = useLocation();
   const currentPath = location.pathname === '/' ? '' : location.pathname;
@@ -120,13 +122,18 @@ const SEO: React.FC<SEOProps> = ({
   };
 
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang: language }}>
       {/* Primary Meta Tags */}
       <title>{title}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={fullUrl} />
+      
+      {/* Multi-language Hreflang Tags */}
+      <link rel="alternate" hreflang="en-CA" href={fullUrl} />
+      <link rel="alternate" hreflang="fr-CA" href={`${fullUrl}?lang=fr`} />
+      <link rel="alternate" hreflang="x-default" href={fullUrl} />
       
       {/* Advanced Robot Directives */}
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -138,7 +145,8 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content="Oakivo Solutions" />
-      <meta property="og:locale" content="en_CA" />
+      <meta property="og:locale" content={language === 'fr' ? 'fr_CA' : 'en_CA'} />
+      <meta property="og:locale:alternate" content={language === 'fr' ? 'en_CA' : 'fr_CA'} />
       <meta property="og:image" content={fullImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />

@@ -54,6 +54,7 @@ const Footer: React.FC = () => {
                             <li><Link to={NavRoute.ABOUT} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">About Oakivo</Link></li>
                             <li><Link to={NavRoute.CAREERS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Careers</Link></li>
                             <li><Link to={NavRoute.METHODOLOGY} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Engineering Methodology</Link></li>
+                            <li><Link to={NavRoute.COMPLIANCE} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Security Glossary</Link></li>
                             <li><Link to={NavRoute.CONTACT} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Contact Us</Link></li>
                         </ul>
                     </div>

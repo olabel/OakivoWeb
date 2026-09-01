@@ -19,6 +19,7 @@ import ComplianceMatrix from './pages/ComplianceMatrix';
 import BrandShowcase from './pages/BrandShowcase';
 import SolutionDetail from './pages/SolutionDetail';
 import LocationDetail from './pages/LocationDetail';
+import ClientPortalDemo from './pages/ClientPortalDemo';
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
 import { analytics } from './utils/analytics';
@@ -34,6 +35,43 @@ const ScrollToTopAndTrack = () => {
   return null;
 };
 
+const AppLayout = () => {
+  const { pathname } = useLocation();
+  const isDemo = pathname === NavRoute.CLIENT_DEMO;
+
+  return (
+    <div className="flex flex-col min-h-screen relative">
+      {!isDemo && <Navbar />}
+      <main className={!isDemo ? "flex-grow pt-20 lg:pt-24" : "flex-grow"}>
+        <Routes>
+          <Route path={NavRoute.HOME} element={<Home />} />
+          <Route path={NavRoute.SERVICES} element={<Expertise />} />
+          <Route path={NavRoute.CAPABILITIES} element={<Expertise />} />
+          <Route path={NavRoute.CASE_STUDIES} element={<CaseStudies />} />
+          <Route path="/work" element={<CaseStudies />} />
+          <Route path={NavRoute.CONTACT} element={<Contact />} />
+          <Route path={NavRoute.BOOKING} element={<Booking />} />
+          <Route path={NavRoute.METHODOLOGY} element={<Methodology />} />
+          <Route path={NavRoute.CAREERS} element={<Careers />} />
+          <Route path={NavRoute.ABOUT} element={<About />} />
+          <Route path={NavRoute.FIRM} element={<About />} />
+          <Route path={NavRoute.VERTICALS} element={<Verticals />} />
+          <Route path={NavRoute.INDUSTRIES} element={<Verticals />} />
+          <Route path={NavRoute.ADMIN_PORTAL} element={<AdminPortal />} />
+          <Route path={NavRoute.PRIVACY} element={<Privacy />} />
+          <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
+          <Route path={NavRoute.BRAND_IDENTITY} element={<BrandShowcase />} />
+          <Route path={NavRoute.CLIENT_DEMO} element={<ClientPortalDemo />} />
+          <Route path="/solutions/:slug" element={<SolutionDetail />} />
+          <Route path="/locations/:slug" element={<LocationDetail />} />
+        </Routes>
+      </main>
+      {!isDemo && <Footer />}
+      {!isDemo && <LiveChat />}
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
@@ -41,35 +79,7 @@ const App: React.FC = () => {
       <LanguageProvider>
         <Router>
           <ScrollToTopAndTrack />
-          <div className="flex flex-col min-h-screen relative">
-            <Navbar />
-            <main className="flex-grow pt-20 lg:pt-24"> 
-              <Routes>
-                <Route path={NavRoute.HOME} element={<Home />} />
-                <Route path={NavRoute.SERVICES} element={<Expertise />} />
-                <Route path={NavRoute.CAPABILITIES} element={<Expertise />} />
-                <Route path={NavRoute.CASE_STUDIES} element={<CaseStudies />} />
-                <Route path="/work" element={<CaseStudies />} />
-                <Route path={NavRoute.CONTACT} element={<Contact />} />
-                <Route path={NavRoute.BOOKING} element={<Booking />} />
-                
-                <Route path={NavRoute.METHODOLOGY} element={<Methodology />} />
-                <Route path={NavRoute.CAREERS} element={<Careers />} />
-                <Route path={NavRoute.ABOUT} element={<About />} />
-                <Route path={NavRoute.FIRM} element={<About />} />
-                <Route path={NavRoute.VERTICALS} element={<Verticals />} />
-                <Route path={NavRoute.INDUSTRIES} element={<Verticals />} />
-                <Route path={NavRoute.ADMIN_PORTAL} element={<AdminPortal />} />
-                <Route path={NavRoute.PRIVACY} element={<Privacy />} />
-                <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
-                <Route path={NavRoute.BRAND_IDENTITY} element={<BrandShowcase />} />
-                <Route path="/solutions/:slug" element={<SolutionDetail />} />
-                <Route path="/locations/:slug" element={<LocationDetail />} />
-              </Routes>
-            </main>
-            <Footer />
-            <LiveChat />
-          </div>
+          <AppLayout />
         </Router>
       </LanguageProvider>
     </HelmetProvider>

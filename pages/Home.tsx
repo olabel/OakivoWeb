@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import TrustCarousel from '../components/TrustCarousel';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Activity } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import OakivoROIEngine from '../components/OakivoROIEngine';
-import BentoServices from '../components/BentoServices';
-import CaseStudiesShowcase from '../components/CaseStudiesShowcase';
+import { NavRoute } from '../types';
+import PremiumCapabilities from '../components/PremiumCapabilities';
 
 const Home: React.FC = () => {
   const { t } = useLanguage();
@@ -54,11 +53,12 @@ const Home: React.FC = () => {
                             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                         </span>
                     </button>
-                    <a href="#capabilities" className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-100 transition-all duration-300 border border-slate-700 hover:border-slate-400 rounded-sm">
+                    <Link to={NavRoute.CLIENT_DEMO} className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-100 transition-all duration-300 border border-slate-700 hover:border-slate-400 bg-slate-900/50 hover:bg-slate-800 rounded-sm">
                         <span className="flex items-center gap-3">
-                            {t('common.cta_explore_arsenal')}
+                            View Live Demo
+                            <Activity className="w-4 h-4 text-cyan-500 transition-transform duration-300 group-hover:scale-110" />
                         </span>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
@@ -78,16 +78,10 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Interactive ROI Engine */}
-      <OakivoROIEngine />
-
-      {/* Interactive Bento Capabilities */}
+      {/* Premium Core Capabilities */}
       <div id="capabilities">
-        <BentoServices />
+        <PremiumCapabilities />
       </div>
-      
-      {/* Interactive Case Studies */}
-      <CaseStudiesShowcase />
 
       {/* The Engagement Model - 3-Step Layout */}
       <section className="py-16 md:py-24 px-6 border-t border-slate-800/50 bg-slate-950 relative">

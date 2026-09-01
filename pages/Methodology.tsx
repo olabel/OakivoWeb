@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Network, Lock, Zap, ShieldCheck, ArrowRight, Server, Code, FileKey } from 'lucide-react';
 import SEO from '../components/SEO';
 import LeadDrawer from '../components/LeadDrawer';
+import OakivoROIEngine from '../components/OakivoROIEngine';
 
 const Methodology: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -147,6 +148,9 @@ const Methodology: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Interactive ROI Engine moved from Home */}
+      <OakivoROIEngine />
 
       <section className="py-24 bg-slate-950 relative">
         <div className="container mx-auto px-6">

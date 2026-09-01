@@ -11,20 +11,25 @@ interface Message {
 }
 
 const LiveChat: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      type: 'bot',
-      content: 'Welcome to Oakivo Support. I am your automated security consultant. How can we help secure your infrastructure today?',
-      timestamp: new Date(),
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Initialize and update greeting when language changes
+  useEffect(() => {
+    if (messages.length <= 1) {
+      setMessages([{
+        id: '1',
+        type: 'bot',
+        content: t('chatbot.greeting') || 'Welcome to Oakivo Support. I am your automated security consultant. How can we help secure your infrastructure today?',
+        timestamp: new Date(),
+      }]);
+    }
+  }, [language, t]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -34,15 +39,15 @@ const LiveChat: React.FC = () => {
     if (isOpen && !isMinimized) {
       scrollToBottom();
     }
-  }, [messages, isOpen, isMinimized]);
+  }, [messages, isOpen, isMinimized, isTyping]);
 
-  const handleSend = async () => {
-    if (!inputValue.trim()) return;
+  const handleSend = async (text: string = inputValue) => {
+    if (!text.trim()) return;
 
     const newUserMsg: Message = {
       id: Date.now().toString(),
       type: 'user',
-      content: inputValue.trim(),
+      content: text.trim(),
       timestamp: new Date(),
     };
 
@@ -58,7 +63,8 @@ const LiveChat: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          messages: [...messages, newUserMsg].slice(-10) // Send up to last 10 messages for context
+          messages: [...messages, newUserMsg].slice(-10), // Send up to last 10 messages for context
+          language: language
         }),
       });
 
@@ -91,6 +97,8 @@ const LiveChat: React.FC = () => {
       handleSend();
     }
   };
+
+  const quickPrompts = Array.isArray(t('chatbot.quick_prompts')) ? t('chatbot.quick_prompts') as unknown as string[] : [];
 
   return (
     <>
@@ -187,6 +195,20 @@ const LiveChat: React.FC = () => {
                     </div>
                   ))}
                   
+                  {messages.length === 1 && quickPrompts.length > 0 && (
+                    <div className="flex flex-col gap-2 mt-4 items-end pr-11">
+                      {quickPrompts.map((prompt, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleSend(prompt)}
+                          className="text-xs text-left px-3 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/20 rounded-xl transition-colors"
+                        >
+                          {prompt}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
                   {isTyping && (
                     <div className="flex gap-3">
                       <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
@@ -210,11 +232,11 @@ const LiveChat: React.FC = () => {
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyDown={handleKeyDown}
-                      placeholder="Type your message..."
+                      placeholder={t('chatbot.placeholder') || "Type your message..."}
                       className="w-full bg-slate-800 border border-slate-700 text-sm text-slate-200 rounded-full pl-4 pr-12 py-2.5 focus:outline-none focus:border-cyan-500/50 transition-colors placeholder:text-slate-500"
                     />
                     <button 
-                      onClick={handleSend}
+                      onClick={() => handleSend()}
                       disabled={!inputValue.trim()}
                       className="absolute right-1 p-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-slate-700 disabled:text-slate-500 text-slate-950 rounded-full transition-colors"
                     >
