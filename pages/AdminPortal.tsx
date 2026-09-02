@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { auth } from '../utils/firebase';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { db, DatabaseEntry } from '../utils/database';
 import { analytics, AnalyticsSummary, SEOHealthMetric, PageViewEvent } from '../utils/analytics';
 import { 
@@ -22,16 +24,24 @@ const AdminPortal: React.FC = () => {
 
   // Security State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passcode, setPasscode] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState(false);
+  const [authErrorMessage, setAuthErrorMessage] = useState('');
 
   // Analytics & SEO State
   const [analyticsSummary, setAnalyticsSummary] = useState<AnalyticsSummary | null>(null);
   const [recentPageViews, setRecentPageViews] = useState<PageViewEvent[]>([]);
   const [seoHealth, setSeoHealth] = useState<SEOHealthMetric[]>([]);
 
-  // The "Tactical Access Code"
-  const VAULT_KEY = "OakivoP@ssword1209";
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAuthenticated(!!user);
+      setIsLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -53,14 +63,16 @@ const AdminPortal: React.FC = () => {
     setSeoHealth(analytics.getSEOHealthAudit());
   };
 
-  const handleAuth = (e: React.FormEvent) => {
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (passcode === VAULT_KEY) {
-      setIsAuthenticated(true);
-      setAuthError(false);
-    } else {
+    setAuthError(false);
+    setAuthErrorMessage('');
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error: any) {
       setAuthError(true);
-      setPasscode('');
+      setAuthErrorMessage(error.message || 'Authentication failed');
+      setPassword('');
     }
   };
 
@@ -87,6 +99,14 @@ const AdminPortal: React.FC = () => {
     return matchesFilter && matchesSearch;
   });
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#020504] flex items-center justify-center p-6 relative overflow-hidden font-sans">
+        <div className="animate-pulse text-white font-mono tracking-widest text-sm">INITIALIZING SECURE VAULT...</div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#020504] flex items-center justify-center p-6 relative overflow-hidden font-sans">
@@ -102,27 +122,40 @@ const AdminPortal: React.FC = () => {
               <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.4em] mt-3">Tactical Access Required</p>
            </div>
 
-           <form onSubmit={handleAuth} className="space-y-8">
+           <form onSubmit={handleAuth} className="space-y-6">
+              <div className="relative group">
+                 <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-oakivo-secondary transition-colors">
+                    <Mail size={24} />
+                 </div>
+                 <input 
+                    type="email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Admin Email"
+                    className={`w-full bg-gray-50 border py-4 pl-14 pr-6 rounded-2xl focus:outline-none transition-all text-sm font-bold tracking-widest ${authError ? 'border-red-500 bg-red-50' : 'border-gray-100 focus:border-oakivo-primary focus:bg-white'}`}
+                 />
+              </div>
+
               <div className="relative group">
                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-oakivo-secondary transition-colors">
                     <Fingerprint size={24} />
                  </div>
                  <input 
                     type="password" 
-                    value={passcode}
-                    onChange={(e) => setPasscode(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Security Keyphrase"
-                    className={`w-full bg-gray-50 border py-5 pl-14 pr-6 rounded-2xl focus:outline-none transition-all text-sm font-bold tracking-widest ${authError ? 'border-red-500 bg-red-50' : 'border-gray-100 focus:border-oakivo-primary focus:bg-white'}`}
+                    className={`w-full bg-gray-50 border py-4 pl-14 pr-6 rounded-2xl focus:outline-none transition-all text-sm font-bold tracking-widest ${authError ? 'border-red-500 bg-red-50' : 'border-gray-100 focus:border-oakivo-primary focus:bg-white'}`}
                  />
               </div>
 
               {authError && (
                  <div className="flex items-center gap-3 text-red-600 text-[10px] font-black uppercase tracking-widest animate-shake">
-                    <AlertCircle size={16} /> Access denied: Unauthorized key
+                    <AlertCircle size={16} /> {authErrorMessage || "Access denied: Unauthorized key"}
                  </div>
               )}
 
-              <Button type="submit" variant="black" size="lg" className="w-full flex items-center justify-center gap-4 py-5 shadow-2xl">
+              <Button type="submit" variant="black" size="lg" className="w-full flex items-center justify-center gap-4 py-5 shadow-2xl mt-4">
                  <Shield size={20} className="text-oakivo-secondary" /> Authenticate Vault
               </Button>
            </form>
@@ -157,6 +190,12 @@ const AdminPortal: React.FC = () => {
               </div>
               
               <div className="flex flex-wrap gap-4">
+                 <button 
+                   onClick={() => signOut(auth)} 
+                   className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold text-xs uppercase tracking-wider transition-all border border-red-500/20"
+                 >
+                   <Lock size={16} /> Secure Logout
+                 </button>
                  <button 
                    onClick={loadAnalyticsAndSEO} 
                    className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all border border-white/10"

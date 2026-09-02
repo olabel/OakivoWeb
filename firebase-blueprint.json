@@ -1,0 +1,45 @@
+{
+  "collections": [
+    {
+      "name": "entries",
+      "description": "Stores leads, applicants, and subscribers",
+      "schema": {
+        "createdAt": "string (ISO date)",
+        "type": "string (lead | applicant | subscriber)",
+        "data": "map",
+        "status": "string (new | processed | archived)"
+      },
+      "securityRules": {
+        "create": "allow if true (public form submission)",
+        "read": "allow if user is authenticated",
+        "update": "allow if user is authenticated",
+        "delete": "allow if user is authenticated"
+      }
+    },
+    {
+      "name": "analytics_events",
+      "description": "Stores page views and user telemetry",
+      "schema": {
+        "path": "string",
+        "title": "string",
+        "timestamp": "string (ISO date)",
+        "referrer": "string",
+        "userAgent": "string",
+        "device": "string",
+        "location": "string",
+        "durationSeconds": "number",
+        "sessionId": "string"
+      },
+      "securityRules": {
+        "create": "allow if true (public telemetry)",
+        "read": "allow if user is authenticated",
+        "update": "allow if user is authenticated",
+        "delete": "allow if user is authenticated"
+      }
+    }
+  ],
+  "authentication": {
+    "enabled": true,
+    "providers": ["email/password"]
+  }
+}
