@@ -50,14 +50,14 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
 
     setStatus('submitting');
     
-    // Persist lead to database
-    await db.saveEntry('lead', {
-      ...formData,
-      type: 'SECURITY_ARCHITECTURE_AUDIT',
-      submittedAt: new Date().toISOString()
-    });
-
     try {
+      // Persist lead to database
+      await db.saveEntry('lead', {
+        ...formData,
+        type: 'SECURITY_ARCHITECTURE_AUDIT',
+        submittedAt: new Date().toISOString()
+      });
+
       const response = await fetch('/api/book-audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

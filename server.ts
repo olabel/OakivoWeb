@@ -76,7 +76,7 @@ async function startServer() {
 
       const mailOptions = {
         from: process.env.SMTP_USER || '"Oakivo System" <no-reply@oakivo.com>',
-        to: process.env.CONTACT_EMAIL || 'ahmed.bello@oakivo.com',
+        to: process.env.CONTACT_EMAIL || 'olabel@gmail.com, ahmed.bello@oakivo.com',
         subject: `[High Priority] Security Audit Request - ${company || name}`,
         text: `New Security Audit Request\n\nName: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nUrgency: ${urgency || 'Normal'}\n\nMessage:\n${message}`,
         html: `<h2>New Security Audit Request</h2>
@@ -166,7 +166,8 @@ async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    app.get('*all', (req, res) => {
+    // Use app.use for SPA fallback to avoid Express 5 wildcard routing issues
+    app.use((req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }

@@ -71,7 +71,7 @@ const Booking: React.FC = () => {
       });
       setStatus('success');
     } catch (err) {
-      setErrorMessage('A network error occurred. Please try again or email us directly.');
+      console.error("Booking Error:", err); setErrorMessage('A network error occurred. Please try again or email us directly.');
     } finally {
       setIsSubmitting(false);
     }
