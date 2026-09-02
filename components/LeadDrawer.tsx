@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Send, CheckCircle2, ShieldCheck, Sparkles, Mail, User, Loader2, Building, Terminal } from 'lucide-react';
 import { db } from '../utils/database';
 import { useLanguage } from '../context/LanguageContext';
+import { SuccessModal } from './SuccessModal';
 
 interface LeadDrawerProps {
   isOpen: boolean;
@@ -21,6 +22,13 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [errors, setErrors] = useState<Partial<Record<keyof typeof formData, string>>>({});
+
+  const handleReset = () => {
+    setStatus('idle');
+    setFormData({ name: '', email: '', company: '', bottleneck: '' });
+    setErrors({});
+    setHoneypot('');
+  };
 
   const validateForm = () => {
     const newErrors: Partial<Record<keyof typeof formData, string>> = {};
@@ -81,21 +89,20 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleReset = () => {
-    setStatus('idle');
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      bottleneck: ''
-    });
-    setErrors({});
-    setHoneypot('');
-    onClose();
-  };
 
   return (
     <AnimatePresence>
+      {/* Success Modal */}
+      <SuccessModal 
+        isOpen={status === 'success'}
+        onClose={() => {
+          handleReset();
+          onClose(); // close drawer when they close the modal
+        }}
+        title={t('drawer.success_title')}
+        message={t('drawer.success_desc')}
+      />
+
       {isOpen && (
         <>
           {/* Backdrop */}
@@ -142,32 +149,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
 
             {/* Content Body */}
             <div className="flex-grow overflow-y-auto p-6 md:p-8 space-y-6 no-scrollbar">
-              {status === 'success' ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="py-12 text-center space-y-6"
-                >
-                  <div className="w-20 h-20 rounded-full bg-cyan-500/20 border-2 border-cyan-400 flex items-center justify-center text-cyan-400 mx-auto">
-                    <CheckCircle2 size={40} />
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="text-2xl font-bold text-white">
-                      {t('drawer.success_title')}
-                    </h4>
-                    <p className="text-sm text-gray-400 max-w-md mx-auto">
-                      {t('drawer.success_desc')}
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={handleReset}
-                    className="px-8 py-3.5 rounded-full bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-gray-100 transition-all cursor-pointer"
-                  >
-                    {t('drawer.success_close') || "Close & Return to Site"}
-                  </button>
-                </motion.div>
-              ) : (
+              {(status === 'idle' || status === 'submitting' || status === 'success') && (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Hidden Honeypot Field for Bot Anti-Spam */}
                   <input

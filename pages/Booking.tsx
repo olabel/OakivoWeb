@@ -4,6 +4,7 @@ import { useLanguage, translations } from '../context/LanguageContext';
 import SEO from '../components/SEO';
 import Section from '../components/Section';
 import { db } from '../utils/database';
+import { SuccessModal } from '../components/SuccessModal';
 
 const Booking: React.FC = () => {
   const { language, t } = useLanguage();
@@ -21,6 +22,14 @@ const Booking: React.FC = () => {
   const [form, setForm] = useState({ name: '', email: '', company: '', bottleneck: '' });
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'success'>('idle');
+
+  const handleModalClose = () => {
+    setStatus('idle');
+    setStep(1);
+    setForm({ name: '', email: '', company: '', bottleneck: '' });
+    setSelectedDate(null);
+    setSelectedTime(null);
+  };
 
   const dates = [
     { day: 'Mon', date: '22', full: 'May 22, 2026' },
@@ -84,6 +93,13 @@ const Booking: React.FC = () => {
         description="Schedule your 30-minute DevSecOps and Cloud Security Architecture Audit with Oakivo Solutions. Live technical consultation for Atlantic Canadian businesses."
         canonical="/booking"
       />
+      
+      <SuccessModal 
+        isOpen={status === 'success'}
+        onClose={handleModalClose}
+        title={bData.success_title}
+        message={bData.success_message}
+      />
 
       <section className="bg-slate-950 text-white pt-40 pb-16 relative overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
@@ -145,13 +161,7 @@ const Booking: React.FC = () => {
 
             {/* Main Content */}
             <div className="md:w-2/3 p-8 flex flex-col justify-center">
-              {status === 'success' ? (
-                <div className="text-center py-12 space-y-4">
-                  <CheckCircle2 size={48} className="text-cyan-400 mx-auto" />
-                  <h3 className="text-2xl font-bold text-white">{bData.success_title}</h3>
-                  <p className="text-xs text-gray-400 max-w-md mx-auto">{bData.success_message}</p>
-                </div>
-              ) : step === 1 ? (
+              {step === 1 || status === 'success' ? (
                 <div className="space-y-6">
                   <h3 className="text-lg font-bold text-white">Select Date & Time</h3>
                   <div className="grid grid-cols-5 gap-2">

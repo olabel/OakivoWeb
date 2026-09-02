@@ -65,6 +65,16 @@ async function startServer() {
     } as any;
   }
 
+  const escapeHtml = (unsafe: string) => {
+    if (typeof unsafe !== 'string') return unsafe;
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  };
+
   // Booking / Contact API Endpoint
   app.post('/api/book-audit', async (req, res) => {
     try {
@@ -80,13 +90,13 @@ async function startServer() {
         subject: `[High Priority] Security Audit Request - ${company || name}`,
         text: `New Security Audit Request\n\nName: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nUrgency: ${urgency || 'Normal'}\n\nMessage:\n${message}`,
         html: `<h2>New Security Audit Request</h2>
-               <p><strong>Name:</strong> ${name}</p>
-               <p><strong>Email:</strong> ${email}</p>
-               <p><strong>Company:</strong> ${company || 'N/A'}</p>
-               <p><strong>Urgency:</strong> ${urgency || 'Normal'}</p>
+               <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+               <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+               <p><strong>Company:</strong> ${escapeHtml(company || 'N/A')}</p>
+               <p><strong>Urgency:</strong> ${escapeHtml(urgency || 'Normal')}</p>
                <hr/>
                <p><strong>Message:</strong></p>
-               <p>${message.replace(/\n/g, '<br>')}</p>`
+               <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>`
       };
 
       try {

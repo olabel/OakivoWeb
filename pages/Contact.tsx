@@ -6,6 +6,7 @@ import {
 import SEO from '../components/SEO';
 import { db } from '../utils/database';
 import { useLanguage } from '../context/LanguageContext';
+import { SuccessModal } from '../components/SuccessModal';
 
 const faqs = [
   {
@@ -71,8 +72,19 @@ const Contact: React.FC = () => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
+  const handleModalClose = () => {
+    setStatus('idle');
+    setFormState({ name: '', email: '', company: '', urgency: 'Normal', message: '' });
+  };
+
   return (
     <>
+      <SuccessModal 
+        isOpen={status === 'success'}
+        onClose={handleModalClose}
+        title={t('drawer.success_title')}
+        message={t('drawer.success_desc')}
+      />
       <SEO 
         title="Book 30-Minute Security Architecture Audit | Oakivo Solutions  -  Dieppe, NB"
         description="Schedule a 30-minute DevSecOps and Cloud Security Architecture Audit with Oakivo Solutions. Direct senior engineering guidance for Atlantic Canadian businesses."
@@ -109,23 +121,7 @@ const Contact: React.FC = () => {
             {/* Form Column */}
             <div className="lg:col-span-7">
               <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] shadow-2xl">
-                {status === 'success' ? (
-                  <div className="text-center py-12 space-y-4">
-                    <div className="w-16 h-16 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full flex items-center justify-center mx-auto">
-                      <CheckCircle2 size={32} />
-                    </div>
-                    <h2 className="text-2xl font-bold text-white">{t('drawer.success_title')}</h2>
-                    <p className="text-sm text-gray-300 max-w-md mx-auto">
-                      {t('drawer.success_desc')}
-                    </p>
-                    <button
-                      onClick={() => setStatus('idle')}
-                      className="mt-4 px-6 py-2.5 rounded-full linear-pill text-xs font-medium text-white hover:border-white/20"
-                    >
-                      Submit Another Request
-                    </button>
-                  </div>
-                ) : (
+                {(status === 'idle' || status === 'submitting' || status === 'success') && (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Hidden Honeypot Input for Bot Anti-Spam */}
                     <input

@@ -1,0 +1,10 @@
+const escapeHtml = (unsafe) => {
+  if (typeof unsafe !== 'string') return unsafe;
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+console.log(escapeHtml("<script>alert(1)</script>"))
