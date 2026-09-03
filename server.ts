@@ -22,30 +22,65 @@ async function startServer() {
       contentSecurityPolicy: process.env.NODE_ENV === 'production' ? {
         directives: {
           defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://apis.google.com", "https://www.gstatic.com"],
-          styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+          scriptSrc: [
+            "'self'", 
+            "https://apis.google.com", 
+            "https://www.gstatic.com", 
+            "https://www.googletagmanager.com"
+          ], // Removed unsafe-inline and unsafe-eval to prevent XSS
+          styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"], // unsafe-inline kept ONLY for Framer Motion animation styles
           fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
           imgSrc: ["'self'", "data:", "https://*", "blob:"],
           connectSrc: ["'self'", "https://*", "wss://*"],
           frameSrc: ["'self'", "https://*.firebaseapp.com"],
           objectSrc: ["'none'"],
+          baseUri: ["'self'"],
+          formAction: ["'self'"],
           upgradeInsecureRequests: [],
         },
       } : false, // Keep CSP off in dev to avoid Vite HMR issues
       crossOriginEmbedderPolicy: false,
+      hsts: {
+        maxAge: 31536000, // 1 year
+        includeSubDomains: true,
+        preload: true,
+      },
+      frameguard: {
+        action: 'deny' // Prevent clickjacking
+      },
+      contentTypeOptions: true, // X-Content-Type-Options: nosniff
+      hidePoweredBy: true,
     })
   );
 
   app.use(cors());
   app.use(express.json({ limit: '10kb' })); // Restrict payload size to prevent DOS
 
-  // Rate Limiting for API
+  // Global Rate Limiting for generic API endpoints
   const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 20, // limit each IP to 20 requests per windowMs
+    max: 100, // limit each IP to 100 requests per windowMs
     standardHeaders: true,
     legacyHeaders: false,
     message: { error: 'Too many requests from this IP, please try again after 15 minutes' },
+  });
+
+  // Strict Rate Limiting for Contact & Booking Forms to prevent spam/brute-force
+  const formLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour window
+    max: 5, // limit each IP to 5 form submissions per hour
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many form submissions from this IP, please try again after an hour. For urgent matters, email us directly.' },
+  });
+
+  // Strict Rate Limiting for AI Chat to prevent API quota exhaustion
+  const chatLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 15, // limit each IP to 15 chat interactions per 15 minutes
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Chat limit reached to prevent AI abuse. Please try again later or contact us directly.' },
   });
 
   app.use('/api/', apiLimiter);
@@ -91,7 +126,7 @@ async function startServer() {
   };
 
   // Booking / Contact API Endpoint
-  app.post('/api/book-audit', async (req, res) => {
+  app.post('/api/book-audit', formLimiter, async (req, res) => {
     try {
       const { name, email, company, message, urgency } = req.body;
       
@@ -144,7 +179,7 @@ async function startServer() {
   });
 
   // Chat API Endpoint
-  app.post('/api/chat', async (req, res) => {
+  app.post('/api/chat', chatLimiter, async (req, res) => {
     try {
       const { messages, language } = req.body;
       

@@ -19,6 +19,12 @@ const capabilities = [
     title: 'Zero-Trust Architecture',
     description: 'Identity-first security perimeters. We replace legacy VPNs and static credentials with short-lived tokens, mTLS service meshes, and strict least-privilege IAM policies.',
     features: ['Identity-first networking', 'mTLS service meshes', 'Just-in-time (JIT) access']
+  },
+  {
+    id: '04',
+    title: 'Odoo Implementation & Digital Transformation',
+    description: 'Comprehensive business management through Odoo ERP integration. We streamline workflows, automate complex processes, and secure enterprise data for sustainable growth.',
+    features: ['Custom Odoo integration', 'Process automation', 'ERP security hardening']
   }
 ];
 

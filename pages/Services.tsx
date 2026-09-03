@@ -46,19 +46,19 @@ const Services: React.FC = () => {
     },
     {
       id: 'erp-security-iam',
-      title: 'ERP Security & Identity Management',
-      tagline: 'Zero Trust Access & Financial Data Protection',
+      title: 'Odoo Implementation & ERP Security',
+      tagline: 'Digital Transformation & Zero Trust Access',
       icon: <Database size={28} className="text-cyan-400" />,
-      headline: 'Protect the Financial & Operational Core of Your Business.',
-      problem: 'Former staff and third-party contractors retain active access across disconnected ERP, finance, and operational databases without centralized controls.',
+      headline: 'Protect and Streamline the Operational Core of Your Business.',
+      problem: 'Businesses struggle with disconnected processes and insecure access across finance, HR, and operations, limiting growth and exposing data.',
       capabilities: [
+        'Comprehensive Odoo ERP implementation and custom integration',
         'Sub-second automated offboarding and credential de-provisioning',
         'Least-privilege role matrix implementation and tokenized API gateways',
-        'Zero Trust mutual TLS (mTLS) database perimeter security',
-        'Real-time anomalous database exfiltration radar'
+        'Zero Trust mutual TLS (mTLS) database perimeter security'
       ],
-      outcomeMetric: 'Instant Offboarding',
-      outcomeDesc: 'Zero unauthorized access and instantaneous credential revocation across core enterprise and ERP systems.'
+      outcomeMetric: 'Accelerated Transformation',
+      outcomeDesc: 'Unified business operations within Odoo, secured by zero trust architecture and instantaneous credential management.'
     },
     {
       id: 'sre-incident-remediation',

@@ -40,18 +40,40 @@ async function startServer() {
       contentSecurityPolicy: process.env.NODE_ENV === "production" ? {
         directives: {
           defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://apis.google.com", "https://www.gstatic.com"],
+          scriptSrc: [
+            "'self'",
+            "https://apis.google.com",
+            "https://www.gstatic.com",
+            "https://www.googletagmanager.com"
+          ],
+          // Removed unsafe-inline and unsafe-eval to prevent XSS
           styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+          // unsafe-inline kept ONLY for Framer Motion animation styles
           fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
           imgSrc: ["'self'", "data:", "https://*", "blob:"],
           connectSrc: ["'self'", "https://*", "wss://*"],
           frameSrc: ["'self'", "https://*.firebaseapp.com"],
           objectSrc: ["'none'"],
+          baseUri: ["'self'"],
+          formAction: ["'self'"],
           upgradeInsecureRequests: []
         }
       } : false,
       // Keep CSP off in dev to avoid Vite HMR issues
-      crossOriginEmbedderPolicy: false
+      crossOriginEmbedderPolicy: false,
+      hsts: {
+        maxAge: 31536e3,
+        // 1 year
+        includeSubDomains: true,
+        preload: true
+      },
+      frameguard: {
+        action: "deny"
+        // Prevent clickjacking
+      },
+      contentTypeOptions: true,
+      // X-Content-Type-Options: nosniff
+      hidePoweredBy: true
     })
   );
   app.use((0, import_cors.default)());
@@ -59,11 +81,29 @@ async function startServer() {
   const apiLimiter = (0, import_express_rate_limit.default)({
     windowMs: 15 * 60 * 1e3,
     // 15 minutes
-    max: 20,
-    // limit each IP to 20 requests per windowMs
+    max: 100,
+    // limit each IP to 100 requests per windowMs
     standardHeaders: true,
     legacyHeaders: false,
     message: { error: "Too many requests from this IP, please try again after 15 minutes" }
+  });
+  const formLimiter = (0, import_express_rate_limit.default)({
+    windowMs: 60 * 60 * 1e3,
+    // 1 hour window
+    max: 5,
+    // limit each IP to 5 form submissions per hour
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: "Too many form submissions from this IP, please try again after an hour. For urgent matters, email us directly." }
+  });
+  const chatLimiter = (0, import_express_rate_limit.default)({
+    windowMs: 15 * 60 * 1e3,
+    // 15 minutes
+    max: 15,
+    // limit each IP to 15 chat interactions per 15 minutes
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: "Chat limit reached to prevent AI abuse. Please try again later or contact us directly." }
   });
   app.use("/api/", apiLimiter);
   let transporter;
@@ -97,7 +137,7 @@ async function startServer() {
     if (typeof unsafe !== "string") return unsafe;
     return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
   };
-  app.post("/api/book-audit", async (req, res) => {
+  app.post("/api/book-audit", formLimiter, async (req, res) => {
     try {
       const { name, email, company, message, urgency } = req.body;
       if (!name || !email || !message) {
@@ -142,7 +182,7 @@ ${message}`,
       res.status(500).json({ error: "Failed to process request. Please try again later." });
     }
   });
-  app.post("/api/chat", async (req, res) => {
+  app.post("/api/chat", chatLimiter, async (req, res) => {
     try {
       const { messages, language } = req.body;
       if (!messages || !Array.isArray(messages)) {
