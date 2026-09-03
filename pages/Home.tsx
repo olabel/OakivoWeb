@@ -6,6 +6,7 @@ import { ArrowRight, Activity } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { NavRoute } from '../types';
 import PremiumCapabilities from '../components/PremiumCapabilities';
+import Breadcrumb from '../components/Breadcrumb';
 
 const Home: React.FC = () => {
   const { t } = useLanguage();
@@ -33,6 +34,13 @@ const Home: React.FC = () => {
     ]
   };
 
+  const breadcrumbSections = [
+    { id: 'hero', labelKey: 'nav.home' },
+    { id: 'imperative', labelKey: 'landing.strategic_headline' },
+    { id: 'capabilities', labelKey: 'nav.capabilities' },
+    { id: 'methodology', labelKey: 'nav.insights' }
+  ];
+
   return (
     <>
       <SEO 
@@ -43,8 +51,10 @@ const Home: React.FC = () => {
         schema={faqSchema}
       />
       
+      <Breadcrumb sections={breadcrumbSections} />
+
       {/* Hero Section */}
-      <header className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#070A0F]">
+      <header id="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#070A0F]">
         {/* Background Video */}
         <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden bg-[#070A0F]">
           <video
@@ -91,7 +101,7 @@ const Home: React.FC = () => {
       <TrustCarousel />
 
       {/* The Strategic Imperative */}
-      <section className="py-16 md:py-24 px-6 bg-slate-950 relative border-t border-slate-900/50">
+      <section id="imperative" className="py-16 md:py-24 px-6 bg-slate-950 relative border-t border-slate-900/50">
         <div className="container mx-auto max-w-7xl relative z-10">
             <div className="max-w-4xl">
                 <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8 text-slate-100">{t('landing.strategic_headline')}</h2>
@@ -108,7 +118,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* The Engagement Model - 3-Step Layout */}
-      <section className="py-16 md:py-24 px-6 border-t border-slate-800/50 bg-slate-950 relative">
+      <section id="methodology" className="py-16 md:py-24 px-6 border-t border-slate-800/50 bg-slate-950 relative">
         <div className="container mx-auto max-w-7xl relative z-10">
             <div className="mb-24">
                 <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6 text-slate-100">{t('landing.methodology_headline')}</h2>

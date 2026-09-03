@@ -1,51 +1,54 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-
-const capabilities = [
-  {
-    id: '01',
-    title: 'Cloud Security Posture (CSPM)',
-    description: 'Automated cloud misconfiguration detection across AWS, Azure, and GCP. Real-time drift detection for Infrastructure-as-Code with continuous SOC 2 and PIPEDA mapping.',
-    features: ['Real-time drift detection', 'Continuous compliance mapping', 'Push-button audit evidence']
-  },
-  {
-    id: '02',
-    title: 'DevSecOps Pipeline Engineering',
-    description: 'Shift-left CI/CD security automation. Build fast and secure every commit with automated SAST, DAST, and container scanning integrated directly into GitHub Actions or GitLab.',
-    features: ['Automated SAST & DAST', 'Container image scanning', 'CI/CD pipeline hardening']
-  },
-  {
-    id: '03',
-    title: 'Zero-Trust Architecture',
-    description: 'Identity-first security perimeters. We replace legacy VPNs and static credentials with short-lived tokens, mTLS service meshes, and strict least-privilege IAM policies.',
-    features: ['Identity-first networking', 'mTLS service meshes', 'Just-in-time (JIT) access']
-  },
-  {
-    id: '04',
-    title: 'Odoo Implementation & Digital Transformation',
-    description: 'Comprehensive business management through Odoo ERP integration. We streamline workflows, automate complex processes, and secure enterprise data for sustainable growth.',
-    features: ['Custom Odoo integration', 'Process automation', 'ERP security hardening']
-  }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 const PremiumCapabilities: React.FC = () => {
+  const { t } = useLanguage();
+
+  const capabilities = [
+    {
+      id: '01',
+      title: t('caps.cspm_title'),
+      description: t('caps.cspm_desc'),
+      features: [t('caps.cspm_f1'), t('caps.cspm_f2'), t('caps.cspm_f3')]
+    },
+    {
+      id: '02',
+      title: t('caps.ci_title'),
+      description: t('caps.ci_desc'),
+      features: [t('caps.ci_f1'), t('caps.ci_f2'), t('caps.ci_f3')]
+    },
+    {
+      id: '03',
+      title: t('caps.iam_title'),
+      description: t('caps.iam_desc'),
+      features: [t('caps.iam_f1'), t('caps.iam_f2'), t('caps.iam_f3')]
+    },
+    {
+      id: '04',
+      title: t('caps.odoo_title'),
+      description: t('caps.odoo_desc'),
+      features: [t('caps.odoo_f1'), t('caps.odoo_f2'), t('caps.odoo_f3')]
+    }
+  ];
+
   return (
-    <section className="py-24 md:py-32 bg-[#070A0F] text-slate-100 border-t border-slate-900">
+    <section className="py-24 md:py-32 bg-[#070A0F] text-slate-100 border-t border-slate-900" id="capabilities">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
           
           {/* Left Column - Sticky Header */}
           <div className="lg:col-span-4 relative">
             <div className="lg:sticky lg:top-32">
-              <h2 className="text-sm font-mono tracking-widest text-cyan-500 mb-6 uppercase">Our Expertise</h2>
+              <h2 className="text-sm font-mono tracking-widest text-cyan-500 mb-6 uppercase">{t('caps.badge')}</h2>
               <h3 className="text-4xl md:text-5xl font-display font-bold leading-tight mb-6 text-slate-100">
-                Core Capabilities
+                {t('caps.title')}
               </h3>
               <p className="text-lg text-slate-400 font-light leading-relaxed mb-8">
-                Foundational DevSecOps architecture engineered for scale, compliance, and velocity. We deliver enterprise-grade security without compromising deployment speed.
+                {t('caps.subtitle')}
               </p>
               <a href="#engagement" className="inline-flex items-center gap-3 text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-sm tracking-wide uppercase group">
-                Explore Methodology 
+                {t('caps.cta')} 
                 <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
               </a>
             </div>

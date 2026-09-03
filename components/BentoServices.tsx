@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import LeadDrawer from './LeadDrawer';
-import { servicesData } from '../data/servicesData';
+import { useServicesData } from '../data/servicesData';
 
 export interface ServiceCardData {
   id: string;
@@ -28,6 +28,7 @@ const BentoServices: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'odoo' | 'ai' | 'cyber' | 'modernization'>('all');
   const [selectedService, setSelectedService] = useState<ServiceCardData | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const servicesData = useServicesData();
 
   const filteredServices = activeFilter === 'all' 
     ? servicesData 
