@@ -125,8 +125,30 @@ async function startServer() {
       .replace(/'/g, "&#039;");
   };
 
+  // Activity Logging Middleware for Form Submissions
+  const logFormSubmission = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const ip = req.ip || req.socket.remoteAddress || 'unknown';
+    let maskedIp = 'unknown';
+    
+    if (ip !== 'unknown') {
+      if (ip.includes(':')) {
+        // IPv6 masking
+        const parts = ip.split(':');
+        maskedIp = parts.slice(0, Math.max(1, parts.length - 2)).join(':') + ':***:***';
+      } else {
+        // IPv4 masking
+        const parts = ip.split('.');
+        maskedIp = parts.slice(0, Math.max(1, parts.length - 1)).join('.') + '.***';
+      }
+    }
+    
+    const timestamp = new Date().toISOString();
+    console.log(`[SECURITY_LOG] Form Submission Attempt | Time: ${timestamp} | Endpoint: ${req.originalUrl} | IP: ${maskedIp}`);
+    next();
+  };
+
   // Booking / Contact API Endpoint
-  app.post('/api/book-audit', formLimiter, async (req, res) => {
+  app.post('/api/book-audit', formLimiter, logFormSubmission, async (req, res) => {
     try {
       const { name, email, company, message, urgency } = req.body;
       
