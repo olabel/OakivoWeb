@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import LeadDrawer from './LeadDrawer';
+import { servicesData } from '../data/servicesData';
 
 export interface ServiceCardData {
   id: string;
@@ -27,81 +28,6 @@ const BentoServices: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'odoo' | 'ai' | 'cyber' | 'modernization'>('all');
   const [selectedService, setSelectedService] = useState<ServiceCardData | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  const servicesData: ServiceCardData[] = [
-    {
-      id: 'digital-transformation',
-      category: 'modernization',
-      title: 'Stop Bleeding Engineering Hours to Manual Workflows.',
-      subtitle: 'Legacy System Modernization & Custom API Automation',
-      description: 'Connect legacy ERPs to modern cloud applications with custom API bridges - no risky, multi-year rebuilds required.',
-      impactMetric: '0',
-      impactLabel: 'Risky Multi-Year Monolith Rebuilds Required',
-      icon: <Layers className="text-oakivo-secondary" size={24} />,
-      accentColor: 'cyan',
-      size: 'large',
-      features: [
-        'Custom API bridges connecting legacy ERPs to modern cloud tools',
-        'Automated workflow pipelines eliminating manual data entry',
-        'Incremental modernization without operational downtime',
-        'Zero-trust data validation across all integration endpoints'
-      ],
-      schematicCode: [
-        'INIT_BRIDGE :: LEGACY_ERP <-> CLOUD_APP',
-        'AUTOMATE_WORKFLOW -> ZERO_MANUAL_HOURS',
-        'VALIDATE_DATA -> 100% INTEGRITY_STAMP',
-        'STATUS -> OPERATIONAL_VELOCITY'
-      ]
-    },
-    {
-      id: 'modern-platforms',
-      category: 'odoo',
-      title: 'Migrate to the Cloud Without the $50k Surprise Monthly Bill.',
-      subtitle: 'Predictable Cloud Migration & Fractional SRE',
-      description: 'Get enterprise uptime, Kubernetes orchestration, and locked-in monthly spend hosted strictly on Canadian soil.',
-      impactMetric: '35%',
-      impactLabel: 'Average Monthly Cloud Spend Reduction',
-      icon: <Cpu className="text-emerald-400" size={24} />,
-      accentColor: 'emerald',
-      size: 'large',
-      features: [
-        'Locked-in monthly spend hosted strictly on Canadian soil',
-        'Kubernetes container orchestration & autoscaling',
-        '99.99% uptime guarantee with automated failover',
-        'Fractional SRE oversight and continuous infrastructure tuning'
-      ],
-      schematicCode: [
-        'DEPLOY_NODE :: CANADIAN_SOVEREIGN_CLOUD',
-        'ORCHESTRATE -> KUBERNETES_AUTOSCALE',
-        'LOCK_BUDGET -> PREDICTABLE_MONTHLY_COST',
-        'STATUS -> 99.99_UPTIME_VERIFIED'
-      ]
-    },
-    {
-      id: 'enterprise-security',
-      category: 'cyber',
-      title: 'Ironclad Data Sovereignty. 100% PIPEDA-Compliant, Zero Breach Anxiety.',
-      subtitle: 'PIPEDA-Compliant Cloud Architecture & Zero-Trust Security',
-      description: 'Embed automated vulnerability scanning and zero-trust access directly into your deployment pipeline.',
-      impactMetric: '100%',
-      impactLabel: 'PIPEDA Compliance & Zero Breach Exposure',
-      icon: <ShieldCheck className="text-indigo-400" size={24} />,
-      accentColor: 'indigo',
-      size: 'medium',
-      features: [
-        'Automated vulnerability scanning in CI/CD deployment pipelines',
-        'Zero-trust access control and micro-segmentation',
-        '100% PIPEDA & Law 25 compliance on Canadian nodes',
-        '24/7 automated security threat monitoring & auditing'
-      ],
-      schematicCode: [
-        'SEC_PIPELINE :: ZERO_TRUST_ENFORCER',
-        'SCAN_VULNERABILITY -> AUTOMATED_PASS',
-        'ENFORCE_PIPEDA -> CANADIAN_SOVEREIGN_VAULT',
-        'STATUS -> SECURE_ZERO_BREACH'
-      ]
-    }
-  ];
 
   const filteredServices = activeFilter === 'all' 
     ? servicesData 

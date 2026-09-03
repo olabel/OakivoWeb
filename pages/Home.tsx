@@ -10,13 +10,37 @@ import PremiumCapabilities from '../components/PremiumCapabilities';
 const Home: React.FC = () => {
   const { t } = useLanguage();
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Odoo Implementation and Digital Transformation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Odoo Implementation is the process of integrating the comprehensive Odoo ERP (Enterprise Resource Planning) software into your business operations. Our Digital Transformation services ensure this integration streamlines your workflows, automates complex processes like CRM, inventory, and HR, and scales with your business for sustainable growth."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is ERP security important during an Odoo migration?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When moving to a centralized ERP like Odoo, securing enterprise data is paramount. We implement zero-trust access controls, mutual TLS, and role-based permissions to protect your operational core from breaches while maintaining compliance with privacy standards like PIPEDA."
+        }
+      }
+    ]
+  };
+
   return (
     <>
       <SEO 
         title="DevSecOps & Cloud Security Automation | Oakivo Solutions Canada"
         description="Atlantic Canada's elite DevSecOps engineers. We automate continuous compliance (SOC 2, PIPEDA), lock down cloud infrastructure, and build zero-trust CI/CD pipelines."
-        keywords="DevSecOps Atlantic Canada, Cloud Security New Brunswick, CSPM Compliance, CI/CD Pipeline Security, Zero Trust Cloud Architecture, Kubernetes Security Canada"
+        keywords="DevSecOps Atlantic Canada, Cloud Security New Brunswick, CSPM Compliance, CI/CD Pipeline Security, Zero Trust Cloud Architecture, Kubernetes Security Canada, Odoo Implementation"
         canonical="/"
+        schema={faqSchema}
       />
       
       {/* Hero Section */}
