@@ -19,18 +19,33 @@ async function startServer() {
   // Security Headers
   app.use(
     helmet({
-      contentSecurityPolicy: false, // Vite needs inline scripts for HMR
+      contentSecurityPolicy: process.env.NODE_ENV === 'production' ? {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://apis.google.com", "https://www.gstatic.com"],
+          styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+          fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+          imgSrc: ["'self'", "data:", "https://*", "blob:"],
+          connectSrc: ["'self'", "https://*", "wss://*"],
+          frameSrc: ["'self'", "https://*.firebaseapp.com"],
+          objectSrc: ["'none'"],
+          upgradeInsecureRequests: [],
+        },
+      } : false, // Keep CSP off in dev to avoid Vite HMR issues
+      crossOriginEmbedderPolicy: false,
     })
   );
 
   app.use(cors());
-  app.use(express.json());
+  app.use(express.json({ limit: '10kb' })); // Restrict payload size to prevent DOS
 
   // Rate Limiting for API
   const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 20, // limit each IP to 20 requests per windowMs
-    message: 'Too many requests from this IP, please try again after 15 minutes',
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many requests from this IP, please try again after 15 minutes' },
   });
 
   app.use('/api/', apiLimiter);
@@ -84,6 +99,22 @@ async function startServer() {
         return res.status(400).json({ error: 'Name, email, and message are required.' });
       }
 
+      // Input size validation to prevent oversized payloads processing
+      if (
+        name.length > 100 || 
+        email.length > 150 || 
+        message.length > 5000 || 
+        (company && company.length > 100) || 
+        (urgency && urgency.length > 50)
+      ) {
+        return res.status(400).json({ error: 'Input exceeds maximum allowed length.' });
+      }
+
+      // Basic email format validation
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ error: 'Invalid email format.' });
+      }
+
       const mailOptions = {
         from: process.env.SMTP_USER || '"Oakivo System" <no-reply@oakivo.com>',
         to: process.env.CONTACT_EMAIL || 'olabel@gmail.com, ahmed.bello@oakivo.com',
@@ -119,6 +150,21 @@ async function startServer() {
       
       if (!messages || !Array.isArray(messages)) {
         return res.status(400).json({ error: 'Valid messages array is required.' });
+      }
+      
+      // Prevent massive context window abuses
+      if (messages.length > 50) {
+        return res.status(400).json({ error: 'Too many messages in history.' });
+      }
+      
+      // Validate each message payload length
+      for (const msg of messages) {
+        if (!msg.content || typeof msg.content !== 'string' || msg.content.length > 2000) {
+           return res.status(400).json({ error: 'Message content must be a string under 2000 characters.' });
+        }
+        if (msg.type !== 'user' && msg.type !== 'bot') {
+           return res.status(400).json({ error: 'Invalid message type.' });
+        }
       }
 
       if (!process.env.GEMINI_API_KEY) {
