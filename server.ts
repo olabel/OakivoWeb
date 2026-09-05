@@ -48,7 +48,7 @@ async function startServer() {
       frameguard: {
         action: 'deny' // Prevent clickjacking
       },
-      contentTypeOptions: true, // X-Content-Type-Options: nosniff
+      xContentTypeOptions: true, // X-Content-Type-Options: nosniff
       hidePoweredBy: true,
     })
   );

@@ -157,6 +157,8 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={fullImageUrl} />
+      <meta name="twitter:site" content="@oakivosolutions" />
+      <meta name="twitter:creator" content="@oakivosolutions" />
 
       {/* Structured Data (JSON-LD) */}
       {renderSchema()}

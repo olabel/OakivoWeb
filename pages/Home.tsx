@@ -6,7 +6,6 @@ import { ArrowRight, Activity } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { NavRoute } from '../types';
 import PremiumCapabilities from '../components/PremiumCapabilities';
-import Breadcrumb from '../components/Breadcrumb';
 
 const Home: React.FC = () => {
   const { t } = useLanguage();
@@ -51,8 +50,6 @@ const Home: React.FC = () => {
         schema={faqSchema}
       />
       
-      <Breadcrumb sections={breadcrumbSections} />
-
       {/* Hero Section */}
       <header id="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#070A0F]">
         {/* Background Video */}

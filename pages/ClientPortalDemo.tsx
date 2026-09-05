@@ -31,6 +31,8 @@ import {
   ScatterChart, Scatter, ZAxis, Cell
 } from 'recharts';
 
+import InteractivePlayground from '../components/InteractivePlayground';
+
 // --- Mock Data ---
 
 const pipelineData = [
@@ -228,6 +230,10 @@ const ClientPortalDemo: React.FC = () => {
               <span className="text-sm font-medium text-emerald-400">System Secure</span>
               <span className="text-xs text-slate-500 border-l border-slate-700 pl-3 ml-1">99.99% Uptime</span>
             </div>
+          </div>
+
+          <div className="mb-8">
+            <InteractivePlayground />
           </div>
 
           {/* Metric Cards (Top Row) */}

@@ -56,22 +56,6 @@ const Booking: React.FC = () => {
     setErrorMessage('');
     
     try {
-      const response = await fetch('/api/book-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          company: form.company,
-          message: `Booking Request: ${selectedDate} at ${selectedTime}\n\nChallenge: ${form.bottleneck}`,
-          urgency: 'High Priority (Audit Booking)'
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit booking');
-      }
-
       await db.saveEntry('lead', {
         ...form,
         selectedDate,

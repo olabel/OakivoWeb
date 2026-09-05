@@ -3,6 +3,7 @@ import { Network, Lock, Zap, ShieldCheck, ArrowRight, Server, Code, FileKey } fr
 import SEO from '../components/SEO';
 import LeadDrawer from '../components/LeadDrawer';
 import OakivoROIEngine from '../components/OakivoROIEngine';
+import InteractivePlayground from '../components/InteractivePlayground';
 
 const Methodology: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -146,6 +147,20 @@ const Methodology: React.FC = () => {
               </button>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-slate-950 text-slate-100 py-24 border-b border-slate-900/50">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-4">
+              Zero-Trust Architecture Demo
+            </h2>
+            <p className="text-slate-400 font-light leading-relaxed max-w-2xl mx-auto">
+              Simulate an attack on a cluster and watch our automated DevSecOps pipelines isolate the threat and reroute traffic without downtime.
+            </p>
+          </div>
+          <InteractivePlayground />
         </div>
       </section>
 

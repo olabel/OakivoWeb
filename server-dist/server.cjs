@@ -71,7 +71,7 @@ async function startServer() {
         action: "deny"
         // Prevent clickjacking
       },
-      contentTypeOptions: true,
+      xContentTypeOptions: true,
       // X-Content-Type-Options: nosniff
       hidePoweredBy: true
     })
@@ -137,7 +137,23 @@ async function startServer() {
     if (typeof unsafe !== "string") return unsafe;
     return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
   };
-  app.post("/api/book-audit", formLimiter, async (req, res) => {
+  const logFormSubmission = (req, res, next) => {
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    let maskedIp = "unknown";
+    if (ip !== "unknown") {
+      if (ip.includes(":")) {
+        const parts = ip.split(":");
+        maskedIp = parts.slice(0, Math.max(1, parts.length - 2)).join(":") + ":***:***";
+      } else {
+        const parts = ip.split(".");
+        maskedIp = parts.slice(0, Math.max(1, parts.length - 1)).join(".") + ".***";
+      }
+    }
+    const timestamp = (/* @__PURE__ */ new Date()).toISOString();
+    console.log(`[SECURITY_LOG] Form Submission Attempt | Time: ${timestamp} | Endpoint: ${req.originalUrl} | IP: ${maskedIp}`);
+    next();
+  };
+  app.post("/api/book-audit", formLimiter, logFormSubmission, async (req, res) => {
     try {
       const { name, email, company, message, urgency } = req.body;
       if (!name || !email || !message) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cpu, Layers, ShieldCheck, Database } from 'lucide-react';
-import { ServiceCardData } from '../components/BentoServices';
-import { useLanguage } from '../context/LanguageContext';
+import { ServiceCardData } from '../../components/BentoServices';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const useServicesData = (): ServiceCardData[] => {
   const { t } = useLanguage();

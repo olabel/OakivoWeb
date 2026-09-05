@@ -66,22 +66,6 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
         submittedAt: new Date().toISOString()
       });
 
-      const response = await fetch('/api/book-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          message: `Challenge / Bottleneck:\n${formData.bottleneck}`,
-          urgency: 'High Priority (Audit Booking)'
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit booking');
-      }
-
       setStatus('success');
     } catch (err) {
       setErrors({ ...errors, submit: 'A network error occurred. Please try again.' });

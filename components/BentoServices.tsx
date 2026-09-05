@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import LeadDrawer from './LeadDrawer';
-import { useServicesData } from '../data/servicesData';
+import { useServicesData } from '../src/data/servicesData';
 
 export interface ServiceCardData {
   id: string;

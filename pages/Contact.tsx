@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
-  Send, CheckCircle2, ShieldCheck, Clock, Mail, MapPin, 
-  HelpCircle, ChevronDown, ChevronUp, Loader2, Sparkles, User, AlertCircle, Building2, Terminal
+  Send, CheckCircle2, Mail, MapPin, 
+  HelpCircle, ChevronDown, ChevronUp, Loader2, Sparkles, User, Building2, Terminal, Phone, MessageSquare
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { db } from '../utils/database';
@@ -18,8 +18,8 @@ const faqs = [
     answer: 'No. Shifting security left into automated CI/CD pipelines (GitHub Actions, GitLab CI, ArgoCD) catches vulnerabilities in milliseconds during pull requests, eliminating weeks of manual security review delays.'
   },
   {
-    question: 'What is delivered in the 30-Minute Security Architecture Audit?',
-    answer: 'Our senior DevSecOps engineers analyze your current cloud configuration, CI/CD pipeline guardrails, and compliance posture (SOC 2, PIPEDA). You receive a prioritized, actionable remediation blueprint with zero pushy sales talk.'
+    question: 'Do you offer custom engagements beyond the architectural audit?',
+    answer: 'Yes. While the audit is a great starting point, we frequently engage in long-term DevSecOps transformations, infrastructure-as-code migrations, and continuous compliance automation for SOC 2.'
   }
 ];
 
@@ -29,9 +29,10 @@ const Contact: React.FC = () => {
     name: '',
     email: '',
     company: '',
-    bottleneck: '',
-    location: 'New Brunswick'
+    inquiryType: 'General Inquiry',
+    message: ''
   });
+  
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -43,25 +44,14 @@ const Contact: React.FC = () => {
       setStatus('success');
       return;
     }
+
     setStatus('submitting');
+    
     try {
-      const response = await fetch('/api/book-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formState.name,
-          email: formState.email,
-          company: formState.company,
-          message: `Location: ${formState.location}\n\nChallenge: ${formState.bottleneck}`,
-          urgency: 'Standard'
-        })
+      await db.saveEntry('lead', { 
+        ...formState, 
+        source: 'Contact Us Page' 
       });
-
-      if (!response.ok) {
-        throw new Error('Network error');
-      }
-
-      await db.saveEntry('lead', { ...formState, source: 'Contact & 30-Min Security Audit Page' });
       setStatus('success');
     } catch (err) {
       setStatus('error');
@@ -74,7 +64,7 @@ const Contact: React.FC = () => {
 
   const handleModalClose = () => {
     setStatus('idle');
-    setFormState({ name: '', email: '', company: '', urgency: 'Normal', message: '' });
+    setFormState({ name: '', email: '', company: '', inquiryType: 'General Inquiry', message: '' });
   };
 
   return (
@@ -82,12 +72,13 @@ const Contact: React.FC = () => {
       <SuccessModal 
         isOpen={status === 'success'}
         onClose={handleModalClose}
-        title={t('drawer.success_title')}
-        message={t('drawer.success_desc')}
+        title="Message Sent Successfully"
+        message="Thank you for reaching out to Oakivo Solutions. A member of our team will get back to you shortly."
       />
+
       <SEO 
-        title="Book 30-Minute Security Architecture Audit | Oakivo Solutions  -  Dieppe, NB"
-        description="Schedule a 30-minute DevSecOps and Cloud Security Architecture Audit with Oakivo Solutions. Direct senior engineering guidance for Atlantic Canadian businesses."
+        title="Contact Oakivo Solutions | Enterprise Cloud Security & DevSecOps"
+        description="Start a conversation with Oakivo Solutions. We architect secure, compliant, and automated cloud infrastructure for Atlantic Canadian enterprises."
         canonical="/contact"
       />
 
@@ -101,13 +92,13 @@ const Contact: React.FC = () => {
                 Dieppe, New Brunswick • Atlantic Canada Authority
               </span>
             </div>
-
+            
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-slate-100 leading-[1.06]">
-              Book Your 30-Minute <span className="text-linear-accent font-semibold">Security Architecture Audit</span>
+              Start a <span className="text-linear-accent font-semibold">Conversation</span>
             </h1>
-
+            
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              No sales reps or high-pressure pitches. Meet directly with a senior DevSecOps engineer to evaluate your cloud infrastructure, CI/CD pipelines, and compliance exposure - 100% confidential.
+              Whether you're looking to automate your pipelines, achieve SOC 2 compliance, or just want to talk cloud architecture—our senior engineers are ready to help.
             </p>
           </div>
         </div>
@@ -120,8 +111,8 @@ const Contact: React.FC = () => {
             
             {/* Form Column */}
             <div className="lg:col-span-7">
-              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] shadow-2xl">
-                {(status === 'idle' || status === 'submitting' || status === 'success') && (
+              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-2xl">
+                {(status === 'idle' || status === 'submitting' || status === 'success' || status === 'error') && (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Hidden Honeypot Input for Bot Anti-Spam */}
                     <input
@@ -136,7 +127,7 @@ const Contact: React.FC = () => {
                     />
 
                     <div>
-                      <h2 className="text-xl font-bold text-white tracking-tight">{t('drawer.title')}</h2>
+                      <h2 className="text-xl font-bold text-white tracking-tight">How can we help?</h2>
                       <p className="text-xs text-gray-300 mt-1">Direct evaluation from senior DevSecOps architects based in Dieppe, NB. 100% confidential.</p>
                     </div>
 
@@ -144,7 +135,7 @@ const Contact: React.FC = () => {
                       {/* Full Name */}
                       <div className="space-y-1.5">
                         <label className="text-xs font-mono font-medium text-gray-300 block">
-                          {t('drawer.name_label')} <span className="text-cyan-400">*</span>
+                          Your Name <span className="text-cyan-400">*</span>
                         </label>
                         <input
                           type="text"
@@ -152,7 +143,7 @@ const Contact: React.FC = () => {
                           required
                           value={formState.name}
                           onChange={handleChange}
-                          placeholder={t('drawer.name_placeholder')}
+                          placeholder="e.g. David Cormier"
                           className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-all"
                         />
                       </div>
@@ -160,7 +151,7 @@ const Contact: React.FC = () => {
                       {/* Work Email */}
                       <div className="space-y-1.5">
                         <label className="text-xs font-mono font-medium text-gray-300 block">
-                          {t('drawer.email_label')} <span className="text-cyan-400">*</span>
+                          Work Email <span className="text-cyan-400">*</span>
                         </label>
                         <input
                           type="email"
@@ -168,7 +159,7 @@ const Contact: React.FC = () => {
                           required
                           value={formState.email}
                           onChange={handleChange}
-                          placeholder={t('drawer.email_placeholder')}
+                          placeholder="e.g. david@enterprise.ca"
                           className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-all"
                         />
                       </div>
@@ -178,53 +169,59 @@ const Contact: React.FC = () => {
                       {/* Company */}
                       <div className="space-y-1.5">
                         <label className="text-xs font-mono font-medium text-gray-300 block">
-                          {t('drawer.company_label')}
+                          Company / Organization
                         </label>
                         <input
                           type="text"
                           name="company"
                           value={formState.company}
                           onChange={handleChange}
-                          placeholder={t('drawer.company_placeholder')}
+                          placeholder="e.g. Maritime Logistics Inc."
                           className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-all"
                         />
                       </div>
 
-                      {/* Location */}
+                      {/* Inquiry Type */}
                       <div className="space-y-1.5">
                         <label className="text-xs font-mono font-medium text-gray-300 block">
-                          Your Location / Province
+                          Inquiry Type
                         </label>
                         <select
-                          name="location"
-                          value={formState.location}
+                          name="inquiryType"
+                          value={formState.inquiryType}
                           onChange={handleChange}
                           className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all"
                         >
-                          <option value="New Brunswick">New Brunswick (Moncton, Dieppe, Fredericton, Saint John)</option>
-                          <option value="Nova Scotia">Nova Scotia (Halifax, Dartmouth, Sydney)</option>
-                          <option value="Prince Edward Island">Prince Edward Island (Charlottetown)</option>
-                          <option value="Newfoundland and Labrador">Newfoundland and Labrador (St. John's)</option>
-                          <option value="Other / Outside Atlantic Canada">Other / Outside Atlantic Canada</option>
+                          <option value="General Inquiry">General Inquiry</option>
+                          <option value="Cloud Security & Architecture">Cloud Security & Architecture</option>
+                          <option value="CI/CD Pipeline Automation">CI/CD Pipeline Automation</option>
+                          <option value="Compliance (SOC 2 / PIPEDA)">Compliance (SOC 2 / PIPEDA)</option>
+                          <option value="ERP / Operations Alignment">ERP / Operations Alignment</option>
                         </select>
                       </div>
                     </div>
 
-                    {/* Security & Infrastructure Bottleneck */}
+                    {/* Message */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-mono font-medium text-gray-300 block">
-                        {t('drawer.bottleneck_label')} <span className="text-cyan-400">*</span>
+                        Message <span className="text-cyan-400">*</span>
                       </label>
                       <textarea
-                        name="bottleneck"
+                        name="message"
                         required
-                        rows={4}
-                        value={formState.bottleneck}
+                        rows={5}
+                        value={formState.message}
                         onChange={handleChange}
-                        placeholder={t('drawer.bottleneck_placeholder')}
+                        placeholder="Tell us a bit about your current infrastructure and what you're looking to achieve..."
                         className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-all resize-none"
                       />
                     </div>
+
+                    {status === 'error' && (
+                      <p className="text-xs text-red-400 font-medium bg-red-400/10 border border-red-400/20 p-3 rounded-lg">
+                        An error occurred while sending your message. Please try again or email us directly.
+                      </p>
+                    )}
 
                     <button
                       type="submit"
@@ -234,18 +231,18 @@ const Contact: React.FC = () => {
                       {status === 'submitting' ? (
                         <>
                           <Loader2 size={16} className="animate-spin text-black" />
-                          <span>{t('drawer.submitting')}</span>
+                          <span>Sending Message...</span>
                         </>
                       ) : (
                         <>
                           <Send size={15} />
-                          <span>{t('drawer.submit_btn')}</span>
+                          <span>Send Message</span>
                         </>
                       )}
                     </button>
-
+                    
                     <p className="text-center text-xs text-gray-500 font-mono">
-                      {t('common.guarantee')}
+                      Your information is protected by enterprise-grade encryption.
                     </p>
                   </form>
                 )}
@@ -254,7 +251,7 @@ const Contact: React.FC = () => {
 
             {/* Sidebar Column */}
             <div className="lg:col-span-5 space-y-8">
-              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/[0.08] space-y-6">
+              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-8 space-y-6">
                 <h3 className="text-xl font-bold text-white tracking-tight">Direct Regional Presence</h3>
                 
                 <div className="space-y-4">
@@ -271,6 +268,18 @@ const Contact: React.FC = () => {
 
                   <div className="flex items-start gap-3">
                     <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-cyan-400 shrink-0">
+                      <Phone size={18} />
+                    </div>
+                    <div>
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">Phone</span>
+                      <a href="tel:506899491" className="text-sm font-semibold text-white hover:text-cyan-400 transition-colors block mt-0.5">
+                        506-899-0491
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-cyan-400 shrink-0">
                       <Mail size={18} />
                     </div>
                     <div>
@@ -280,26 +289,14 @@ const Contact: React.FC = () => {
                       </a>
                     </div>
                   </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-cyan-400 shrink-0">
-                      <Clock size={18} />
-                    </div>
-                    <div>
-                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">Direct SLA</span>
-                      <span className="text-sm font-semibold text-white block mt-0.5">&lt; 15 Minute Critical Incident SLA</span>
-                      <span className="text-xs text-gray-400 block mt-0.5">Atlantic Standard Time</span>
-                    </div>
-                  </div>
                 </div>
               </div>
 
               {/* FAQs */}
-              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-8 border border-white/[0.08] space-y-4">
+              <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-8 space-y-4">
                 <div className="flex items-center gap-2 text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider">
                   <HelpCircle size={16} /> Frequently Asked Questions
                 </div>
-
                 <div className="space-y-3">
                   {faqs.map((faq, idx) => (
                     <div key={idx} className="border-b border-white/10 pb-3 last:border-b-0 last:pb-0">
@@ -321,7 +318,6 @@ const Contact: React.FC = () => {
               </div>
 
             </div>
-
           </div>
         </div>
       </section>
