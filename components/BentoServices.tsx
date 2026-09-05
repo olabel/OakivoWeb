@@ -28,7 +28,18 @@ const BentoServices: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'odoo' | 'ai' | 'cyber' | 'modernization'>('all');
   const [selectedService, setSelectedService] = useState<ServiceCardData | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const servicesData = useServicesData();
+  const [isLoading, setIsLoading] = useState(true);
+  const rawServicesData = useServicesData();
+  const [servicesData, setServicesData] = useState<ServiceCardData[]>([]);
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setServicesData(rawServicesData);
+      setIsLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [rawServicesData, activeFilter]);
 
   const filteredServices = activeFilter === 'all' 
     ? servicesData 
@@ -83,11 +94,35 @@ const BentoServices: React.FC = () => {
 
         {/* Bento Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 max-w-7xl mx-auto">
-          {filteredServices.map((service, index) => {
-            const isLarge = service.size === 'large';
-            const colSpanClass = isLarge ? 'lg:col-span-6' : 'lg:col-span-6';
+          {isLoading ? (
+            Array.from({ length: 4 }).map((_, idx) => (
+              <div key={idx} className="lg:col-span-6 linear-card rounded-2xl md:rounded-3xl p-6 md:p-8 flex flex-col justify-between h-[300px] animate-pulse">
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="w-10 h-10 rounded-xl bg-white/10" />
+                    <div className="w-24 h-4 rounded bg-white/10" />
+                  </div>
+                  <div>
+                    <div className="w-3/4 h-8 rounded bg-white/10 mb-3" />
+                    <div className="w-full h-4 rounded bg-white/10 mb-2" />
+                    <div className="w-5/6 h-4 rounded bg-white/10" />
+                  </div>
+                </div>
+                <div className="pt-6 mt-6 border-t border-white/[0.08] flex items-end justify-between">
+                  <div>
+                    <div className="w-16 h-8 rounded bg-white/10 mb-2" />
+                    <div className="w-24 h-3 rounded bg-white/10" />
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-white/10" />
+                </div>
+              </div>
+            ))
+          ) : (
+            filteredServices.map((service, index) => {
+              const isLarge = service.size === 'large';
+              const colSpanClass = isLarge ? 'lg:col-span-6' : 'lg:col-span-6';
 
-            return (
+              return (
               <motion.div
                 key={service.id}
                 layout
@@ -146,7 +181,8 @@ const BentoServices: React.FC = () => {
                 </div>
               </motion.div>
             );
-          })}
+          })
+          )}
         </div>
       </div>
 

@@ -25,6 +25,15 @@ interface CaseStudyItem {
 const CaseStudiesShowcase: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const caseStudies: CaseStudyItem[] = [
     {
@@ -139,6 +148,24 @@ const CaseStudiesShowcase: React.FC = () => {
 
         {/* Featured Case Study Card */}
         <div className="max-w-7xl mx-auto linear-card rounded-2xl md:rounded-3xl p-6 md:p-12 border border-white/[0.08] shadow-2xl relative overflow-hidden">
+          {isLoading ? (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-14 items-center animate-pulse">
+              <div className="lg:col-span-7 space-y-8">
+                <div className="flex gap-4">
+                  <div className="w-24 h-6 rounded bg-white/10" />
+                  <div className="w-32 h-6 rounded bg-white/10" />
+                </div>
+                <div className="w-3/4 h-12 rounded bg-white/10" />
+                <div className="w-full h-4 rounded bg-white/10" />
+                <div className="w-full h-4 rounded bg-white/10" />
+                <div className="w-5/6 h-4 rounded bg-white/10" />
+              </div>
+              <div className="lg:col-span-5 space-y-6">
+                <div className="w-full h-48 rounded bg-white/10" />
+                <div className="w-full h-12 rounded-full bg-white/10" />
+              </div>
+            </div>
+          ) : (
           <AnimatePresence mode="wait">
             <motion.div
               key={currentCase.id}
@@ -231,6 +258,7 @@ const CaseStudiesShowcase: React.FC = () => {
               </div>
             </motion.div>
           </AnimatePresence>
+          )}
         </div>
       </div>
 
