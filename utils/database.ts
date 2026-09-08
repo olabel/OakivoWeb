@@ -3,7 +3,7 @@
  * Simulates a secure backend database for lead and applicant tracking.
  */
 
-import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, orderBy, setDoc } from 'firebase/firestore';
 import { db as firestoreDb } from './firebase';
 
 export interface DatabaseEntry {
@@ -56,10 +56,35 @@ class OakivoDatabase {
     await updateDoc(docRef, { status });
   }
 
+
+  public async getInsights(): Promise<any[]> {
+    try {
+      const q = query(collection(firestoreDb, 'insights'), orderBy('date', 'desc'));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (error) {
+      console.warn("Could not load insights from Firebase (might not exist yet).", error);
+      return [];
+    }
+  }
+
+  public async saveInsight(insight: any): Promise<void> {
+    const { id, ...data } = insight;
+    const safeId = id || data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const docRef = doc(firestoreDb, 'insights', safeId);
+    await setDoc(docRef, data);
+  }
+
+  public async deleteInsight(id: string): Promise<void> {
+    const docRef = doc(firestoreDb, 'insights', id);
+    await deleteDoc(docRef);
+  }
+
   public async deleteEntry(id: string) {
     const docRef = doc(firestoreDb, 'entries', id);
     await deleteDoc(docRef);
   }
 }
+
 
 export const db = new OakivoDatabase();

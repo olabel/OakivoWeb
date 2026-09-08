@@ -24,7 +24,8 @@ export const translations: Record<Language, Record<string, any>> = {
       compliance: 'Security & Compliance',
       privacy: 'Privacy Policy',
       solutions: 'Solutions',
-      locations: 'Locations'
+      locations: 'Locations',
+      research: 'Insights'
     },
     trust: {
       soc2: "SOC 2 Type II Certified",
@@ -405,7 +406,8 @@ export const translations: Record<Language, Record<string, any>> = {
       compliance: 'Sécurité & Conformité',
       privacy: 'Politique de Confidentialité',
       solutions: 'Solutions',
-      locations: 'Emplacements'
+      locations: 'Emplacements',
+      research: 'Aperçus'
     },
     trust: {
       soc2: "Certifié SOC 2 Type II",

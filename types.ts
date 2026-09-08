@@ -44,6 +44,7 @@ export enum NavRoute {
   CONTACT = '/contact',
   BOOKING = '/schedule',
   BLOG = '/perspectives',
+  INSIGHTS = '/insights',
   METHODOLOGY = '/methodology',
   CAREERS = '/careers',
   PRIVACY = '/privacy',
