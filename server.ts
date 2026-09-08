@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -303,41 +304,70 @@ async function startServer() {
   });
 
   
-  // Dynamic XML Sitemap Generator
+  // Automated XML Sitemap Generator (Reads from App.tsx)
   app.get('/sitemap.xml', (req, res) => {
     const siteUrl = 'https://www.oakivo.com';
-    const routes = [
-      '/', '/services', '/capabilities', '/case-studies', '/work', '/contact', 
-      '/booking', '/methodology', '/careers', '/about', '/firm', '/industries', 
-      '/admin-portal', '/privacy', '/compliance-matrix', '/brand-identity', 
-      '/client-portal-demo'
-    ];
     
-    // Simulating dynamic routes from a database or config if needed
-    const dynamicRoutes = [
-      '/solutions/devsecops-automation',
-      '/solutions/cloud-security',
-      '/solutions/zero-trust',
-      '/locations/dieppe',
-      '/locations/halifax',
-      '/locations/st-johns'
-    ];
     
-    const allRoutes = [...routes, ...dynamicRoutes];
+    let allRoutes = [];
+    try {
+      const appTsxContent = fs.readFileSync(path.join(process.cwd(), 'src', 'App.tsx'), 'utf8');
+      const routeRegex = /<Route[^>]*path=["']([^"']+)["'][^>]*>/g;
+      let match;
+      while ((match = routeRegex.exec(appTsxContent)) !== null) {
+        const routePath = match[1];
+        if (!routePath.includes('*') && !routePath.includes(':')) {
+           allRoutes.push(routePath);
+        }
+      }
+    } catch (e) {
+      console.error("Error generating dynamic routes from App.tsx", e);
+      // Fallback
+      allRoutes = ['/', '/services', '/case-studies', '/contact', '/insights'];
+    }
+
+    allRoutes = [...new Set(allRoutes)].filter(route => !route.includes('/admin-portal'));
+
     const currentDate = new Date().toISOString().split('T')[0];
     
+    const sitemapUrls = allRoutes.map(route => {
+      let priority = '0.8';
+      let changefreq = 'weekly';
+      
+      if (route === '/') {
+        priority = '1.0';
+        changefreq = 'daily';
+      } else if (route.includes('/locations/') || route.includes('/solutions/')) {
+        priority = '0.9';
+        changefreq = 'weekly';
+      } else if (route === '/insights') {
+        priority = '0.9';
+        changefreq = 'daily';
+      } else if (route === '/privacy' || route === '/compliance-matrix') {
+        priority = '0.5';
+        changefreq = 'monthly';
+      }
+
+      return `  <url>
+    <loc>https://www.oakivo.com${route}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+    }).join('\n');
+
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allRoutes.map(route => `  <url>
-    <loc>${siteUrl}${route}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${route === '/' ? '1.0' : '0.8'}</priority>
-  </url>`).join('\n')}
+${sitemapUrls}
 </urlset>`;
 
     res.header('Content-Type', 'application/xml');
     res.send(sitemap);
+  });
+
+  app.get('/robots.txt', (req, res) => {
+    res.header('Content-Type', 'text/plain');
+    res.send(`User-agent: *\nAllow: /\nDisallow: /admin-portal\nDisallow: /api/\n\nSitemap: https://www.oakivo.com/sitemap.xml\n`);
   });
 
   // Health check

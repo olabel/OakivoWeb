@@ -55,12 +55,14 @@ const Insights: React.FC = () => {
 
   return (
     <>
+      
       <SEO 
-        title="Security Insights & Research | Oakivo Solutions"
-        description="Deep-dive articles on Zero-Trust, DevSecOps automation, and Canadian data residency compliance (PIPEDA, SOC 2) by Oakivo engineers."
+        title="Engineering Research & Insights | Oakivo Solutions"
+        description="Authoritative research on Zero-Trust Architecture, Kubernetes Posture Management, and DevSecOps automation by Oakivo's cloud security architects."
         canonical="/insights"
         schema={blogSchema}
       />
+
 
       <section className="pt-32 pb-24 px-6 relative bg-slate-950 min-h-screen">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.02] pointer-events-none"></div>
