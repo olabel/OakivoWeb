@@ -14,6 +14,20 @@ const Insights: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPost, setSelectedPost] = useState<InsightPost | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    setScrollProgress(progress);
+  };
+  
+  // Reset scroll progress when post changes
+  useEffect(() => {
+    if (selectedPost) {
+      setScrollProgress(0);
+    }
+  }, [selectedPost]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -115,6 +129,10 @@ const Insights: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className="mb-16 group cursor-pointer"
                   onClick={() => setSelectedPost(featuredPost)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`Read featured article: ${featuredPost.title}`}
+                  onKeyDown={(e) => { if (e.key === 'Enter') setSelectedPost(featuredPost); }}
                 >
                   <div className="relative rounded-3xl overflow-hidden border border-slate-800/80 bg-slate-900/50 shadow-2xl transition-all duration-500 hover:border-cyan-500/40 hover:shadow-cyan-500/10 flex flex-col md:flex-row">
                     <div className="w-full md:w-1/2 h-[300px] md:h-auto relative overflow-hidden">
@@ -174,6 +192,10 @@ const Insights: React.FC = () => {
                     transition={{ delay: index * 0.1 }}
                     className="bg-slate-900/30 border border-slate-800/60 rounded-3xl overflow-hidden hover:border-cyan-500/30 hover:bg-slate-900/60 transition-all duration-300 flex flex-col cursor-pointer group shadow-lg"
                     onClick={() => setSelectedPost(post)}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`Read article: ${post.title}`}
+                    onKeyDown={(e) => { if (e.key === 'Enter') setSelectedPost(post); }}
                   >
                     {post.coverImage && (
                       <div className="w-full h-48 relative overflow-hidden border-b border-slate-800/60">
@@ -231,9 +253,20 @@ const Insights: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-[#0B0F17] border border-slate-800/60 w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl"
+              className="bg-[#0B0F17] border border-slate-800/60 w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl relative"
               onClick={e => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-title"
             >
+              {/* Reading Progress Bar */}
+              <div className="w-full h-1 bg-slate-800 z-50">
+                <div 
+                  className="h-full bg-cyan-500 transition-all duration-150 ease-out"
+                  style={{ width: `${scrollProgress}%` }}
+                ></div>
+              </div>
+              
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-slate-800/60 bg-slate-900/80">
                 <div className="flex items-center gap-3">
@@ -245,18 +278,19 @@ const Insights: React.FC = () => {
                 <button 
                   onClick={() => setSelectedPost(null)}
                   className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                  aria-label="Close insight article"
                 >
                   <X size={20} />
                 </button>
               </div>
               
               {/* Content Body */}
-              <div className="p-8 md:p-14 overflow-y-auto no-scrollbar relative">
+              <div className="p-8 md:p-14 overflow-y-auto no-scrollbar relative" onScroll={handleScroll}>
                 <div className="text-[11px] font-mono font-bold uppercase tracking-widest text-cyan-500 mb-6">
                   {selectedPost.category}
                 </div>
                 
-                <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8 text-white leading-[1.1]">
+                <h1 id="modal-title" className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8 text-white leading-[1.1]">
                   {selectedPost.title}
                 </h1>
                 
@@ -270,15 +304,30 @@ const Insights: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-slate-500 font-mono mr-2">SHARE:</span>
-                    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.oakivo.com/insights`} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#0077b5] hover:text-white transition-colors">
+                    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.oakivo.com/insights`} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#0077b5] hover:text-white transition-colors" aria-label="Share on LinkedIn">
                       <Linkedin size={14} />
                     </a>
-                    <a href={`https://twitter.com/intent/tweet?url=https://www.oakivo.com/insights&text=Check out this research: ${selectedPost.title}`} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#1DA1F2] hover:text-white transition-colors">
+                    <a href={`https://twitter.com/intent/tweet?url=https://www.oakivo.com/insights&text=Check out this research: ${selectedPost.title}`} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#1DA1F2] hover:text-white transition-colors" aria-label="Share on X (Twitter)">
                       <Twitter size={14} />
                     </a>
                   </div>
                 </div>
 
+                
+                {selectedPost.keyTakeaways && selectedPost.keyTakeaways.length > 0 && (
+                  <div className="mb-12 bg-slate-900/50 border-l-4 border-cyan-500 rounded-r-2xl p-8" aria-label="Key Takeaways">
+                    <h2 className="text-xl font-display font-bold text-white mb-6 uppercase tracking-wider text-sm">Key Takeaways</h2>
+                    <ul className="space-y-4">
+                      {selectedPost.keyTakeaways.map((takeaway, idx) => (
+                        <li key={idx} className="flex items-start gap-4 text-slate-300 font-light leading-relaxed">
+                          <span className="text-cyan-500 mt-1.5 opacity-60">•</span>
+                          <span>{takeaway}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
                 <div className="prose prose-invert prose-cyan max-w-none text-slate-300 leading-loose
                   prose-headings:font-display prose-headings:font-bold prose-headings:text-white prose-headings:tracking-tight
                   prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-slate-800/60 prose-h2:pb-4
@@ -302,6 +351,10 @@ const Insights: React.FC = () => {
                         key={relatedPost.id}
                         onClick={(e) => { e.stopPropagation(); setSelectedPost(relatedPost); }}
                         className="bg-slate-900/40 border border-slate-800/60 p-6 rounded-2xl cursor-pointer hover:border-cyan-500/30 hover:bg-slate-900/80 transition-all group flex flex-col h-full"
+                        tabIndex={0}
+                        role="button"
+                        aria-label={`Read related article: ${relatedPost.title}`}
+                        onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); setSelectedPost(relatedPost); } }}
                       >
                         <div className="text-[10px] font-mono text-cyan-500 mb-3 uppercase tracking-wider">{relatedPost.category}</div>
                         <h4 className="text-slate-100 font-bold leading-snug mb-3 group-hover:text-cyan-400 transition-colors flex-grow">{relatedPost.title}</h4>
