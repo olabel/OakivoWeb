@@ -72,13 +72,13 @@ const Contact: React.FC = () => {
       <SuccessModal 
         isOpen={status === 'success'}
         onClose={handleModalClose}
-        title="Message Sent Successfully"
+        title="Contact Oakivo | DevSecOps & Cloud Security Atlantic Canada"
         message="Thank you for reaching out to Oakivo Solutions. A member of our team will get back to you shortly."
       />
 
       <SEO 
-        title="Contact Oakivo Solutions | Enterprise Cloud Security & DevSecOps"
-        description="Start a conversation with Oakivo Solutions. We architect secure, compliant, and automated cloud infrastructure for Atlantic Canadian enterprises."
+        title="Contact Oakivo | DevSecOps & Cloud Security Atlantic Canada"
+        description="Start a conversation with Oakivo Solutions. We architect secure, compliant DevSecOps pipelines and process automation for cloud security in Atlantic Canada."
         canonical="/contact"
       />
 

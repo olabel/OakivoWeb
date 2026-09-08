@@ -5,6 +5,7 @@ import {
   ShieldCheck, FileCheck, ChevronLeft, ChevronRight, Sparkles 
 } from 'lucide-react';
 import LeadDrawer from './LeadDrawer';
+import OptimizedImage from './OptimizedImage';
 
 interface CaseStudyItem {
   id: string;
@@ -20,6 +21,8 @@ interface CaseStudyItem {
   author: string;
   authorRole: string;
   keyAchievements: string[];
+  image: string;
+  imageAlt: string;
 }
 
 const CaseStudiesShowcase: React.FC = () => {
@@ -38,6 +41,8 @@ const CaseStudiesShowcase: React.FC = () => {
   const caseStudies: CaseStudyItem[] = [
     {
       id: 'atlantic-manufacturing',
+      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80',
+      imageAlt: 'DevSecOps process automation in Atlantic Canada manufacturing facility',
       client: 'Atlantic Precision Manufacturing',
       industry: 'Industrial Equipment & Machining',
       location: 'Moncton / Dieppe, NB',
@@ -57,6 +62,8 @@ const CaseStudiesShowcase: React.FC = () => {
     },
     {
       id: 'fintrust-compliance',
+      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80',
+      imageAlt: 'Cloud Security and compliance monitoring dashboard for FinTrust in Atlantic Canada',
       client: 'FinTrust Capital Solutions',
       industry: 'Financial Services & Fintech',
       location: 'Toronto, ON',
@@ -76,6 +83,8 @@ const CaseStudiesShowcase: React.FC = () => {
     },
     {
       id: 'global-logistics-ai',
+      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80',
+      imageAlt: 'Maritime logistics process automation and Cloud Security infrastructure in Halifax',
       client: 'Northern Maritime Supply Chain',
       industry: 'Logistics & Freight Orchestration',
       location: 'Montreal, QC',
@@ -223,8 +232,16 @@ const CaseStudiesShowcase: React.FC = () => {
                 </div>
               </div>
 
-              {/* Right Column: Key Achievements & CTA */}
-              <div className="lg:col-span-5 space-y-8 bg-white/5 p-8 md:p-10 rounded-[32px] border border-white/10 flex flex-col justify-between">
+              {/* Right Column: Image, Key Achievements & CTA */}
+              <div className="lg:col-span-5 space-y-6 bg-white/5 p-8 md:p-10 rounded-[32px] border border-white/10 flex flex-col justify-between">
+                <div className="w-full h-48 rounded-2xl overflow-hidden relative border border-white/10">
+                  <OptimizedImage
+                    src={currentCase.image}
+                    alt={currentCase.imageAlt}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-slate-900/40 mix-blend-multiply pointer-events-none"></div>
+                </div>
                 <div>
                   <span className="text-[10px] font-mono-tech text-oakivo-secondary uppercase tracking-[0.3em] font-bold block mb-2">
                     Verified Performance Metric

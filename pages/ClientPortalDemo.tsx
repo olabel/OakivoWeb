@@ -151,10 +151,9 @@ const ClientPortalDemo: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500/30">
       <SEO 
-        title="Interactive Client Portal Demo | Oakivo Solutions"
-        description="Experience the Oakivo Client Dashboard. View simulated live compliance scores, vulnerability scans, and CI/CD pipeline deployments."
-        canonical="/client-portal-demo"
-        keywords="Oakivo Client Portal, DevSecOps Dashboard, SOC 2 Monitoring, Pipeline Telemetry"
+        title="DevSecOps Portal Demo | Oakivo Atlantic Canada"
+        description="Experience Oakivo's DevSecOps client dashboard. View simulated cloud security compliance scores, vulnerability scans, and process automation in Atlantic Canada."
+        canonical="/clientportaldemo"
       />
 
       {/* Demo Mode Banner */}
@@ -361,9 +360,9 @@ const ClientPortalDemo: React.FC = () => {
                   <div key={idx} className="mb-2">
                     <span className="text-slate-500 mr-2">{'>'}</span>
                     <span className={
-                      line.includes('[SUCCESS]') ? 'text-emerald-400' :
-                      line.includes('[WARN]') ? 'text-amber-400' :
-                      line.includes('[NET]') ? 'text-rose-400' :
+                      (line || "").includes('[SUCCESS]') ? 'text-emerald-400' :
+                      (line || "").includes('[WARN]') ? 'text-amber-400' :
+                      (line || "").includes('[NET]') ? 'text-rose-400' :
                       'text-cyan-300'
                     }>{line}</span>
                   </div>

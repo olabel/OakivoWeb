@@ -1,80 +1,10 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { X, Send, CheckCircle2, ShieldCheck, Sparkles, Mail, User, Loader2, Building, Terminal } from 'lucide-react';
-import { db } from '../utils/database';
-import { useLanguage } from '../context/LanguageContext';
-import { SuccessModal } from './SuccessModal';
+const fs = require('fs');
+let content = fs.readFileSync('components/LeadDrawer.tsx', 'utf8');
 
-interface LeadDrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
-  defaultTopic?: string;
-}
+const returnStart = content.indexOf('  return (');
+const firstPart = content.substring(0, returnStart);
 
-const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
-  const { t } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    bottleneck: ''
-  });
-  const [honeypot, setHoneypot] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
-  const [errors, setErrors] = useState<Partial<Record<keyof typeof formData, string>>>({});
-
-  const handleReset = () => {
-    setStatus('idle');
-    setFormData({ name: '', email: '', company: '', bottleneck: '' });
-    setErrors({});
-    setHoneypot('');
-  };
-
-  const validateForm = () => {
-    const newErrors: Partial<Record<keyof typeof formData, string>> = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    else if (formData.name.trim().length < 2) newErrors.name = "Name must be at least 2 characters";
-
-    if (!formData.email.trim()) newErrors.email = "Work Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Please enter a valid email format";
-
-    if (!formData.company.trim()) newErrors.company = "Company name is required";
-    
-    if (!formData.bottleneck.trim()) newErrors.bottleneck = "Please provide details about your challenge";
-    else if (formData.bottleneck.trim().length < 10) newErrors.bottleneck = "Please provide a bit more detail";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (honeypot) {
-      // Bot detected via honeypot: silently simulate success without DB entry
-      setStatus('success');
-      return;
-    }
-    if (!validateForm()) return;
-
-    setStatus('submitting');
-    
-    try {
-      // Persist lead to database
-      await db.saveEntry('lead', {
-        ...formData,
-        type: 'SECURITY_ARCHITECTURE_AUDIT',
-        submittedAt: new Date().toISOString()
-      });
-
-      setStatus('success');
-    } catch (err) {
-      setErrors({ ...errors, submit: 'A network error occurred. Please try again.' });
-      setStatus('idle');
-    }
-  };
-
-
-  return (
+const newReturn = `  return (
     <>
       <SuccessModal 
         isOpen={status === 'success'}
@@ -155,7 +85,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                       {t('drawer.name_label')}
                     </label>
                     <div className="relative">
-                      <User size={16} className={`absolute left-4 top-3.5 ${errors.name ? 'text-red-400' : 'text-gray-400'}`} />
+                      <User size={16} className={\`absolute left-4 top-3.5 \${errors.name ? 'text-red-400' : 'text-gray-400'}\`} />
                       <input
                         type="text"
                         placeholder={t('drawer.name_placeholder')}
@@ -164,7 +94,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                           setFormData({ ...formData, name: e.target.value });
                           if (errors.name) setErrors({ ...errors, name: '' });
                         }}
-                        className={`w-full bg-white/5 border ${errors.name ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors`}
+                        className={\`w-full bg-white/5 border \${errors.name ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors\`}
                       />
                     </div>
                     {errors.name && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.name}</p>}
@@ -176,7 +106,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                       {t('drawer.email_label')}
                     </label>
                     <div className="relative">
-                      <Mail size={16} className={`absolute left-4 top-3.5 ${errors.email ? 'text-red-400' : 'text-gray-400'}`} />
+                      <Mail size={16} className={\`absolute left-4 top-3.5 \${errors.email ? 'text-red-400' : 'text-gray-400'}\`} />
                       <input
                         type="email"
                         placeholder={t('drawer.email_placeholder')}
@@ -185,7 +115,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                           setFormData({ ...formData, email: e.target.value });
                           if (errors.email) setErrors({ ...errors, email: '' });
                         }}
-                        className={`w-full bg-white/5 border ${errors.email ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors`}
+                        className={\`w-full bg-white/5 border \${errors.email ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors\`}
                       />
                     </div>
                     {errors.email && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.email}</p>}
@@ -197,7 +127,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                       {t('drawer.company_label')}
                     </label>
                     <div className="relative">
-                      <Building size={16} className={`absolute left-4 top-3.5 ${errors.company ? 'text-red-400' : 'text-gray-400'}`} />
+                      <Building size={16} className={\`absolute left-4 top-3.5 \${errors.company ? 'text-red-400' : 'text-gray-400'}\`} />
                       <input
                         type="text"
                         placeholder={t('drawer.company_placeholder')}
@@ -206,7 +136,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                           setFormData({ ...formData, company: e.target.value });
                           if (errors.company) setErrors({ ...errors, company: '' });
                         }}
-                        className={`w-full bg-white/5 border ${errors.company ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors`}
+                        className={\`w-full bg-white/5 border \${errors.company ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl pl-11 pr-4 py-3.5 text-xs text-white placeholder-gray-400 focus:outline-none transition-colors\`}
                       />
                     </div>
                     {errors.company && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.company}</p>}
@@ -225,7 +155,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
                         setFormData({ ...formData, bottleneck: e.target.value });
                         if (errors.bottleneck) setErrors({ ...errors, bottleneck: '' });
                       }}
-                      className={`w-full bg-white/5 border ${errors.bottleneck ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl p-4 text-xs text-white placeholder-gray-400 focus:outline-none resize-none transition-colors`}
+                      className={\`w-full bg-white/5 border \${errors.bottleneck ? 'border-red-500/50 focus:border-red-500' : 'border-white/15 focus:border-white'} rounded-2xl p-4 text-xs text-white placeholder-gray-400 focus:outline-none resize-none transition-colors\`}
                     />
                     {errors.bottleneck && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.bottleneck}</p>}
                   </div>
@@ -267,3 +197,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
 };
 
 export default LeadDrawer;
+`;
+
+fs.writeFileSync('components/LeadDrawer.tsx', firstPart + newReturn);
+console.log('Fixed LeadDrawer.tsx return statement');

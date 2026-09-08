@@ -146,9 +146,9 @@ export const BrandShowcase: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Brand Identity Concepts & Strategy | Oakivo Solutions"
-        description="Explore 4 distinct brand identity concept directions for Oakivo Solutions designed for Atlantic Canada business owners."
-        canonical="/brand-identity"
+        title="Brand Identity Concepts | Cloud Security Atlantic Canada"
+        description="Explore Oakivo Solutions' brand identity concepts, designed for Atlantic Canada enterprises seeking DevSecOps, compliance, and process automation expertise."
+        canonical="/brandshowcase"
       />
 
       <div className="bg-slate-950 text-white min-h-screen pt-32 pb-24 px-4 md:px-8">

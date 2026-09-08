@@ -11,10 +11,9 @@ const Methodology: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Engineering Methodology | DevSecOps Framework | Oakivo"
-        description="Explore the Oakivo DevSecOps engineering methodology. We build zero-trust architectures and automated compliance pipelines for critical enterprises."
+        title="DevSecOps Engineering Methodology | Oakivo Atlantic Canada"
+        description="Explore the Oakivo DevSecOps methodology. We build zero-trust cloud security architectures and process automation pipelines for compliance in Atlantic Canada."
         canonical="/methodology"
-        keywords="DevSecOps Methodology, Zero Trust Framework, Automated Compliance, Infrastructure as Code, IaC Standardization"
       />
 
       <section className="bg-slate-950 text-slate-100 pt-32 pb-24 relative overflow-hidden border-b border-slate-900/50">

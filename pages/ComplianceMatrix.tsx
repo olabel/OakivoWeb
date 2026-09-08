@@ -110,10 +110,9 @@ const ComplianceMatrix: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Compliance Matrix & Security Glossary | Oakivo Solutions"
-        description="Comprehensive guide to DevSecOps terminology, cloud security frameworks, and Canadian data privacy laws including SOC 2, PIPEDA, and CSPM."
-        canonical="/compliance-matrix"
-        keywords="SOC 2 compliance, PIPEDA data residency, CSPM, Zero Trust, DevSecOps Glossary, Canadian Cloud Security"
+        title="Compliance Matrix & DevSecOps Glossary | Oakivo"
+        description="Comprehensive guide to DevSecOps terminology, cloud security frameworks, process automation, and Canadian compliance laws across Atlantic Canada."
+        canonical="/compliancematrix"
       />
 
       {/* Header Section */}

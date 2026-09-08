@@ -48,10 +48,9 @@ const About: React.FC = () => {
   return (
     <>
       <SEO 
-        title="About Oakivo Solutions | Atlantic Canada DevSecOps & Cloud Security"
-        description="Oakivo Solutions is a premier DevSecOps, Cloud Security, and Security Automation firm based in Dieppe, New Brunswick, defending Atlantic Canadian enterprises."
+        title="About Oakivo | DevSecOps & Cloud Security Atlantic Canada"
+        description="Oakivo Solutions is a premier DevSecOps and cloud security firm in Atlantic Canada, defending enterprises through strict compliance and process automation."
         canonical="/about"
-        keywords="Oakivo Solutions, DevSecOps Atlantic Canada, Cloud Security New Brunswick, Dieppe Cybersecurity, Nova Scotia CI/CD Security, PEI PIPEDA Compliance"
       />
 
       {/* Hero Section */}

@@ -73,8 +73,8 @@ const Booking: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Schedule 30-Minute Security Audit | Oakivo Solutions  -  Dieppe, NB"
-        description="Schedule your 30-minute DevSecOps and Cloud Security Architecture Audit with Oakivo Solutions. Live technical consultation for Atlantic Canadian businesses."
+        title="Cloud Security & DevSecOps Audit | Oakivo Atlantic Canada"
+        description="Schedule a DevSecOps and Cloud Security audit with Oakivo Solutions. Expert technical consultation covering compliance and process automation for Atlantic Canada."
         canonical="/booking"
       />
       

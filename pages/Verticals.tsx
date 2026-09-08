@@ -47,10 +47,9 @@ const Verticals: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Industries Served | Security Architecture | Oakivo"
-        description="Bespoke DevSecOps automation engineered for complex regulatory environments, healthcare networks, and critical supply chains across Atlantic Canada."
-        canonical="/industries"
-        keywords="DevSecOps Healthcare, Logistics API Security, Retail PCI-DSS, Financial SOC 2, Manufacturing Zero Trust, Atlantic Canada"
+        title="Cloud Security & DevSecOps Industries | Oakivo Atlantic Canada"
+        description="Bespoke DevSecOps and cloud security engineered for complex regulatory compliance environments and process automation across critical Atlantic Canada industries."
+        canonical="/verticals"
       />
 
       <section className="bg-slate-950 text-slate-100 pt-32 pb-24 relative overflow-hidden border-b border-slate-900/50">

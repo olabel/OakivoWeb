@@ -102,10 +102,9 @@ const Services: React.FC = () => {
   return (
     <>
       <SEO 
-        title="DevSecOps & Cloud Security Services | Oakivo Solutions"
-        description="Explore Oakivo's 4 core DevSecOps pillars: Cloud Security Posture Management (CSPM), CI/CD Pipeline Security, ERP Zero Trust IAM, and Automated SRE Incident Remediation in Atlantic Canada."
+        title="DevSecOps & Cloud Security Services | Oakivo Atlantic Canada"
+        description="Explore Oakivo's DevSecOps pillars: Cloud Security Management, CI/CD compliance, Zero Trust IAM, and process automation incident remediation in Atlantic Canada."
         canonical="/services"
-        keywords="Cloud Security Posture Management, CSPM, CI/CD Security, Shift-Left, DevSecOps, ERP Security, Zero Trust IAM, SRE Remediation"
       />
 
       {/* Hero Section */}

@@ -43,11 +43,9 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO 
-        title="DevSecOps & Cloud Security Automation | Oakivo Solutions Canada"
-        description="Atlantic Canada's elite DevSecOps engineers. We automate continuous compliance (SOC 2, PIPEDA), lock down cloud infrastructure, and build zero-trust CI/CD pipelines."
-        keywords="DevSecOps Atlantic Canada, Cloud Security New Brunswick, CSPM Compliance, CI/CD Pipeline Security, Zero Trust Cloud Architecture, Kubernetes Security Canada, Odoo Implementation"
-        canonical="/"
-        schema={faqSchema}
+        title="DevSecOps & Cloud Security Automation | Oakivo Atlantic Canada"
+        description="Atlantic Canada's elite DevSecOps engineers. We implement robust cloud security, continuous compliance (SOC 2), and advanced process automation pipelines."
+        canonical="/home"
       />
       
       {/* Hero Section */}

@@ -6,10 +6,9 @@ const Privacy: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Privacy Policy & Security | Oakivo Solutions"
-        description="Oakivo's commitment to data privacy, Canadian residency, and technical security protocols for automated business workflows across Atlantic Canada."
+        title="Privacy & Cloud Security Policy | Oakivo Atlantic Canada"
+        description="Oakivo's commitment to data privacy, cloud security protocols, DevSecOps compliance, and secure process automation workflows across Atlantic Canada."
         canonical="/privacy"
-        keywords="Privacy Policy, Data Residency, PIPEDA, Zero Trust, Oakivo Solutions"
       />
 
       <section className="bg-slate-950 text-slate-100 pt-32 pb-24 border-b border-slate-900/50">
