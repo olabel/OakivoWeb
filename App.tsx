@@ -20,6 +20,7 @@ import BrandShowcase from './pages/BrandShowcase';
 import SolutionDetail from './pages/SolutionDetail';
 import LocationDetail from './pages/LocationDetail';
 import ClientPortalDemo from './pages/ClientPortalDemo';
+import Insights from './pages/Insights';
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
 import { analytics } from './utils/analytics';
@@ -63,6 +64,7 @@ const AppLayout = () => {
           <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
           <Route path={NavRoute.BRAND_IDENTITY} element={<BrandShowcase />} />
           <Route path={NavRoute.CLIENT_DEMO} element={<ClientPortalDemo />} />
+          <Route path="/insights" element={<Insights />} />
           <Route path="/solutions/:slug" element={<SolutionDetail />} />
           <Route path="/locations/:slug" element={<LocationDetail />} />
         </Routes>

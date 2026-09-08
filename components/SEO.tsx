@@ -131,9 +131,9 @@ const SEO: React.FC<SEOProps> = ({
       <link rel="canonical" href={fullUrl} />
       
       {/* Multi-language Hreflang Tags */}
-      <link rel="alternate" hreflang="en-CA" href={fullUrl} />
-      <link rel="alternate" hreflang="fr-CA" href={`${fullUrl}?lang=fr`} />
-      <link rel="alternate" hreflang="x-default" href={fullUrl} />
+      <link rel="alternate" hrefLang="en-CA" href={fullUrl} />
+      <link rel="alternate" hrefLang="fr-CA" href={`${fullUrl}?lang=fr`} />
+      <link rel="alternate" hrefLang="x-default" href={fullUrl} />
       
       {/* Advanced Robot Directives */}
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />

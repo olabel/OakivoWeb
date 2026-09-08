@@ -68,7 +68,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
 
       setStatus('success');
     } catch (err) {
-      setErrors({ ...errors, submit: 'A network error occurred. Please try again.' });
+      setErrors({ ...errors, bottleneck: 'A network error occurred. Please try again.' });
       setStatus('idle');
     }
   };

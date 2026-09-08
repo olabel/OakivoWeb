@@ -6,6 +6,7 @@ import { ArrowRight, Activity } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { NavRoute } from '../types';
 import PremiumCapabilities from '../components/PremiumCapabilities';
+import FAQAccordion from '../components/FAQAccordion';
 
 const Home: React.FC = () => {
   const { t } = useLanguage();
@@ -149,6 +150,7 @@ const Home: React.FC = () => {
             </div>
         </div>
       </section>
+      <FAQAccordion />
     </>
   );
 };
