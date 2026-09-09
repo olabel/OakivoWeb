@@ -26,7 +26,7 @@ export const insightsData: InsightPost[] = [
     date: "2026-09-09",
     author: "Oakivo Policy & Governance",
     category: "AI Governance",
-    coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "cnapp-ebpf-runtime-security",
@@ -59,7 +59,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Research Group",
     category: "AI & Automation",
     readTime: "8 min read",
-    coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "zero-trust-architecture-2026",
@@ -76,7 +76,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Architecture Practice",
     category: "Cloud Security",
     readTime: "7 min read",
-    coverImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "soc2-compliance-automation",
@@ -93,7 +93,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Compliance & Audit Strategy",
     category: "Compliance & DevSecOps",
     readTime: "6 min read",
-    coverImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "pipeda-data-residency-aws",
@@ -110,7 +110,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Architecture Practice",
     category: "Architecture & Law",
     readTime: "8 min read",
-    coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "k8s-posture-management",
@@ -127,7 +127,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Infrastructure Security",
     category: "Container Security",
     readTime: "9 min read",
-    coverImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "cyber-resilience-genai-era",
@@ -144,7 +144,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Executive Strategy",
     category: "Strategic Risk & AI",
     readTime: "7 min read",
-    coverImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "supply-chain-cyber-risk",
@@ -161,7 +161,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Compliance & Audit Strategy",
     category: "Supply Chain Risk",
     readTime: "8 min read",
-    coverImage: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "quantum-safe-cryptography-ciso",
@@ -178,7 +178,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Research Group",
     category: "Cryptography & Future Tech",
     readTime: "9 min read",
-    coverImage: "https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200"
   }
   ,
   {
@@ -196,7 +196,7 @@ export const insightsData: InsightPost[] = [
     author: "Oakivo Maritime Security Practice",
     category: "Critical Infrastructure",
     readTime: "8 min read",
-    coverImage: "https://images.unsplash.com/photo-1577700030588-4228469e5d62?auto=format&fit=crop&q=80&w=1200"
+    coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: "data-residency-health-tech-atlantic-canada",

@@ -88,14 +88,14 @@ const ClientPortal: React.FC = () => {
                     <Lock className="text-cyan-400" size={28} />
                   </div>
                   <h1 className="text-3xl font-display font-bold text-white mb-3">Secure Enclave</h1>
-                  <p className="text-slate-400 font-light text-sm">
+                  <p className="text-slate-300 font-normal text-sm">
                     Authenticate to access premium compliance blueprints and interactive security tooling.
                   </p>
                 </div>
 
                 <div className="bg-slate-900/60 border border-slate-800/80 rounded-3xl p-8 backdrop-blur-xl shadow-2xl">
                   {error && (
-                    <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-mono flex items-start gap-3">
+                    <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-300 text-sm font-mono flex items-start gap-3">
                       <Lock size={16} className="mt-0.5 flex-shrink-0" />
                       <span>{error}</span>
                     </div>
@@ -103,30 +103,32 @@ const ClientPortal: React.FC = () => {
 
                   <form onSubmit={handleAuth} className="space-y-5">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-mono font-bold uppercase tracking-widest text-slate-500">Corporate Email</label>
+                      <label htmlFor="email" className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">Corporate Email</label>
                       <div className="relative">
                         <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                         <input 
+                          id="email"
                           required
                           type="email" 
                           value={email}
                           onChange={e => setEmail(e.target.value)}
-                          className="w-full bg-slate-950/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 transition-colors text-sm"
+                          className="w-full bg-slate-950/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors text-sm"
                           placeholder="executive@enterprise.com"
                         />
                       </div>
                     </div>
                     
                     <div className="space-y-1.5">
-                      <label className="text-xs font-mono font-bold uppercase tracking-widest text-slate-500">Access Token / Password</label>
+                      <label htmlFor="password" className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">Access Token / Password</label>
                       <div className="relative">
                         <Key size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                         <input 
+                          id="password"
                           required
                           type="password" 
                           value={password}
                           onChange={e => setPassword(e.target.value)}
-                          className="w-full bg-slate-950/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 transition-colors text-sm"
+                          className="w-full bg-slate-950/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors text-sm"
                           placeholder="••••••••"
                         />
                       </div>
@@ -135,7 +137,7 @@ const ClientPortal: React.FC = () => {
                     <button 
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-white text-slate-950 font-bold font-mono text-sm py-4 rounded-xl hover:bg-cyan-400 transition-colors flex items-center justify-center gap-2 mt-4"
+                      className="w-full bg-white text-slate-950 font-bold font-mono text-sm py-4 rounded-xl hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors flex items-center justify-center gap-2 mt-4"
                     >
                       {isLoading ? (
                         <><Loader2 size={16} className="animate-spin" /> VERIFYING ID...</>
@@ -188,7 +190,7 @@ const ClientPortal: React.FC = () => {
                     <p className="text-slate-400 text-sm font-light mb-6">
                       A comprehensive 45-page architectural reference for automating SOC 2 compliance on AWS using Terraform and OPA.
                     </p>
-                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 transition-colors">
+                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors">
                       <Download size={14} /> DOWNLOAD PDF (12MB)
                     </button>
                   </div>
@@ -202,7 +204,7 @@ const ClientPortal: React.FC = () => {
                     <p className="text-slate-400 text-sm font-light mb-6">
                       Proprietary telemetry analysis of the top 10 zero-day vectors targeting cloud-native infrastructure this quarter.
                     </p>
-                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 transition-colors">
+                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors">
                       <Download size={14} /> DOWNLOAD REPORT (8MB)
                     </button>
                   </div>
@@ -217,7 +219,7 @@ const ClientPortal: React.FC = () => {
                     <p className="text-slate-400 text-sm font-light mb-6">
                       Connect your read-only AWS IAM role to generate an instant, automated assessment of your cloud perimeter.
                     </p>
-                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-cyan-500 text-slate-950 font-mono text-xs font-bold rounded-lg hover:bg-cyan-400 transition-colors">
+                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-cyan-500 text-slate-950 font-mono text-xs font-bold rounded-lg hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors">
                       LAUNCH SCANNER <ArrowRight size={14} />
                     </button>
                   </div>

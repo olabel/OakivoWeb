@@ -367,6 +367,13 @@ async function startServer() {
 
     allRoutes = [...new Set(allRoutes)].filter(route => !route.includes('/admin-portal'));
 
+    try {
+      insightsData.forEach(post => {
+        allRoutes.push(`/insights/${post.id}`);
+      });
+    } catch(e) {}
+
+
     const currentDate = new Date().toISOString().split('T')[0];
     
     const sitemapUrls = allRoutes.map(route => {

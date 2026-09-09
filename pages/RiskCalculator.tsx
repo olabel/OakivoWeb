@@ -160,7 +160,7 @@ const RiskCalculator: React.FC = () => {
               <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4">
                 Cloud Security <span className="text-cyan-400">Maturity Assessment</span>
               </h1>
-              <p className="text-slate-400 font-light max-w-2xl mx-auto">
+              <p className="text-slate-300 font-normal max-w-2xl mx-auto">
                 Evaluate your current infrastructure against elite DevSecOps standards. Answer 5 strategic questions to receive your personalized maturity score.
               </p>
             </div>
@@ -223,14 +223,14 @@ const RiskCalculator: React.FC = () => {
                         <button
                           key={option.id}
                           onClick={() => handleSelectOption(option.score)}
-                          className="w-full text-left p-5 rounded-xl border border-slate-700/50 bg-slate-800/20 hover:bg-slate-800/60 hover:border-cyan-500/50 transition-all group flex items-start gap-4"
+                          className="w-full text-left p-5 rounded-xl border border-slate-700/50 bg-slate-800/20 hover:bg-slate-800/60 hover:border-cyan-500/50 transition-all group flex items-start gap-4 focus:outline-none focus:ring-2 focus:ring-cyan-500/80"
                         >
                           <div className="w-6 h-6 rounded-full border-2 border-slate-600 group-hover:border-cyan-500 flex items-center justify-center flex-shrink-0 mt-0.5">
                             <div className="w-2.5 h-2.5 rounded-full bg-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                           </div>
                           <div>
                             <div className="text-white font-medium mb-1 group-hover:text-cyan-400 transition-colors">{option.label}</div>
-                            <div className="text-sm text-slate-400 font-light">{option.desc}</div>
+                            <div className="text-sm text-slate-300 font-normal">{option.desc}</div>
                           </div>
                         </button>
                       ))}
@@ -276,7 +276,7 @@ const RiskCalculator: React.FC = () => {
                     Maturity: <span className={colorClass}>{maturityLevel}</span>
                   </h3>
                   
-                  <p className="text-slate-400 font-light mb-8 max-w-sm">
+                  <p className="text-slate-300 font-normal mb-8 max-w-sm">
                     {percentage < 50 
                       ? "Your infrastructure exhibits significant vulnerabilities to modern attack vectors. Immediate architectural remediation is recommended."
                       : "You have established a strong baseline, but critical gaps in automation and zero-trust verification remain."}
@@ -298,42 +298,45 @@ const RiskCalculator: React.FC = () => {
                       <form onSubmit={handleLeadSubmit} className="space-y-4">
                         <div className="relative">
                           <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
-                          <input 
+                          <label htmlFor="fullName" className="sr-only">Full Name</label>
+                          <input id="fullName"
                             required
-                            type="text" 
+                            type="text"
                             placeholder="Full Name"
                             value={formData.name}
                             onChange={e => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full bg-slate-900/80 border border-slate-700 rounded-lg py-3 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 transition-colors text-sm"
+                            className="w-full bg-slate-900/80 border border-slate-700 rounded-lg py-3 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors text-sm"
                           />
                         </div>
                         <div className="relative">
                           <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
-                          <input 
+                          <label htmlFor="workEmail" className="sr-only">Work Email</label>
+                          <input id="workEmail"
                             required
-                            type="email" 
+                            type="email"
                             placeholder="Work Email"
                             value={formData.email}
                             onChange={e => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full bg-slate-900/80 border border-slate-700 rounded-lg py-3 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 transition-colors text-sm"
+                            className="w-full bg-slate-900/80 border border-slate-700 rounded-lg py-3 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors text-sm"
                           />
                         </div>
                         <div className="relative">
                           <Building size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
-                          <input 
+                          <label htmlFor="companyName" className="sr-only">Company Name</label>
+                          <input id="companyName"
                             required
-                            type="text" 
+                            type="text"
                             placeholder="Company Name"
                             value={formData.company}
                             onChange={e => setFormData({ ...formData, company: e.target.value })}
-                            className="w-full bg-slate-900/80 border border-slate-700 rounded-lg py-3 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 transition-colors text-sm"
+                            className="w-full bg-slate-900/80 border border-slate-700 rounded-lg py-3 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors text-sm"
                           />
                         </div>
                         
                         <button 
                           type="submit"
                           disabled={isSubmitting}
-                          className="w-full bg-white text-slate-950 font-bold font-mono text-sm py-4 rounded-lg hover:bg-cyan-400 transition-colors flex items-center justify-center gap-2 mt-2"
+                          className="w-full bg-white text-slate-950 font-bold font-mono text-sm py-4 rounded-lg hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-950 transition-colors flex items-center justify-center gap-2 mt-2"
                         >
                           {isSubmitting ? (
                             <><Loader2 size={16} className="animate-spin" /> GENERATING REPORT...</>
