@@ -39,7 +39,8 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         onLoad={() => setIsLoaded(true)}
         onError={() => setHasError(true)}
         className={`w-full h-full object-cover transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-        fetchPriority={fetchPriority}
+        // @ts-ignore - React 18 typings expect fetchPriority but runtime warns to use fetchpriority
+        fetchpriority={fetchPriority}
         decoding="async"
         loading={fetchPriority === 'high' ? 'eager' : 'lazy'}
         {...props}

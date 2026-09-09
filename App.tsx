@@ -21,6 +21,7 @@ import SolutionDetail from './pages/SolutionDetail';
 import LocationDetail from './pages/LocationDetail';
 import ClientPortalDemo from './pages/ClientPortalDemo';
 import Insights from './pages/Insights';
+import ComplianceSEO from './pages/ComplianceSEO';
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
 import { analytics } from './utils/analytics';
@@ -67,7 +68,8 @@ const AppLayout = () => {
           <Route path="/insights" element={<Insights />} />
           <Route path="/solutions/:slug" element={<SolutionDetail />} />
           <Route path="/locations/:slug" element={<LocationDetail />} />
-        </Routes>
+        <Route path="/compliance/:slug" element={<ComplianceSEO />} />
+                </Routes>
       </main>
       {!isDemo && <Footer />}
       {!isDemo && <LiveChat />}

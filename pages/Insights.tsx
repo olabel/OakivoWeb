@@ -8,6 +8,14 @@ import ReactMarkdown from 'react-markdown';
 import OptimizedImage from '../components/OptimizedImage';
 import { db } from '../utils/database';
 
+const calculateReadingTime = (content: string): string => {
+  if (!content) return "5 min read";
+  const wordsPerMinute = 238;
+  const wordCount = content.split(/\s+/).length;
+  const minutes = Math.ceil(wordCount / wordsPerMinute);
+  return `${minutes} MIN READ`;
+};
+
 const Insights: React.FC = () => {
   const { t } = useLanguage();
   const [posts, setPosts] = useState<InsightPost[]>([]);
@@ -166,12 +174,10 @@ const Insights: React.FC = () => {
                           <Calendar size={14} />
                           {featuredPost.date}
                         </div>
-                        {featuredPost.readTime && (
-                          <div className="flex items-center gap-2">
-                            <Clock size={14} />
-                            {featuredPost.readTime}
+                        <div className="flex items-center gap-1.5 bg-slate-800/80 text-cyan-400 px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase">
+                            <Clock size={12} />
+                            {featuredPost.readTime || calculateReadingTime(featuredPost.content)}
                           </div>
-                        )}
                         <div className="ml-auto text-cyan-400 flex items-center gap-2 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                           Read Report <ArrowRight size={14} />
                         </div>
@@ -224,6 +230,7 @@ const Insights: React.FC = () => {
                       <div className="mt-auto pt-6 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500 font-mono">
                         <div className="flex items-center gap-4">
                           <span className="flex items-center gap-1.5"><Calendar size={14} /> {post.date}</span>
+                          <span className="flex items-center gap-1.5 bg-slate-800/80 text-cyan-400 px-2 py-0.5 rounded-md text-[9px] font-bold tracking-widest uppercase"><Clock size={10} /> {post.readTime || calculateReadingTime(post.content)}</span>
                         </div>
                         <span className="flex items-center text-cyan-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                           Explore <ChevronRight size={14} className="ml-1" />
@@ -298,9 +305,7 @@ const Insights: React.FC = () => {
                   <div className="flex flex-wrap items-center gap-6 text-xs text-slate-400 font-mono">
                     <span className="flex items-center gap-2"><User size={14} className="text-cyan-500"/> {selectedPost.author}</span>
                     <span className="flex items-center gap-2"><Calendar size={14} className="text-cyan-500"/> {selectedPost.date}</span>
-                    {selectedPost.readTime && (
-                      <span className="flex items-center gap-2"><Clock size={14} className="text-cyan-500"/> {selectedPost.readTime}</span>
-                    )}
+                    <span className="flex items-center gap-1.5 bg-slate-800/80 text-cyan-400 px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase"><Clock size={12} /> {selectedPost.readTime || calculateReadingTime(selectedPost.content)}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-slate-500 font-mono mr-2">SHARE:</span>
@@ -359,7 +364,7 @@ const Insights: React.FC = () => {
                         <div className="text-[10px] font-mono text-cyan-500 mb-3 uppercase tracking-wider">{relatedPost.category}</div>
                         <h4 className="text-slate-100 font-bold leading-snug mb-3 group-hover:text-cyan-400 transition-colors flex-grow">{relatedPost.title}</h4>
                         <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mt-auto pt-4">
-                          <Clock size={12} /> {relatedPost.readTime}
+                          <Clock size={12} /> {relatedPost.readTime || calculateReadingTime(relatedPost.content)}
                         </div>
                       </div>
                     ))}

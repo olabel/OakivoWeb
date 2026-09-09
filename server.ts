@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import { insightsData } from './content/insights';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -305,6 +306,44 @@ async function startServer() {
 
   
   // Automated XML Sitemap Generator (Reads from App.tsx)
+  // Automated RSS Syndication
+  app.get('/rss.xml', (req, res) => {
+    const siteUrl = 'https://www.oakivo.com';
+    
+    let rssItems = '';
+    try {
+      // Use imported insightsData
+      insightsData.forEach(post => {
+        rssItems += `
+    <item>
+      <title><![CDATA[${post.title}]]></title>
+      <link>${siteUrl}/insights</link>
+      <guid>${siteUrl}/insights#${post.id}</guid>
+      <pubDate>${new Date(post.date).toUTCString()}</pubDate>
+      <description><![CDATA[${post.excerpt}]]></description>
+      <category><![CDATA[${post.category}]]></category>
+    </item>`;
+      });
+    } catch (e) {
+      console.error("Error generating RSS", e);
+    }
+    
+    const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oakivo Security Insights</title>
+    <link>${siteUrl}/insights</link>
+    <description>Authoritative research on Zero-Trust Architecture, Kubernetes Posture Management, and DevSecOps automation by Oakivo.</description>
+    <language>en-us</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml" />${rssItems}
+  </channel>
+</rss>`;
+
+    res.header('Content-Type', 'application/xml');
+    res.send(rssFeed);
+  });
+  
   app.get('/sitemap.xml', (req, res) => {
     const siteUrl = 'https://www.oakivo.com';
     
