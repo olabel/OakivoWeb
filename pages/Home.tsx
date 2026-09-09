@@ -1,4 +1,5 @@
 import React from 'react';
+import SolutionsInAction from '../components/SolutionsInAction';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import TrustCarousel from '../components/TrustCarousel';
@@ -97,6 +98,8 @@ const Home: React.FC = () => {
       <TrustCarousel />
 
       {/* The Strategic Imperative */}
+      <SolutionsInAction />
+      
       <section id="imperative" className="py-16 md:py-24 px-6 bg-slate-950 relative border-t border-slate-900/50">
         <div className="container mx-auto max-w-7xl relative z-10">
             <div className="max-w-4xl">

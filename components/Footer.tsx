@@ -22,6 +22,10 @@ const Footer: React.FC = () => {
                     <p className="text-sm text-slate-400 font-light leading-relaxed pr-8">
                         {t('footer.brand_desc')}
                     </p>
+                    <div className="pt-4">
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100 mb-4">Offices</h4>
+                        <p className="text-sm text-slate-400 font-light">Dieppe, NB (HQ) • Halifax, NS • Charlottetown, PEI • St. John's, NL</p>
+                    </div>
                 </div>
                 
                 <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -53,21 +57,20 @@ const Footer: React.FC = () => {
                         <ul className="space-y-4">
                             <li><Link to={NavRoute.ABOUT} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">About Oakivo</Link></li>
                             <li><Link to={NavRoute.CAREERS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Careers</Link></li>
-                            <li><Link to={NavRoute.INSIGHTS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Security Insights</Link></li>
                             <li><Link to={NavRoute.METHODOLOGY} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Engineering Methodology</Link></li>
-                            <li><Link to={NavRoute.COMPLIANCE} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Security Glossary</Link></li>
                             <li><Link to={NavRoute.CONTACT} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Contact Us</Link></li>
                         </ul>
                     </div>
 
-                    {/* Column 4: Locations */}
                     <div className="space-y-6">
-                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100">{t('footer.area_header')}</h4>
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100">Resources</h4>
                         <ul className="space-y-4">
-                            <li className="text-sm text-slate-400">Dieppe, NB (HQ)</li>
-                            <li className="text-sm text-slate-400">Halifax, NS</li>
-                            <li className="text-sm text-slate-400">Charlottetown, PEI</li>
-                            <li className="text-sm text-slate-400">St. John's, NL</li>
+                            <li><Link to="/insights" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Security Insights</Link></li>
+                            <li><Link to="/risk-calculator" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Risk Calculator</Link></li>
+                            <li><Link to="/#solutions-in-action" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Solutions in Action</Link></li>
+                            <li><Link to="/client-portal" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Client Portal</Link></li>
+                            <li><Link to={NavRoute.COMPLIANCE} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Security Glossary</Link></li>
+                            <li><a href="/rss.xml" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">RSS Feed</a></li>
                         </ul>
                     </div>
                 </div>

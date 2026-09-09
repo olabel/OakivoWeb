@@ -19,8 +19,11 @@ import ComplianceMatrix from './pages/ComplianceMatrix';
 import BrandShowcase from './pages/BrandShowcase';
 import SolutionDetail from './pages/SolutionDetail';
 import LocationDetail from './pages/LocationDetail';
+import ClientPortal from './pages/ClientPortal';
 import ClientPortalDemo from './pages/ClientPortalDemo';
 import Insights from './pages/Insights';
+import InsightDetail from './pages/InsightDetail';
+import RiskCalculator from './pages/RiskCalculator';
 import ComplianceSEO from './pages/ComplianceSEO';
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
@@ -65,10 +68,13 @@ const AppLayout = () => {
           <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
           <Route path={NavRoute.BRAND_IDENTITY} element={<BrandShowcase />} />
           <Route path={NavRoute.CLIENT_DEMO} element={<ClientPortalDemo />} />
+          <Route path="/client-portal" element={<ClientPortal />} />
           <Route path="/insights" element={<Insights />} />
+          <Route path="/insights/:id" element={<InsightDetail />} />
           <Route path="/solutions/:slug" element={<SolutionDetail />} />
           <Route path="/locations/:slug" element={<LocationDetail />} />
         <Route path="/compliance/:slug" element={<ComplianceSEO />} />
+                <Route path="/risk-calculator" element={<RiskCalculator />} />
                 </Routes>
       </main>
       {!isDemo && <Footer />}
