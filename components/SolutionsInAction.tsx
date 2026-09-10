@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, Shield, Terminal, Key, Activity, X } from 'lucide-react';
+import { useLanguage, translations } from '../context/LanguageContext';
 import OptimizedImage from './OptimizedImage';
 
 const videos = [
@@ -40,6 +41,15 @@ const videos = [
 
 const SolutionsInAction: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const { language } = useLanguage();
+  const solData = translations[language].solutions_in_action;
+  
+  const localizedVideos = videos.map((vid, i) => ({
+    ...vid,
+    title: solData.videos[i].title,
+    description: solData.videos[i].description
+  }));
+
 
   return (
     <section id="solutions-in-action" className="py-24 px-6 bg-slate-950 border-t border-slate-900/80 relative">
@@ -47,18 +57,18 @@ const SolutionsInAction: React.FC = () => {
         
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-cyan-500 uppercase bg-cyan-500/10 px-4 py-2 rounded-full border border-cyan-500/20 mb-6">
-            <Play size={14} /> Automation Visualized
+            <Play size={14} /> {solData.badge}
           </div>
           <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">
-            Solutions in <span className="text-cyan-400">Action</span>
+            {solData.title}
           </h2>
           <p className="text-slate-400 font-light max-w-2xl mx-auto text-lg">
-            Don't just read about Zero-Trust. Watch our engineering architectures dynamically detect, isolate, and remediate threats in high-fidelity environments.
+            {solData.subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {videos.map((vid, idx) => (
+          {localizedVideos.map((vid, idx) => (
             <motion.div 
               key={vid.id}
               initial={{ opacity: 0, y: 20 }}
@@ -128,23 +138,80 @@ const SolutionsInAction: React.FC = () => {
               </button>
               
               <div className="aspect-video bg-slate-950 relative flex items-center justify-center">
-                {/* Real Video Player */}
-                <iframe 
-                  className="w-full h-full"
-                  src={activeVideo === 'cspm' ? 'https://www.youtube.com/embed/50g05T8VupU?autoplay=1&mute=1' : 
-                       activeVideo === 'devsecops' ? 'https://www.youtube.com/embed/bvd3qCjvuP4?autoplay=1&mute=1' : 
-                       activeVideo === 'iam' ? 'https://www.youtube.com/embed/q6-pLg9y5hA?autoplay=1&mute=1' : 
-                       'https://www.youtube.com/embed/y2_B4I1jWAA?autoplay=1&mute=1'}
-                  title="Solutions in Action Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+                {/* Animated Simulation Environment */}
+                <div className="absolute inset-0 flex flex-col font-mono">
+                  {/* Top Bar */}
+                  <div className="h-10 bg-slate-900 border-b border-slate-800 flex items-center px-4 gap-2">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-slate-700"></div>
+                      <div className="w-3 h-3 rounded-full bg-slate-700"></div>
+                      <div className="w-3 h-3 rounded-full bg-slate-700"></div>
+                    </div>
+                    <div className="ml-4 text-xs text-slate-500 flex items-center gap-2">
+                      <Terminal size={12}/> oakivo-security-pipeline v2.4.1
+                    </div>
+                  </div>
+                  
+                  {/* Terminal Body */}
+                  <div className="flex-1 p-6 overflow-hidden relative bg-[#0a0f18]">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-xs md:text-sm space-y-3"
+                    >
+                      <div className="text-slate-400">root@oakivo-sec:~# ./analyze_posture.sh --target prod-cluster</div>
+                      
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="text-cyan-400">
+                        [INFO] Initiating deep packet inspection and configuration audit...
+                      </motion.div>
+                      
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="flex items-center gap-2 text-emerald-400">
+                        <Shield size={14}/> <span>Verified: Identity Access Management policies are intact.</span>
+                      </motion.div>
+                      
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }} className="flex items-center gap-2 text-emerald-400">
+                        <Key size={14}/> <span>Verified: No lateral movement detected in namespace 'payment-processing'.</span>
+                      </motion.div>
+
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.9 }} className="flex items-center gap-2 text-amber-400 mt-4">
+                        <Activity size={14}/> <span>[WARNING] Anomalous outbound traffic detected in S3 bucket 'assets-public'.</span>
+                      </motion.div>
+                      
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.5 }} className="text-red-400 font-bold border-l-2 border-red-500 pl-3 ml-1">
+                        [CRITICAL] Misconfigured ACL allowing public read/write access.
+                      </motion.div>
+
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 4.5 }} className="text-cyan-400 mt-4">
+                        [ACTION] Executing zero-trust remediation protocol...
+                      </motion.div>
+                      
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 5.5 }} className="text-slate-300">
+                        applying terraform manifest ./remediation/s3-acl-lockdown.tf...
+                      </motion.div>
+
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 6.5 }} className="text-emerald-400 font-bold mt-4 flex items-center gap-2">
+                        <Shield size={16}/> [SUCCESS] Threat neutralized. Access control locked down.
+                      </motion.div>
+                      
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 7.5, repeat: Infinity, repeatType: "reverse", duration: 0.8 }} className="w-2 h-4 bg-slate-400 inline-block align-middle mt-4"></motion.div>
+
+                    </motion.div>
+                    
+                    {/* Visual Overlay elements */}
+                    <div className="absolute right-8 top-8 opacity-20 pointer-events-none">
+                       {activeVideo === 'cspm' && <Shield size={120} className="text-cyan-500" />}
+                       {activeVideo === 'devsecops' && <Terminal size={120} className="text-emerald-500" />}
+                       {activeVideo === 'iam' && <Key size={120} className="text-purple-500" />}
+                       {activeVideo === 'sre' && <Activity size={120} className="text-amber-500" />}
+                    </div>
+                  </div>
+                </div>
               </div>
               
               <div className="p-6 bg-slate-900 flex items-center justify-between border-t border-slate-800">
                 <div>
-                  <h4 className="text-white font-bold font-display text-lg">{videos.find(v => v.id === activeVideo)?.title} Architecture Demo</h4>
+                  <h4 className="text-white font-bold font-display text-lg">{localizedVideos.find(v => v.id === activeVideo)?.title} {solData.demo}</h4>
                   <p className="text-slate-400 text-sm">Oakivo Solutions Inc.</p>
                 </div>
                 <div className="text-xs font-mono font-bold tracking-widest text-cyan-500 bg-cyan-500/10 px-3 py-1.5 rounded-full border border-cyan-500/20">

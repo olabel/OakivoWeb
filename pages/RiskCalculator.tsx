@@ -5,6 +5,7 @@ import { Shield, ChevronRight, AlertTriangle, CheckCircle, ShieldAlert, ArrowRig
 import SEO from '../components/SEO';
 import { db } from '../utils/database';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage, translations } from '../context/LanguageContext';
 
 const questions = [
   {
@@ -71,6 +72,61 @@ const questions = [
 
 const RiskCalculator: React.FC = () => {
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const rcData = translations[language].risk_calculator;
+  const questionsData = rcData.questions;
+  
+  const questions = [
+    {
+      id: 1,
+      category: questionsData[0].category,
+      icon: <Server size={24} className="text-cyan-400" />,
+      title: questionsData[0].title,
+      options: [
+        { id: '1a', label: questionsData[0].options[0].label, score: 0, desc: "" },
+        { id: '1b', label: questionsData[0].options[1].label, score: 3, desc: "" },
+        { id: '1c', label: questionsData[0].options[2].label, score: 7, desc: "" },
+        { id: '1d', label: questionsData[0].options[3].label, score: 10, desc: "" }
+      ]
+    },
+    {
+      id: 2,
+      category: questionsData[1].category,
+      icon: <Lock size={24} className="text-cyan-400" />,
+      title: questionsData[1].title,
+      options: [
+        { id: '2a', label: questionsData[1].options[0].label, score: 0, desc: "" },
+        { id: '2b', label: questionsData[1].options[1].label, score: 4, desc: "" },
+        { id: '2c', label: questionsData[1].options[2].label, score: 7, desc: "" },
+        { id: '2d', label: questionsData[1].options[3].label, score: 10, desc: "" }
+      ]
+    },
+    {
+      id: 3,
+      category: questionsData[2].category,
+      icon: <Activity size={24} className="text-cyan-400" />,
+      title: questionsData[2].title,
+      options: [
+        { id: '3a', label: questionsData[2].options[0].label, score: 0, desc: "" },
+        { id: '3b', label: questionsData[2].options[1].label, score: 3, desc: "" },
+        { id: '3c', label: questionsData[2].options[2].label, score: 7, desc: "" },
+        { id: '3d', label: questionsData[2].options[3].label, score: 10, desc: "" }
+      ]
+    },
+    {
+      id: 4,
+      category: questionsData[3].category,
+      icon: <Shield size={24} className="text-cyan-400" />,
+      title: questionsData[3].title,
+      options: [
+        { id: '4a', label: questionsData[3].options[0].label, score: 0, desc: "" },
+        { id: '4b', label: questionsData[3].options[1].label, score: 3, desc: "" },
+        { id: '4c', label: questionsData[3].options[2].label, score: 7, desc: "" },
+        { id: '4d', label: questionsData[3].options[3].label, score: 10, desc: "" }
+      ]
+    }
+  ];
+
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [isAnalyzing, setIsAnalyzing] = useState(false);

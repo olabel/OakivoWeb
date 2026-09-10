@@ -110,28 +110,32 @@ async function startServer() {
   // Email Transporter Setup (Mocked if credentials not provided)
   let transporter: nodemailer.Transporter;
   
-  if (process.env.SMTP_HOST && process.env.SMTP_USER) {
+  const smtpHost = process.env.SMTP_HOST || 'smtp.oakivo.com';
+  const smtpPort = process.env.SMTP_PORT || '587';
+  const smtpUser = process.env.SMTP_USER || 'no-reply@oakivo.com';
+  
+  if (process.env.SMTP_PASS) {
     transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: process.env.SMTP_PORT === '465',
-      connectionTimeout: 2000, // 2 seconds timeout so it doesn't hang UI
+      host: smtpHost,
+      port: parseInt(smtpPort),
+      secure: smtpPort === '465',
+      connectionTimeout: 2000,
       greetingTimeout: 2000,
       socketTimeout: 2000,
       auth: {
-        user: process.env.SMTP_USER,
+        user: smtpUser,
         pass: process.env.SMTP_PASS,
       },
     });
   } else {
-    // Fallback to ethereal email for testing or simply log
+    console.warn("\n[WARNING] No SMTP_PASS found in environment variables. Real emails cannot be sent to olabel@gmail.com without the password for " + smtpUser + ". Falling back to console logging.\n");
     transporter = {
       sendMail: async (info: any) => {
-        console.log('--- MOCK EMAIL SENT ---');
+        console.log('--- MOCK EMAIL SENT (Intercepted due to missing SMTP_PASS) ---');
         console.log('To:', info.to);
         console.log('Subject:', info.subject);
         console.log('Text:', info.text);
-        console.log('-----------------------');
+        console.log('--------------------------------------------------------------');
         return { messageId: 'mock-id' };
       }
     } as any;
@@ -341,6 +345,7 @@ async function startServer() {
       <guid>${siteUrl}/insights/${post.id}</guid>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <description><![CDATA[${post.excerpt}]]></description>
+      ${post.coverImage ? `<enclosure url="${post.coverImage.replace(/&/g, '&amp;')}" type="image/jpeg" />` : ''}
       <category><![CDATA[${post.category}]]></category>
     </item>`;
       });

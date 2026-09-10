@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage, translations } from '../context/LanguageContext';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowLeft, Clock, Calendar, Share2, Twitter, Linkedin, ChevronRight } from 'lucide-react';
@@ -17,6 +18,8 @@ const calculateReadingTime = (content: string): string => {
 };
 
 const InsightDetail: React.FC = () => {
+  const { language } = useLanguage();
+  const inData = translations[language].insights;
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [post, setPost] = useState<InsightPost | null>(null);
@@ -92,6 +95,17 @@ const InsightDetail: React.FC = () => {
       <SEO 
         title={`${post.title} | Oakivo Insights`}
         description={post.excerpt}
+        image={post.coverImage}
+        type="article"
+        canonical={`/insights/${post.id}`}
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: post.title,
+          image: [post.coverImage],
+          datePublished: post.date,
+          author: [{ '@type': 'Organization', name: post.author }]
+        }}
       />
       
       {/* Reading Progress Bar */}

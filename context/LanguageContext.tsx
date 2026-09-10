@@ -326,8 +326,107 @@ export const translations: Record<Language, Record<string, any>> = {
       placeholder_q3: "e.g. Next 30 days, immediate, Q4 review...",
       submit_btn: "Request 30-Minute Security Architecture Audit"
     },
-    booking: {
-      hero_title: "30-Minute Security Architecture Audit.",
+    
+    risk_calculator: {
+      title: "Risk Assessment Calculator",
+      subtitle: "Evaluate your DevSecOps maturity and infrastructure posture in 60 seconds.",
+      questions: [
+        {
+          id: 1,
+          category: "Infrastructure Deployment",
+          title: "How do you currently provision and manage your cloud infrastructure?",
+          options: [
+            { id: '1a', label: "Manually via Cloud Provider Consoles (AWS/Azure GUI)" },
+            { id: '1b', label: "Mix of manual processes and basic scripts" },
+            { id: '1c', label: "Infrastructure-as-Code (Terraform, CloudFormation)" },
+            { id: '1d', label: "IaC with integrated Policy-as-Code (OPA, Checkov)" }
+          ]
+        },
+        {
+          id: 2,
+          category: "Access & Identity",
+          title: "How is access to critical production workloads governed?",
+          options: [
+            { id: '2a', label: "Static passwords and shared credentials" },
+            { id: '2b', label: "Standard MFA on primary accounts" },
+            { id: '2c', label: "SSO with Role-Based Access Control (RBAC)" },
+            { id: '2d', label: "Context-aware Zero-Trust (Device posture, mTLS)" }
+          ]
+        },
+        {
+          id: 3,
+          category: "Threat Detection",
+          title: "What is your primary mechanism for identifying security breaches?",
+          options: [
+            { id: '3a', label: "Reactive (Customer reports, apparent downtime)" },
+            { id: '3b', label: "Manual log reviews and basic alerts" },
+            { id: '3c', label: "Centralized SIEM with automated anomaly detection" },
+            { id: '3d', label: "Kernel-level eBPF monitoring and AI-driven SOAR" }
+          ]
+        },
+        {
+          id: 4,
+          category: "Compliance & Auditing",
+          title: "How do you maintain compliance with regulatory frameworks (SOC 2, ISO 27001)?",
+          options: [
+            { id: '4a', label: "We do not formally track compliance" },
+            { id: '4b', label: "Manual spreadsheet tracking and periodic audits" },
+            { id: '4c', label: "Automated evidence collection (e.g., Vanta, Drata)" },
+            { id: '4d', label: "Continuous compliance mapped directly to IaC pipelines" }
+          ]
+        }
+      ],
+      results: {
+        score: "Risk Maturity Score",
+        level: "Maturity Level:",
+        critical: "Critical Risk Exposure",
+        moderate: "Moderate Maturity",
+        advanced: "Advanced DevSecOps",
+        request_audit: "Request Comprehensive Architecture Audit",
+        submit: "Submit Assessment"
+      }
+    },
+    solutions_in_action: {
+      badge: "Automation Visualized",
+      title: "Solutions in Action",
+      subtitle: "Don't just read about Zero-Trust. Watch our engineering architectures dynamically detect, isolate, and remediate threats in high-fidelity environments.",
+      demo: "Architecture Demo",
+      videos: [
+        {
+          id: "cspm",
+          title: "Cloud Security (CSPM)",
+          description: "Watch how our automated posture management instantly detects and remediates a misconfigured S3 bucket in real-time."
+        },
+        {
+          id: "devsecops",
+          title: "DevSecOps Pipelines",
+          description: "See Policy-as-Code in action: A terraform deployment is automatically blocked pre-commit due to an exposed IAM role."
+        },
+        {
+          id: "iam",
+          title: "Zero Trust IAM",
+          description: "Experience cryptographic identity verification blocking lateral movement from a compromised endpoint."
+        },
+        {
+          id: "sre",
+          title: "SRE Threat Remediation",
+          description: "Watch our eBPF sensors detect zero-day ransomware behavior and autonomously sever the network connection."
+        }
+      ]
+    },
+    insights: {
+      title: "Security Research & Insights",
+      subtitle: "Authoritative analysis on zero-trust architecture, DevSecOps automation, and cloud compliance for Atlantic Canadian enterprises.",
+      search_placeholder: "Search insights, architecture patterns, and compliance...",
+      no_results: "No insights found",
+      no_results_desc: "Adjust your search query to explore our research.",
+      read_time: "min read",
+      author: "By",
+      back: "Back to all insights",
+      read_article: "Read Article"
+    },
+
+    booking: {      hero_title: "30-Minute Security Architecture Audit.",
       hero_subtitle: "Schedule a focused, senior-level diagnostic review of your cloud infrastructure, CI/CD pipelines, and compliance readiness.",
       success_title: "Security Audit Scheduled.",
       success_message: "A calendar invitation and pre-audit questionnaire have been sent to your work email."
@@ -708,8 +807,107 @@ export const translations: Record<Language, Record<string, any>> = {
       placeholder_q3: "ex. 30 prochains jours, immédiat, planification Q4...",
       submit_btn: "Demander Mon Audit d'Architecture de Sécurité (30 min)"
     },
-    booking: {
-      hero_title: "Audit d'Architecture de Sécurité de 30 Minutes.",
+    
+    risk_calculator: {
+      title: "Calculateur d'Évaluation des Risques",
+      subtitle: "Évaluez votre maturité DevSecOps et votre posture d'infrastructure en 60 secondes.",
+      questions: [
+        {
+          id: 1,
+          category: "Déploiement d'Infrastructure",
+          title: "Comment provisionnez-vous et gérez-vous actuellement votre infrastructure cloud ?",
+          options: [
+            { id: '1a', label: "Manuellement via les consoles cloud (GUI AWS/Azure)" },
+            { id: '1b', label: "Mélange de processus manuels et de scripts basiques" },
+            { id: '1c', label: "Infrastructure-as-Code (Terraform, CloudFormation)" },
+            { id: '1d', label: "IaC avec Policy-as-Code intégré (OPA, Checkov)" }
+          ]
+        },
+        {
+          id: 2,
+          category: "Accès & Identité",
+          title: "Comment l'accès aux charges de travail de production critiques est-il régi ?",
+          options: [
+            { id: '2a', label: "Mots de passe statiques et identifiants partagés" },
+            { id: '2b', label: "MFA standard sur les comptes principaux" },
+            { id: '2c', label: "SSO avec contrôle d'accès basé sur les rôles (RBAC)" },
+            { id: '2d', label: "Zero-Trust sensible au contexte (Posture des appareils, mTLS)" }
+          ]
+        },
+        {
+          id: 3,
+          category: "Détection des Menaces",
+          title: "Quel est votre principal mécanisme d'identification des failles de sécurité ?",
+          options: [
+            { id: '3a', label: "Réactif (Rapports clients, temps d'arrêt apparent)" },
+            { id: '3b', label: "Revues manuelles des journaux et alertes basiques" },
+            { id: '3c', label: "SIEM centralisé avec détection automatisée des anomalies" },
+            { id: '3d', label: "Surveillance eBPF au niveau du noyau et SOAR piloté par l'IA" }
+          ]
+        },
+        {
+          id: 4,
+          category: "Conformité & Audit",
+          title: "Comment maintenez-vous la conformité avec les cadres réglementaires (SOC 2, ISO 27001) ?",
+          options: [
+            { id: '4a', label: "Nous ne suivons pas formellement la conformité" },
+            { id: '4b', label: "Suivi manuel par tableur et audits périodiques" },
+            { id: '4c', label: "Collecte automatisée de preuves (ex: Vanta, Drata)" },
+            { id: '4d', label: "Conformité continue cartographiée directement sur les pipelines IaC" }
+          ]
+        }
+      ],
+      results: {
+        score: "Score de Maturité des Risques",
+        level: "Niveau de Maturité :",
+        critical: "Exposition Critique aux Risques",
+        moderate: "Maturité Modérée",
+        advanced: "DevSecOps Avancé",
+        request_audit: "Demander un Audit d'Architecture Complet",
+        submit: "Soumettre l'Évaluation"
+      }
+    },
+    solutions_in_action: {
+      badge: "L'Automatisation Visualisée",
+      title: "Solutions en Action",
+      subtitle: "Ne vous contentez pas de lire sur le Zéro-Confiance. Regardez nos architectures d'ingénierie détecter, isoler et corriger dynamiquement les menaces dans des environnements haute-fidélité.",
+      demo: "Démo de l'Architecture",
+      videos: [
+        {
+          id: "cspm",
+          title: "Sécurité Cloud (CSPM)",
+          description: "Regardez comment notre gestion de posture automatisée détecte et corrige instantanément un compartiment S3 mal configuré en temps réel."
+        },
+        {
+          id: "devsecops",
+          title: "Pipelines DevSecOps",
+          description: "Découvrez la politique en tant que code en action : Un déploiement Terraform est automatiquement bloqué avant validation en raison d'un rôle IAM exposé."
+        },
+        {
+          id: "iam",
+          title: "Zéro-Confiance IAM",
+          description: "Faites l'expérience d'une vérification d'identité cryptographique bloquant le mouvement latéral à partir d'un point d'extrémité compromis."
+        },
+        {
+          id: "sre",
+          title: "Remédiation de Menace SRE",
+          description: "Observez nos capteurs eBPF détecter un comportement de ransomware de type zéro-jour et couper de manière autonome la connexion réseau."
+        }
+      ]
+    },
+    insights: {
+      title: "Recherche & Aperçus Sécurité",
+      subtitle: "Analyse experte sur l'architecture zéro confiance, l'automatisation DevSecOps et la conformité cloud pour les entreprises du Canada atlantique.",
+      search_placeholder: "Rechercher des articles, des modèles d'architecture...",
+      no_results: "Aucun article trouvé",
+      no_results_desc: "Ajustez votre recherche pour explorer notre recherche.",
+      read_time: "min de lecture",
+      author: "Par",
+      back: "Retour à tous les articles",
+      read_article: "Lire l'article"
+    },
+
+    booking: {      hero_title: "Audit d'Architecture de Sécurité de 30 Minutes.",
       hero_subtitle: "Planifiez une révision diagnostique ciblée de votre infrastructure infonuagique, de vos pipelines CI/CD et de votre conformité.",
       success_title: "Audit de Sécurité Planifié.",
       success_message: "Une invitation calendrier et un questionnaire préparatoire ont été envoyés à votre courriel professionnel."

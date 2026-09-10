@@ -251,9 +251,13 @@ async function startServer() {
           defaultSrc: ["'self'"],
           scriptSrc: [
             "'self'",
+            "'unsafe-inline'",
+            "'unsafe-eval'",
             "https://apis.google.com",
             "https://www.gstatic.com",
-            "https://www.googletagmanager.com"
+            "https://www.googletagmanager.com",
+            "https://www.youtube.com",
+            "https://s.ytimg.com"
           ],
           // Removed unsafe-inline and unsafe-eval to prevent XSS
           styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
@@ -261,7 +265,7 @@ async function startServer() {
           fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
           imgSrc: ["'self'", "data:", "https://*", "blob:"],
           connectSrc: ["'self'", "https://*", "wss://*"],
-          frameSrc: ["'self'", "https://*.firebaseapp.com"],
+          frameSrc: ["'self'", "https://*.firebaseapp.com", "https://www.youtube.com", "https://youtube.com"],
           objectSrc: ["'none'"],
           baseUri: ["'self'"],
           formAction: ["'self'"],
@@ -287,6 +291,17 @@ async function startServer() {
   );
   app.use((0, import_cors.default)());
   app.use(import_express.default.json({ limit: "10kb" }));
+  app.use((req, res, next) => {
+    if (req.method === "POST") {
+      const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+      const userAgent = req.headers["user-agent"] || "Unknown";
+      console.log(`[SECURITY AUDIT] ${(/* @__PURE__ */ new Date()).toISOString()} | ${req.method} ${req.path} | IP: ${ip} | UA: ${userAgent}`);
+      if (req.body && req.body.b_company_suite) {
+        console.warn(`[SECURITY ALERT] Honeypot field filled on ${req.path}. Potential bot activity from IP: ${ip}`);
+      }
+    }
+    next();
+  });
   const apiLimiter = (0, import_express_rate_limit.default)({
     windowMs: 15 * 60 * 1e3,
     // 15 minutes
@@ -316,28 +331,31 @@ async function startServer() {
   });
   app.use("/api/", apiLimiter);
   let transporter;
-  if (process.env.SMTP_HOST && process.env.SMTP_USER) {
+  const smtpHost = process.env.SMTP_HOST || "smtp.oakivo.com";
+  const smtpPort = process.env.SMTP_PORT || "587";
+  const smtpUser = process.env.SMTP_USER || "no-reply@oakivo.com";
+  if (process.env.SMTP_PASS) {
     transporter = import_nodemailer.default.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || "587"),
-      secure: process.env.SMTP_PORT === "465",
+      host: smtpHost,
+      port: parseInt(smtpPort),
+      secure: smtpPort === "465",
       connectionTimeout: 2e3,
-      // 2 seconds timeout so it doesn't hang UI
       greetingTimeout: 2e3,
       socketTimeout: 2e3,
       auth: {
-        user: process.env.SMTP_USER,
+        user: smtpUser,
         pass: process.env.SMTP_PASS
       }
     });
   } else {
+    console.warn("\n[WARNING] No SMTP_PASS found in environment variables. Real emails cannot be sent to olabel@gmail.com without the password for " + smtpUser + ". Falling back to console logging.\n");
     transporter = {
       sendMail: async (info) => {
-        console.log("--- MOCK EMAIL SENT ---");
+        console.log("--- MOCK EMAIL SENT (Intercepted due to missing SMTP_PASS) ---");
         console.log("To:", info.to);
         console.log("Subject:", info.subject);
         console.log("Text:", info.text);
-        console.log("-----------------------");
+        console.log("--------------------------------------------------------------");
         return { messageId: "mock-id" };
       }
     };
@@ -499,6 +517,7 @@ Entry ID: ${entryId}
       <guid>${siteUrl}/insights/${post.id}</guid>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <description><![CDATA[${post.excerpt}]]></description>
+      ${post.coverImage ? `<enclosure url="${post.coverImage.replace(/&/g, "&amp;")}" type="image/jpeg" />` : ""}
       <category><![CDATA[${post.category}]]></category>
     </item>`;
       });
