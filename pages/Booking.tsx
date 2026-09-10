@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import React, { useState } from 'react';
 import { Calendar as CalendarIcon, Clock, Globe, ShieldCheck, CheckCircle2, ArrowRight, User, Mail, Video, Sparkles, Terminal } from 'lucide-react';
 import { useLanguage, translations } from '../context/LanguageContext';
@@ -63,8 +64,10 @@ const Booking: React.FC = () => {
         type: '30_MIN_SECURITY_AUDIT_BOOKING'
       });
       setStatus('success');
+      toast.success('Consultation Booked', { description: 'An architect will confirm your time slot shortly.' });
     } catch (err) {
       console.error("Booking Error:", err); setErrorMessage('A network error occurred. Please try again or email us directly.');
+      toast.error('Booking Failed', { description: 'Please try again or email us directly.' });
     } finally {
       setIsSubmitting(false);
     }

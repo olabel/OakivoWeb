@@ -26,15 +26,19 @@ async function startServer() {
           defaultSrc: ["'self'"],
           scriptSrc: [
             "'self'", 
+            "'unsafe-inline'",
+            "'unsafe-eval'",
             "https://apis.google.com", 
             "https://www.gstatic.com", 
-            "https://www.googletagmanager.com"
+            "https://www.googletagmanager.com",
+            "https://www.youtube.com",
+            "https://s.ytimg.com"
           ], // Removed unsafe-inline and unsafe-eval to prevent XSS
           styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"], // unsafe-inline kept ONLY for Framer Motion animation styles
           fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
           imgSrc: ["'self'", "data:", "https://*", "blob:"],
           connectSrc: ["'self'", "https://*", "wss://*"],
-          frameSrc: ["'self'", "https://*.firebaseapp.com"],
+          frameSrc: ["'self'", "https://*.firebaseapp.com", "https://www.youtube.com", "https://youtube.com"],
           objectSrc: ["'none'"],
           baseUri: ["'self'"],
           formAction: ["'self'"],
@@ -57,6 +61,22 @@ async function startServer() {
 
   app.use(cors());
   app.use(express.json({ limit: '10kb' })); // Restrict payload size to prevent DOS
+
+  // Structured Security Logging Middleware
+  app.use((req, res, next) => {
+    if (req.method === 'POST') {
+      const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+      const userAgent = req.headers['user-agent'] || 'Unknown';
+      console.log(`[SECURITY AUDIT] ${new Date().toISOString()} | ${req.method} ${req.path} | IP: ${ip} | UA: ${userAgent}`);
+      
+      // Bot Detection Logging
+      if (req.body && req.body.b_company_suite) {
+        console.warn(`[SECURITY ALERT] Honeypot field filled on ${req.path}. Potential bot activity from IP: ${ip}`);
+      }
+    }
+    next();
+  });
+
 
   // Global Rate Limiting for generic API endpoints
   const apiLimiter = rateLimit({
@@ -317,8 +337,8 @@ async function startServer() {
         rssItems += `
     <item>
       <title><![CDATA[${post.title}]]></title>
-      <link>${siteUrl}/insights</link>
-      <guid>${siteUrl}/insights#${post.id}</guid>
+      <link>${siteUrl}/insights/${post.id}</link>
+      <guid>${siteUrl}/insights/${post.id}</guid>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <description><![CDATA[${post.excerpt}]]></description>
       <category><![CDATA[${post.category}]]></category>

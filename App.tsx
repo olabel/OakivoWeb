@@ -30,6 +30,7 @@ import { NavRoute } from './types';
 import { analytics } from './utils/analytics';
 import LiveChat from './components/LiveChat';
 import { Analytics } from './components/Analytics';
+import { Toaster } from 'sonner';
 
 // Scroll to top and track analytics
 const ScrollToTopAndTrack = () => {
@@ -91,6 +92,7 @@ const App: React.FC = () => {
         <Router>
           <ScrollToTopAndTrack />
       <Analytics />
+          <Toaster theme="dark" position="bottom-right" />
           <AppLayout />
         </Router>
       </LanguageProvider>

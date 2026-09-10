@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Shield, ChevronRight, AlertTriangle, CheckCircle, ShieldAlert, ArrowRight, Activity, Server, Lock, Loader2, Mail, User, Building } from 'lucide-react';
@@ -136,8 +137,10 @@ const RiskCalculator: React.FC = () => {
         ...formData
       });
       setIsSubmitted(true);
+      toast.success('Audit Request Sent', { description: 'Our security team will review your risk profile.' });
     } catch (err) {
       console.error(err);
+      toast.error('Submission Failed', { description: 'Please try again.' });
     } finally {
       setIsSubmitting(false);
     }

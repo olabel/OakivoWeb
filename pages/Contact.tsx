@@ -272,8 +272,8 @@ const Contact: React.FC = () => {
                     </div>
                     <div>
                       <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">Phone</span>
-                      <a href="tel:506899491" className="text-sm font-semibold text-white hover:text-cyan-400 transition-colors block mt-0.5">
-                        506-899-0491
+                      <a href="tel:5068994941" className="text-sm font-semibold text-white hover:text-cyan-400 transition-colors block mt-0.5">
+                        506-899-4941
                       </a>
                     </div>
                   </div>

@@ -495,8 +495,8 @@ Entry ID: ${entryId}
         rssItems += `
     <item>
       <title><![CDATA[${post.title}]]></title>
-      <link>${siteUrl}/insights</link>
-      <guid>${siteUrl}/insights#${post.id}</guid>
+      <link>${siteUrl}/insights/${post.id}</link>
+      <guid>${siteUrl}/insights/${post.id}</guid>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <description><![CDATA[${post.excerpt}]]></description>
       <category><![CDATA[${post.category}]]></category>
