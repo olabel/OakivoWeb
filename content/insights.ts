@@ -9,6 +9,10 @@ export interface InsightPost {
   readTime?: string;
   coverImage?: string;
   keyTakeaways?: string[];
+  industry?: 'healthcare' | 'retail' | 'logistics' | 'fintech' | 'infrastructure';
+  industryLabel?: string;
+  relatedCaseStudyId?: string;
+  complianceStandards?: string[];
 }
 
 export const insightsData: InsightPost[] = [

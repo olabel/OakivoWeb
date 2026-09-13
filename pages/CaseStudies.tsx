@@ -9,7 +9,7 @@ import SEO from '../components/SEO';
 import { useLanguage } from '../context/LanguageContext';
 import DownloadBrochureButton from '../components/DownloadBrochureButton';
 
-interface CaseStudyItem {
+export interface CaseStudyItem {
   id: string;
   client: string;
   industry: string;
@@ -28,7 +28,45 @@ interface CaseStudyItem {
   };
 }
 
-const caseStudiesData: CaseStudyItem[] = [
+export const caseStudiesData: CaseStudyItem[] = [
+  {
+    id: 'atlantic-health-informatics',
+    client: 'Atlantic Health Informatics',
+    industry: 'Healthcare & Life Sciences',
+    location: 'Moncton, New Brunswick',
+    title: 'Securing Multi-Clinic Diagnostic Telemetry & Law 25 / PHIPA Compliance',
+    challenge: 'A coalition of regional medical clinics sharing biometric diagnostic feeds faced critical compliance hurdles under PIPEDA, Ontario PHIPA, and Quebec Law 25. Legacy manual pseudonymization workflows caused 48-hour diagnostic delays and high risk of cross-border data spillage.',
+    solution: 'Oakivo architected zero-trust microsegmentation and automated KMS envelope encryption strictly within AWS ca-central-1 (Montreal), deploying automated redaction proxies and cryptographic audit trails for every electronic health record (EHR) query.',
+    results: [
+      { metric: '100%', label: 'Zero-Trust Patient Record Isolation' },
+      { metric: '0 Violations', label: 'In Provincial & Federal Privacy Audits' },
+      { metric: '4x Faster', label: 'Secure Clinical Telemetry Ingestion' }
+    ],
+    testimonial: {
+      quote: 'Oakivo engineered mathematical assurance into our patient data pipeline. Our clinicians now access diagnostic insights instantaneously while maintaining flawless compliance with Canadian data sovereignty laws.',
+      author: 'Dr. Marc Bourque',
+      role: 'Chief Medical Information Officer'
+    }
+  },
+  {
+    id: 'fundy-digital-capital',
+    client: 'Fundy Digital Capital',
+    industry: 'Financial Services & FinTech',
+    location: 'Saint John, New Brunswick',
+    title: 'Automating SOC 2 Type II Continuous Audit & Zero-Trust Cloud Ledger',
+    challenge: 'Securing venture institutional banking partnerships required immediate SOC 2 Type II certification and continuous validation of cloud workload integrity that exceeded their internal 3-person DevOps capacity.',
+    solution: 'Oakivo implemented automated Policy-as-Code using OPA Gatekeeper, continuous container image cryptographic signing with Cosign, and automated cloud evidence collection syncing directly into their compliance registry.',
+    results: [
+      { metric: '6 Weeks', label: 'To Complete SOC 2 Type II Readiness' },
+      { metric: '85%', label: 'Reduction in Audit Preparation Overhead' },
+      { metric: '100%', label: 'Automated CI/CD Cryptographic Verification' }
+    ],
+    testimonial: {
+      quote: 'Passing our SOC 2 Type II audit in six weeks without hiring two additional senior security engineers would have been impossible without Oakivo’s policy automation.',
+      author: 'Elena Vance',
+      role: 'VP of Technology & Risk'
+    }
+  },
   {
     id: 'atlantic-seafood-logistics',
     client: 'Maritime Seafood & Cold Storage',
@@ -145,7 +183,8 @@ const CaseStudies: React.FC = () => {
             {caseStudiesData.map((study, idx) => (
               <div 
                 key={study.id}
-                className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] relative overflow-hidden"
+                id={study.id}
+                className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] relative overflow-hidden scroll-mt-28"
               >
                 <div className="space-y-8">
                   
@@ -159,6 +198,19 @@ const CaseStudies: React.FC = () => {
                         {study.client}: {study.title}
                       </h2>
                     </div>
+
+                    <Link
+                      to={`/insights?industry=${
+                        study.id === 'atlantic-health-informatics' ? 'healthcare' : 
+                        study.id === 'fundy-digital-capital' ? 'fintech' : 
+                        study.id === 'maritime-equipment-supplier' ? 'retail' : 'logistics'
+                      }`}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-mono font-medium transition-all group"
+                    >
+                      <Sparkles size={13} />
+                      <span>{language === 'fr' ? 'Rapports Techniques Associés' : 'Related Sector Intelligence'}</span>
+                      <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+                    </Link>
                   </div>
 
                   {/* Quantitative Metric Badges */}

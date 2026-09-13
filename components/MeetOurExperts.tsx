@@ -27,7 +27,7 @@ const MeetOurExperts: React.FC = () => {
         : "14+ years architecting zero-trust cloud perimeters, Kubernetes policy engines, and mission-critical multi-tenant security platforms for Canadian enterprise and public sector.",
       credentials: ["M.Sc.", "CISSP", "AWS Security Specialist", "CKA (Kubernetes)"],
       location: "Dieppe, NB (AST)",
-      headshot: "/team/ahmed-bello.jpg",
+      headshot: "/team/ahmed-bello.jpg?v=4",
       linkedin: "https://www.linkedin.com/company/oakivo",
       languages: isFrench ? "Anglais (Engineering)" : "English (Engineering Lead)"
     },
@@ -39,7 +39,7 @@ const MeetOurExperts: React.FC = () => {
         : "Specializes in shift-left CI/CD guardrails, container cryptographic signing with Cosign, and automated Policy-as-Code to eliminate vulnerabilities before code reaches production.",
       credentials: ["P.Eng.", "CKS (K8s Security)", "Terraform Author", "ISO 27001 Lead"],
       location: "Dieppe, NB (AST)",
-      headshot: "/team/funmilayo-akinsiku.jpg",
+      headshot: "/team/funmilayo-akinsiku.jpg?v=2",
       linkedin: "https://www.linkedin.com/company/oakivo",
       languages: isFrench ? "100 % Bilingue (FR/EN)" : "100% Bilingual (EN/FR)"
     },
@@ -51,7 +51,7 @@ const MeetOurExperts: React.FC = () => {
         : "Architect of autonomous self-healing cloud infrastructure and event-driven incident containment runbooks that neutralize threats at machine speed.",
       credentials: ["Linux Foundation KCSP", "eBPF Observability", "AWS Solutions Architect Pro"],
       location: "Dieppe, NB (AST)",
-      headshot: "/team/fawaz-bello.jpg",
+      headshot: "/team/fawaz-bello.jpg?v=2",
       linkedin: "https://www.linkedin.com/company/oakivo",
       languages: isFrench ? "100 % Bilingue (FR/EN)" : "100% Bilingual (EN/FR)"
     },
@@ -63,7 +63,7 @@ const MeetOurExperts: React.FC = () => {
         : "Bridges executive business goals with technical DevSecOps architectures, translating complex security compliance frameworks into actionable enterprise workflows and measurable ROI.",
       credentials: ["CBAP", "ITIL 4", "Agile & Compliance", "PIPEDA / Law 25 Specialist"],
       location: "Dieppe, NB (AST)",
-      headshot: "/team/taiwo-owoeye.jpg",
+      headshot: "/team/taiwo-owoeye.jpg?v=2",
       linkedin: "https://www.linkedin.com/company/oakivo",
       languages: isFrench ? "Anglais (Business Analyst)" : "English (Business Analyst)"
     }

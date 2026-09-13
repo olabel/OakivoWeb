@@ -12,6 +12,7 @@ import {
 import Button from '../components/Button';
 import Logo from '../components/Logo';
 import AdminAnalyticsDashboard from '../components/AdminAnalyticsDashboard';
+import EmailAuditLogSection from '../components/EmailAuditLogSection';
 
 const AdminPortal: React.FC = () => {
   const [entries, setEntries] = useState<DatabaseEntry[]>([]);
@@ -20,7 +21,7 @@ const AdminPortal: React.FC = () => {
   const [selectedEntry, setSelectedEntry] = useState<DatabaseEntry | null>(null);
   
   // Tab view inside the Vault
-  const [activeTab, setActiveTab] = useState<'submissions' | 'analytics' | 'seo' | 'insights'>('submissions');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'email_audit' | 'analytics' | 'seo' | 'insights'>('submissions');
 
   // Security State
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,6 +36,11 @@ const AdminPortal: React.FC = () => {
   const [recentPageViews, setRecentPageViews] = useState<PageViewEvent[]>([]);
   const [seoHealth, setSeoHealth] = useState<SEOHealthMetric[]>([]);
 
+  // Email Notification Engine State
+  const [emailStatus, setEmailStatus] = useState<any>(null);
+  const [isTestingEmail, setIsTestingEmail] = useState(false);
+  const [testEmailResult, setTestEmailResult] = useState<string | null>(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsAuthenticated(!!user);
@@ -47,6 +53,7 @@ const AdminPortal: React.FC = () => {
     if (isAuthenticated) {
       loadEntries();
       loadAnalyticsAndSEO();
+      loadEmailStatus();
     }
   }, [isAuthenticated]);
 
@@ -61,6 +68,38 @@ const AdminPortal: React.FC = () => {
     setAnalyticsSummary(summary);
     setRecentPageViews(views);
     setSeoHealth(analytics.getSEOHealthAudit());
+  };
+
+  const loadEmailStatus = async () => {
+    try {
+      const res = await fetch('/api/email-status');
+      if (res.ok) {
+        const data = await res.json();
+        setEmailStatus(data);
+      }
+    } catch (e) {
+      console.warn('Could not load email engine status:', e);
+    }
+  };
+
+  const handleTestEmail = async () => {
+    setIsTestingEmail(true);
+    setTestEmailResult(null);
+    try {
+      const res = await fetch('/api/test-email', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        const prov = data.delivery?.provider || 'resend';
+        const msgId = data.delivery?.id ? ` (ID: ${data.delivery.id})` : '';
+        setTestEmailResult(`Verified: Notification dispatched to olabel@gmail.com via ${prov}${msgId}`);
+      } else {
+        setTestEmailResult(`Dispatch warning: ${data.error || 'Check server logs'}`);
+      }
+    } catch (e: any) {
+      setTestEmailResult(`Connection error: ${e.message}`);
+    } finally {
+      setIsTestingEmail(false);
+    }
   };
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -190,6 +229,14 @@ const AdminPortal: React.FC = () => {
               </div>
               
               <div className="flex flex-wrap gap-4">
+                 <button
+                   onClick={handleTestEmail}
+                   disabled={isTestingEmail}
+                   className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 font-bold text-xs uppercase tracking-wider transition-all border border-cyan-500/30 shadow-sm"
+                   title="Dispatch a live test email to olabel@gmail.com via Resend"
+                 >
+                   <Mail size={16} /> {isTestingEmail ? 'Dispatching...' : 'Test Resend Email'}
+                 </button>
                  <button 
                    onClick={() => signOut(auth)} 
                    className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold text-xs uppercase tracking-wider transition-all border border-red-500/20"
@@ -197,7 +244,7 @@ const AdminPortal: React.FC = () => {
                    <Lock size={16} /> Secure Logout
                  </button>
                  <button 
-                   onClick={loadAnalyticsAndSEO} 
+                   onClick={() => { loadAnalyticsAndSEO(); loadEmailStatus(); }} 
                    className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all border border-white/10"
                  >
                    <RefreshCw size={16} /> Refresh Telemetry
@@ -207,6 +254,17 @@ const AdminPortal: React.FC = () => {
                  </Button>
               </div>
            </div>
+
+           {/* Live Notification Engine Status Banner */}
+           {testEmailResult && (
+             <div className="mt-6 bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 text-xs px-6 py-3.5 rounded-2xl font-mono flex items-center justify-between shadow-lg relative z-20">
+               <div className="flex items-center gap-2">
+                 <CheckCircle2 size={16} className="text-cyan-400 shrink-0" />
+                 <span>{testEmailResult}</span>
+               </div>
+               <button onClick={() => setTestEmailResult(null)} className="text-cyan-400 hover:text-white px-2 py-1 text-sm font-bold">✕</button>
+             </div>
+           )}
 
            {/* Core Vault Navigation Tabs */}
            <div className="flex flex-wrap items-center gap-4 mt-12 pt-8 border-t border-white/10 relative z-10">
@@ -219,6 +277,17 @@ const AdminPortal: React.FC = () => {
                 }`}
               >
                 <LayoutDashboard size={16} /> Intake Submissions ({entries.length})
+              </button>
+
+              <button
+                onClick={() => setActiveTab('email_audit')}
+                className={`px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all flex items-center gap-2 ${
+                  activeTab === 'email_audit' 
+                    ? 'bg-oakivo-secondary text-oakivo-primary shadow-lg scale-105' 
+                    : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                }`}
+              >
+                <Activity size={16} /> Email Audit Log
               </button>
 
               <button
@@ -371,6 +440,11 @@ const AdminPortal: React.FC = () => {
                </div>
             </div>
           </>
+        )}
+
+        {/* TAB: RESEND EMAIL AUDIT LOG */}
+        {activeTab === 'email_audit' && (
+          <EmailAuditLogSection />
         )}
 
         {/* TAB 2: WEB VISITORS & ANALYTICS */}

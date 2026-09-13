@@ -305,7 +305,7 @@ export const translations: Record<Language, Record<string, any>> = {
           bio: "14+ years architecting zero-trust cloud perimeters, Kubernetes policy engines, and mission-critical multi-tenant security platforms for Canadian enterprise and public sector.", 
           credentials: ["M.Sc.", "CISSP", "AWS Security Specialist", "CKA (Kubernetes)"], 
           location: "Dieppe, NB",
-          headshot: "/team/ahmed-bello.jpg",
+          headshot: "/team/ahmed-bello.jpg?v=4",
           linkedin: "https://www.linkedin.com/company/oakivo" 
         },
         { 
@@ -884,7 +884,7 @@ export const translations: Record<Language, Record<string, any>> = {
           bio: "Plus de 14 ans d'expérience dans la conception d'architectures infonuagiques résilientes, de périmètres Zéro Confiance et de plateformes DevSecOps hautement sécurisées pour les entreprises canadiennes.", 
           credentials: ["M.Sc.", "CISSP", "Spécialiste Sécurité AWS", "CKA (Kubernetes)"], 
           location: "Dieppe, N.-B.",
-          headshot: "/team/ahmed-bello.jpg",
+          headshot: "/team/ahmed-bello.jpg?v=4",
           linkedin: "https://www.linkedin.com/company/oakivo" 
         },
         { 

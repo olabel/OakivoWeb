@@ -48,13 +48,20 @@ const AppLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen relative">
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-slate-950 focus:font-mono focus:font-bold focus:rounded-lg focus:shadow-xl focus:outline-none"
+      >
+        Skip to main content
+      </a>
       {!isDemo && <Navbar />}
-      <main className={!isDemo ? "flex-grow pt-20 lg:pt-24" : "flex-grow"}>
+      <main id="main-content" tabIndex={-1} className={!isDemo ? "flex-grow pt-20 lg:pt-24 focus:outline-none" : "flex-grow focus:outline-none"}>
         <Routes>
           <Route path={NavRoute.HOME} element={<Home />} />
           <Route path={NavRoute.SERVICES} element={<Expertise />} />
           <Route path={NavRoute.CAPABILITIES} element={<Expertise />} />
           <Route path={NavRoute.CASE_STUDIES} element={<CaseStudies />} />
+          <Route path="/casestudies" element={<CaseStudies />} />
           <Route path="/work" element={<CaseStudies />} />
           <Route path={NavRoute.CONTACT} element={<Contact />} />
           <Route path={NavRoute.BOOKING} element={<Booking />} />

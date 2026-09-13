@@ -51,14 +51,16 @@ const Home: React.FC = () => {
       />
       
       {/* Hero Section */}
-      <header id="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#070A0F]">
+      <header id="hero" role="banner" aria-label="Hero introduction" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#070A0F]">
         {/* Background Video */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden bg-[#070A0F]">
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden bg-[#070A0F]" aria-hidden="true">
           <video
             autoPlay
             loop
             muted
             playsInline
+            aria-hidden="true"
+            tabIndex={-1}
             className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105"
           >
             <source src="/background-loop.mp4" type="video/mp4" />
@@ -66,8 +68,8 @@ const Home: React.FC = () => {
         </div>
         
         {/* Premium Darkening Overlay */}
-        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-transparent via-[#070A0F]/60 to-[#070A0F]"></div>
+        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" aria-hidden="true"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-transparent via-[#070A0F]/60 to-[#070A0F]" aria-hidden="true"></div>
         
         <div className="relative z-10 container mx-auto px-6 max-w-7xl pt-32 pb-20">
             <div className="flex flex-col items-start text-left max-w-4xl">
@@ -77,17 +79,27 @@ const Home: React.FC = () => {
                 <p className="text-xl md:text-2xl text-slate-300 max-w-3xl font-light leading-relaxed mb-12 border-l-2 border-slate-700 pl-6">
                     {t('landing.hero_subheadline')}
                 </p>
-                <div className="flex flex-col sm:flex-row items-center gap-6">
-                    <button onClick={() => window.dispatchEvent(new CustomEvent('open-lead-drawer'))} className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-950 transition-all duration-300 bg-white hover:bg-slate-200 rounded-sm cursor-pointer">
+                <div className="flex flex-col sm:flex-row items-center gap-6" role="group" aria-label="Primary Call to Action Options">
+                    <button 
+                      type="button"
+                      onClick={() => window.dispatchEvent(new CustomEvent('open-lead-drawer'))} 
+                      aria-label="Book a 30-minute security architecture audit with Oakivo senior engineers"
+                      aria-haspopup="dialog"
+                      className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-950 transition-all duration-300 bg-white hover:bg-slate-200 rounded-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950"
+                    >
                         <span className="flex items-center gap-3">
                             {t('common.cta_book_audit')}
-                            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                            <ArrowRight aria-hidden="true" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                         </span>
                     </button>
-                    <Link to={NavRoute.CLIENT_DEMO} className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-100 transition-all duration-300 border border-slate-700 hover:border-slate-400 bg-slate-900/50 hover:bg-slate-800 rounded-sm">
+                    <Link 
+                      to={NavRoute.CLIENT_DEMO} 
+                      aria-label="View interactive live client security portal demo"
+                      className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-100 transition-all duration-300 border border-slate-700 hover:border-slate-400 bg-slate-900/50 hover:bg-slate-800 rounded-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950"
+                    >
                         <span className="flex items-center gap-3">
                             View Live Demo
-                            <Activity className="w-4 h-4 text-cyan-500 transition-transform duration-300 group-hover:scale-110" />
+                            <Activity aria-hidden="true" className="w-4 h-4 text-cyan-500 transition-transform duration-300 group-hover:scale-110" />
                         </span>
                     </Link>
                 </div>
@@ -100,10 +112,10 @@ const Home: React.FC = () => {
       {/* The Strategic Imperative */}
       <SolutionsInAction />
       
-      <section id="imperative" className="py-16 md:py-24 px-6 bg-slate-950 relative border-t border-slate-900/50">
+      <section id="imperative" aria-labelledby="strategic-headline" className="py-16 md:py-24 px-6 bg-slate-950 relative border-t border-slate-900/50">
         <div className="container mx-auto max-w-7xl relative z-10">
             <div className="max-w-4xl">
-                <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8 text-slate-100">{t('landing.strategic_headline')}</h2>
+                <h2 id="strategic-headline" className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-8 text-slate-100">{t('landing.strategic_headline')}</h2>
                 <p className="text-slate-300 text-lg md:text-2xl font-light leading-relaxed">
                     {t('landing.strategic_body')}
                 </p>
@@ -112,44 +124,44 @@ const Home: React.FC = () => {
       </section>
 
       {/* Premium Core Capabilities */}
-      <div id="capabilities">
+      <section id="capabilities" aria-label="Core Engineering Capabilities">
         <PremiumCapabilities />
-      </div>
+      </section>
 
       {/* The Engagement Model - 3-Step Layout */}
-      <section id="methodology" className="py-16 md:py-24 px-6 border-t border-slate-800/50 bg-slate-950 relative">
+      <section id="methodology" aria-labelledby="methodology-headline" className="py-16 md:py-24 px-6 border-t border-slate-800/50 bg-slate-950 relative">
         <div className="container mx-auto max-w-7xl relative z-10">
             <div className="mb-24">
-                <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6 text-slate-100">{t('landing.methodology_headline')}</h2>
+                <h2 id="methodology-headline" className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6 text-slate-100">{t('landing.methodology_headline')}</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
                 {/* Step 1 */}
-                <div className="group">
-                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4">{t('common.step')} 01</div>
-                    <h3 className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step1_title')}</h3>
+                <article className="group" aria-labelledby="step1-title">
+                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4" aria-hidden="true">{t('common.step')} 01</div>
+                    <h3 id="step1-title" className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step1_title')}</h3>
                     <p className="text-slate-400 font-light leading-relaxed text-lg">
                         {t('landing.step1_body')}
                     </p>
-                </div>
+                </article>
 
                 {/* Step 2 */}
-                <div className="group">
-                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4">{t('common.step')} 02</div>
-                    <h3 className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step2_title')}</h3>
+                <article className="group" aria-labelledby="step2-title">
+                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4" aria-hidden="true">{t('common.step')} 02</div>
+                    <h3 id="step2-title" className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step2_title')}</h3>
                     <p className="text-slate-400 font-light leading-relaxed text-lg">
                         {t('landing.step2_body')}
                     </p>
-                </div>
+                </article>
 
                 {/* Step 3 */}
-                <div className="group">
-                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4">{t('common.step')} 03</div>
-                    <h3 className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step3_title')}</h3>
+                <article className="group" aria-labelledby="step3-title">
+                    <div className="text-sm font-mono tracking-widest text-cyan-500 mb-6 border-b border-slate-800 pb-4" aria-hidden="true">{t('common.step')} 03</div>
+                    <h3 id="step3-title" className="text-2xl font-display font-bold tracking-tight mb-4 text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{t('landing.step3_title')}</h3>
                     <p className="text-slate-400 font-light leading-relaxed text-lg">
                         {t('landing.step3_body')}
                     </p>
-                </div>
+                </article>
             </div>
         </div>
       </section>
