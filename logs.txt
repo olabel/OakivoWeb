@@ -1,0 +1,5 @@
+◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+
+[WARNING] No SMTP_PASS found in environment variables. Real emails cannot be sent to olabel@gmail.com without the password for ahmed.bello@oakivo.com. Falling back to console logging.
+
+[Secure Backend] Server running on port 3000

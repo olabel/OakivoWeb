@@ -4,6 +4,7 @@ import SEO from '../components/SEO';
 import LeadDrawer from '../components/LeadDrawer';
 import OakivoROIEngine from '../components/OakivoROIEngine';
 import InteractivePlayground from '../components/InteractivePlayground';
+import MethodologyTimeline from '../components/MethodologyTimeline';
 
 const Methodology: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -40,6 +41,9 @@ const Methodology: React.FC = () => {
           </p>
         </div>
       </section>
+
+      {/* Interactive Horizontal Methodology Timeline */}
+      <MethodologyTimeline />
 
       <section className="bg-slate-950 text-slate-100 py-24 border-b border-slate-900/50">
         <div className="container mx-auto px-6 max-w-6xl">

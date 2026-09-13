@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import SEO from '../components/SEO';
 import { useLanguage } from '../context/LanguageContext';
+import MeetOurExperts from '../components/MeetOurExperts';
 
 const OperatingPrinciples = [
   {
@@ -167,6 +168,9 @@ const About: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Meet Our Senior DevSecOps Architects (Dieppe, NB) */}
+      <MeetOurExperts />
 
       {/* Comparison Matrix */}
       <section className="py-16 md:py-24 relative border-b border-white/[0.08]">

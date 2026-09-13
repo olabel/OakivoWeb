@@ -293,10 +293,108 @@ export const translations: Record<Language, Record<string, any>> = {
       standard_p2: "No vague advisory reports. No offshore ticket routing. We write deterministic code, build production CI/CD guardrails, and harden infrastructure directly.",
       standard_p3: "Based in Dieppe, our bilingual engineers are accountable to our Atlantic neighbors, delivering enterprise-grade engineering with local dedication.",
       leadership_title: "Engineering Leadership",
+      experts_section_badge: "Dieppe, NB Engineering Hub",
+      experts_section_title: "Meet Our Senior DevSecOps Architects",
+      experts_section_subtitle: "Direct access to senior cloud security architects, DevSecOps engineers, and business analysts based in Dieppe, New Brunswick. Bilingual support (EN/FR) with Atlantic Standard Time responsiveness and zero offshore queues.",
+      experts_badge_location: "Dieppe, NB (AST)",
+      experts_bilingual_tag: "Dieppe, NB Hub",
       team: [
-        { name: "DevSecOps Lead Architect", role: "Principal Cloud Security Architect", bio: "Over 12 years engineering high-availability cloud infrastructure, Kubernetes security gates, and automated compliance pipelines.", credentials: "CISSP, AWS Certified Security Specialist, CKA", linkedin: "#" },
-        { name: "Automation & SRE Lead", role: "Site Reliability & Security Engineer", bio: "Specialist in event-driven security runbooks, Zero Trust ERP gateways, and automated threat containment.", credentials: "BSc Computer Science, Terraform Certified Associate", linkedin: "#" }
+        { 
+          name: "Ahmed Bello, M.Sc.", 
+          role: "Principal Cloud Security Architect & Founder", 
+          bio: "14+ years architecting zero-trust cloud perimeters, Kubernetes policy engines, and mission-critical multi-tenant security platforms for Canadian enterprise and public sector.", 
+          credentials: ["M.Sc.", "CISSP", "AWS Security Specialist", "CKA (Kubernetes)"], 
+          location: "Dieppe, NB",
+          headshot: "/team/ahmed-bello.jpg",
+          linkedin: "https://www.linkedin.com/company/oakivo" 
+        },
+        { 
+          name: "Funmilayo Akinsiku", 
+          role: "Lead DevSecOps & Pipeline Automation Architect", 
+          bio: "Specializes in shift-left CI/CD guardrails, container cryptographic signing with Cosign, and automated Policy-as-Code to eliminate vulnerabilities before code reaches production.", 
+          credentials: ["P.Eng.", "CKS (Kubernetes Security)", "Terraform Author", "ISO 27001 Lead"], 
+          location: "Dieppe, NB",
+          headshot: "/team/funmilayo-akinsiku.jpg",
+          linkedin: "https://www.linkedin.com/company/oakivo" 
+        },
+        { 
+          name: "Fawaz Bello", 
+          role: "Principal SRE & Threat Remediation Engineer", 
+          bio: "Architect of autonomous self-healing cloud infrastructure and event-driven incident containment runbooks that neutralize threats at machine speed.", 
+          credentials: ["Linux Foundation KCSP", "eBPF Observability", "AWS Solutions Architect Pro"], 
+          location: "Dieppe, NB",
+          headshot: "/team/fawaz-bello.jpg",
+          linkedin: "https://www.linkedin.com/company/oakivo" 
+        },
+        { 
+          name: "Taiwo Owoeye", 
+          role: "Senior Business Analyst & DevSecOps Strategist", 
+          bio: "Bridges executive business goals with technical DevSecOps architectures, translating complex security compliance frameworks into actionable enterprise workflows and measurable ROI.", 
+          credentials: ["CBAP", "ITIL 4", "Agile & Compliance", "PIPEDA / Law 25 Specialist"], 
+          location: "Dieppe, NB",
+          headshot: "/team/taiwo-owoeye.jpg",
+          linkedin: "https://www.linkedin.com/company/oakivo" 
+        }
       ]
+    },
+    brochure: {
+      download_btn: "Download PDF Brochure",
+      downloading: "Generating PDF...",
+      success: "Brochure downloaded successfully",
+      error: "Failed to generate PDF. Please try again.",
+      title: "Oakivo Solutions Inc. - Enterprise DevSecOps & Cloud Security",
+      subtitle: "Service Offerings, Architecture Methodology & Atlantic Canada Case Studies"
+    },
+    methodology_timeline: {
+      badge: "Interactive Client Journey",
+      title_main: "Predictable Execution: ",
+      title_accent: "The 3-Step Client Journey",
+      subtitle: "Hover over each phase to inspect technical deliverables, architectural guardrails, and guaranteed business outcomes.",
+      step1: {
+        num: "01",
+        name: "Security & Architecture Audit",
+        duration: "Days 1–5",
+        short_desc: "Diagnostic scan of cloud assets, CI/CD pipelines, ERP access topologies, and compliance gaps.",
+        deliverables_title: "Key Deliverables & Artifacts:",
+        deliverables: [
+          "Prioritized Threat & Remediation Blueprint with CVE scoring",
+          "Multi-cloud topology & IAM least-privilege matrix review",
+          "Automated SOC 2 / PIPEDA compliance gap matrix",
+          "Zero-trust network segmentation plan"
+        ],
+        badge: "Discovery & Scoring",
+        outcome: "Clear risk scoring without confusing 200-page jargon PDFs."
+      },
+      step2: {
+        num: "02",
+        name: "Automated Pipeline & Sandbox Deployment",
+        duration: "Weeks 2–4",
+        short_desc: "Isolated staging implementation of CI/CD security gates, OPA Policy-as-Code, and automated guardrails.",
+        deliverables_title: "Key Deliverables & Artifacts:",
+        deliverables: [
+          "Automated SAST, DAST & SBOM pipeline gates in GitHub Actions/GitLab",
+          "Immutable Infrastructure-as-Code modules (Terraform / OpenTofu)",
+          "Container vulnerability gating & Cosign image signing",
+          "Zero-Downtime deployment cutover and team runbooks"
+        ],
+        badge: "Shift-Left Implementation",
+        outcome: "Zero disruption to existing developer velocity or live workloads."
+      },
+      step3: {
+        num: "03",
+        name: "Continuous Managed DevSecOps & SRE Oversight",
+        duration: "Ongoing",
+        short_desc: "Continuous automated compliance monitoring, autonomous SRE self-healing runbooks, and direct AST support.",
+        deliverables_title: "Key Deliverables & Artifacts:",
+        deliverables: [
+          "24/7/365 Continuous Cloud Security Posture Management (CSPM)",
+          "Autonomous event-driven threat isolation and key rotation",
+          "Continuous cryptographic audit evidence archives",
+          "Direct AST senior DevSecOps architect support from Dieppe, NB"
+        ],
+        badge: "Autonomous Defense",
+        outcome: "Audits become push-button exercises; infrastructure self-heals at machine speed."
+      }
     },
     careers: {
       hero_title: "Join the Oakivo Engineering Team.",
@@ -774,10 +872,108 @@ export const translations: Record<Language, Record<string, any>> = {
       standard_p2: "Pas de rapports d'analyse vagues. Pas de tickets acheminés à l'étranger. Nous écrivons du code déterministe, construisons des garde-fous CI/CD de production et durcissons l'infrastructure directement.",
       standard_p3: "Implantés à Dieppe, nos ingénieurs bilingues sont engagés envers notre communauté atlantique, offrant une ingénierie d'entreprise de classe mondiale avec une écoute locale.",
       leadership_title: "Direction de l'Ingénierie",
+      experts_section_badge: "Centre d'Ingénierie de Dieppe, N.-B.",
+      experts_section_title: "Rencontrez Nos Architectes DevSecOps Seniors",
+      experts_section_subtitle: "Accès direct à des architectes de sécurité infonuagique, des ingénieurs DevSecOps et des analystes d'affaires basés à Dieppe, au Nouveau-Brunswick. Support bilingue (FR/EN) dans le fuseau de l'Atlantique (HNA) sans file d'attente à l'étranger.",
+      experts_badge_location: "Dieppe, N.-B. (HNA)",
+      experts_bilingual_tag: "Centre de Dieppe, N.-B.",
       team: [
-        { name: "Architecte Principal DevSecOps", role: "Architecte de Sécurité Infonuagique", bio: "Plus de 12 ans d'expérience dans la conception d'infrastructures infonuagiques haute disponibilité, la sécurité Kubernetes et les pipelines de conformité automatisée.", credentials: "CISSP, AWS Certified Security Specialist, CKA", linkedin: "#" },
-        { name: "Responsable Automatisation & SRE", role: "Ingénieur en Fiabilité de Site & Sécurité", bio: "Spécialiste des procédures de sécurité réactives, des passerelles ERP Zéro Confiance et du confinement autonome des menaces.", credentials: "B.Sc. Informatique, Terraform Certified Associate", linkedin: "#" }
+        { 
+          name: "Ahmed Bello, M.Sc.", 
+          role: "Architecte Principal de Sécurité Infonuagique & Fondateur", 
+          bio: "Plus de 14 ans d'expérience dans la conception d'architectures infonuagiques résilientes, de périmètres Zéro Confiance et de plateformes DevSecOps hautement sécurisées pour les entreprises canadiennes.", 
+          credentials: ["M.Sc.", "CISSP", "Spécialiste Sécurité AWS", "CKA (Kubernetes)"], 
+          location: "Dieppe, N.-B.",
+          headshot: "/team/ahmed-bello.jpg",
+          linkedin: "https://www.linkedin.com/company/oakivo" 
+        },
+        { 
+          name: "Funmilayo Akinsiku", 
+          role: "Architecte Responsable DevSecOps & Automatisation de Pipelines", 
+          bio: "Spécialiste de la sécurité intégrée (Shift-Left) dans les pipelines CI/CD, de la signature cryptographique de conteneurs avec Cosign et de la politique sous forme de code éliminant les vulnérabilités avant la mise en production.", 
+          credentials: ["ing.", "CKS (Sécurité Kubernetes)", "Auteure Terraform", "Auditrice Principale ISO 27001"], 
+          location: "Dieppe, N.-B.",
+          headshot: "/team/funmilayo-akinsiku.jpg",
+          linkedin: "https://www.linkedin.com/company/oakivo" 
+        },
+        { 
+          name: "Fawaz Bello", 
+          role: "Ingénieur Principal SRE & Remédiation des Menaces", 
+          bio: "Architecte d'infrastructures infonuagiques auto-cicatrisantes et de scénarios automatisés réactifs qui neutralisent les cybermenaces à la vitesse de la machine.", 
+          credentials: ["Linux Foundation KCSP", "Observabilité eBPF", "Architecte de Solutions AWS Pro"], 
+          location: "Dieppe, N.-B.",
+          headshot: "/team/fawaz-bello.jpg",
+          linkedin: "https://www.linkedin.com/company/oakivo" 
+        },
+        { 
+          name: "Taiwo Owoeye", 
+          role: "Analyste d'Affaires Senior & Stratégie DevSecOps", 
+          bio: "Fait le pont entre les impératifs d'affaires et les architectures techniques DevSecOps, traduisant les exigences réglementaires et de conformité en flux opérationnels rentables.", 
+          credentials: ["CBAP", "ITIL 4", "Agile & Conformité", "Spécialiste LPRPDE / Loi 25"], 
+          location: "Dieppe, N.-B.",
+          headshot: "/team/taiwo-owoeye.jpg",
+          linkedin: "https://www.linkedin.com/company/oakivo" 
+        }
       ]
+    },
+    brochure: {
+      download_btn: "Télécharger la Brochure PDF",
+      downloading: "Génération du PDF...",
+      success: "Brochure téléchargée avec succès",
+      error: "Échec de la génération du PDF. Veuillez réessayer.",
+      title: "Oakivo Solutions Inc. - DevSecOps & Sécurité Infonuagique d'Entreprise",
+      subtitle: "Offres de Services, Méthodologie d'Architecture & Études de Cas au Canada Atlantique"
+    },
+    methodology_timeline: {
+      badge: "Parcours Client Interactif",
+      title_main: "Exécution Prévisible : ",
+      title_accent: "Le Parcours Client en 3 Étapes",
+      subtitle: "Survolez chaque étape pour inspecter les livrables techniques, les garde-fous d'architecture et les résultats d'affaires garantis.",
+      step1: {
+        num: "01",
+        name: "Audit d'Architecture & Sécurité",
+        duration: "Jours 1 à 5",
+        short_desc: "Diagnostic approfondi des actifs infonuagiques, des pipelines CI/CD, des accès ERP et des écarts de conformité.",
+        deliverables_title: "Livrables Clés & Artefacts :",
+        deliverables: [
+          "Plan directeur de menaces et remédiation hiérarchisé avec pointage CVE",
+          "Revue de topologie multi-cloud et de la matrice de moindre privilège IAM",
+          "Matrice des écarts de conformité automatisée SOC 2 / LPRPDE",
+          "Schéma de micro-segmentation réseau Zéro Confiance"
+        ],
+        badge: "Diagnostic & Évaluation",
+        outcome: "Score de risque limpide sans rapport PDF indigeste de 200 pages."
+      },
+      step2: {
+        num: "02",
+        name: "Déploiement Automatisé en Bac à Sable",
+        duration: "Semaines 2 à 4",
+        short_desc: "Implémentation en environnement isolé de barrières CI/CD, de la politique OPA et de garde-fous automatisés.",
+        deliverables_title: "Livrables Clés & Artefacts :",
+        deliverables: [
+          "Garde-fous SAST, DAST et SBOM dans GitHub Actions / GitLab",
+          "Modules d'Infrastructure-as-Code immuables (Terraform / OpenTofu)",
+          "Analyse de vulnérabilité de conteneurs et signature d'images Cosign",
+          "Bascule en production sans interruption et guides opérationnels d'équipe"
+        ],
+        badge: "Intégration Shift-Left",
+        outcome: "Zéro perturbation de la vélocité de vos développeurs ou des services en direct."
+      },
+      step3: {
+        num: "03",
+        name: "Supervision DevSecOps & SRE Continue",
+        duration: "Continu",
+        short_desc: "Surveillance de conformité continue, scénarios d'auto-cicatrisation SRE et soutien direct en heure de l'Atlantique.",
+        deliverables_title: "Livrables Clés & Artefacts :",
+        deliverables: [
+          "Gestion continue de posture de sécurité infonuagique (CSPM) 24/7/365",
+          "Isolation autonome des menaces et rotation automatique des clés",
+          "Archives cryptographiques de preuves d'audit générées en continu",
+          "Soutien direct d'architectes DevSecOps seniors depuis Dieppe, N.-B."
+        ],
+        badge: "Défense Autonome",
+        outcome: "Les audits deviennent un simple bouton; votre infrastructure s'auto-cicatrise à la vitesse machine."
+      }
     },
     careers: {
       hero_title: "Rejoignez l'Équipe d'Ingénierie Oakivo.",

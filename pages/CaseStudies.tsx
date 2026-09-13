@@ -6,6 +6,8 @@ import {
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import SEO from '../components/SEO';
+import { useLanguage } from '../context/LanguageContext';
+import DownloadBrochureButton from '../components/DownloadBrochureButton';
 
 interface CaseStudyItem {
   id: string;
@@ -87,6 +89,8 @@ const caseStudiesData: CaseStudyItem[] = [
 ];
 
 const CaseStudies: React.FC = () => {
+  const { language, t } = useLanguage();
+
   return (
     <>
       <SEO 
@@ -102,17 +106,34 @@ const CaseStudies: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
               <TrendingUp size={13} className="text-cyan-400" />
               <span className="text-[11px] font-mono font-medium text-gray-300">
-                Atlantic Canada Client Results
+                {language === 'fr' ? 'Résultats Clients au Canada Atlantique' : 'Atlantic Canada Client Results'}
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-slate-100 leading-[1.06]">
-              Real Hours Saved for <span className="text-linear-accent font-semibold">Atlantic Canada Businesses</span>
+              {language === 'fr' ? 'Heures Réelles Économisées pour les ' : 'Real Hours Saved for '}{' '}
+              <span className="text-linear-accent font-semibold">
+                {language === 'fr' ? 'Entreprises du Canada Atlantique' : 'Atlantic Canada Businesses'}
+              </span>
             </h1>
 
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              Explore concrete examples of how local businesses across New Brunswick, Nova Scotia, and PEI eliminated manual copy-paste admin work and reclaimed staff hours.
+              {language === 'fr'
+                ? 'Découvrez comment des organisations du Nouveau-Brunswick, de la Nouvelle-Écosse et de l\'Î.-P.-É. ont automatisé la conformité, éliminé les goulots d\'étranglement et sécurisé leurs systèmes critiques.'
+                : 'Explore concrete examples of how local businesses across New Brunswick, Nova Scotia, and PEI eliminated manual copy-paste admin work and reclaimed staff hours.'}
             </p>
+
+            <div className="pt-4 flex flex-wrap items-center gap-4">
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent("open-lead-drawer"))}
+                className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group cursor-pointer"
+              >
+                <span>{language === 'fr' ? 'Demander l\'Audit de Sécurité' : 'Book 30-Min Security Audit'}</span>
+                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+              </button>
+
+              <DownloadBrochureButton size="lg" variant="outline" />
+            </div>
           </div>
         </div>
       </section>
@@ -208,13 +229,15 @@ const CaseStudies: React.FC = () => {
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to={NavRoute.CONTACT}
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent("open-lead-drawer"))}
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all cursor-pointer"
               >
-                <span>Book Your Free 15-Minute Invoice Audit</span>
+                <span>{language === 'fr' ? 'Demander Votre Audit de Sécurité' : 'Book Your Free 15-Minute Invoice Audit'}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
-              </Link>
+              </button>
+
+              <DownloadBrochureButton size="lg" variant="outline" />
             </div>
           </div>
         </div>

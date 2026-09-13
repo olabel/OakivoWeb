@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { NavRoute } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import LeadDrawer from './LeadDrawer';
@@ -29,11 +29,6 @@ const Navbar: React.FC = () => {
   }, []);
 
   useEffect(() => setIsOpen(false), [location]);
-
-  const toggleLanguage = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    setLanguage(language === 'en' ? 'fr' : 'en');
-  }, [language, setLanguage]);
 
   const navLinks = [
     { name: t('nav.capabilities'), path: NavRoute.CAPABILITIES },
@@ -65,15 +60,45 @@ const Navbar: React.FC = () => {
                   </NavLink>
                 ))}
                 
-                <button 
-                  onClick={toggleLanguage}
-                  className="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-slate-400 hover:text-white transition-all bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/5"
-                  aria-label="Toggle language"
+                {/* Global Language Switcher */}
+                <div 
+                  id="global-language-switcher"
+                  className="flex items-center bg-slate-900/90 border border-slate-700/70 rounded-full p-1 shadow-inner backdrop-blur-md"
+                  role="group"
+                  aria-label="Language selection"
                 >
-                  <span className={language === 'en' ? 'text-white' : ''}>EN</span>
-                  <span className="text-white/20">/</span>
-                  <span className={language === 'fr' ? 'text-white' : ''}>FR</span>
-                </button>
+                  <div className="flex items-center pl-2 pr-1.5 text-slate-400">
+                    <Globe size={13} className="text-cyan-400" />
+                  </div>
+                  <button
+                    type="button"
+                    id="lang-btn-en"
+                    onClick={() => setLanguage('en')}
+                    className={`px-2.5 py-1 text-xs font-mono font-bold tracking-wider rounded-full transition-all duration-200 cursor-pointer ${
+                      language === 'en'
+                        ? 'bg-cyan-500 text-slate-950 shadow-sm shadow-cyan-500/25'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                    aria-pressed={language === 'en'}
+                    title="Switch language to English"
+                  >
+                    EN
+                  </button>
+                  <button
+                    type="button"
+                    id="lang-btn-fr"
+                    onClick={() => setLanguage('fr')}
+                    className={`px-2.5 py-1 text-xs font-mono font-bold tracking-wider rounded-full transition-all duration-200 cursor-pointer ${
+                      language === 'fr'
+                        ? 'bg-cyan-500 text-slate-950 shadow-sm shadow-cyan-500/25'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                    aria-pressed={language === 'fr'}
+                    title="Passer au français"
+                  >
+                    FR
+                  </button>
+                </div>
             </div>
 
             <div className="hidden md:block">
@@ -89,6 +114,7 @@ const Navbar: React.FC = () => {
             <button 
               className="md:hidden text-white p-2"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle navigation menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -108,17 +134,37 @@ const Navbar: React.FC = () => {
                 {link.name}
               </NavLink>
             ))}
-            <button 
-              onClick={toggleLanguage}
-              className="flex items-center gap-2 text-sm font-semibold tracking-widest text-slate-400 hover:text-white transition-colors"
-            >
-              <span>Language:</span>
-              <div className="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded-md border border-white/5">
-                <span className={language === 'en' ? 'text-white' : ''}>EN</span>
-                <span className="text-white/20">/</span>
-                <span className={language === 'fr' ? 'text-white' : ''}>FR</span>
+
+            {/* Mobile Language Selector */}
+            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/70 border border-slate-800">
+              <div className="flex items-center gap-2 text-xs font-medium text-slate-300">
+                <Globe size={15} className="text-cyan-400" />
+                <span>{language === 'en' ? 'Language / Langue' : 'Langue / Language'}</span>
               </div>
-            </button>
+              <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-0.5">
+                <button
+                  onClick={() => setLanguage('en')}
+                  className={`px-3 py-1.5 text-xs font-mono font-bold rounded-md transition-all cursor-pointer ${
+                    language === 'en'
+                      ? 'bg-cyan-500 text-slate-950'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  English
+                </button>
+                <button
+                  onClick={() => setLanguage('fr')}
+                  className={`px-3 py-1.5 text-xs font-mono font-bold rounded-md transition-all cursor-pointer ${
+                    language === 'fr'
+                      ? 'bg-cyan-500 text-slate-950'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Français
+                </button>
+              </div>
+            </div>
+
             <button 
               onClick={() => { setIsOpen(false); setIsDrawerOpen(true); }}
               className="w-full text-center text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white text-slate-950 px-6 py-3.5 rounded-full transition-all duration-300 cursor-pointer"

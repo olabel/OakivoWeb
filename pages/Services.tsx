@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import SEO from '../components/SEO';
 import { useLanguage } from '../context/LanguageContext';
+import DownloadBrochureButton from '../components/DownloadBrochureButton';
 
 const Services: React.FC = () => {
   const { t } = useLanguage();
@@ -136,11 +137,13 @@ const Services: React.FC = () => {
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <button onClick={() => window.dispatchEvent(new CustomEvent("open-lead-drawer"))}
-                className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group"
+                className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group cursor-pointer"
               >
                 <span>{t('common.cta_book_audit')}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </button>
+              
+              <DownloadBrochureButton size="lg" variant="outline" />
             </div>
           </div>
         </div>
@@ -298,11 +301,13 @@ const Services: React.FC = () => {
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
               <button onClick={() => window.dispatchEvent(new CustomEvent("open-lead-drawer"))}
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all"
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 group transition-all cursor-pointer"
               >
                 <span>{t('common.cta_book_audit')}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </button>
+              
+              <DownloadBrochureButton size="lg" variant="outline" />
             </div>
           </div>
         </div>
