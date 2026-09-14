@@ -75,7 +75,14 @@ class AnalyticsEngine {
         width < 768 ? 'Mobile' : width < 1024 ? 'Tablet' : 'Desktop';
 
       // Referrer
-      let referrer = document.referrer ? new URL(document.referrer).hostname : 'Direct';
+      let referrer = 'Direct';
+      if (document.referrer) {
+        try {
+          referrer = new URL(document.referrer).hostname;
+        } catch {
+          referrer = 'Direct';
+        }
+      }
       if (referrer.includes('localhost') || referrer.includes('run.app')) {
         referrer = 'Internal Navigation';
       }

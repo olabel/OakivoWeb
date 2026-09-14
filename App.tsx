@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { HelmetProvider } from "react-helmet-async";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from './components/Navbar';
@@ -32,13 +32,28 @@ import LiveChat from './components/LiveChat';
 import { Analytics } from './components/Analytics';
 import { Toaster } from 'sonner';
 
-// Scroll to top and track analytics
+// Scroll to top and track analytics, with smooth hash anchor support
 const ScrollToTopAndTrack = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (hash) {
+      setTimeout(() => {
+        try {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            window.scrollTo(0, 0);
+          }
+        } catch {
+          window.scrollTo(0, 0);
+        }
+      }, 50);
+    } else {
+      window.scrollTo(0, 0);
+    }
     analytics.trackPageView(pathname);
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 };
 
@@ -79,11 +94,14 @@ const AppLayout = () => {
           <Route path="/client-portal" element={<ClientPortal />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/insights/:id" element={<InsightDetail />} />
+          <Route path="/perspectives" element={<Navigate to="/insights" replace />} />
+          <Route path="/perspectives/:id" element={<Navigate to="/insights" replace />} />
           <Route path="/solutions/:slug" element={<SolutionDetail />} />
           <Route path="/locations/:slug" element={<LocationDetail />} />
-        <Route path="/compliance/:slug" element={<ComplianceSEO />} />
-                <Route path="/risk-calculator" element={<RiskCalculator />} />
-                </Routes>
+          <Route path="/compliance/:slug" element={<ComplianceSEO />} />
+          <Route path="/risk-calculator" element={<RiskCalculator />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
       {!isDemo && <Footer />}
       {!isDemo && <LiveChat />}

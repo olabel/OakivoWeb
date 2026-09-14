@@ -104,7 +104,9 @@ const MeetOurExperts: React.FC = () => {
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-slate-700/70 group-hover:border-cyan-400/80 transition-colors shadow-lg relative mx-auto">
                     <img
                       src={expert.headshot}
-                      alt={expert.name}
+                      alt={`${expert.name} - ${expert.role} at Oakivo Solutions Atlantic Canada`}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

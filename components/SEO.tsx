@@ -11,6 +11,7 @@ interface SEOProps {
   type?: 'website' | 'article' | 'profile';
   keywords?: string;
   image?: string;
+  imageAlt?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({ 
@@ -20,7 +21,8 @@ const SEO: React.FC<SEOProps> = ({
   schema, 
   type = 'website',
   keywords,
-  image = '/og-image.png'
+  image = '/og-image.png',
+  imageAlt
 }) => {
   const { language } = useLanguage();
   const siteUrl = 'https://www.oakivo.com';
@@ -148,8 +150,10 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:locale" content={language === 'fr' ? 'fr_CA' : 'en_CA'} />
       <meta property="og:locale:alternate" content={language === 'fr' ? 'en_CA' : 'fr_CA'} />
       <meta property="og:image" content={fullImageUrl} />
+      <meta property="og:image:secure_url" content={fullImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={imageAlt || title} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -157,6 +161,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={fullImageUrl} />
+      <meta name="twitter:image:alt" content={imageAlt || title} />
       <meta name="twitter:site" content="@oakivosolutions" />
       <meta name="twitter:creator" content="@oakivosolutions" />
 

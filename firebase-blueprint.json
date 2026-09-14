@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "Entry": {
+      "title": "Entry",
+      "description": "Lead, job application, or newsletter subscription submission",
+      "type": "object",
+      "properties": {
+        "createdAt": { "type": "string" },
+        "type": { "type": "string", "enum": ["lead", "applicant", "subscriber"] },
+        "data": { "type": "object" },
+        "status": { "type": "string", "enum": ["new", "processed", "archived"] }
+      },
+      "required": ["createdAt", "type", "data", "status"]
+    },
+    "Subscriber": {
+      "title": "Subscriber",
+      "description": "Newsletter subscriber record",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "source": { "type": "string" },
+        "subscribedAt": { "type": "string" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["email", "subscribedAt"]
+    },
+    "Insight": {
+      "title": "Insight",
+      "description": "Security research article or briefing",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "date": { "type": "string" },
+        "readTime": { "type": "string" },
+        "author": { "type": "string" },
+        "coverImage": { "type": "string" },
+        "content": { "type": "string" }
+      },
+      "required": ["title", "category", "date"]
+    },
+    "AnalyticsEvent": {
+      "title": "AnalyticsEvent",
+      "description": "Page view tracking telemetry event",
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" },
+        "title": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "referrer": { "type": "string" },
+        "userAgent": { "type": "string" },
+        "device": { "type": "string", "enum": ["Desktop", "Mobile", "Tablet"] },
+        "location": { "type": "string" },
+        "durationSeconds": { "type": "number" },
+        "sessionId": { "type": "string" }
+      },
+      "required": ["path", "timestamp", "sessionId"]
+    }
+  },
+  "firestore": {
+    "/entries/{entryId}": {
+      "schema": { "$ref": "#/entities/Entry" },
+      "description": "Collection of form leads, applicants, and subscribers"
+    },
+    "/subscribers/{subscriberId}": {
+      "schema": { "$ref": "#/entities/Subscriber" },
+      "description": "Collection of newsletter subscribers"
+    },
+    "/insights/{insightId}": {
+      "schema": { "$ref": "#/entities/Insight" },
+      "description": "Security insight articles and publications"
+    },
+    "/analytics_events/{eventId}": {
+      "schema": { "$ref": "#/entities/AnalyticsEvent" },
+      "description": "Real-time client page view analytics events"
+    }
+  }
+}

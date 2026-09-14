@@ -1,5 +1,17 @@
 [
   {
+    "id": "log_1789391743057_5re30",
+    "timestamp": "2026-09-14T13:15:43.057Z",
+    "type": "lead_notification",
+    "recipient": "olabel@gmail.com",
+    "sender": "Oakivo Security <onboarding@resend.dev>",
+    "subject": "[Oakivo Notification] New LEAD Received (Inquiry)",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "6691a0dc-a88d-4e9c-8502-bf1c0c33d930",
+    "error": "Delivered via Resend Sandbox (onboarding@resend.dev). Add DNS verification for custom domain at resend.com/domains."
+  },
+  {
     "id": "log_1789316638149_npadt",
     "timestamp": "2026-09-13T16:23:58.149Z",
     "type": "client_thank_you",

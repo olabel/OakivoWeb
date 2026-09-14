@@ -84,6 +84,32 @@ class OakivoDatabase {
     const docRef = doc(firestoreDb, 'entries', id);
     await deleteDoc(docRef);
   }
+
+  public async subscribeToNewsletter(email: string, source: string = 'insights_footer'): Promise<{ success: boolean; id: string }> {
+    const cleanEmail = email.trim().toLowerCase();
+    
+    // Save to entries collection (which also notifies via /api/notify-form)
+    const entry = await this.saveEntry('subscriber', {
+      email: cleanEmail,
+      source,
+      subscribedAt: new Date().toISOString()
+    });
+
+    // Also persist directly into dedicated subscribers collection
+    try {
+      const subscriberDocRef = doc(firestoreDb, 'subscribers', cleanEmail.replace(/[^a-zA-Z0-9_.-]/g, '_'));
+      await setDoc(subscriberDocRef, {
+        email: cleanEmail,
+        source,
+        subscribedAt: new Date().toISOString(),
+        active: true
+      }, { merge: true });
+    } catch (e) {
+      console.warn("Notice: Subscribed via entries, dedicated subscribers collection update:", e);
+    }
+
+    return { success: true, id: entry.id };
+  }
 }
 
 

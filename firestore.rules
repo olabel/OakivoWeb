@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Catch-all Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-\\.]+$');
+    }
+
+    // Public insights publications
+    match /insights/{insightId} {
+      allow read: if isValidId(insightId);
+      allow write: if request.auth != null;
+    }
+
+    // Form leads, applicants, and newsletter subscription entries
+    match /entries/{entryId} {
+      allow create: if isValidId(entryId) &&
+        request.resource.data.type in ['lead', 'applicant', 'subscriber'] &&
+        request.resource.data.status in ['new', 'processed', 'archived'] &&
+        request.resource.data.createdAt is string;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Dedicated subscribers collection
+    match /subscribers/{subscriberId} {
+      allow create, update: if isValidId(subscriberId) &&
+        request.resource.data.email is string &&
+        request.resource.data.email.size() <= 256;
+      allow read, delete: if request.auth != null;
+    }
+
+    // Real-time client page view analytics telemetry
+    match /analytics_events/{eventId} {
+      allow create: if isValidId(eventId) &&
+        request.resource.data.path is string &&
+        request.resource.data.timestamp is string;
+      allow read, delete: if request.auth != null;
+    }
+  }
+}

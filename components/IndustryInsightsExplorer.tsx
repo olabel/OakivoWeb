@@ -535,7 +535,7 @@ export const IndustryInsightsExplorer: React.FC<IndustryInsightsExplorerProps> =
                       {profile && (
                         <div className="absolute top-3 left-3">
                           <span className={`px-2.5 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider backdrop-blur-md border ${profile.colorClass.pillBg}`}>
-                            {profile.name}
+                            {language === 'fr' ? profile.nameFr : profile.name}
                           </span>
                         </div>
                       )}
@@ -565,7 +565,7 @@ export const IndustryInsightsExplorer: React.FC<IndustryInsightsExplorerProps> =
                         <div className="pt-2">
                           <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 space-y-1">
                             <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block">
-                              Key Takeaway:
+                              {language === 'fr' ? 'Point Clé :' : 'Key Takeaway:'}
                             </span>
                             <p className="text-[11px] text-slate-300 line-clamp-2 italic">
                               "{post.keyTakeaways[0]}"
@@ -586,7 +586,9 @@ export const IndustryInsightsExplorer: React.FC<IndustryInsightsExplorerProps> =
                       >
                         <span className="flex items-center gap-1.5 truncate">
                           <CheckCircle2 size={12} className="text-cyan-400 flex-shrink-0" />
-                          <span className="truncate">Solved for <strong>{relatedCaseStudy.client}</strong></span>
+                          <span className="truncate">
+                            {language === 'fr' ? 'Déployé pour ' : 'Solved for '}<strong>{relatedCaseStudy.client}</strong>
+                          </span>
                         </span>
                         <ArrowUpRight size={12} className="text-cyan-400 flex-shrink-0 group-hover/cs:translate-x-0.5 group-hover/cs:-translate-y-0.5 transition-transform" />
                       </Link>
@@ -657,7 +659,7 @@ export const IndustryInsightsExplorer: React.FC<IndustryInsightsExplorerProps> =
               <div className="space-y-4">
                 <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
                   <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
-                    The Challenge
+                    {language === 'fr' ? 'Le Défi Opérationnel' : 'The Challenge'}
                   </h4>
                   <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
                     {previewCaseStudy.challenge}
@@ -666,7 +668,7 @@ export const IndustryInsightsExplorer: React.FC<IndustryInsightsExplorerProps> =
 
                 <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
                   <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
-                    The Solution
+                    {language === 'fr' ? 'La Solution Oakivo' : 'The Solution'}
                   </h4>
                   <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
                     {previewCaseStudy.solution}
@@ -691,7 +693,7 @@ export const IndustryInsightsExplorer: React.FC<IndustryInsightsExplorerProps> =
                   onClick={() => setPreviewCaseStudy(null)}
                   className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 hover:underline"
                 >
-                  <span>Open Full Case Study Page</span>
+                  <span>{language === 'fr' ? 'Ouvrir la page de l\'étude' : 'Open Full Case Study Page'}</span>
                   <ExternalLink size={13} />
                 </Link>
 
@@ -700,7 +702,7 @@ export const IndustryInsightsExplorer: React.FC<IndustryInsightsExplorerProps> =
                   onClick={() => setPreviewCaseStudy(null)}
                   className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono text-xs font-bold transition-colors"
                 >
-                  Book Security Consultation
+                  {language === 'fr' ? 'Réserver une Consultation Sécurité' : 'Book Security Consultation'}
                 </Link>
               </div>
             </motion.div>

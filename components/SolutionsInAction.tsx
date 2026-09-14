@@ -81,7 +81,7 @@ const SolutionsInAction: React.FC = () => {
               <div className="relative rounded-2xl overflow-hidden mb-4 border border-slate-800/80 aspect-video shadow-lg">
                 <OptimizedImage 
                   src={vid.thumbnail} 
-                  alt={vid.title}
+                  alt={`${vid.title} - Oakivo DevSecOps Video Demonstration`}
                   className="w-full h-full transform group-hover:scale-105 transition-transform duration-700 opacity-60 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>

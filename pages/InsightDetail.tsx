@@ -12,6 +12,8 @@ import { InsightPost, insightsData } from '../content/insights';
 import { INDUSTRIES_CONFIG, IndustryId } from '../content/industryInsights';
 import { caseStudiesData, CaseStudyItem } from './CaseStudies';
 
+import SubscribeNewsletter from '../components/SubscribeNewsletter';
+
 const calculateReadingTime = (content: string): string => {
   if (!content) return "5 min read";
   const wordsPerMinute = 238;
@@ -49,8 +51,11 @@ const InsightDetail: React.FC = () => {
       }
       setCopied(true);
       toast.success(
-        language === 'fr' ? 'Lien copié dans le presse-papiers' : 'Share link copied to clipboard',
-        { description: language === 'fr' ? 'Prêt à être partagé avec votre équipe technique.' : 'Ready to share with your engineering or security team.' }
+        language === 'fr' ? 'Lien copié dans le presse-papiers' : 'Link Copied to Clipboard',
+        { 
+          description: language === 'fr' ? 'Le lien de l’article a été copié.' : 'Direct URL copied for seamless sharing with your team.',
+          duration: 3500,
+        }
       );
       setTimeout(() => setCopied(false), 3000);
     } catch (err) {
@@ -146,15 +151,23 @@ const InsightDetail: React.FC = () => {
         title={`${post.title} | Oakivo Insights`}
         description={post.excerpt}
         image={post.coverImage}
+        imageAlt={`${post.title} - Oakivo DevSecOps Insights`}
         type="article"
         canonical={`/insights/${post.id}`}
+        keywords={`${post.category}, DevSecOps, Canadian Cloud Security, ${post.complianceStandards?.join(', ') || ''}`}
         schema={{
           '@context': 'https://schema.org',
-          '@type': 'Article',
+          '@type': 'TechArticle',
           headline: post.title,
-          image: [post.coverImage],
+          description: post.excerpt,
+          image: [post.coverImage.startsWith('http') ? post.coverImage : `https://www.oakivo.com${post.coverImage}`],
           datePublished: post.date,
-          author: [{ '@type': 'Organization', name: post.author }]
+          author: [{ '@type': 'Organization', name: post.author, url: 'https://www.oakivo.com' }],
+          publisher: {
+            '@type': 'Organization',
+            name: 'Oakivo Solutions Inc.',
+            logo: { '@type': 'ImageObject', url: 'https://www.oakivo.com/logo.png' }
+          }
         }}
       />
       
@@ -173,7 +186,7 @@ const InsightDetail: React.FC = () => {
             onClick={() => navigate('/insights')}
             className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 font-mono text-sm tracking-widest uppercase transition-colors mb-8"
           >
-            <ArrowLeft size={16} /> Back to Insights
+            <ArrowLeft size={16} /> {language === 'fr' ? 'Retour aux rapports' : 'Back to Insights'}
           </button>
 
           <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -187,7 +200,7 @@ const InsightDetail: React.FC = () => {
                 className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold border transition-all hover:scale-105 ${industryProfile.colorClass.pillBg}`}
               >
                 <Building2 size={12} />
-                <span>{industryProfile.name}</span>
+                <span>{language === 'fr' ? industryProfile.nameFr : industryProfile.name}</span>
               </Link>
             )}
 
@@ -271,7 +284,7 @@ const InsightDetail: React.FC = () => {
             <div className="bg-slate-900/50 border border-cyan-900/30 rounded-2xl p-8 mb-12 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500"></div>
               <h3 className="text-xl font-display font-bold text-white mb-6 flex items-center gap-2">
-                Executive Takeaways
+                {language === 'fr' ? 'Points Clés pour la Direction' : 'Executive Takeaways'}
               </h3>
               <ul className="space-y-4">
                 {post.keyTakeaways.map((takeaway, idx) => (
@@ -397,6 +410,9 @@ const InsightDetail: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* Newsletter Subscription Component */}
+          <SubscribeNewsletter className="mt-16" source="insight_detail_page" />
 
         </div>
       </article>

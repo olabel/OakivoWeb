@@ -216,6 +216,7 @@ export const INDUSTRIES_CONFIG: Record<Exclude<IndustryId, 'all'>, IndustrySecur
     ],
     matchedCaseStudyId: 'atlantic-seafood-logistics',
     articleIds: [
+      'autonomous-ai-agent-fleet-security-2026',
       'zero-trust-architecture-2026',
       'k8s-posture-management',
       'atlantic-canada-critical-infrastructure-zero-trust'
