@@ -1421,7 +1421,12 @@ ${sitemapUrls}
         html = html.replace(/<meta name="twitter:.*?>/gi, '');
         html = html.replace(/<title>.*?<\/title>/i, '');
         html = html.replace('</head>', `${ogTags}\n</head>`);
-        return res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
+        return res.status(200).set({
+          'Content-Type': 'text/html',
+          'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }).send(html);
       }
       next();
     });
@@ -1430,6 +1435,9 @@ ${sitemapUrls}
     app.get('*all', (req, res) => {
       const indexPath = path.join(distPath, 'index.html');
       if (fs.existsSync(indexPath)) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
         res.sendFile(indexPath);
       } else {
         res.status(404).send('Application build not found. Please run build.');

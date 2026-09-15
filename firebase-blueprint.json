@@ -56,6 +56,43 @@
         "sessionId": { "type": "string" }
       },
       "required": ["path", "timestamp", "sessionId"]
+    },
+    "SecurityScan": {
+      "title": "SecurityScan",
+      "description": "Automated cloud perimeter, container, and policy security scan record",
+      "type": "object",
+      "properties": {
+        "timestamp": { "type": "string" },
+        "target": { "type": "string" },
+        "overallScore": { "type": "number" },
+        "status": { "type": "string", "enum": ["completed", "in_progress", "failed"] },
+        "criticalCount": { "type": "number" },
+        "highCount": { "type": "number" },
+        "mediumCount": { "type": "number" },
+        "checksPassed": { "type": "number" },
+        "totalChecks": { "type": "number" },
+        "durationMs": { "type": "number" },
+        "scannerType": { "type": "string" }
+      },
+      "required": ["timestamp", "target", "overallScore", "status"]
+    },
+    "IncidentRemediation": {
+      "title": "IncidentRemediation",
+      "description": "Automated security incident detection and autonomous remediation record",
+      "type": "object",
+      "properties": {
+        "timestamp": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "severity": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+        "remediationTimeMs": { "type": "number" },
+        "actionTaken": { "type": "string" },
+        "targetResource": { "type": "string" },
+        "estimatedValueSaved": { "type": "string" },
+        "status": { "type": "string", "enum": ["neutralized", "auto_remediated", "quarantined"] },
+        "forensicDetails": { "type": "string" }
+      },
+      "required": ["timestamp", "title", "severity", "actionTaken", "status"]
     }
   },
   "firestore": {
@@ -74,6 +111,14 @@
     "/analytics_events/{eventId}": {
       "schema": { "$ref": "#/entities/AnalyticsEvent" },
       "description": "Real-time client page view analytics events"
+    },
+    "/security_scans/{scanId}": {
+      "schema": { "$ref": "#/entities/SecurityScan" },
+      "description": "Automated security scan executions and posture evaluations"
+    },
+    "/incident_remediations/{remediationId}": {
+      "schema": { "$ref": "#/entities/IncidentRemediation" },
+      "description": "Automated threat neutralizations and incident remediations"
     }
   }
 }

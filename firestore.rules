@@ -40,5 +40,23 @@ service cloud.firestore {
         request.resource.data.timestamp is string;
       allow read, delete: if request.auth != null;
     }
+
+    // Real-time automated security scans
+    match /security_scans/{scanId} {
+      allow read: if true;
+      allow create, update: if isValidId(scanId) &&
+        request.resource.data.target is string &&
+        request.resource.data.timestamp is string;
+      allow delete: if request.auth != null;
+    }
+
+    // Real-time automated incident remediations
+    match /incident_remediations/{remediationId} {
+      allow read: if true;
+      allow create, update: if isValidId(remediationId) &&
+        request.resource.data.title is string &&
+        request.resource.data.timestamp is string;
+      allow delete: if request.auth != null;
+    }
   }
 }

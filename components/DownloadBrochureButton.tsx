@@ -364,10 +364,10 @@ const DownloadBrochureButton: React.FC<DownloadBrochureButtonProps> = ({
         <div style={{ borderTop: '2px solid #0891b2', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc', padding: '10px 14px', borderRadius: '6px' }}>
           <div>
             <div style={{ fontSize: '10px', fontWeight: '800', color: '#0f172a' }}>
-              {isFrench ? 'BUREAU D\'INGÉNIERIE DE DIEPPE, N.-B.' : 'DIEPPE, NB SENIOR ENGINEERING HUB'}
+              {isFrench ? 'ÉQUIPE D\'INGÉNIERIE CANADIENNE (DIEPPE & CALGARY)' : 'CANADIAN ENGINEERING TEAM (DIEPPE & CALGARY)'}
             </div>
             <p style={{ fontSize: '8.5px', color: '#475569', margin: '1px 0 0 0' }}>
-              Ahmed Bello, M.Sc. • Funmilayo Akinsiku, P.Eng. • Fawaz Bello, KCSP • Taiwo Owoeye, CBAP
+              Ahmed Bello, M.Sc. • Funmilayo Akinsiku, P.Eng. • Fawaz Bello • Taiwo Owoeye
             </p>
           </div>
           <div style={{ textAlign: 'right' }}>

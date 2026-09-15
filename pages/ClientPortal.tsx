@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Lock, Mail, Key, ArrowRight, Shield, Download, FileText, Activity, LogOut, Loader2, CheckCircle2 } from 'lucide-react';
+import { 
+  Lock, 
+  Mail, 
+  Key, 
+  ArrowRight, 
+  Shield, 
+  Download, 
+  FileText, 
+  Activity, 
+  LogOut, 
+  Loader2, 
+  CheckCircle2, 
+  Sparkles,
+  LayoutDashboard,
+  FileCheck
+} from 'lucide-react';
 import SEO from '../components/SEO';
 import { auth } from '../utils/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, User } from 'firebase/auth';
+import SecurityHealthDashboard from '../components/SecurityHealthDashboard';
 
 const ClientPortal: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -13,6 +29,8 @@ const ClientPortal: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [activeTab, setActiveTab] = useState<'health_dashboard' | 'compliance_assets'>('health_dashboard');
+  const [isDemoActive, setIsDemoActive] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -50,6 +68,9 @@ const ClientPortal: React.FC = () => {
   };
 
   const handleSignOut = () => {
+    if (isDemoActive) {
+      setIsDemoActive(false);
+    }
     signOut(auth);
   };
 
@@ -61,47 +82,49 @@ const ClientPortal: React.FC = () => {
     );
   }
 
+  const isEnclaveUnlocked = !!user || isDemoActive;
+
   return (
     <>
       <SEO 
-        title="Secure Client Portal | Oakivo"
-        description="Access Oakivo's secure enclave for premium compliance blueprints, threat matrices, and interactive DevSecOps tooling."
+        title="Secure Client Portal & Security Health Dashboard | Oakivo"
+        description="Real-time Security Health Dashboard displaying automated scan metrics, continuous zero-trust posture, and autonomous incident remediations."
       />
-      <section className="pt-32 pb-24 px-6 min-h-screen bg-slate-950 relative flex flex-col items-center justify-center">
+      <section className="pt-28 pb-24 px-4 sm:px-6 min-h-screen bg-slate-950 relative flex flex-col items-center">
         {/* Glow Effects */}
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.02] pointer-events-none"></div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[450px] bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none"></div>
 
-        <div className="container mx-auto max-w-6xl relative z-10 w-full">
+        <div className="container mx-auto max-w-7xl relative z-10 w-full">
           
           <AnimatePresence mode="wait">
-            {!user ? (
+            {!isEnclaveUnlocked ? (
               <motion.div 
                 key="auth"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="max-w-md mx-auto"
+                className="max-w-md mx-auto my-auto pt-8"
               >
                 <div className="text-center mb-8">
                   <div className="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(6,182,212,0.15)]">
                     <Lock className="text-cyan-400" size={28} />
                   </div>
-                  <h1 className="text-3xl font-display font-bold text-white mb-3">Secure Enclave</h1>
+                  <h1 className="text-3xl font-display font-bold text-white mb-3">Client Enclave</h1>
                   <p className="text-slate-300 font-normal text-sm">
-                    Authenticate to access premium compliance blueprints and interactive security tooling.
+                    Authenticate to access your real-time Security Health Dashboard, automated scan telemetry, and incident audit trails.
                   </p>
                 </div>
 
-                <div className="bg-slate-900/60 border border-slate-800/80 rounded-3xl p-8 backdrop-blur-xl shadow-2xl">
+                <div className="bg-slate-900/60 border border-slate-800/80 rounded-3xl p-8 backdrop-blur-xl shadow-2xl space-y-6">
                   {error && (
-                    <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-300 text-sm font-mono flex items-start gap-3">
+                    <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-300 text-sm font-mono flex items-start gap-3">
                       <Lock size={16} className="mt-0.5 flex-shrink-0" />
                       <span>{error}</span>
                     </div>
                   )}
 
-                  <form onSubmit={handleAuth} className="space-y-5">
+                  <form onSubmit={handleAuth} className="space-y-4">
                     <div className="space-y-1.5">
                       <label htmlFor="email" className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">Corporate Email</label>
                       <div className="relative">
@@ -137,22 +160,36 @@ const ClientPortal: React.FC = () => {
                     <button 
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-white text-slate-950 font-bold font-mono text-sm py-4 rounded-xl hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors flex items-center justify-center gap-2 mt-4"
+                      className="w-full bg-cyan-500 text-slate-950 font-bold font-mono text-sm py-4 rounded-xl hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors flex items-center justify-center gap-2 mt-4"
                     >
                       {isLoading ? (
-                        <><Loader2 size={16} className="animate-spin" /> VERIFYING ID...</>
+                        <><Loader2 size={16} className="animate-spin" /> VERIFYING ENCLAVE KEY...</>
                       ) : (
                         <>{isLoginMode ? 'AUTHENTICATE SESSION' : 'PROVISION ACCESS'} <ArrowRight size={16} /></>
                       )}
                     </button>
                   </form>
 
-                  <div className="mt-8 pt-6 border-t border-slate-800/60 text-center">
+                  {/* Instant Demo Preview Option */}
+                  <div className="pt-4 border-t border-slate-800/80">
+                    <button
+                      onClick={() => setIsDemoActive(true)}
+                      className="w-full py-3.5 px-4 rounded-xl bg-slate-950/80 hover:bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2.5 group"
+                    >
+                      <Sparkles className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform" />
+                      <span>EXPLORE LIVE SECURITY DASHBOARD (DEMO)</span>
+                    </button>
+                    <p className="text-[11px] text-slate-500 text-center font-mono mt-2">
+                      Instant evaluation mode with live automated telemetry & simulated remediations.
+                    </p>
+                  </div>
+
+                  <div className="pt-2 text-center">
                     <button 
                       onClick={() => { setIsLoginMode(!isLoginMode); setError(''); }}
-                      className="text-slate-400 hover:text-cyan-400 text-sm transition-colors"
+                      className="text-slate-400 hover:text-cyan-400 text-xs font-mono transition-colors"
                     >
-                      {isLoginMode ? "Need to provision access? Register here." : "Already provisioned? Authenticate here."}
+                      {isLoginMode ? "Need to provision new client access? Register here." : "Already provisioned? Authenticate here."}
                     </button>
                   </div>
                 </div>
@@ -160,70 +197,158 @@ const ClientPortal: React.FC = () => {
             ) : (
               <motion.div 
                 key="dashboard"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="w-full"
+                className="w-full space-y-8"
               >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b border-slate-800/80 pb-8">
-                  <div>
-                    <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-emerald-400 uppercase bg-emerald-400/10 px-3 py-1.5 rounded-full border border-emerald-400/20 mb-4">
-                      <Shield size={12} /> Secure Session Active
+                {/* Enclave Top Navigation & Session Bar */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800/80 pb-6">
+                  <div className="space-y-1">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-emerald-400 uppercase bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">
+                        <Shield size={12} /> {isDemoActive ? 'Demo Enclave Active' : 'Secure Session Active'}
+                      </div>
+                      <span className="text-xs font-mono text-slate-400">
+                        Environment: <strong className="text-cyan-400">AWS ca-central-1 (Atlantic Mesh)</strong>
+                      </span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">Client Intelligence Portal</h1>
-                    <p className="text-slate-400 font-mono text-sm">Authenticated Identity: <span className="text-cyan-400">{user.email}</span></p>
-                  </div>
-                  <button 
-                    onClick={handleSignOut}
-                    className="flex items-center gap-2 text-slate-400 hover:text-red-400 font-mono text-sm uppercase tracking-widest transition-colors bg-slate-900 border border-slate-800 px-5 py-3 rounded-lg"
-                  >
-                    Terminate Session <LogOut size={16} />
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* Premium Asset 1 */}
-                  <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors group">
-                    <div className="w-12 h-12 bg-cyan-950 border border-cyan-900 rounded-xl flex items-center justify-center mb-6">
-                      <FileText className="text-cyan-400" size={24} />
-                    </div>
-                    <h3 className="text-xl font-display font-bold text-white mb-3">Enterprise SOC 2 Blueprint</h3>
-                    <p className="text-slate-400 text-sm font-light mb-6">
-                      A comprehensive 45-page architectural reference for automating SOC 2 compliance on AWS using Terraform and OPA.
+                    <h1 className="text-3xl md:text-4xl font-display font-bold text-white">Client Intelligence Enclave</h1>
+                    <p className="text-slate-400 font-mono text-xs">
+                      Authenticated Identity: <span className="text-cyan-300">{user?.email || 'demo.enterprise@oakivo.cloud'}</span>
                     </p>
-                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors">
-                      <Download size={14} /> DOWNLOAD PDF (12MB)
-                    </button>
                   </div>
 
-                  {/* Premium Asset 2 */}
-                  <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors group">
-                    <div className="w-12 h-12 bg-cyan-950 border border-cyan-900 rounded-xl flex items-center justify-center mb-6">
-                      <Activity className="text-cyan-400" size={24} />
-                    </div>
-                    <h3 className="text-xl font-display font-bold text-white mb-3">2026 Executive Threat Matrix</h3>
-                    <p className="text-slate-400 text-sm font-light mb-6">
-                      Proprietary telemetry analysis of the top 10 zero-day vectors targeting cloud-native infrastructure this quarter.
-                    </p>
-                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors">
-                      <Download size={14} /> DOWNLOAD REPORT (8MB)
-                    </button>
-                  </div>
+                  {/* Navigation Tabs & Logout */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="bg-slate-900/80 border border-slate-800 p-1 rounded-xl flex items-center">
+                      <button
+                        onClick={() => setActiveTab('health_dashboard')}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all ${
+                          activeTab === 'health_dashboard'
+                            ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        <LayoutDashboard className="w-3.5 h-3.5" />
+                        Security Health Dashboard
+                      </button>
 
-                  {/* Interactive Tool */}
-                  <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800/80 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors group relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[40px] rounded-full pointer-events-none"></div>
-                    <div className="w-12 h-12 bg-cyan-500/20 border border-cyan-500/30 rounded-xl flex items-center justify-center mb-6">
-                      <Shield className="text-cyan-400" size={24} />
+                      <button
+                        onClick={() => setActiveTab('compliance_assets')}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all ${
+                          activeTab === 'compliance_assets'
+                            ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        <FileCheck className="w-3.5 h-3.5" />
+                        Compliance Assets & Blueprints
+                      </button>
                     </div>
-                    <h3 className="text-xl font-display font-bold text-white mb-3">Live Posture Scanner</h3>
-                    <p className="text-slate-400 text-sm font-light mb-6">
-                      Connect your read-only AWS IAM role to generate an instant, automated assessment of your cloud perimeter.
-                    </p>
-                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-cyan-500 text-slate-950 font-mono text-xs font-bold rounded-lg hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors">
-                      LAUNCH SCANNER <ArrowRight size={14} />
+
+                    <button 
+                      onClick={handleSignOut}
+                      className="flex items-center gap-2 text-slate-400 hover:text-red-400 font-mono text-xs uppercase tracking-widest transition-colors bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-xl"
+                    >
+                      <LogOut size={14} /> Exit
                     </button>
                   </div>
                 </div>
+
+                {/* Tab 1: Real-Time Security Health Dashboard */}
+                {activeTab === 'health_dashboard' && (
+                  <SecurityHealthDashboard 
+                    userEmail={user?.email || 'demo.enterprise@oakivo.cloud'} 
+                    isDemo={isDemoActive} 
+                  />
+                )}
+
+                {/* Tab 2: Compliance Assets & Blueprints */}
+                {activeTab === 'compliance_assets' && (
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl font-display font-bold text-white mb-2">Enterprise Compliance Blueprints</h3>
+                      <p className="text-slate-400 text-sm">
+                        Curated security architectures, Terraform audit modules, and threat matrices available exclusively to Oakivo enterprise retainers.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {/* Premium Asset 1 */}
+                      <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors group">
+                        <div className="w-12 h-12 bg-cyan-950 border border-cyan-900 rounded-xl flex items-center justify-center mb-6">
+                          <FileText className="text-cyan-400" size={24} />
+                        </div>
+                        <h4 className="text-xl font-display font-bold text-white mb-3">Enterprise SOC 2 Blueprint</h4>
+                        <p className="text-slate-400 text-sm font-light mb-6">
+                          A comprehensive 45-page architectural reference for automating continuous SOC 2 compliance on AWS using Terraform and OPA Gatekeeper.
+                        </p>
+                        <button 
+                          onClick={() => {
+                            const blob = new Blob(["Oakivo Solutions Inc. - SOC 2 Type II Automated Compliance Architectural Blueprint 2026."], { type: 'text/plain' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = "Oakivo-SOC2-Blueprint-2026.pdf";
+                            a.click();
+                          }}
+                          className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors"
+                        >
+                          <Download size={14} /> DOWNLOAD BLUEPRINT (12MB)
+                        </button>
+                      </div>
+
+                      {/* Premium Asset 2 */}
+                      <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors group">
+                        <div className="w-12 h-12 bg-cyan-950 border border-cyan-900 rounded-xl flex items-center justify-center mb-6">
+                          <Activity className="text-cyan-400" size={24} />
+                        </div>
+                        <h4 className="text-xl font-display font-bold text-white mb-3">2026 Threat Telemetry Matrix</h4>
+                        <p className="text-slate-400 text-sm font-light mb-6">
+                          Proprietary analysis of the top zero-day vectors, container supply chain attack vectors, and eBPF detection signatures.
+                        </p>
+                        <button 
+                          onClick={() => {
+                            const blob = new Blob(["Oakivo Solutions Inc. - 2026 Executive Threat Telemetry Matrix."], { type: 'text/plain' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = "Oakivo-Threat-Matrix-2026.pdf";
+                            a.click();
+                          }}
+                          className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors"
+                        >
+                          <Download size={14} /> DOWNLOAD REPORT (8MB)
+                        </button>
+                      </div>
+
+                      {/* Premium Asset 3 */}
+                      <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800/80 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors group relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[40px] rounded-full pointer-events-none"></div>
+                        <div className="w-12 h-12 bg-cyan-500/20 border border-cyan-500/30 rounded-xl flex items-center justify-center mb-6">
+                          <Shield className="text-cyan-400" size={24} />
+                        </div>
+                        <h4 className="text-xl font-display font-bold text-white mb-3">PIPEDA / Law 25 Compliance Pack</h4>
+                        <p className="text-slate-400 text-sm font-light mb-6">
+                          Validated infrastructure templates ensuring all customer PII and database archives remain restricted to Canadian sovereign data regions.
+                        </p>
+                        <button 
+                          onClick={() => {
+                            const blob = new Blob(["Oakivo Solutions Inc. - Canadian Data Sovereignty & Law 25 Compliance Pack."], { type: 'text/plain' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = "Oakivo-PIPEDA-Compliance-Pack.pdf";
+                            a.click();
+                          }}
+                          className="w-full flex items-center justify-center gap-2 py-3 bg-cyan-500 text-slate-950 font-mono text-xs font-bold rounded-lg hover:bg-cyan-400 transition-colors"
+                        >
+                          DOWNLOAD COMPLIANCE PACK <ArrowRight size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
               </motion.div>
             )}
@@ -236,3 +361,4 @@ const ClientPortal: React.FC = () => {
 };
 
 export default ClientPortal;
+
