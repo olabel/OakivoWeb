@@ -37,7 +37,7 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     common: {
       step: "STEP",
-      cta_book_audit: "Book an Audit",
+      cta_book_audit: "Book A Free Audit",
       cta_audit: "Request 30-Min Audit",
       cta_blueprint: "Get Remediation Blueprint",
       cta_explore_arsenal: "View Platform",
@@ -616,7 +616,7 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     common: {
       step: "ÉTAPE",
-      cta_book_audit: "Réserver un Audit",
+      cta_book_audit: "Réserver un Audit Gratuit",
       cta_audit: "Demander l'Audit (30 min)",
       cta_blueprint: "Obtenir le Plan de Remédiation",
       cta_explore_arsenal: "Voir la Plateforme",

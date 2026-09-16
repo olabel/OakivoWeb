@@ -103,8 +103,9 @@ const Services: React.FC = () => {
   return (
     <>
       <SEO 
-        title="DevSecOps & Cloud Security Services | Oakivo Atlantic Canada"
-        description="Explore Oakivo's DevSecOps pillars: Cloud Security Management, CI/CD compliance, Zero Trust IAM, and process automation incident remediation in Atlantic Canada."
+        title="DevSecOps & Cloud Security Services | Moncton, New Brunswick & Calgary"
+        description="Full-lifecycle DevSecOps engineering, Terraform AWS EKS hardening, CI/CD security automation, and continuous compliance for Canadian enterprises in Moncton, NB, Calgary, and Halifax."
+        keywords="DevSecOps Moncton, Cloud Security New Brunswick, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax, SOC 2 Type II audit readiness checklist Canada, DevSecOps Calgary, CI/CD security gating, Kubernetes CSPM"
         canonical="/services"
       />
 

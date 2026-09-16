@@ -110,9 +110,10 @@ const ComplianceMatrix: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Compliance Matrix & DevSecOps Glossary | Oakivo"
-        description="Comprehensive guide to DevSecOps terminology, cloud security frameworks, process automation, and Canadian compliance laws across Atlantic Canada."
-        canonical="/compliancematrix"
+        title="Canadian Cloud Compliance Matrix & Audit Readiness | SOC 2, Bill C-26, PIPEDA"
+        description="Actionable Canadian regulatory compliance matrix and audit readiness guide. Navigate Bill C-26 Critical Cyber Systems roadmap, SOC 2 Type II checklists, and PIPEDA vs HIPAA cloud architecture."
+        keywords="SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, PIPEDA vs. HIPAA cloud storage architecture, Canadian cloud compliance, DevSecOps Moncton, Cloud Security New Brunswick"
+        canonical="/compliance-matrix"
       />
 
       {/* Header Section */}

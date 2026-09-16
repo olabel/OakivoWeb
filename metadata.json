@@ -1,6 +1,6 @@
 {
   "name": "Oakivo Solutions",
-  "description": "Enterprise DevSecOps, Cloud Security & Security Automation for Atlantic Canada. Based in Dieppe, New Brunswick, Oakivo protects mission-critical ERP, healthcare, logistics, and enterprise systems.",
+  "description": "Enterprise DevSecOps, Cloud Security & Canadian Regulatory Compliance (SOC 2, Bill C-26, PIPEDA) and Terraform AWS EKS hardening serving Moncton, Dieppe, Halifax, Calgary, and Toronto.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

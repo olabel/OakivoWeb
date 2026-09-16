@@ -226,7 +226,7 @@ const Insights: React.FC = () => {
           ? "Recherches appliquées sur le Zero-Trust, la souveraineté canadienne (Bill C-26, Loi 25, PIPEDA) et l'automatisation de conformité avec études de cas réelles."
           : "Explore technical briefings on Canadian data sovereignty (Bill C-26, PIPEDA, Law 25), zero-trust cloud architecture, autonomous AI security, and production case studies."}
         canonical="/insights"
-        keywords="DevSecOps Atlantic Canada, Cloud Security Research, Zero Trust Architecture, PIPEDA Law 25 Compliance, Bill C-26, eBPF CNAPP, AI Security Fleets"
+        keywords="SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, PIPEDA vs. HIPAA cloud storage architecture, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax, DevSecOps Moncton, Cloud Security New Brunswick, Canadian cloud compliance"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',

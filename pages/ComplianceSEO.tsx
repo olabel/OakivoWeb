@@ -4,15 +4,16 @@ import { Shield, Server, CheckCircle2, ChevronRight, ArrowRight, Lock } from 'lu
 import { motion } from 'motion/react';
 import SEO from '../components/SEO';
 
-const frameworks = ['soc2', 'hipaa', 'iso27001', 'pci-dss', 'gdpr', 'pipeda', 'fedramp', 'cjis'];
+const frameworks = ['soc2', 'bill-c26', 'pipeda', 'hipaa', 'iso27001', 'pci-dss', 'gdpr', 'fedramp', 'cjis'];
 const providers = ['aws', 'azure', 'gcp', 'kubernetes'];
 
 const formatName = (str: string) => {
   if (str === 'soc2') return 'SOC 2 Type II';
+  if (str === 'bill-c26') return 'Bill C-26 (CCSPA)';
+  if (str === 'pipeda') return 'PIPEDA';
   if (str === 'iso27001') return 'ISO 27001';
   if (str === 'pci-dss') return 'PCI-DSS';
   if (str === 'gdpr') return 'GDPR';
-  if (str === 'pipeda') return 'PIPEDA';
   if (str === 'cjis') return 'CJIS';
   if (str === 'aws') return 'AWS';
   if (str === 'gcp') return 'Google Cloud Platform (GCP)';
@@ -51,8 +52,9 @@ const ComplianceSEO: React.FC = () => {
   return (
     <>
       <SEO 
-        title={`Achieve ${frameworkName} Compliance on ${providerName} | Oakivo`}
-        description={`Oakivo's elite engineering team automates ${frameworkName} compliance on ${providerName}. Discover our zero-trust DevSecOps architectures designed for highly regulated enterprises.`}
+        title={`${frameworkName} Compliance on ${providerName} | Canadian Audit Readiness | Oakivo`}
+        description={`Automate ${frameworkName} compliance on ${providerName} with continuous Policy-as-Code and zero-trust DevSecOps. Audit-ready infrastructure for Canadian and Atlantic enterprises.`}
+        keywords={`${frameworkName} compliance on ${providerName}, SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, PIPEDA vs. HIPAA cloud storage architecture, DevSecOps Moncton, Cloud Security New Brunswick, Terraform AWS EKS hardening`}
         canonical={`/compliance/${slug}`}
       />
       <section className="pt-40 pb-24 px-6 relative bg-slate-950 min-h-[90vh] flex flex-col items-center">

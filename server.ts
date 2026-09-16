@@ -1288,12 +1288,14 @@ Timestamp: ${new Date().toISOString()}
       'new-brunswick',
       'nova-scotia',
       'prince-edward-island',
-      'newfoundland-labrador'
+      'newfoundland-labrador',
+      'alberta',
+      'ontario'
     ];
     locationSlugs.forEach(slug => allRoutes.push(`/locations/${slug}`));
 
     // Dynamic compliance pages
-    const complianceFrameworks = ['soc2', 'hipaa', 'iso27001', 'pci-dss', 'gdpr', 'pipeda', 'fedramp', 'cjis'];
+    const complianceFrameworks = ['soc2', 'bill-c26', 'hipaa', 'iso27001', 'pci-dss', 'gdpr', 'pipeda', 'fedramp', 'cjis'];
     const complianceProviders = ['aws', 'azure', 'gcp', 'kubernetes'];
     complianceFrameworks.forEach(fw => {
       complianceProviders.forEach(prov => {

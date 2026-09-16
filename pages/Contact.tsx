@@ -77,8 +77,9 @@ const Contact: React.FC = () => {
       />
 
       <SEO 
-        title="Contact Oakivo | DevSecOps & Cloud Security Atlantic Canada"
-        description="Start a conversation with Oakivo Solutions. We architect secure, compliant DevSecOps pipelines and process automation for cloud security in Atlantic Canada."
+        title="Contact Oakivo | DevSecOps Moncton, New Brunswick & Calgary"
+        description="Book a confidential architecture review with Oakivo. Fast-track SOC 2 Type II audit readiness, Bill C-26 compliance, and Terraform AWS EKS hardening in Moncton and Calgary."
+        keywords="DevSecOps Moncton, Cloud Security New Brunswick, DevSecOps Calgary, SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, Terraform AWS EKS hardening consultant"
         canonical="/contact"
       />
 

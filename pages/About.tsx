@@ -49,8 +49,9 @@ const About: React.FC = () => {
   return (
     <>
       <SEO 
-        title="About Oakivo | DevSecOps & Cloud Security Atlantic Canada"
-        description="Oakivo Solutions is a premier DevSecOps and cloud security firm in Atlantic Canada, defending enterprises through strict compliance and process automation."
+        title="About Oakivo | DevSecOps Moncton & Canadian Cloud Security Engineers"
+        description="Oakivo Solutions is a premier DevSecOps and cloud security firm in Moncton, New Brunswick and Calgary, Alberta. Certified engineers in KCSP, HashiCorp Terraform, and SOC 2 / Bill C-26 compliance."
+        keywords="DevSecOps Moncton, Cloud Security New Brunswick, DevSecOps Calgary, Canadian cloud security engineers, Terraform AWS EKS hardening consultant, SOC 2 Type II audit readiness checklist Canada"
         canonical="/about"
       />
 

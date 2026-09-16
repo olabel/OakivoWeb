@@ -108,6 +108,34 @@ class AnalyticsEngine {
     }
   }
 
+  public async trackEvent(eventName: string, metadata: Record<string, any> = {}) {
+    try {
+      const eventData = {
+        type: 'custom_event',
+        eventName,
+        path: window.location.pathname,
+        timestamp: new Date().toISOString(),
+        sessionId: this.getSessionId(),
+        ...metadata,
+      };
+
+      if (typeof window !== 'undefined') {
+        const win = window as any;
+        win.dataLayer = win.dataLayer || [];
+        win.dataLayer.push({ event: eventName, ...metadata, timestamp: eventData.timestamp });
+        window.dispatchEvent(new CustomEvent('oakivo_analytics_event', { detail: eventData }));
+      }
+
+      await addDoc(this.getCollection(), eventData);
+    } catch (error) {
+      console.error('Error tracking analytics event:', error);
+    }
+  }
+
+  public async track(eventName: string, metadata: Record<string, any> = {}) {
+    return this.trackEvent(eventName, metadata);
+  }
+
   public async seedMockData() {
     console.log('Seeding mock analytics data...');
     const paths = ['/', '/services', '/case-studies', '/contact', '/booking', '/admin-portal'];

@@ -45,9 +45,10 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO 
-        title="DevSecOps & Cloud Security Automation | Oakivo Atlantic Canada"
-        description="Atlantic Canada's elite DevSecOps engineers. We implement robust cloud security, continuous compliance (SOC 2), and advanced process automation pipelines."
-        canonical="/home"
+        title="DevSecOps Moncton & Cloud Security New Brunswick | Oakivo Solutions"
+        description="Atlantic Canada & Canadian enterprise DevSecOps partner. Expert SOC 2 Type II readiness checklists, Bill C-26 compliance roadmaps, and Terraform AWS EKS hardening in Moncton, Halifax, and Calgary."
+        keywords="DevSecOps Moncton, Cloud Security New Brunswick, SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, PIPEDA vs. HIPAA cloud storage architecture, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax, DevSecOps Calgary, Dieppe NB cloud security"
+        canonical="/"
       />
       
       {/* Hero Section */}

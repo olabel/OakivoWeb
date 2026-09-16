@@ -25,55 +25,91 @@ const locationsMap: Record<string, LocationData> = {
   'new-brunswick': {
     name: 'New Brunswick',
     regionCode: 'CA-NB',
-    keyHubs: ['Moncton', 'Saint John', 'Fredericton', 'Dieppe', 'Miramichi'],
-    heroTitle: 'Done-For-You Workflow Automation in New Brunswick',
-    heroSubtitle: 'Connecting accounting, dispatch, and inventory tools for New Brunswick businesses so staff stops losing hours to manual data entry.',
-    regionalContext: 'From distribution centres in Moncton to field services in Saint John and professional teams in Fredericton, New Brunswick SMBs waste full-time salaries copying invoice numbers and job details between software tools. We build invisible bridges between your existing tools.',
+    keyHubs: ['Moncton', 'Dieppe', 'Fredericton', 'Saint John', 'Miramichi'],
+    heroTitle: 'DevSecOps & Cloud Security in New Brunswick (Moncton & Dieppe)',
+    heroSubtitle: 'Continuous SOC 2 compliance, Bill C-26 readiness, and automated zero-trust cloud infrastructure for New Brunswick enterprises.',
+    regionalContext: 'From cybersecurity and fintech clusters in Moncton and Dieppe to critical supply chains in Saint John and government contractors in Fredericton, New Brunswick enterprises require robust cloud security posture management (CSPM) and automated DevSecOps pipelines that withstand modern regulatory scrutiny.',
     commonWorkflows: [
-      'Moncton Distribution: Shopify & QuickBooks inventory synchronization',
-      'Saint John Field Dispatch: Mobile work order logs directly to billing',
-      'Fredericton Services: Automatic client onboarding & contract logging'
+      'Moncton DevSecOps: Automated CI/CD security gating and Policy-as-Code',
+      'Dieppe Cloud Security: Continuous SOC 2 and PIPEDA audit evidence collection',
+      'Saint John Infrastructure: Terraform AWS EKS hardening and CIS benchmark validation'
     ],
     localProof: {
-      client: 'Heavy Equipment & Parts Supplier',
+      client: 'Atlantic Supply Chain & Enterprise Logistics',
       city: 'Moncton, NB',
-      result: 'Reclaimed 14 staff hours per week by connecting counter sales to accounting.'
+      result: 'Automated 100% of SOC 2 evidence collection and hardened AWS EKS clusters against lateral movement.'
+    }
+  },
+  'alberta': {
+    name: 'Alberta',
+    regionCode: 'CA-AB',
+    keyHubs: ['Calgary', 'Edmonton', 'Red Deer', 'Lethbridge'],
+    heroTitle: 'DevSecOps & Cloud Security in Alberta (Calgary & Edmonton)',
+    heroSubtitle: 'Terraform AWS EKS hardening, Bill C-26 energy infrastructure security, and continuous compliance for Alberta tech leaders.',
+    regionalContext: 'Calgary and Edmonton tech hubs in energy, fintech, and enterprise software demand resilient, high-velocity cloud engineering. Oakivo engineers hardened Kubernetes clusters, automated zero-trust IAM, and SOC 2 Type II readiness across Western Canada.',
+    commonWorkflows: [
+      'Calgary Cloud Security: Terraform AWS EKS hardening and Kyverno admission controls',
+      'Edmonton Energy Infrastructure: Bill C-26 critical cyber systems defense & continuous monitoring',
+      'Western FinTech: Multi-account AWS architecture with PIPEDA data sovereignty'
+    ],
+    localProof: {
+      client: 'Calgary Energy SaaS Platform',
+      city: 'Calgary, AB',
+      result: 'Hardened production EKS infrastructure to 99.99% uptime and passed SOC 2 Type II audit with zero findings.'
+    }
+  },
+  'ontario': {
+    name: 'Ontario',
+    regionCode: 'CA-ON',
+    keyHubs: ['Toronto', 'Ottawa', 'Waterloo', 'Mississauga', 'Kitchener'],
+    heroTitle: 'Enterprise DevSecOps & Cloud Compliance in Ontario (Toronto & Ottawa)',
+    heroSubtitle: 'SOC 2 Type II audit readiness, Bill C-26 compliance roadmaps, and sovereign Kubernetes infrastructure for Ontario enterprises.',
+    regionalContext: 'Serving Toronto financial institutions, Waterloo scale-ups, and Ottawa federal defense contractors, Oakivo provides certified DevSecOps engineering, Policy-as-Code automation, and sovereign cloud architectures.',
+    commonWorkflows: [
+      'Toronto FinTech: Continuous SOC 2 Type II & PCI-DSS compliance automation',
+      'Ottawa Federal Contractors: Sovereign cloud architecture and Bill C-26 alignment',
+      'Waterloo Scale-Ups: Automated shift-left SAST/DAST container security pipelines'
+    ],
+    localProof: {
+      client: 'Financial Technology Provider',
+      city: 'Toronto, ON',
+      result: 'Reduced compliance audit preparation time by 75% with automated evidence pipelines.'
     }
   },
   'nova-scotia': {
     name: 'Nova Scotia',
     regionCode: 'CA-NS',
     keyHubs: ['Halifax', 'Dartmouth', 'Sydney', 'Truro', 'New Glasgow'],
-    heroTitle: 'Done-For-You Workflow Automation in Nova Scotia',
-    heroSubtitle: 'Helping Nova Scotia businesses eliminate manual copy-pasting between accounting, inventory, and operational software.',
-    regionalContext: 'Nova Scotia businesses in Halifax, Dartmouth, and Cape Breton are growing rapidly - but growth often stalls when admin paperwork explodes. We integrate the software tools you already pay for, freeing up staff without requiring new software purchases.',
+    heroTitle: 'DevSecOps & Cloud Security Architecture in Nova Scotia (Halifax)',
+    heroSubtitle: 'Helping Nova Scotia defense, health-tech, and marine enterprises implement zero-trust cloud infrastructure and continuous compliance.',
+    regionalContext: 'Nova Scotia businesses in Halifax, Dartmouth, and Sydney are scaling rapidly across ocean tech, defense, and healthcare. Oakivo provides Terraform AWS EKS hardening, PIPEDA data sovereignty, and automated DevSecOps.',
     commonWorkflows: [
-      'Halifax Wholesale: Automated order processing from email into accounting',
-      'Dartmouth Trade Services: Driver route logs connected directly to customer invoicing',
-      'Sydney Maritime Supply: Real-time warehouse inventory reconciliation'
+      'Halifax Health-Tech: PIPEDA and PHIA compliant sovereign cloud storage architecture',
+      'Dartmouth Defense: Zero-trust microsegmentation and automated container scanning',
+      'Sydney Ocean Tech: Offshore telemetry security and resilient edge computing'
     ],
     localProof: {
-      client: 'Atlantic Marine & Industrial Supply',
+      client: 'Atlantic Marine & Technology Supply',
       city: 'Halifax, NS',
-      result: 'Eliminated 15 hours of weekly manual invoice entry across 2 warehouses.'
+      result: 'Implemented automated CI/CD security scanning across 40+ microservices.'
     }
   },
   'prince-edward-island': {
     name: 'Prince Edward Island',
     regionCode: 'CA-PE',
     keyHubs: ['Charlottetown', 'Summerside', 'Cornwall', 'Stratford'],
-    heroTitle: 'Done-For-You Workflow Automation in Prince Edward Island',
-    heroSubtitle: 'Connecting spreadsheets, accounting, and scheduling software for PEI food processors, suppliers, and service businesses.',
-    regionalContext: 'PEI businesses face seasonal demands where administrative efficiency is crucial. We help island businesses connect their existing software tools to automate order tracking, invoicing, and reporting.',
+    heroTitle: 'DevSecOps & Cloud Security in Prince Edward Island',
+    heroSubtitle: 'Connecting cloud security, automated compliance, and resilient infrastructure for PEI enterprises.',
+    regionalContext: 'PEI organizations face growing digital demands in bioscience, food processing, and financial services. Oakivo helps island businesses implement robust cloud security postures without expanding internal headcount.',
     commonWorkflows: [
-      'Charlottetown Logistics: Daily inventory summaries delivered directly to GM inbox',
-      'Summerside Food Processing: Batch quality tracking integrated with accounting',
-      'Island Trade Services: Mobile field ticket sign-offs pushed live to customer billing'
+      'Charlottetown Bioscience: Encrypted sovereign data pipelines adhering to PIPEDA',
+      'Summerside Food Processing: Secure IoT telemetry and cloud infrastructure',
+      'Island Financial: SOC 2 Type II audit readiness and automated evidence gathering'
     ],
     localProof: {
       client: 'Island Food Processing Cooperative',
       city: 'Charlottetown, PEI',
-      result: 'Automated daily report consolidation, saving 10 hours of management time per week.'
+      result: 'Deployed secure cloud infrastructure with 100% automated backup encryption.'
     }
   },
   'newfoundland-labrador': {
@@ -122,8 +158,9 @@ const LocationDetail: React.FC = () => {
   return (
     <>
       <SEO 
-        title={`Invoice Automation in ${location.name} | Oakivo`}
-        description={location.heroSubtitle}
+        title={`DevSecOps & Cloud Security ${location.name} | Moncton, Calgary & Halifax | Oakivo`}
+        description={`Elite DevSecOps automation, zero-trust cloud infrastructure, SOC 2 compliance readiness, and Terraform AWS EKS hardening for enterprises in ${location.name}.`}
+        keywords={`DevSecOps ${location.name}, Cloud Security ${location.name}, DevSecOps Moncton, Cloud Security New Brunswick, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax, SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap`}
         canonical={`/locations/${locKey}`}
         schema={localBusinessSchema}
       />

@@ -205,8 +205,10 @@ const RiskCalculator: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Cloud Security Risk Calculator | Oakivo"
-        description="Assess your organization's cloud security maturity and discover critical vulnerabilities with Oakivo's DevSecOps risk calculator."
+        title="Canadian Cloud Security Risk & Compliance Readiness Calculator | Oakivo"
+        description="Free interactive cloud security risk assessment for Canadian tech leaders. Measure SOC 2 Type II audit readiness, Bill C-26 compliance gaps, and AWS/Kubernetes misconfigurations."
+        keywords="SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, cloud security risk assessment, DevSecOps Moncton, Cloud Security New Brunswick, Terraform AWS EKS hardening consultant"
+        canonical="/risk-calculator"
       />
       <section className="pt-32 pb-24 px-6 min-h-screen bg-slate-950 relative flex flex-col items-center justify-center">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.02] pointer-events-none"></div>

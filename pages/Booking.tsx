@@ -279,8 +279,9 @@ export const Booking: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Schedule Executive Cloud Security & DevSecOps Audit | Oakivo Solutions"
-        description="Schedule a 30-minute confidential technical architecture audit with a Senior DevSecOps Architect at Oakivo Solutions Inc. Covering Atlantic Canada and North American enterprise infrastructure."
+        title="Book A Free Security Audit | DevSecOps Moncton, Calgary & Toronto | Oakivo"
+        description="Book a 30-minute confidential cloud security & compliance audit with a Senior DevSecOps Architect. SOC 2 Type II audit readiness, Bill C-26, and Terraform AWS EKS hardening."
+        keywords="Book security audit, SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, DevSecOps Moncton, Cloud Security New Brunswick, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax"
         canonical="/schedule"
       />
 

@@ -3,6 +3,7 @@ import { NavLink, useLocation, Link } from 'react-router-dom';
 import { Menu, X, Globe } from 'lucide-react';
 import { NavRoute } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { analytics } from '../utils/analytics';
 import LeadDrawer from './LeadDrawer';
 
 const Navbar: React.FC = () => {
@@ -12,6 +13,25 @@ const Navbar: React.FC = () => {
   
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
+
+  const handleBookAuditClick = () => {
+    analytics.trackEvent('audit_booking_intent', {
+      location: 'navbar_header',
+      button: 'desktop_cta',
+      label: 'Book A Free Audit',
+    });
+    setIsDrawerOpen(true);
+  };
+
+  const handleMobileBookAuditClick = () => {
+    analytics.trackEvent('audit_booking_intent', {
+      location: 'navbar_mobile',
+      button: 'mobile_cta',
+      label: 'Book A Free Audit',
+    });
+    setIsOpen(false);
+    setIsDrawerOpen(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -116,10 +136,11 @@ const Navbar: React.FC = () => {
             <div className="hidden md:block">
               <button 
                 type="button"
-                onClick={() => setIsDrawerOpen(true)}
-                aria-label="Book a 30-minute security architecture audit"
+                id="nav-book-audit-btn"
+                onClick={handleBookAuditClick}
+                aria-label={language === 'fr' ? "Réserver un audit gratuit d'architecture de sécurité" : "Book a free security architecture audit"}
                 aria-haspopup="dialog"
-                className="text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white border border-slate-200 px-6 py-2.5 rounded-full transition-all duration-300 text-slate-950 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                className="group relative inline-flex items-center justify-center text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white border border-slate-200 hover:border-cyan-400/80 px-6 py-2.5 rounded-full transition-all duration-300 ease-out transform hover:scale-[1.04] active:scale-[0.98] hover:shadow-[0_0_22px_rgba(6,182,212,0.45)] text-slate-950 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
               >
                   {t('common.cta_book_audit')}
               </button>
@@ -203,10 +224,11 @@ const Navbar: React.FC = () => {
 
             <button 
               type="button"
-              onClick={() => { setIsOpen(false); setIsDrawerOpen(true); }}
-              aria-label="Book a 30-minute security architecture audit"
+              id="mobile-nav-book-audit-btn"
+              onClick={handleMobileBookAuditClick}
+              aria-label={language === 'fr' ? "Réserver un audit gratuit d'architecture de sécurité" : "Book a free security architecture audit"}
               aria-haspopup="dialog"
-              className="w-full text-center text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white text-slate-950 px-6 py-3.5 rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full text-center text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white text-slate-950 px-6 py-3.5 rounded-full transition-all duration-300 ease-out transform active:scale-[0.98] hover:shadow-[0_0_20px_rgba(6,182,212,0.35)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
             >
                 {t('common.cta_book_audit')}
             </button>
