@@ -1,5 +1,54 @@
 [
   {
+    "id": "log_1789583295948_i0hzv",
+    "timestamp": "2026-09-16T18:28:15.948Z",
+    "type": "client_subscriber",
+    "recipient": "test.visitor@example.com (Mirrored to olabel@gmail.com)",
+    "sender": "Oakivo Security <onboarding@resend.dev>",
+    "subject": "Welcome to Oakivo Security Insights | Canadian DevSecOps & Architecture Briefing",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "01a0ab7a-0590-76d3-a4a2-15314b7f990f",
+    "error": "In Resend Testing Mode, client auto-reply was mirrored to olabel@gmail.com. Complete DNS verification on resend.com/domains to deliver to external inboxes.",
+    "metadata": {
+      "type": "subscriber",
+      "recipientEmail": "test.visitor@example.com"
+    }
+  },
+  {
+    "id": "log_1789583295744_93e4i",
+    "timestamp": "2026-09-16T18:28:15.744Z",
+    "type": "lead_notification",
+    "recipient": "olabel@gmail.com",
+    "sender": "Oakivo Security <onboarding@resend.dev>",
+    "subject": "[Oakivo Notification] New SUBSCRIBER Received (test.visitor@example.com)",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "01a0ab7a-04aa-774b-8bef-bdf8dc1866e4",
+    "error": "Delivered via Resend Sandbox (onboarding@resend.dev). Add DNS verification for custom domain at resend.com/domains.",
+    "metadata": {
+      "email": "test.visitor@example.com",
+      "source": "insights_footer",
+      "language": "en"
+    }
+  },
+  {
+    "id": "log_1789583033432_ukexx",
+    "timestamp": "2026-09-16T18:23:53.432Z",
+    "type": "lead_notification",
+    "recipient": "olabel@gmail.com",
+    "sender": "Oakivo Security <onboarding@resend.dev>",
+    "subject": "[Oakivo Notification] New SUBSCRIBER Received (Inquiry)",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "01a0ab76-0409-752e-8483-04c834e5f647",
+    "error": "Delivered via Resend Sandbox (onboarding@resend.dev). Add DNS verification for custom domain at resend.com/domains.",
+    "metadata": {
+      "email": "testuser@example.com",
+      "source": "insights_footer"
+    }
+  },
+  {
     "id": "log_1789391743057_5re30",
     "timestamp": "2026-09-14T13:15:43.057Z",
     "type": "lead_notification",

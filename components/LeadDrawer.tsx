@@ -11,7 +11,7 @@ interface LeadDrawerProps {
   defaultTopic?: string;
 }
 
-const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
+const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }) => {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
@@ -22,6 +22,15 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose }) => {
   const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [errors, setErrors] = useState<Partial<Record<keyof typeof formData, string>>>({});
+
+  React.useEffect(() => {
+    if (defaultTopic && isOpen) {
+      setFormData(prev => ({
+        ...prev,
+        bottleneck: prev.bottleneck ? prev.bottleneck : defaultTopic
+      }));
+    }
+  }, [defaultTopic, isOpen]);
 
   const handleReset = () => {
     setStatus('idle');

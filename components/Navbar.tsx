@@ -10,6 +10,7 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [drawerTopic, setDrawerTopic] = useState<string>('');
   
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
@@ -39,7 +40,15 @@ const Navbar: React.FC = () => {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    const openDrawer = () => setIsDrawerOpen(true);
+    const openDrawer = (e?: Event) => {
+      const customEvent = e as CustomEvent<{ focus?: string; topic?: string }>;
+      if (customEvent?.detail?.focus) {
+        setDrawerTopic(customEvent.detail.focus);
+      } else if (customEvent?.detail?.topic) {
+        setDrawerTopic(customEvent.detail.topic);
+      }
+      setIsDrawerOpen(true);
+    };
     window.addEventListener('open-lead-drawer', openDrawer);
     
     return () => {
@@ -237,7 +246,7 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
 
-      <LeadDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+      <LeadDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} defaultTopic={drawerTopic} />
     </>
   );
 };

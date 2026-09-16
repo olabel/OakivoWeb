@@ -3,7 +3,7 @@ import SolutionsInAction from '../components/SolutionsInAction';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import TrustCarousel from '../components/TrustCarousel';
-import { ArrowRight, Activity } from 'lucide-react';
+import DynamicHero from '../components/DynamicHero';
 import { useLanguage } from '../context/LanguageContext';
 import { NavRoute } from '../types';
 import PremiumCapabilities from '../components/PremiumCapabilities';
@@ -51,62 +51,8 @@ const Home: React.FC = () => {
         canonical="/"
       />
       
-      {/* Hero Section */}
-      <header id="hero" role="banner" aria-label="Hero introduction" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#070A0F]">
-        {/* Background Video */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden bg-[#070A0F]" aria-hidden="true">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            aria-hidden="true"
-            tabIndex={-1}
-            className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105"
-          >
-            <source src="/background-loop.mp4" type="video/mp4" />
-          </video>
-        </div>
-        
-        {/* Premium Darkening Overlay */}
-        <div className="absolute inset-0 bg-slate-950/40 mix-blend-multiply" aria-hidden="true"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-transparent via-[#070A0F]/60 to-[#070A0F]" aria-hidden="true"></div>
-        
-        <div className="relative z-10 container mx-auto px-6 max-w-7xl pt-32 pb-20">
-            <div className="flex flex-col items-start text-left max-w-4xl">
-                <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-display font-bold tracking-tight mb-8 leading-[1.1] text-slate-100">
-                    {t('landing.hero_headline')}
-                </h1>
-                <p className="text-xl md:text-2xl text-slate-300 max-w-3xl font-light leading-relaxed mb-12 border-l-2 border-slate-700 pl-6">
-                    {t('landing.hero_subheadline')}
-                </p>
-                <div className="flex flex-col sm:flex-row items-center gap-6" role="group" aria-label="Primary Call to Action Options">
-                    <button 
-                      type="button"
-                      onClick={() => window.dispatchEvent(new CustomEvent('open-lead-drawer'))} 
-                      aria-label="Book a 30-minute security architecture audit with Oakivo senior engineers"
-                      aria-haspopup="dialog"
-                      className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-950 transition-all duration-300 bg-white hover:bg-slate-200 rounded-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950"
-                    >
-                        <span className="flex items-center gap-3">
-                            {t('common.cta_book_audit')}
-                            <ArrowRight aria-hidden="true" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                        </span>
-                    </button>
-                    <Link 
-                      to={NavRoute.CLIENT_DEMO} 
-                      aria-label="View interactive live client security portal demo"
-                      className="group inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-wider text-slate-100 transition-all duration-300 border border-slate-700 hover:border-slate-400 bg-slate-900/50 hover:bg-slate-800 rounded-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950"
-                    >
-                        <span className="flex items-center gap-3">
-                            View Live Demo
-                            <Activity aria-hidden="true" className="w-4 h-4 text-cyan-500 transition-transform duration-300 group-hover:scale-110" />
-                        </span>
-                    </Link>
-                </div>
-            </div>
-        </div>
-      </header>
+      {/* Dynamic Hero Section with Inferred Industry Variations */}
+      <DynamicHero />
 
       <TrustCarousel />
 

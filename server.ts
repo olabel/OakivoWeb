@@ -97,13 +97,13 @@ async function startServer() {
     message: { error: 'Too many requests from this IP, please try again after 15 minutes' },
   });
 
-  // Strict Rate Limiting for Contact & Booking Forms to prevent spam/brute-force
+  // Robust Rate Limiting for Contact, Newsletter & Booking Forms (Allows normal testing and browsing)
   const formLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour window
-    max: 5, // limit each IP to 5 form submissions per hour
+    windowMs: 15 * 60 * 1000, // 15 minutes window
+    max: 50, // limit each IP to 50 form submissions per 15 minutes
     standardHeaders: true,
     legacyHeaders: false,
-    message: { error: 'Too many form submissions from this IP, please try again after an hour. For urgent matters, email us directly.' },
+    message: { error: 'Too many form submissions from this IP, please try again after 15 minutes. For urgent matters, email us directly at hello@oakivo.com.' },
   });
 
   // Strict Rate Limiting for AI Chat to prevent API quota exhaustion
@@ -702,6 +702,398 @@ https://oakivo.com
     return { success: true, provider: 'preview_audit_log', recipient: clientEmail, logId: logItem.id };
   };
 
+  // Client Automated Auto-Reply Dispatcher for Forms (Newsletter, Contact, Inquiries, Careers)
+  const sendClientFormAutoReplyEmail = async (params: {
+    type: 'subscriber' | 'contact' | 'applicant' | 'lead' | 'risk_assessment';
+    recipientEmail: string;
+    recipientName?: string;
+    recipientCompany?: string;
+    language?: 'en' | 'fr';
+    details?: Record<string, any>;
+  }) => {
+    const {
+      type,
+      recipientEmail,
+      recipientName,
+      recipientCompany,
+      language = 'en',
+      details = {},
+    } = params;
+
+    const isFr = language === 'fr';
+    const cleanName = recipientName || (isFr ? 'Partenaire' : 'Partner');
+    const safeName = escapeHtml(cleanName);
+    const safeCompany = recipientCompany ? escapeHtml(recipientCompany) : '';
+
+    let subject = '';
+    let text = '';
+    let html = '';
+
+    if (type === 'subscriber') {
+      subject = isFr 
+        ? 'Bienvenue aux Perspectives de Sécurité Oakivo | Intelligence DevSecOps et Conformité'
+        : 'Welcome to Oakivo Security Insights | Canadian DevSecOps & Architecture Briefing';
+
+      text = `
+${isFr ? 'Bonjour' : 'Hello'},
+
+${isFr 
+  ? 'Merci de votre inscription aux Perspectives de Sécurité Oakivo (Oakivo Security Insights).' 
+  : 'Thank you for subscribing to Oakivo Security Insights.'}
+
+${isFr 
+  ? 'Vous recevrez toutes les deux semaines nos dossiers techniques et analyses d’ingénierie sur :'
+  : 'Every two weeks, you will receive our deep-dive architectural briefings on:'}
+- ${isFr ? 'Conformité Loi C-26 (LSPCY) et durcissement des systèmes cybernétiques critiques' : 'Bill C-26 (CCSPA) compliance and critical cyber system hardening'}
+- ${isFr ? 'Souveraineté des données canadiennes (LPRPDE, Loi 25 Québec) en cloud souverain' : 'Canadian data sovereignty (PIPEDA, Quebec Law 25) across sovereign enclaves'}
+- ${isFr ? 'Automatisation SOC 2 Type II et dérive d’infrastructure Terraform/Kubernetes' : 'SOC 2 Type II continuous readiness and Terraform/Kubernetes drift automation'}
+- ${isFr ? 'Gestion des identités Zéro-Trust et rotation automatisée des identifiants' : 'Zero Trust IAM matrices, tokenized APIs, and automated secret lifecycle'}
+
+${isFr ? 'Consultez nos dernières publications :' : 'Explore our latest publications:'}
+https://oakivo.com/insights
+
+${isFr ? 'Besoin d’un audit immédiat de votre posture cloud ? Planifiez une session de 30 minutes avec nos architectes :' : 'Need an immediate review of your cloud posture? Schedule a 30-minute session with our principal architects:'}
+https://oakivo.com/schedule
+
+${isFr ? 'Cordialement,' : 'Best regards,'}
+${isFr ? 'L’Équipe d’Ingénierie & Recherche' : 'Security Architecture & Intelligence Team'}
+Oakivo Solutions Inc. • Dieppe, New Brunswick (Atlantic Canada)
+https://oakivo.com
+      `.trim();
+
+      html = `
+<!DOCTYPE html>
+<html lang="${isFr ? 'fr' : 'en'}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(subject)}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f8fafc; margin: 0; padding: 24px; }
+    .wrapper { max-width: 620px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    .header { background: #070a0f; color: #ffffff; padding: 32px 36px; border-bottom: 2px solid #06b6d4; }
+    .status-pill { display: inline-block; background: rgba(6,182,212,0.15); color: #06b6d4; font-family: monospace; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .title { margin: 0; font-size: 22px; font-weight: 800; line-height: 1.25; color: #ffffff; letter-spacing: -0.02em; }
+    .subtitle { margin: 8px 0 0 0; font-size: 13px; color: #94a3b8; }
+    .body { padding: 32px 36px; }
+    .lead-text { font-size: 15px; color: #334155; line-height: 1.7; margin: 0 0 20px 0; }
+    .briefing-box { background: #070a0f; border: 1px solid #1e293b; border-radius: 14px; padding: 22px 24px; margin: 24px 0; color: #f1f5f9; }
+    .briefing-title { font-size: 11px; font-mono; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #06b6d4; margin-bottom: 12px; }
+    .topic-list { margin: 0; padding-left: 20px; color: #cbd5e1; font-size: 13px; line-height: 1.8; }
+    .cta-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 18px 22px; margin: 24px 0; font-size: 13px; color: #166534; line-height: 1.6; }
+    .btn-action { display: inline-block; background: #06b6d4; color: #070a0f; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; padding: 12px 24px; border-radius: 6px; text-decoration: none; margin-top: 8px; }
+    .footer { background: #070a0f; border-top: 1px solid #1e293b; padding: 24px 36px; font-size: 12px; color: #64748b; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div class="status-pill">${isFr ? 'Abonnement Confirmé' : 'Subscription Confirmed'}</div>
+      <h1 class="title">Oakivo Security Intelligence</h1>
+      <p class="subtitle">Oakivo Solutions Inc. • Atlantic Canada Cybersecurity &amp; DevSecOps Authority</p>
+    </div>
+    <div class="body">
+      <p class="lead-text">
+        ${isFr 
+          ? `Merci de votre inscription à <strong>Oakivo Security Insights</strong>. Vous recevrez dorénavant nos analyses d'ingénierie et nos veilles de conformité réglementaire canadienne.` 
+          : `Thank you for subscribing to <strong>Oakivo Security Insights</strong>. You are now verified to receive our bi-weekly architectural whitepapers, compliance advisories, and DevSecOps blueprints.`}
+      </p>
+
+      <div class="briefing-box">
+        <div class="briefing-title">${isFr ? 'AU PROGRAMME DE NOS PUBLICATIONS' : 'WHAT OUR BRIEFINGS COVER'}</div>
+        <ul class="topic-list">
+          <li><strong>${isFr ? 'Loi C-26 (LSPCY)' : 'Bill C-26 (CCSPA)'}:</strong> ${isFr ? 'Durcissement des systèmes cybernétiques critiques et protocoles de signalement obligatoires' : 'Mandatory cyber incident reporting and critical infrastructure hardening'}</li>
+          <li><strong>${isFr ? 'LPRPDE & Loi 25' : 'PIPEDA & Law 25'}:</strong> ${isFr ? 'Souveraineté des données et enclaves cloud canadiennes sécurisées (ca-central-1)' : 'Canadian data sovereignty and zero-trust patient/financial record protection'}</li>
+          <li><strong>${isFr ? 'SOC 2 Type II' : 'SOC 2 Type II'}:</strong> ${isFr ? 'Collecte continue de preuves d’audit et prévention de la dérive Terraform' : 'Continuous automated audit readiness and multi-cloud Kubernetes drift prevention'}</li>
+          <li><strong>${isFr ? 'Défense Multi-Cloud' : 'Zero Trust SRE'}:</strong> ${isFr ? 'Pipelines CI/CD signés cryptographiquement et isolation d’API' : 'Cryptographically signed pipelines, SBOM scanning, and automated incident runbooks'}</li>
+        </ul>
+      </div>
+
+      <div class="cta-card">
+        <strong>${isFr ? '🚀 Besoin d’une revue technique ?' : '🚀 Need an immediate architecture review?'}</strong><br>
+        ${isFr 
+          ? 'Nos architectes principaux offrent des sessions de diagnostic de 30 minutes sans frais pour évaluer votre posture multi-cloud.' 
+          : 'Our principal DevSecOps architects conduct 30-minute diagnostic reviews to benchmark your current multi-cloud security posture.'}
+        <div style="margin-top: 12px;">
+          <a href="https://oakivo.com/schedule" class="btn-action" style="color:#070a0f !important;">${isFr ? 'Réserver une Session' : 'Schedule 30-Min Audit'}</a>
+        </div>
+      </div>
+
+      <p style="font-size: 12px; color: #94a3b8; margin: 20px 0 0 0;">
+        ${isFr 
+          ? 'Vous pouvez modifier vos préférences ou vous désabonner à tout moment d’un simple clic.' 
+          : 'You can modify your subscription preferences or unsubscribe at any time with a single click.'}
+      </p>
+    </div>
+    <div class="footer">
+      <div><strong>Oakivo Solutions Inc.</strong> • Dieppe, New Brunswick (Atlantic Canada)</div>
+      <div style="margin-top: 4px; font-size: 11px; color: #475569;">Enterprise DevSecOps • Cloud Infrastructure Security • Compliance Automation</div>
+    </div>
+  </div>
+</body>
+</html>
+      `.trim();
+    } else if (type === 'applicant') {
+      subject = isFr
+        ? 'Candidature Reçue : Ingénierie & Architecture chez Oakivo Solutions'
+        : 'Application Received: Engineering & Architecture at Oakivo Solutions';
+
+      text = `
+${isFr ? 'Bonjour' : 'Hello'} ${cleanName},
+
+${isFr 
+  ? 'Nous accusons bonne réception de votre candidature pour rejoindre l’équipe technique d’Oakivo Solutions Inc.' 
+  : 'Thank you for your application to join the engineering team at Oakivo Solutions Inc.'}
+
+${isFr 
+  ? 'Notre équipe de recrutement technique à Dieppe (Nouveau-Brunswick) examine attentivement chaque dossier.' 
+  : 'Our technical hiring team in Dieppe, New Brunswick carefully reviews every engineering submission.'}
+
+${isFr ? 'Prochaines étapes :' : 'Next Steps:'}
+- ${isFr ? 'Évaluation technique de votre profil sous 3 à 5 jours ouvrables' : 'Technical review of your experience within 3-5 business days'}
+- ${isFr ? 'Prise de contact pour un entretien préliminaire si votre profil correspond à nos besoins' : 'Outreach for a preliminary architectural dialogue if there is an alignment'}
+
+${isFr ? 'Cordialement,' : 'Best regards,'}
+${isFr ? 'L’Équipe Talent & Ingénierie' : 'Talent & Engineering Leadership'}
+Oakivo Solutions Inc. • Dieppe, New Brunswick
+https://oakivo.com/careers
+      `.trim();
+
+      html = `
+<!DOCTYPE html>
+<html lang="${isFr ? 'fr' : 'en'}">
+<head>
+  <meta charset="utf-8">
+  <title>${escapeHtml(subject)}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f8fafc; margin: 0; padding: 24px; }
+    .wrapper { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; }
+    .header { background: #070a0f; color: #ffffff; padding: 28px 32px; border-bottom: 2px solid #06b6d4; }
+    .title { margin: 0; font-size: 20px; font-weight: 700; color: #ffffff; }
+    .body { padding: 28px 32px; font-size: 14px; color: #334155; }
+    .footer { background: #070a0f; border-top: 1px solid #1e293b; padding: 18px 32px; font-size: 11px; color: #64748b; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div style="color:#06b6d4; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">${isFr ? 'Candidature Reçue' : 'Application Received'}</div>
+      <h1 class="title">Oakivo Solutions Careers</h1>
+    </div>
+    <div class="body">
+      <p><strong>${isFr ? 'Bonjour' : 'Hello'} ${safeName},</strong></p>
+      <p>${isFr 
+        ? 'Nous avons bien reçu votre candidature et vos informations professionnelles. Nos responsables en architecture cloud et DevSecOps analysent votre parcours avec grand intérêt.' 
+        : 'We have received your application and technical credentials. Our cloud architecture and DevSecOps practice leads are reviewing your profile.'}</p>
+      <p>${isFr 
+        ? 'Si vos compétences correspondent à nos mandats en cours, notre équipe prendra contact avec vous d’ici 3 à 5 jours ouvrables.' 
+        : 'If your profile aligns with our active production mandates, our talent team will reach out directly within 3-5 business days.'}</p>
+    </div>
+    <div class="footer">
+      <div><strong>Oakivo Solutions Inc.</strong> • Dieppe, NB • Careers Team</div>
+    </div>
+  </div>
+</body>
+</html>
+      `.trim();
+    } else {
+      // Default: Contact / Lead / Inquiry / Risk Assessment Receipt
+      subject = isFr
+        ? `Demande Reçue : Évaluation d'Architecture Cloud Oakivo (${safeCompany || 'Consultation'})`
+        : `Inquiry Received: Oakivo Cloud Security & Architecture Advisory (${safeCompany || 'Consultation'})`;
+
+      text = `
+${isFr ? 'Bonjour' : 'Hello'} ${cleanName},
+
+${isFr 
+  ? 'Nous vous remercions pour votre prise de contact avec Oakivo Solutions Inc.' 
+  : 'Thank you for reaching out to Oakivo Solutions Inc.'}
+
+${isFr 
+  ? 'Votre demande a été transmise directement à notre équipe d’architectes principaux DevSecOps et sécurité cloud.' 
+  : 'Your request has been routed directly to our Principal Cloud Security & DevSecOps Architecture team.'}
+
+${isFr ? 'Notre engagement de réponse :' : 'Our Response Commitment:'}
+- ${isFr ? 'Un architecte senior examinera vos informations sous 4 heures ouvrables.' : 'A senior architect will review your parameters within 4 business hours.'}
+- ${isFr ? 'Vous recevrez une analyse préliminaire ou une invitation pour un échange technique approfondi.' : 'You will receive an initial diagnostic response or an invitation to a direct technical discussion.'}
+
+${isFr ? 'Détails soumis :' : 'Submitted Information:'}
+------------------
+${isFr ? 'Nom :' : 'Name:'} ${cleanName}
+${safeCompany ? `${isFr ? 'Entreprise :' : 'Company:'} ${safeCompany}\n` : ''}${isFr ? 'Courriel :' : 'Email:'} ${recipientEmail}
+
+${isFr ? 'Pour toute urgence de sécurité opérationnelle, vous pouvez nous écrire directement à hello@oakivo.com.' : 'For urgent security reviews, you can email our leadership desk directly at hello@oakivo.com.'}
+
+${isFr ? 'Cordialement,' : 'Best regards,'}
+${isFr ? 'L’Équipe d’Architecture Principale' : 'Principal Security Architecture Desk'}
+Oakivo Solutions Inc. • Dieppe, New Brunswick
+https://oakivo.com
+      `.trim();
+
+      html = `
+<!DOCTYPE html>
+<html lang="${isFr ? 'fr' : 'en'}">
+<head>
+  <meta charset="utf-8">
+  <title>${escapeHtml(subject)}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f8fafc; margin: 0; padding: 24px; }
+    .wrapper { max-width: 620px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+    .header { background: #070a0f; color: #ffffff; padding: 28px 34px; border-bottom: 2px solid #06b6d4; }
+    .pill { display: inline-block; background: rgba(6,182,212,0.15); color: #06b6d4; font-family: monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 8px; }
+    .title { margin: 0; font-size: 20px; font-weight: 700; color: #ffffff; }
+    .body { padding: 30px 34px; font-size: 14px; color: #334155; }
+    .info-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 20px; margin: 20px 0; font-size: 13px; }
+    .footer { background: #070a0f; border-top: 1px solid #1e293b; padding: 20px 34px; font-size: 11px; color: #64748b; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div class="pill">${isFr ? 'Demande Reçue' : 'Inquiry Confirmed'}</div>
+      <h1 class="title">Oakivo Solutions Advisory Desk</h1>
+    </div>
+    <div class="body">
+      <p><strong>${isFr ? 'Bonjour' : 'Hello'} ${safeName},</strong></p>
+      <p>${isFr 
+        ? 'Merci d’avoir contacté Oakivo Solutions. Votre demande a été assignée à notre équipe d’architecture DevSecOps.' 
+        : 'Thank you for reaching out to Oakivo Solutions. Your consultation request has been assigned to our senior cloud security architecture desk.'}</p>
+      
+      <div class="info-box">
+        <strong>${isFr ? 'Délai de Réponse :' : 'Response Commitment:'}</strong> ${isFr ? 'Moins de 4 heures ouvrables.' : 'Under 4 business hours.'}<br>
+        <strong>${isFr ? 'Assignation :' : 'Assignment:'}</strong> Dieppe, NB Architecture Team<br>
+        ${safeCompany ? `<strong>${isFr ? 'Organisation :' : 'Organization:'}</strong> ${safeCompany}` : ''}
+      </div>
+
+      <p style="font-size: 13px; color: #64748b;">
+        ${isFr 
+          ? 'Besoin d’ajouter des informations ou de modifier votre demande ? Répondez simplement à ce courriel ou contactez-nous à hello@oakivo.com.' 
+          : 'Need to supply additional architectural schematics or update your timeline? Simply reply directly to this email or reach us at hello@oakivo.com.'}
+      </p>
+    </div>
+    <div class="footer">
+      <div><strong>Oakivo Solutions Inc.</strong> • Dieppe, New Brunswick (Atlantic Canada)</div>
+      <div style="margin-top: 4px; font-size: 11px; color: #475569;">Enterprise DevSecOps • Cloud Infrastructure Security • Compliance Automation</div>
+    </div>
+  </div>
+</body>
+</html>
+      `.trim();
+    }
+
+    const resend = getResendClient();
+    if (resend) {
+      const configuredFrom = process.env.RESEND_FROM || process.env.EMAIL_FROM || 'Oakivo Security <hello@oakivo.com>';
+      try {
+        console.log(`[CLIENT_AUTOREPLY] Dispatching ${type} auto-reply to ${recipientEmail}...`);
+        
+        let response = await resend.emails.send({
+          from: configuredFrom,
+          to: recipientEmail,
+          subject: subject,
+          html: html,
+          text: text,
+          replyTo: 'hello@oakivo.com',
+        });
+
+        // Resend Sandbox limitation handling for external recipients
+        if (response.error && (
+          response.error.name === 'validation_error' ||
+          response.error.message?.toLowerCase().includes('testing emails') ||
+          response.error.message?.toLowerCase().includes('domain') ||
+          response.error.message?.toLowerCase().includes('verify')
+        )) {
+          console.warn(`[CLIENT_AUTOREPLY] Resend is in Testing Mode (Domain oakivo.com unverified). Mirroring auto-reply to olabel@gmail.com...`);
+          const sandboxRes = await resend.emails.send({
+            from: 'Oakivo Security <onboarding@resend.dev>',
+            to: 'olabel@gmail.com',
+            subject: `[Auto-Reply Sandbox Preview - ${type.toUpperCase()}] ${subject} (For: ${recipientName ? `${safeName} <${recipientEmail}>` : recipientEmail})`,
+            html: html,
+            text: text,
+            replyTo: recipientEmail,
+          });
+
+          const logItem = recordEmailAuditLog({
+            type: `client_${type}` as any,
+            recipient: `${recipientEmail} (Mirrored to olabel@gmail.com)`,
+            sender: 'Oakivo Security <onboarding@resend.dev>',
+            subject: subject,
+            provider: 'resend',
+            status: 'sandbox_mode',
+            resendMessageId: sandboxRes.data?.id,
+            error: 'In Resend Testing Mode, client auto-reply was mirrored to olabel@gmail.com. Complete DNS verification on resend.com/domains to deliver to external inboxes.',
+            metadata: {
+              type,
+              recipientEmail,
+              recipientName,
+              recipientCompany,
+            }
+          });
+
+          return {
+            success: true,
+            provider: 'resend',
+            status: 'sandbox_mode',
+            id: sandboxRes.data?.id,
+            recipient: recipientEmail,
+            logId: logItem.id,
+          };
+        }
+
+        if (response.data && response.data.id) {
+          console.log(`[CLIENT_AUTOREPLY] Dispatched successfully to ${recipientEmail}! ID: ${response.data.id}`);
+          const logItem = recordEmailAuditLog({
+            type: `client_${type}` as any,
+            recipient: recipientEmail,
+            sender: configuredFrom,
+            subject: subject,
+            provider: 'resend',
+            status: 'delivered',
+            resendMessageId: response.data.id,
+            metadata: {
+              type,
+              recipientEmail,
+              recipientName,
+              recipientCompany,
+            }
+          });
+
+          return {
+            success: true,
+            provider: 'resend',
+            status: 'delivered',
+            id: response.data.id,
+            recipient: recipientEmail,
+            logId: logItem.id,
+          };
+        }
+      } catch (err: any) {
+        console.error('[CLIENT_AUTOREPLY] Failure sending client auto-reply:', err);
+        recordEmailAuditLog({
+          type: `client_${type}` as any,
+          recipient: recipientEmail,
+          sender: configuredFrom,
+          subject: subject,
+          provider: 'resend',
+          status: 'failed',
+          error: err?.message || 'Failed to dispatch client auto-reply',
+        });
+      }
+    }
+
+    // Fallback simulation log
+    const logItem = recordEmailAuditLog({
+      type: `client_${type}` as any,
+      recipient: recipientEmail,
+      sender: 'preview_system',
+      subject: subject,
+      provider: 'preview_audit_log',
+      status: 'delivered',
+      metadata: { recipientName, recipientEmail, type }
+    });
+    return { success: true, provider: 'preview_audit_log', recipient: recipientEmail, logId: logItem.id };
+  };
+
   // Activity Logging Middleware for Form Submissions
   const logFormSubmission = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const ip = req.ip || req.socket.remoteAddress || 'unknown';
@@ -956,14 +1348,35 @@ Timestamp: ${new Date().toISOString()}
 
       const delivery = await sendThirdPartyEmail({
         type: emailCategory as any,
-        subject: `[Oakivo Notification] New ${submissionType} Received (${data?.company || data?.name || 'Inquiry'})`,
+        subject: `[Oakivo Notification] New ${submissionType} Received (${data?.company || data?.name || data?.email || 'Inquiry'})`,
         text: textContent,
         html: htmlContent,
         replyTo: replyAddress ? String(replyAddress) : undefined,
         metadata: data,
       });
 
-      res.json({ success: true, delivery });
+      // Automated Client Auto-Reply Email Dispatch
+      let clientDelivery: any = null;
+      const targetClientEmail = data?.email || data?.workEmail || data?.clientEmail;
+      
+      if (targetClientEmail && typeof targetClientEmail === 'string' && targetClientEmail.includes('@')) {
+        const clientEmailType = submissionType.includes('SUBSCRIBER')
+          ? 'subscriber'
+          : submissionType.includes('APPLICANT') || submissionType.includes('CAREER')
+          ? 'applicant'
+          : 'lead';
+
+        clientDelivery = await sendClientFormAutoReplyEmail({
+          type: clientEmailType,
+          recipientEmail: targetClientEmail.trim().toLowerCase(),
+          recipientName: data?.name || data?.fullName,
+          recipientCompany: data?.company,
+          language: data?.language || 'en',
+          details: data,
+        });
+      }
+
+      res.json({ success: true, delivery, clientDelivery });
     } catch (error) {
       console.error('API processing error in notify-form:', error);
       res.status(500).json({ error: 'Failed to process notification request.' });

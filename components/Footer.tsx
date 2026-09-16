@@ -23,8 +23,14 @@ const Footer: React.FC = () => {
                         {t('footer.brand_desc')}
                     </p>
                     <div className="pt-4">
-                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100 mb-4">Offices</h4>
-                        <p className="text-sm text-slate-400 font-light">Dieppe, NB (HQ) • Halifax, NS • Charlottetown, PEI • St. John's, NL</p>
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100 mb-4">
+                            {language === 'fr' ? 'Bureaux' : 'Offices'}
+                        </h4>
+                        <p className="text-sm text-slate-400 font-light">
+                            {language === 'fr' 
+                              ? 'Dieppe, N.-B. (Siège) • Halifax, N.-É. • Charlottetown, Î.-P.-É. • St. John\'s, T.-N.-L.'
+                              : 'Dieppe, NB (HQ) • Halifax, NS • Charlottetown, PEI • St. John\'s, NL'}
+                        </p>
                     </div>
                 </div>
                 
@@ -33,10 +39,26 @@ const Footer: React.FC = () => {
                     <div className="space-y-6">
                         <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100">{t('footer.solutions_header')}</h4>
                         <ul className="space-y-4">
-                            <li><Link to={NavRoute.SERVICES} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Cloud Security (CSPM)</Link></li>
-                            <li><Link to={NavRoute.SERVICES} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">DevSecOps Pipelines</Link></li>
-                            <li><Link to={NavRoute.SERVICES} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Zero Trust IAM</Link></li>
-                            <li><Link to={NavRoute.SERVICES} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">SRE Threat Remediation</Link></li>
+                            <li>
+                              <Link to={NavRoute.SERVICES} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Sécurité Infonuagique (CSPM)' : 'Cloud Security (CSPM)'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.SERVICES} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Pipelines DevSecOps' : 'DevSecOps Pipelines'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.SERVICES} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'IAM Zéro Confiance' : 'Zero Trust IAM'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.SERVICES} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Remédiation de Menaces SRE' : 'SRE Threat Remediation'}
+                              </Link>
+                            </li>
                         </ul>
                     </div>
 
@@ -44,10 +66,26 @@ const Footer: React.FC = () => {
                     <div className="space-y-6">
                         <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100">{t('nav.industries')}</h4>
                         <ul className="space-y-4">
-                            <li><Link to={NavRoute.VERTICALS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Logistics & Supply Chain</Link></li>
-                            <li><Link to={NavRoute.VERTICALS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Healthcare & MedTech</Link></li>
-                            <li><Link to={NavRoute.VERTICALS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Retail & E-Commerce</Link></li>
-                            <li><Link to={NavRoute.VERTICALS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Financial Services</Link></li>
+                            <li>
+                              <Link to={NavRoute.VERTICALS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Logistique & Chaîne d\'approv.' : 'Logistics & Supply Chain'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.VERTICALS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Santé & MedTech' : 'Healthcare & MedTech'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.VERTICALS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Commerce & E-Commerce' : 'Retail & E-Commerce'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.VERTICALS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Services Financiers' : 'Financial Services'}
+                              </Link>
+                            </li>
                         </ul>
                     </div>
 
@@ -55,10 +93,26 @@ const Footer: React.FC = () => {
                     <div className="space-y-6">
                         <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100">{t('nav.firm')}</h4>
                         <ul className="space-y-4">
-                            <li><Link to={NavRoute.ABOUT} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">About Oakivo</Link></li>
-                            <li><Link to={NavRoute.CAREERS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Careers</Link></li>
-                            <li><Link to={NavRoute.METHODOLOGY} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Engineering Methodology</Link></li>
-                            <li><Link to={NavRoute.CONTACT} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Contact Us</Link></li>
+                            <li>
+                              <Link to={NavRoute.ABOUT} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'À propos d\'Oakivo' : 'About Oakivo'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.CAREERS} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Carrières' : 'Careers'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.METHODOLOGY} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Méthodologie d\'Ingénierie' : 'Engineering Methodology'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={NavRoute.CONTACT} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Contactez-nous' : 'Contact Us'}
+                              </Link>
+                            </li>
                         </ul>
                     </div>
 
@@ -67,14 +121,36 @@ const Footer: React.FC = () => {
                           {language === 'fr' ? 'Ressources & Conformité' : 'Resources & Compliance'}
                         </h4>
                         <ul className="space-y-4">
-                            <li><Link to="/compliance-matrix" className="text-sm text-cyan-400 font-medium hover:text-cyan-300 transition-colors">Compliance Matrix</Link></li>
-                            <li><Link to="/compliance/bill-c26" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Bill C-26 (CCSPA) Roadmap</Link></li>
-                            <li><Link to="/compliance/pipeda" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">PIPEDA &amp; Law 25 Cloud</Link></li>
-                            <li><Link to="/compliance/soc2" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">SOC 2 Type II Checklist</Link></li>
-                            <li><Link to="/insights" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Security Insights</Link></li>
-                            <li><Link to="/risk-calculator" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Risk Calculator</Link></li>
-                            <li><a href="/sitemap.xml" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">XML Sitemap</a></li>
-                            <li><a href="/rss.xml" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">RSS Feed</a></li>
+                            <li>
+                              <Link to="/compliance-matrix" className="text-sm text-cyan-400 font-medium hover:text-cyan-300 transition-colors">
+                                {language === 'fr' ? 'Matrice de Conformité' : 'Compliance Matrix'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/compliance/bill-c26" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Feuille de route Loi C-26 (LSPCY)' : 'Bill C-26 (CCSPA) Roadmap'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/compliance/pipeda" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Infonuagique LPRPDE & Loi 25' : 'PIPEDA & Law 25 Cloud'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/compliance/soc2" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Liste de contrôle SOC 2 Type II' : 'SOC 2 Type II Checklist'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/insights" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Perspectives de Sécurité' : 'Security Insights'}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/risk-calculator" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                                {language === 'fr' ? 'Calculateur de Risque' : 'Risk Calculator'}
+                              </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -87,8 +163,12 @@ const Footer: React.FC = () => {
                         {t('footer.copyright')}
                     </p>
                     <div className="flex gap-6 text-xs text-slate-500 font-light">
-                        <Link to={NavRoute.PRIVACY} className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
-                        <Link to={NavRoute.COMPLIANCE} className="hover:text-slate-300 transition-colors">Security & Compliance</Link>
+                        <Link to={NavRoute.PRIVACY} className="hover:text-slate-300 transition-colors">
+                          {language === 'fr' ? 'Politique de Confidentialité' : 'Privacy Policy'}
+                        </Link>
+                        <Link to={NavRoute.COMPLIANCE} className="hover:text-slate-300 transition-colors">
+                          {language === 'fr' ? 'Sécurité & Conformité' : 'Security & Compliance'}
+                        </Link>
                     </div>
                 </div>
                 
