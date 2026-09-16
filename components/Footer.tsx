@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { Mail, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <footer id="contact" className="bg-slate-950 pt-20 pb-12 px-6 border-t border-slate-900/50">
@@ -63,13 +63,17 @@ const Footer: React.FC = () => {
                     </div>
 
                     <div className="space-y-6">
-                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100">Resources</h4>
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-100">
+                          {language === 'fr' ? 'Ressources & Conformité' : 'Resources & Compliance'}
+                        </h4>
                         <ul className="space-y-4">
+                            <li><Link to="/compliance-matrix" className="text-sm text-cyan-400 font-medium hover:text-cyan-300 transition-colors">Compliance Matrix</Link></li>
+                            <li><Link to="/compliance/bill-c26" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Bill C-26 (CCSPA) Roadmap</Link></li>
+                            <li><Link to="/compliance/pipeda" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">PIPEDA &amp; Law 25 Cloud</Link></li>
+                            <li><Link to="/compliance/soc2" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">SOC 2 Type II Checklist</Link></li>
                             <li><Link to="/insights" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Security Insights</Link></li>
                             <li><Link to="/risk-calculator" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Risk Calculator</Link></li>
-                            <li><Link to="/#solutions-in-action" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Solutions in Action</Link></li>
-                            <li><Link to="/client-portal" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Client Portal</Link></li>
-                            <li><Link to={NavRoute.COMPLIANCE} className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Security Glossary</Link></li>
+                            <li><a href="/sitemap.xml" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">XML Sitemap</a></li>
                             <li><a href="/rss.xml" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">RSS Feed</a></li>
                         </ul>
                     </div>

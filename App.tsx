@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { HelmetProvider } from "react-helmet-async";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from './components/Navbar';
@@ -29,6 +29,7 @@ const Insights = lazy(() => import('./pages/Insights'));
 const InsightDetail = lazy(() => import('./pages/InsightDetail'));
 const RiskCalculator = lazy(() => import('./pages/RiskCalculator'));
 const ComplianceSEO = lazy(() => import('./pages/ComplianceSEO'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
 import { analytics } from './utils/analytics';
@@ -50,7 +51,21 @@ const RouteLoadingFallback: React.FC = () => (
 // Scroll to top and track analytics, with smooth hash anchor support
 const ScrollToTopAndTrack = () => {
   const { pathname, hash } = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
+    // Check if user was redirected through static 404 fallback
+    try {
+      const spaRedirect = sessionStorage.getItem('spa_redirect');
+      if (spaRedirect && spaRedirect !== pathname) {
+        sessionStorage.removeItem('spa_redirect');
+        navigate(spaRedirect, { replace: true });
+        return;
+      }
+    } catch {
+      // Storage access disabled or sandboxed
+    }
+
     if (hash) {
       setTimeout(() => {
         try {
@@ -68,7 +83,7 @@ const ScrollToTopAndTrack = () => {
       window.scrollTo(0, 0);
     }
     analytics.trackPageView(pathname);
-  }, [pathname, hash]);
+  }, [pathname, hash, navigate]);
   return null;
 };
 
@@ -91,11 +106,17 @@ const AppLayout = () => {
             <Route path={NavRoute.HOME} element={<Home />} />
             <Route path={NavRoute.SERVICES} element={<Expertise />} />
             <Route path={NavRoute.CAPABILITIES} element={<Expertise />} />
+            <Route path="/services" element={<Expertise />} />
+            <Route path="/capabilities" element={<Expertise />} />
+            <Route path="/expertise" element={<Expertise />} />
             <Route path={NavRoute.CASE_STUDIES} element={<CaseStudies />} />
             <Route path="/casestudies" element={<CaseStudies />} />
             <Route path="/work" element={<CaseStudies />} />
             <Route path={NavRoute.CONTACT} element={<Contact />} />
             <Route path={NavRoute.BOOKING} element={<Booking />} />
+            <Route path="/schedule" element={<Booking />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/audit" element={<Booking />} />
             <Route path={NavRoute.METHODOLOGY} element={<Methodology />} />
             <Route path={NavRoute.CAREERS} element={<Careers />} />
             <Route path={NavRoute.ABOUT} element={<About />} />
@@ -105,6 +126,9 @@ const AppLayout = () => {
             <Route path={NavRoute.ADMIN_PORTAL} element={<AdminPortal />} />
             <Route path={NavRoute.PRIVACY} element={<Privacy />} />
             <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
+            <Route path="/compliance" element={<ComplianceMatrix />} />
+            <Route path="/compliance-matrix" element={<ComplianceMatrix />} />
+            <Route path="/matrix" element={<ComplianceMatrix />} />
             <Route path={NavRoute.BRAND_IDENTITY} element={<BrandShowcase />} />
             <Route path={NavRoute.CLIENT_DEMO} element={<ClientPortalDemo />} />
             <Route path="/client-portal" element={<ClientPortal />} />
@@ -116,7 +140,8 @@ const AppLayout = () => {
             <Route path="/locations/:slug" element={<LocationDetail />} />
             <Route path="/compliance/:slug" element={<ComplianceSEO />} />
             <Route path="/risk-calculator" element={<RiskCalculator />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>

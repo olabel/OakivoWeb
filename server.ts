@@ -1175,7 +1175,7 @@ Timestamp: ${new Date().toISOString()}
   });
 
   // Automated XML Sitemap Generator & RSS Syndication
-  app.get('/rss.xml', (req, res) => {
+  app.get(['/rss.xml', '/feed.xml'], (req, res) => {
     const siteUrl = 'https://www.oakivo.com';
     
     let rssItems = '';

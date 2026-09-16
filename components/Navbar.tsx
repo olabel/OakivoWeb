@@ -52,6 +52,7 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: t('nav.capabilities'), path: NavRoute.CAPABILITIES },
+    { name: t('nav.compliance'), path: '/compliance-matrix' },
     { name: t('nav.industries'), path: NavRoute.INDUSTRIES },
     { name: t('nav.insights'), path: NavRoute.METHODOLOGY },
     { name: t('nav.research'), path: NavRoute.INSIGHTS },

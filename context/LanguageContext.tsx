@@ -31,6 +31,8 @@ export const translations: Record<Language, Record<string, any>> = {
       soc2: "SOC 2 Type II Certified",
       iso27001: "ISO 27001 Compliant",
       pipeda: "PIPEDA Data Residency",
+      bill_c26: "Bill C-26 (CCSPA) Ready",
+      law25: "Law 25 (Quebec) Aligned",
       aws: "AWS Advanced Partner",
       k8s: "Kubernetes Certified (KCSP)",
       terraform: "HashiCorp Terraform Certified"
@@ -588,6 +590,28 @@ export const translations: Record<Language, Record<string, any>> = {
       odoo_f2: "Seamless data migration from legacy accounting and CRM systems",
       odoo_f3: "Automated inventory, sales, and HR workflows",
       odoo_f4: "Built-in security hardening for enterprise data protection"
+    },
+    not_found: {
+      badge: "HTTP 404 • Boundary Limit",
+      title: "Perimeter Boundary Exceeded",
+      subtitle: "The requested route or telemetry asset does not exist or has been relocated to an isolated enclave.",
+      cta_home: "Return to Safe Harbor (Home)",
+      cta_services: "Explore DevSecOps Capabilities",
+      cta_compliance: "Canadian Compliance Hub",
+      cta_audit: "Schedule Security Architecture Audit"
+    },
+    compliance_hub: {
+      badge: "Canadian Regulatory Architecture",
+      title: "Canadian Compliance Frameworks & Cloud Sovereignty",
+      subtitle: "Deterministic, policy-driven security architectures engineered specifically for Canadian federally regulated sectors and provincial privacy mandates.",
+      cta_schedule: "Schedule Architecture Review",
+      cta_audit: "Request Audit Checklist",
+      bill_c26_title: "Bill C-26 (CCSPA) Critical Cyber Systems",
+      bill_c26_desc: "Mandatory cyber security programs, CSE incident reporting pipelines, and high-risk vendor mitigation for Canadian critical infrastructure.",
+      pipeda_title: "PIPEDA & Law 25 Canadian Data Residency",
+      pipeda_desc: "Strict domestic sovereign data residency (AWS ca-central-1, Azure Canada), Customer Managed Keys (CMK), and cross-border risk isolation.",
+      soc2_title: "SOC 2 Type II Continuous Audit Automation",
+      soc2_desc: "Automated Policy-as-Code evidence collection, GitOps compliance gates, and zero-panic audit readiness for Canadian SaaS enterprises."
     }
   },
   fr: {
@@ -610,6 +634,8 @@ export const translations: Record<Language, Record<string, any>> = {
       soc2: "Certifié SOC 2 Type II",
       iso27001: "Conforme ISO 27001",
       pipeda: "Résidence des Données LPRPDE",
+      bill_c26: "Conforme Loi C-26 (LSPCY)",
+      law25: "Conforme Loi 25 (Québec)",
       aws: "Partenaire Avancé AWS",
       k8s: "Certifié Kubernetes (KCSP)",
       terraform: "Certifié HashiCorp Terraform"
@@ -1167,6 +1193,28 @@ export const translations: Record<Language, Record<string, any>> = {
       odoo_f2: "Migration transparente des données depuis les anciens systèmes CRM et comptables",
       odoo_f3: "Automatisation des flux de travail des stocks, des ventes et des RH",
       odoo_f4: "Renforcement de la sécurité intégrée pour la protection des données d'entreprise"
+    },
+    not_found: {
+      badge: "HTTP 404 • Limite de Périmètre",
+      title: "Périmètre Dépassé • Page Introuvable",
+      subtitle: "La ressource ou télémétrie demandée n'existe pas ou a été déplacée vers une enclave sécurisée isolée.",
+      cta_home: "Retour au Port Sécurisé (Accueil)",
+      cta_services: "Explorer Nos Capacités DevSecOps",
+      cta_compliance: "Matrice de Conformité Canadienne",
+      cta_audit: "Planifier l'Audit d'Architecture"
+    },
+    compliance_hub: {
+      badge: "Architecture Réglementaire Canadienne",
+      title: "Cadres de Conformité Canadiens & Souveraineté Infonuagique",
+      subtitle: "Architectures de sécurité déterministes basées sur des politiques de code, conçues spécifiquement pour les secteurs sous réglementation fédérale et les lois provinciales sur la vie privée.",
+      cta_schedule: "Planifier une Révision d'Architecture",
+      cta_audit: "Demander la Liste de Contrôle",
+      bill_c26_title: "Loi C-26 (LSPCY) Cybersystèmes Essentiels",
+      bill_c26_desc: "Programmes de cybersécurité obligatoires, signalement immédiat des incidents au CST et atténuation des risques liés aux tiers pour l'infrastructure essentielle.",
+      pipeda_title: "LPRPDE & Loi 25 Résidence des Données Canadiennes",
+      pipeda_desc: "Résidence stricte en sol canadien (AWS ca-central-1, Azure Canada), clés gérées par le client (CMK) et élimination des risques transfrontaliers.",
+      soc2_title: "SOC 2 Type II Automatisation Continue d'Audit",
+      soc2_desc: "Collecte automatisée de preuves par politique-en-code, barrières GitOps et préparation d'audit 24/7 sans panique pour les entreprises technologiques canadiennes."
     }
   }
 };
