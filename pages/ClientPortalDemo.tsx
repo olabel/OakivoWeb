@@ -30,6 +30,7 @@ import {
   ComposedChart, Line, Legend,
   ScatterChart, Scatter, ZAxis, Cell
 } from 'recharts';
+import { useLanguage } from '../context/LanguageContext';
 
 import InteractivePlayground from '../components/InteractivePlayground';
 
@@ -54,15 +55,22 @@ const complianceData = [
   { subject: 'Incident', A: 95, fullMark: 100 },
 ];
 
-const threatData = [
+const threatDataEn = [
   { type: 'DDoS Attempts', count: 145 },
   { type: 'Bot Scans', count: 890 },
   { type: 'Malicious Payloads', count: 32 },
   { type: 'Unauthorized Auth', count: 12 },
 ];
 
+const threatDataFr = [
+  { type: 'Tentatives DDoS', count: 145 },
+  { type: 'Scans de robots', count: 890 },
+  { type: 'Charges malveillantes', count: 32 },
+  { type: 'Auth non autorisée', count: 12 },
+];
+
 // Vulnerability Burn-Down (SLA)
-const vulnerabilitySlaData = [
+const vulnerabilitySlaDataEn = [
   { day: 'D-14', discovered: 24, remediated: 12 },
   { day: 'D-10', discovered: 18, remediated: 16 },
   { day: 'D-7', discovered: 32, remediated: 28 },
@@ -72,15 +80,32 @@ const vulnerabilitySlaData = [
   { day: 'Today', discovered: 2, remediated: 5 },
 ];
 
+const vulnerabilitySlaDataFr = [
+  { day: 'J-14', discovered: 24, remediated: 12 },
+  { day: 'J-10', discovered: 18, remediated: 16 },
+  { day: 'J-7', discovered: 32, remediated: 28 },
+  { day: 'J-5', discovered: 15, remediated: 22 },
+  { day: 'J-3', discovered: 8, remediated: 15 },
+  { day: 'J-1', discovered: 4, remediated: 8 },
+  { day: "Aujourd'hui", discovered: 2, remediated: 5 },
+];
+
 // Active Global Infrastructure Nodes (Scatter Map Simulation)
-const activeNodes = [
+const activeNodesEn = [
   { name: 'ca-central-1 (Montreal)', x: 30, y: 70, latency: 12, status: 'Healthy' },
   { name: 'us-east-1 (N. Virginia)', x: 40, y: 60, latency: 24, status: 'Healthy' },
   { name: 'eu-west-1 (Ireland)', x: 75, y: 65, latency: 85, status: 'Healthy' },
   { name: 'ap-northeast-1 (Tokyo)', x: 140, y: 50, latency: 140, status: 'Warning' },
 ];
 
-const rawTerminalStrings = [
+const activeNodesFr = [
+  { name: 'ca-central-1 (Montréal)', x: 30, y: 70, latency: 12, status: 'Sain' },
+  { name: 'us-east-1 (Virginie du Nord)', x: 40, y: 60, latency: 24, status: 'Sain' },
+  { name: 'eu-west-1 (Irlande)', x: 75, y: 65, latency: 85, status: 'Sain' },
+  { name: 'ap-northeast-1 (Tokyo)', x: 140, y: 50, latency: 140, status: 'Dégradé' },
+];
+
+const rawTerminalStringsEn = [
   '[SYSTEM] Initializing Zero-Trust runtime enforcement...',
   '[AUTH] Validating service-mesh mTLS certificates...',
   '[SUCCESS] Certificates rotated successfully.',
@@ -93,15 +118,36 @@ const rawTerminalStrings = [
   '[SYSTEM] CPU utilization stabilized at 45%.'
 ];
 
-const mockLogs = [
-  { id: 1, type: 'success', message: 'Kubernetes cluster scaled automatically', time: 'Just now' },
-  { id: 2, type: 'info', message: 'Dependabot PR merged (High Severity patched)', time: '2m ago' },
-  { id: 3, type: 'warning', message: 'Rate limit triggered on API Gateway', time: '14m ago' },
-  { id: 4, type: 'success', message: 'IAM Roles audited (Zero-Trust verified)', time: '1h ago' },
+const rawTerminalStringsFr = [
+  '[SYSTÈME] Initialisation du moteur d\'exécution Zéro Confiance...',
+  '[AUTH] Validation des certificats mTLS du maillage de services...',
+  '[SUCCÈS] Certificats renouvelés avec succès.',
+  '[SCAN] Analyse de sécurité de l\'image de conteneur gcr.io/acme/api:v4.2...',
+  '[INFO] Aucune CVE critique détectée dans l\'image de base.',
+  '[RÉSEAU] Trafic anormal détecté depuis 192.168.1.45. Déclenchement WAF...',
+  '[AVERT.] Atténuation DDoS activée sur le nœud périphérique (eu-west-1).',
+  '[SUCCÈS] Attaque neutralisée. Retour à la normale du flux réseau.',
+  '[INFO] Autoscaler Kubernetes : pool de nœuds ajusté automatiquement.',
+  '[SYSTÈME] Utilisation processeur stabilisée à 45%.'
 ];
 
 const ClientPortalDemo: React.FC = () => {
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const isFr = language === 'fr';
+
+  const threatData = isFr ? threatDataFr : threatDataEn;
+  const vulnerabilitySlaData = isFr ? vulnerabilitySlaDataFr : vulnerabilitySlaDataEn;
+  const activeNodes = isFr ? activeNodesFr : activeNodesEn;
+  const rawTerminalStrings = isFr ? rawTerminalStringsFr : rawTerminalStringsEn;
+
+  const mockLogs = [
+    { id: 1, type: 'success', message: isFr ? 'Mise à l\'échelle automatique du cluster Kubernetes' : 'Kubernetes cluster scaled automatically', time: isFr ? 'À l\'instant' : 'Just now' },
+    { id: 2, type: 'info', message: isFr ? 'PR Dependabot fusionné (vulnérabilité corrigée)' : 'Dependabot PR merged (High Severity patched)', time: isFr ? 'Il y a 2m' : '2m ago' },
+    { id: 3, type: 'warning', message: isFr ? 'Limite de débit atteinte sur la passerelle API' : 'Rate limit triggered on API Gateway', time: isFr ? 'Il y a 14m' : '14m ago' },
+    { id: 4, type: 'success', message: isFr ? 'Audit des rôles IAM (Zéro Confiance validé)' : 'IAM Roles audited (Zero-Trust verified)', time: isFr ? 'Il y a 1h' : '1h ago' },
+  ];
+
   const [logs, setLogs] = useState(mockLogs);
   const [pulse, setPulse] = useState(false);
   const [terminalLines, setTerminalLines] = useState<string[]>([rawTerminalStrings[0]]);
@@ -116,15 +162,15 @@ const ClientPortalDemo: React.FC = () => {
       const newLog = {
         id: Date.now(),
         type: Math.random() > 0.8 ? 'warning' : 'success',
-        message: 'Automated CI/CD pipeline check passed (Zero Drift)',
-        time: 'Just now'
+        message: isFr ? 'Vérification de pipeline CI/CD automatisée validée (Zéro Dérive)' : 'Automated CI/CD pipeline check passed (Zero Drift)',
+        time: isFr ? 'À l\'instant' : 'Just now'
       };
       
       setLogs(prev => [newLog, ...prev.slice(0, 4)]);
     }, 8000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isFr]);
 
   useEffect(() => {
     // Simulate terminal typing
@@ -136,7 +182,7 @@ const ClientPortalDemo: React.FC = () => {
       } else {
         // Loop it with a fake timestamp
         const time = new Date().toLocaleTimeString();
-        setTerminalLines(prev => [...prev.slice(1), `[INFO] ${time} - Background telemetry sync complete.`]);
+        setTerminalLines(prev => [...prev.slice(1), `[INFO] ${time} - ${isFr ? 'Synchronisation de télémétrie terminée.' : 'Background telemetry sync complete.'}`]);
       }
       
       // Auto-scroll
@@ -146,13 +192,19 @@ const ClientPortalDemo: React.FC = () => {
     }, 3500);
 
     return () => clearInterval(terminalInterval);
-  }, []);
+  }, [rawTerminalStrings, isFr]);
+
+  const dashboardMenu = isFr 
+    ? ['Vue d\'ensemble', 'Conformité (SOC 2)', 'Pipelines CI/CD', 'Menaces Actives', 'FinOps & Coûts']
+    : ['Overview', 'Compliance (SOC 2)', 'Pipelines', 'Active Threats', 'FinOps & Cost'];
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500/30">
       <SEO 
-        title="DevSecOps Portal Demo | Oakivo Atlantic Canada"
-        description="Experience Oakivo's DevSecOps client dashboard. View simulated cloud security compliance scores, vulnerability scans, and process automation in Atlantic Canada."
+        title={isFr ? "Démonstration du Portail DevSecOps | Oakivo Canada atlantique" : "DevSecOps Portal Demo | Oakivo Atlantic Canada"}
+        description={isFr
+          ? "Explorez le tableau de bord client DevSecOps d'Oakivo. Visualisez les scores simulés de conformité cloud, les analyses de vulnérabilité et l'automatisation des processus au Canada atlantique."
+          : "Experience Oakivo's DevSecOps client dashboard. View simulated cloud security compliance scores, vulnerability scans, and process automation in Atlantic Canada."}
         canonical="/clientportaldemo"
       />
 
@@ -160,13 +212,13 @@ const ClientPortalDemo: React.FC = () => {
       <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-xs font-semibold py-2 px-4 flex justify-between items-center sticky top-0 z-50 shadow-lg">
         <div className="flex items-center gap-2">
           <GlobeLock size={14} className="animate-pulse" />
-          <span>Interactive Demo Mode: Read-Only Access</span>
+          <span>{isFr ? "Mode Démonstration Interactive : Accès Lecture Seule" : "Interactive Demo Mode: Read-Only Access"}</span>
         </div>
         <button 
           onClick={() => navigate(NavRoute.HOME)}
-          className="flex items-center gap-1 hover:text-cyan-100 transition-colors"
+          className="flex items-center gap-1 hover:text-cyan-100 transition-colors cursor-pointer"
         >
-          Exit Demo <LogOut size={14} />
+          {isFr ? "Quitter la Démo" : "Exit Demo"} <LogOut size={14} />
         </button>
       </div>
 
@@ -180,16 +232,20 @@ const ClientPortalDemo: React.FC = () => {
             </div>
             <div>
               <div className="font-bold text-slate-100 tracking-tight leading-none mb-1">Acme Corp</div>
-              <div className="text-[10px] text-cyan-400 font-mono tracking-wider">PRODUCTION ENV</div>
+              <div className="text-[10px] text-cyan-400 font-mono tracking-wider">
+                {isFr ? "ENVIRONNEMENT PRODUCTION" : "PRODUCTION ENV"}
+              </div>
             </div>
           </div>
 
           <div className="space-y-1 flex-1">
-            <div className="text-xs font-semibold text-slate-500 mb-4 tracking-wider uppercase">Dashboards</div>
-            {['Overview', 'Compliance (SOC 2)', 'Pipelines', 'Active Threats', 'FinOps & Cost'].map((item, i) => (
+            <div className="text-xs font-semibold text-slate-500 mb-4 tracking-wider uppercase">
+              {isFr ? "Tableaux de bord" : "Dashboards"}
+            </div>
+            {dashboardMenu.map((item, i) => (
               <button 
                 key={item} 
-                className={`w-full text-left px-3 py-2.5 rounded-md text-sm transition-colors flex items-center gap-3 ${
+                className={`w-full text-left px-3 py-2.5 rounded-md text-sm transition-colors flex items-center gap-3 cursor-pointer ${
                   i === 0 ? 'bg-cyan-500/10 text-cyan-400 font-medium' : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
                 }`}
               >
@@ -206,9 +262,9 @@ const ClientPortalDemo: React.FC = () => {
           <div className="pt-6 border-t border-slate-800 mt-auto">
             <button 
               onClick={() => navigate(NavRoute.BOOKING)}
-              className="w-full bg-slate-100 hover:bg-white text-slate-900 py-3 rounded-md text-sm font-semibold transition-all flex items-center justify-center gap-2"
+              className="w-full bg-slate-100 hover:bg-white text-slate-900 py-3 rounded-md text-sm font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              Get Your Own Portal
+              {isFr ? "Obtenir Votre Portail Dédié" : "Get Your Own Portal"}
               <ArrowRight size={16} />
             </button>
           </div>
@@ -220,14 +276,24 @@ const ClientPortalDemo: React.FC = () => {
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-white mb-1">Infrastructure Overview</h1>
-              <p className="text-sm text-slate-400">Real-time telemetry and compliance status across all connected clusters.</p>
+              <h1 className="text-2xl font-bold text-white mb-1">
+                {isFr ? "Aperçu de l'Infrastructure" : "Infrastructure Overview"}
+              </h1>
+              <p className="text-sm text-slate-400">
+                {isFr 
+                  ? "Télémétrie en temps réel et statut de conformité pour tous vos clusters connectés."
+                  : "Real-time telemetry and compliance status across all connected clusters."}
+              </p>
             </div>
             
             <div className="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2 rounded-full shadow-inner">
               <div className={`w-2.5 h-2.5 rounded-full ${pulse ? 'bg-cyan-300' : 'bg-emerald-500'}`}></div>
-              <span className="text-sm font-medium text-emerald-400">System Secure</span>
-              <span className="text-xs text-slate-500 border-l border-slate-700 pl-3 ml-1">99.99% Uptime</span>
+              <span className="text-sm font-medium text-emerald-400">
+                {isFr ? "Système Sécurisé" : "System Secure"}
+              </span>
+              <span className="text-xs text-slate-500 border-l border-slate-700 pl-3 ml-1">
+                {isFr ? "99,99 % Disponibilité" : "99.99% Uptime"}
+              </span>
             </div>
           </div>
 
@@ -238,10 +304,10 @@ const ClientPortalDemo: React.FC = () => {
           {/* Metric Cards (Top Row) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6">
             {[
-              { label: 'Overall Security Score', value: '98/100', icon: ShieldCheck, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
-              { label: 'Compliance Readiness', value: '100%', icon: CheckCircle2, color: 'text-cyan-400', bg: 'bg-cyan-400/10' },
-              { label: 'Blocked Threats (24h)', value: '1,067', icon: Lock, color: 'text-indigo-400', bg: 'bg-indigo-400/10' },
-              { label: 'Cloud Resource Health', value: 'Optimal', icon: Cpu, color: 'text-amber-400', bg: 'bg-amber-400/10' },
+              { label: isFr ? 'Score Global de Sécurité' : 'Overall Security Score', value: '98/100', icon: ShieldCheck, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+              { label: isFr ? 'Préparation Conformité' : 'Compliance Readiness', value: '100%', icon: CheckCircle2, color: 'text-cyan-400', bg: 'bg-cyan-400/10' },
+              { label: isFr ? 'Menaces Bloquées (24h)' : 'Blocked Threats (24h)', value: '1,067', icon: Lock, color: 'text-indigo-400', bg: 'bg-indigo-400/10' },
+              { label: isFr ? 'Santé Ressources Cloud' : 'Cloud Resource Health', value: isFr ? 'Optimale' : 'Optimal', icon: Cpu, color: 'text-amber-400', bg: 'bg-amber-400/10' },
             ].map((metric, i) => (
               <div key={i} className="bg-slate-900/80 backdrop-blur-sm border border-slate-800 rounded-xl p-5 shadow-sm hover:border-slate-700 transition-colors">
                 <div className="flex items-center justify-between mb-4">
@@ -262,10 +328,14 @@ const ClientPortalDemo: React.FC = () => {
             <div className="lg:col-span-2 bg-slate-900/80 backdrop-blur-sm border border-slate-800 rounded-xl p-6 shadow-sm">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-lg font-bold text-white">Vulnerability SLA Burn-Down</h3>
-                  <p className="text-xs text-slate-400">Tracking Discovered vs. Remediated CVEs (14 Days)</p>
+                  <h3 className="text-lg font-bold text-white">
+                    {isFr ? "Résolution des Vulnérabilités (SLA Burn-Down)" : "Vulnerability SLA Burn-Down"}
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    {isFr ? "Suivi Détectées vs Corrigées (14 Derniers Jours)" : "Tracking Discovered vs. Remediated CVEs (14 Days)"}
+                  </p>
                 </div>
-                <button className="text-slate-400 hover:text-white transition-colors">
+                <button className="text-slate-400 hover:text-white transition-colors cursor-pointer" aria-label="Refresh">
                   <RefreshCw size={16} />
                 </button>
               </div>
@@ -280,8 +350,8 @@ const ClientPortalDemo: React.FC = () => {
                       itemStyle={{ color: '#06b6d4' }}
                     />
                     <Legend wrapperStyle={{ fontSize: '12px' }} />
-                    <Bar dataKey="discovered" name="Newly Discovered" barSize={20} fill="#6366f1" radius={[4, 4, 0, 0]} />
-                    <Line type="monotone" dataKey="remediated" name="Remediated / Patched" stroke="#10b981" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                    <Bar dataKey="discovered" name={isFr ? "Nouvellement Détectées" : "Newly Discovered"} barSize={20} fill="#6366f1" radius={[4, 4, 0, 0]} />
+                    <Line type="monotone" dataKey="remediated" name={isFr ? "Corrigées / Patchées" : "Remediated / Patched"} stroke="#10b981" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
                   </ComposedChart>
                 </ResponsiveContainer>
               </div>
@@ -291,9 +361,11 @@ const ClientPortalDemo: React.FC = () => {
             <div className="bg-slate-900/80 backdrop-blur-sm border border-slate-800 rounded-xl p-6 shadow-sm flex flex-col">
               <div className="mb-4">
                 <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <Globe size={18} className="text-indigo-400" /> Infrastructure Nodes
+                  <Globe size={18} className="text-indigo-400" /> {isFr ? "Nœuds d'Infrastructure" : "Infrastructure Nodes"}
                 </h3>
-                <p className="text-xs text-slate-400">Global Cluster Health & Latency</p>
+                <p className="text-xs text-slate-400">
+                  {isFr ? "Santé des Clusters & Latence Mondiale" : "Global Cluster Health & Latency"}
+                </p>
               </div>
               
               <div className="flex-1 h-[200px] w-full relative">
@@ -312,8 +384,12 @@ const ClientPortalDemo: React.FC = () => {
                           return (
                             <div className="bg-slate-900 border border-slate-800 p-3 rounded-lg shadow-xl">
                               <p className="text-sm font-bold text-white mb-1">{data.name}</p>
-                              <p className="text-xs text-slate-300">Latency: <span className="text-cyan-400">{data.latency}ms</span></p>
-                              <p className="text-xs text-slate-300">Status: <span className={data.status === 'Healthy' ? 'text-emerald-400' : 'text-amber-400'}>{data.status}</span></p>
+                              <p className="text-xs text-slate-300">
+                                {isFr ? "Latence :" : "Latency:"} <span className="text-cyan-400">{data.latency}ms</span>
+                              </p>
+                              <p className="text-xs text-slate-300">
+                                {isFr ? "Statut :" : "Status:"} <span className={data.status === 'Healthy' || data.status === 'Sain' ? 'text-emerald-400' : 'text-amber-400'}>{data.status}</span>
+                              </p>
                             </div>
                           );
                         }
@@ -322,7 +398,7 @@ const ClientPortalDemo: React.FC = () => {
                     />
                     <Scatter name="Nodes" data={activeNodes} fill="#0ea5e9">
                       {activeNodes.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.status === 'Healthy' ? '#10b981' : '#f59e0b'} />
+                        <Cell key={`cell-${index}`} fill={entry.status === 'Healthy' || entry.status === 'Sain' ? '#10b981' : '#f59e0b'} />
                       ))}
                     </Scatter>
                   </ScatterChart>
@@ -330,8 +406,14 @@ const ClientPortalDemo: React.FC = () => {
               </div>
               
               <div className="mt-4 pt-4 border-t border-slate-800/50 flex justify-between text-xs text-slate-400">
-                <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> Healthy (3)</span>
-                <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-amber-500"></div> Degraded (1)</span>
+                <span className="flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500"></div> 
+                  {isFr ? "Sains (3)" : "Healthy (3)"}
+                </span>
+                <span className="flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full bg-amber-500"></div> 
+                  {isFr ? "Dégradés (1)" : "Degraded (1)"}
+                </span>
               </div>
             </div>
           </div>
@@ -343,7 +425,7 @@ const ClientPortalDemo: React.FC = () => {
             <div className="bg-slate-900/80 backdrop-blur-sm border border-slate-800 rounded-xl p-6 shadow-sm flex flex-col h-[320px]">
               <div className="flex items-center justify-between mb-4 pb-4 border-b border-slate-800/50">
                 <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <Terminal size={18} className="text-cyan-400" /> Runtime Audit Logs
+                  <Terminal size={18} className="text-cyan-400" /> {isFr ? "Journaux d'Audit d'Exécution" : "Runtime Audit Logs"}
                 </h3>
                 <div className="flex gap-2">
                   <div className="w-3 h-3 rounded-full bg-rose-500"></div>
@@ -360,9 +442,9 @@ const ClientPortalDemo: React.FC = () => {
                   <div key={idx} className="mb-2">
                     <span className="text-slate-500 mr-2">{'>'}</span>
                     <span className={
-                      (line || "").includes('[SUCCESS]') ? 'text-emerald-400' :
-                      (line || "").includes('[WARN]') ? 'text-amber-400' :
-                      (line || "").includes('[NET]') ? 'text-rose-400' :
+                      (line || "").includes('[SUCCESS]') || (line || "").includes('[SUCCÈS]') ? 'text-emerald-400' :
+                      (line || "").includes('[WARN]') || (line || "").includes('[AVERT.]') ? 'text-amber-400' :
+                      (line || "").includes('[NET]') || (line || "").includes('[RÉSEAU]') ? 'text-rose-400' :
                       'text-cyan-300'
                     }>{line}</span>
                   </div>
@@ -373,15 +455,19 @@ const ClientPortalDemo: React.FC = () => {
 
             {/* Blocked Threats (Bar Chart) */}
             <div className="bg-slate-900/80 backdrop-blur-sm border border-slate-800 rounded-xl p-6 shadow-sm flex flex-col h-[320px]">
-              <h3 className="text-lg font-bold text-white mb-2">Edge Threat Mitigation</h3>
-              <p className="text-xs text-slate-400 mb-6">WAF interventions over the last 24 hours</p>
+              <h3 className="text-lg font-bold text-white mb-2">
+                {isFr ? "Atténuation des Menaces Périphériques" : "Edge Threat Mitigation"}
+              </h3>
+              <p className="text-xs text-slate-400 mb-6">
+                {isFr ? "Interventions du pare-feu applicatif (WAF) sur les 24 dernières heures" : "WAF interventions over the last 24 hours"}
+              </p>
               
               <div className="flex-1 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={threatData} layout="vertical" margin={{ top: 0, right: 20, left: 20, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#334155" />
                     <XAxis type="number" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis dataKey="type" type="category" stroke="#94a3b8" fontSize={11} width={120} tickLine={false} axisLine={false} />
+                    <YAxis dataKey="type" type="category" stroke="#94a3b8" fontSize={11} width={130} tickLine={false} axisLine={false} />
                     <Tooltip 
                       cursor={{fill: '#1e293b'}}
                       contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '8px' }}
@@ -400,13 +486,21 @@ const ClientPortalDemo: React.FC = () => {
               <ShieldAlert size={200} className="text-cyan-500" />
             </div>
             <div className="relative z-10 max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold text-white mb-3">Want this level of visibility into your own infrastructure?</h2>
-              <p className="text-slate-400 mb-6 font-light">Oakivo builds bespoke DevSecOps pipelines and automated compliance dashboards for Atlantic Canadian enterprises. Stop flying blind.</p>
+              <h2 className="text-2xl font-bold text-white mb-3">
+                {isFr 
+                  ? "Vous souhaitez ce niveau de visibilité sur votre propre infrastructure ?"
+                  : "Want this level of visibility into your own infrastructure?"}
+              </h2>
+              <p className="text-slate-400 mb-6 font-light">
+                {isFr
+                  ? "Oakivo construit des pipelines DevSecOps sur mesure et des tableaux de bord de conformité automatisés pour les entreprises du Canada atlantique. Ne naviguez plus à vue."
+                  : "Oakivo builds bespoke DevSecOps pipelines and automated compliance dashboards for Atlantic Canadian enterprises. Stop flying blind."}
+              </p>
               <button 
                 onClick={() => navigate(NavRoute.BOOKING)}
-                className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-8 py-3 rounded-md font-semibold transition-colors inline-flex items-center gap-2"
+                className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-8 py-3 rounded-md font-semibold transition-colors inline-flex items-center gap-2 cursor-pointer"
               >
-                Book an Architectural Review
+                {isFr ? "Réserver une Révision d'Architecture" : "Book an Architectural Review"}
                 <ArrowRight size={18} />
               </button>
             </div>

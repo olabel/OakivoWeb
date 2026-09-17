@@ -16,6 +16,7 @@ import {
 } from 'recharts';
 import { PageViewEvent } from '../utils/analytics';
 import { Globe, Users, Monitor } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface AdminAnalyticsDashboardProps {
   events: PageViewEvent[];
@@ -24,6 +25,9 @@ interface AdminAnalyticsDashboardProps {
 const COLORS = ['#0ea5e9', '#10b981', '#6366f1', '#f59e0b', '#8b5cf6'];
 
 const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = ({ events }) => {
+  const { language } = useLanguage();
+  const isFr = language === 'fr';
+
   // Aggregate data for Visitor Growth (Line Chart) over the last 7 days (or based on available events)
   const growthDataMap = new Map<string, number>();
   
@@ -31,11 +35,11 @@ const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = ({ event
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    growthDataMap.set(d.toLocaleDateString(), 0);
+    growthDataMap.set(d.toLocaleDateString(isFr ? 'fr-CA' : 'en-CA', { month: 'numeric', day: 'numeric' }), 0);
   }
 
   events.forEach(ev => {
-    const date = new Date(ev.timestamp).toLocaleDateString();
+    const date = new Date(ev.timestamp).toLocaleDateString(isFr ? 'fr-CA' : 'en-CA', { month: 'numeric', day: 'numeric' });
     if (growthDataMap.has(date)) {
       growthDataMap.set(date, (growthDataMap.get(date) || 0) + 1);
     } else {
@@ -44,8 +48,7 @@ const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = ({ event
   });
 
   const growthData = Array.from(growthDataMap.entries())
-    .map(([date, visitors]) => ({ date, visitors }))
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .map(([date, visitors]) => ({ date, visitors }));
 
   // Interaction Patterns - Page Views (Bar Chart)
   const pageMap = new Map<string, number>();
@@ -61,7 +64,11 @@ const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = ({ event
   // Device Data - Pie Chart
   const deviceMap = new Map<string, number>();
   events.forEach(ev => {
-    deviceMap.set(ev.device, (deviceMap.get(ev.device) || 0) + 1);
+    const rawDev = ev.device || 'Desktop';
+    const translatedDev = isFr 
+      ? (rawDev === 'Desktop' ? 'Ordinateur' : rawDev === 'Mobile' ? 'Mobile' : rawDev === 'Tablet' ? 'Tablette' : rawDev)
+      : rawDev;
+    deviceMap.set(translatedDev, (deviceMap.get(translatedDev) || 0) + 1);
   });
 
   const deviceData = Array.from(deviceMap.entries()).map(([name, value]) => ({ name, value }));
@@ -72,7 +79,7 @@ const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = ({ event
       <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
         <div className="flex items-center gap-2 text-oakivo-primary font-serif-display font-bold text-lg mb-6">
           <Users size={20} className="text-cyan-500" />
-          Visitor Growth (Last 7 Days)
+          {isFr ? 'Trajectoire de Croissance des Visiteurs (7 Derniers Jours)' : 'Visitor Growth (Last 7 Days)'}
         </div>
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -94,7 +101,7 @@ const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = ({ event
         <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
           <div className="flex items-center gap-2 text-oakivo-primary font-serif-display font-bold text-lg mb-6">
             <Globe size={20} className="text-emerald-500" />
-            Top Interaction Paths
+            {isFr ? 'Chemins d\'Interaction Principaux' : 'Top Interaction Paths'}
           </div>
           <div className="h-[250px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -116,7 +123,7 @@ const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = ({ event
         <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
           <div className="flex items-center gap-2 text-oakivo-primary font-serif-display font-bold text-lg mb-6">
             <Monitor size={20} className="text-indigo-500" />
-            Visitor Device Telemetry
+            {isFr ? 'Télémétrie des Appareils Visiteurs' : 'Visitor Device Telemetry'}
           </div>
           <div className="h-[250px] w-full">
             <ResponsiveContainer width="100%" height="100%">

@@ -6,6 +6,7 @@ import {
   Server, UserCheck, Inbox
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useLanguage } from '../context/LanguageContext';
 
 export interface EmailAuditLogEntry {
   id: string;
@@ -39,22 +40,25 @@ interface AuditLogResponse {
   };
 }
 
-const formatRelativeTime = (isoString: string): string => {
+const formatRelativeTime = (isoString: string, isFr: boolean): string => {
   try {
     const date = new Date(isoString);
     const now = new Date();
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-    if (diffInSeconds < 60) return 'Just now';
-    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
-    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
-    return date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    if (diffInSeconds < 60) return isFr ? 'À l\'instant' : 'Just now';
+    if (diffInSeconds < 3600) return isFr ? `Il y a ${Math.floor(diffInSeconds / 60)} min` : `${Math.floor(diffInSeconds / 60)}m ago`;
+    if (diffInSeconds < 86400) return isFr ? `Il y a ${Math.floor(diffInSeconds / 3600)} h` : `${Math.floor(diffInSeconds / 3600)}h ago`;
+    return date.toLocaleDateString(isFr ? 'fr-CA' : 'en-CA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   } catch {
     return isoString;
   }
 };
 
 const EmailAuditLogSection: React.FC = () => {
+  const { language } = useLanguage();
+  const isFr = language === 'fr';
+
   const [data, setData] = useState<AuditLogResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isTestingEmail, setIsTestingEmail] = useState(false);
@@ -76,7 +80,7 @@ const EmailAuditLogSection: React.FC = () => {
       }
     } catch (e) {
       console.error('Failed to load email audit logs:', e);
-      toast.error('Failed to load email audit logs.');
+      toast.error(isFr ? 'Impossible de charger le journal des e-mails.' : 'Failed to load email audit logs.');
     } finally {
       setIsLoading(false);
     }
@@ -93,33 +97,33 @@ const EmailAuditLogSection: React.FC = () => {
       const res = await fetch('/api/test-email', { method: 'POST' });
       const json = await res.json();
       if (json.success) {
-        toast.success('Live test email dispatched successfully via Resend API to olabel@gmail.com!');
-        setTestResult(`Delivered via Resend: ID ${json.delivery?.id || 'OK'} to olabel@gmail.com`);
+        toast.success(isFr ? 'E-mail de test envoyé avec succès via l\'API Resend à olabel@gmail.com !' : 'Live test email dispatched successfully via Resend API to olabel@gmail.com!');
+        setTestResult(isFr ? `Envoyé via Resend: ID ${json.delivery?.id || 'OK'} à olabel@gmail.com` : `Delivered via Resend: ID ${json.delivery?.id || 'OK'} to olabel@gmail.com`);
         await fetchLogs();
       } else {
-        toast.error(`Dispatch issue: ${json.error || 'Check configuration'}`);
-        setTestResult(`Dispatch error: ${json.error}`);
+        toast.error(isFr ? `Problème d'envoi: ${json.error || 'Vérifiez la configuration'}` : `Dispatch issue: ${json.error || 'Check configuration'}`);
+        setTestResult(isFr ? `Erreur d'envoi: ${json.error}` : `Dispatch error: ${json.error}`);
       }
     } catch (e: any) {
-      toast.error(`Connection error: ${e.message}`);
-      setTestResult(`Error: ${e.message}`);
+      toast.error(isFr ? `Erreur de connexion: ${e.message}` : `Connection error: ${e.message}`);
+      setTestResult(isFr ? `Erreur: ${e.message}` : `Error: ${e.message}`);
     } finally {
       setIsTestingEmail(false);
     }
   };
 
   const handleClearLogs = async () => {
-    if (!window.confirm('Are you sure you want to clear the email audit log history?')) {
+    if (!window.confirm(isFr ? 'Êtes-vous sûr de vouloir vider l\'historique du journal des e-mails ?' : 'Are you sure you want to clear the email audit log history?')) {
       return;
     }
     try {
       const res = await fetch('/api/email-audit-logs/clear', { method: 'POST' });
       if (res.ok) {
-        toast.success('Email audit logs cleared.');
+        toast.success(isFr ? 'Journal des e-mails vidé.' : 'Email audit logs cleared.');
         await fetchLogs();
       }
     } catch (e) {
-      toast.error('Could not clear logs.');
+      toast.error(isFr ? 'Impossible de vider le journal.' : 'Could not clear logs.');
     }
   };
 
@@ -127,10 +131,10 @@ const EmailAuditLogSection: React.FC = () => {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedId(id);
-      toast.success('Copied Resend ID to clipboard');
+      toast.success(isFr ? 'ID Resend copié dans le presse-papiers' : 'Copied Resend ID to clipboard');
       setTimeout(() => setCopiedId(null), 2500);
     } catch {
-      toast.error('Failed to copy to clipboard');
+      toast.error(isFr ? 'Échec de la copie' : 'Failed to copy to clipboard');
     }
   };
 
@@ -157,31 +161,31 @@ const EmailAuditLogSection: React.FC = () => {
       case 'client_thank_you':
         return (
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-            <UserCheck size={12} /> Client Thank You Auto-Reply
+            <UserCheck size={12} /> {isFr ? 'Accusé Client Automatique' : 'Client Thank You Auto-Reply'}
           </span>
         );
       case 'admin_audit_alert':
         return (
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            <Shield size={12} /> Admin Consultation Alert
+            <Shield size={12} /> {isFr ? 'Alerte Consultation Admin' : 'Admin Consultation Alert'}
           </span>
         );
       case 'test_dispatch':
         return (
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">
-            <Activity size={12} /> Verification Test Dispatch
+            <Activity size={12} /> {isFr ? 'Test de Vérification' : 'Verification Test Dispatch'}
           </span>
         );
       case 'contact_inquiry':
         return (
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-            <Mail size={12} /> Contact Inquiry Alert
+            <Mail size={12} /> {isFr ? 'Alerte Formulaire Contact' : 'Contact Inquiry Alert'}
           </span>
         );
       default:
         return (
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-            <Inbox size={12} /> Lead Intake Alert
+            <Inbox size={12} /> {isFr ? 'Alerte Nouveau Prospect' : 'Lead Intake Alert'}
           </span>
         );
     }
@@ -192,19 +196,19 @@ const EmailAuditLogSection: React.FC = () => {
       case 'delivered':
         return (
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-            <CheckCircle2 size={12} className="text-emerald-400" /> Delivered
+            <CheckCircle2 size={12} className="text-emerald-400" /> {isFr ? 'Distribué' : 'Delivered'}
           </span>
         );
       case 'sandbox_mode':
         return (
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30" title="Delivered safely in Resend Sandbox to olabel@gmail.com">
-            <CheckCircle2 size={12} className="text-cyan-400" /> Delivered (Sandbox Mode)
+            <CheckCircle2 size={12} className="text-cyan-400" /> {isFr ? 'Distribué (Mode Sandbox)' : 'Delivered (Sandbox Mode)'}
           </span>
         );
       case 'failed':
         return (
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-red-500/15 text-red-400 border border-red-500/30">
-            <AlertCircle size={12} className="text-red-400" /> Delivery Failed
+            <AlertCircle size={12} className="text-red-400" /> {isFr ? 'Échec d\'Envoi' : 'Delivery Failed'}
           </span>
         );
     }
@@ -222,7 +226,7 @@ const EmailAuditLogSection: React.FC = () => {
         {/* Total Dispatches */}
         <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold">Total Dispatches</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold">{isFr ? 'Total des Envois' : 'Total Dispatches'}</span>
             <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
               <Mail size={18} />
             </div>
@@ -232,14 +236,14 @@ const EmailAuditLogSection: React.FC = () => {
             <span className="text-xs font-mono text-cyan-400 font-semibold">Resend API</span>
           </div>
           <p className="text-[11px] text-slate-500 mt-2 font-mono">
-            {stats.resendCount} routed via Official Resend SDK
+            {isFr ? `${stats.resendCount} routés via le SDK Resend officiel` : `${stats.resendCount} routed via Official Resend SDK`}
           </p>
         </div>
 
         {/* Live Inbox Deliveries */}
         <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold">Inbox Delivery Rate</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold">{isFr ? 'Taux de Distribution' : 'Inbox Delivery Rate'}</span>
             <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
               <CheckCircle2 size={18} />
             </div>
@@ -248,34 +252,34 @@ const EmailAuditLogSection: React.FC = () => {
             <span className="text-3xl lg:text-4xl font-mono font-black text-emerald-400">
               {stats.total > 0 ? Math.round(((stats.delivered + stats.sandbox) / stats.total) * 100) : 100}%
             </span>
-            <span className="text-xs font-mono text-emerald-400/80 font-semibold">0% Dropped</span>
+            <span className="text-xs font-mono text-emerald-400/80 font-semibold">{isFr ? '0% Rejet' : '0% Dropped'}</span>
           </div>
           <p className="text-[11px] text-slate-500 mt-2 font-mono">
-            Target: <span className="text-slate-300">olabel@gmail.com</span>
+            {isFr ? 'Destinataire: ' : 'Target: '}<span className="text-slate-300">olabel@gmail.com</span>
           </p>
         </div>
 
         {/* Sandbox Protection */}
         <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold">Sandbox Protected</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold">{isFr ? 'Protection Sandbox' : 'Sandbox Protected'}</span>
             <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
               <Shield size={18} />
             </div>
           </div>
           <div className="mt-4 flex items-baseline gap-3">
             <span className="text-3xl lg:text-4xl font-mono font-black text-cyan-300">{stats.sandbox}</span>
-            <span className="text-xs font-mono text-cyan-400 font-semibold">Zero-Drop Fallback</span>
+            <span className="text-xs font-mono text-cyan-400 font-semibold">{isFr ? 'Sans Risque' : 'Zero-Drop Fallback'}</span>
           </div>
           <p className="text-[11px] text-slate-500 mt-2 font-mono">
-            Sender: <span className="text-slate-300">onboarding@resend.dev</span>
+            {isFr ? 'Expéditeur: ' : 'Sender: '}<span className="text-slate-300">onboarding@resend.dev</span>
           </p>
         </div>
 
         {/* Failed / Suppressed */}
         <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold">Failed / Suppressed</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold">{isFr ? 'Échecs / Supprimés' : 'Failed / Suppressed'}</span>
             <div className="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400">
               <AlertCircle size={18} />
             </div>
@@ -285,11 +289,11 @@ const EmailAuditLogSection: React.FC = () => {
               {stats.failed}
             </span>
             <span className="text-xs font-mono text-slate-400 font-semibold">
-              {stats.failed === 0 ? 'All Clear' : 'Review Errors'}
+              {stats.failed === 0 ? (isFr ? 'Tout Fonctionne' : 'All Clear') : (isFr ? 'Erreurs à Vérifier' : 'Review Errors')}
             </span>
           </div>
           <p className="text-[11px] text-slate-500 mt-2 font-mono">
-            Continuous health telemetry
+            {isFr ? 'Télémétrie de santé continue' : 'Continuous health telemetry'}
           </p>
         </div>
 
@@ -302,27 +306,31 @@ const EmailAuditLogSection: React.FC = () => {
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <span className="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">
-                Resend API Integration Active &amp; Verified
+                {isFr ? 'Intégration Resend API Active & Vérifiée' : 'Resend API Integration Active & Verified'}
               </span>
             </div>
             <h3 className="text-xl lg:text-2xl font-bold font-display text-white">
-              Resend Real-Time Delivery Stream &amp; Audit Trail
+              {isFr ? 'Flux d\'Envoi et Journal d\'Audit Resend en Temps Réel' : 'Resend Real-Time Delivery Stream & Audit Trail'}
             </h3>
             <p className="text-sm text-slate-300 leading-relaxed">
-              Every audit booking automatically dispatches a dual stream: an <strong>executive alert to olabel@gmail.com</strong> and an <strong>automatic client 'Thank You' confirmation</strong> setting 30-minute expectations.
+              {isFr ? (
+                <>Chaque réservation d'audit déclenche automatiquement un double envoi : une <strong>alerte exécutive à olabel@gmail.com</strong> et un <strong>e-mail automatique de confirmation au client</strong> garantissant une prise en charge sous 30 minutes.</>
+              ) : (
+                <>Every audit booking automatically dispatches a dual stream: an <strong>executive alert to olabel@gmail.com</strong> and an <strong>automatic client 'Thank You' confirmation</strong> setting 30-minute expectations.</>
+              )}
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-1 text-xs font-mono text-slate-400">
               <div className="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
                 <Server size={14} className="text-cyan-400" />
-                <span>Active Provider: <strong className="text-white">Resend API</strong></span>
+                <span>{isFr ? 'Fournisseur Actif: ' : 'Active Provider: '}<strong className="text-white">Resend API</strong></span>
               </div>
               <div className="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
                 <Inbox size={14} className="text-emerald-400" />
-                <span>Admin Alerts: <strong className="text-white">olabel@gmail.com</strong></span>
+                <span>{isFr ? 'Alertes Admin: ' : 'Admin Alerts: '}<strong className="text-white">olabel@gmail.com</strong></span>
               </div>
               <div className="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
                 <Shield size={14} className="text-cyan-400" />
-                <span>Sender Domain: <strong className="text-white">{serviceConfig?.configuredFrom || 'hello@oakivo.com'}</strong></span>
+                <span>{isFr ? 'Domaine Expéditeur: ' : 'Sender Domain: '}<strong className="text-white">{serviceConfig?.configuredFrom || 'hello@oakivo.com'}</strong></span>
               </div>
             </div>
           </div>
@@ -336,12 +344,12 @@ const EmailAuditLogSection: React.FC = () => {
               {isTestingEmail ? (
                 <>
                   <RefreshCw size={14} className="animate-spin" />
-                  <span>Dispatching...</span>
+                  <span>{isFr ? 'Envoi en cours...' : 'Dispatching...'}</span>
                 </>
               ) : (
                 <>
                   <Send size={14} />
-                  <span>Send Test Email</span>
+                  <span>{isFr ? 'Envoyer E-mail Test' : 'Send Test Email'}</span>
                 </>
               )}
             </button>
@@ -351,7 +359,7 @@ const EmailAuditLogSection: React.FC = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white font-mono text-xs font-medium border border-slate-700 transition-all"
             >
-              <span>Resend Dashboard</span>
+              <span>{isFr ? 'Tableau Resend' : 'Resend Dashboard'}</span>
               <ExternalLink size={14} />
             </a>
           </div>
@@ -376,7 +384,7 @@ const EmailAuditLogSection: React.FC = () => {
           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
-            placeholder="Search by recipient, subject, Resend ID..."
+            placeholder={isFr ? 'Recherche par destinataire, sujet, ID Resend...' : 'Search by recipient, subject, Resend ID...'}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-2xl text-xs font-mono text-slate-900 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
@@ -406,7 +414,13 @@ const EmailAuditLogSection: React.FC = () => {
                     : 'text-gray-500 hover:text-slate-900'
                 }`}
               >
-                {st === 'all' ? 'All Status' : st === 'sandbox_mode' ? 'Sandbox' : st.charAt(0).toUpperCase() + st.slice(1)}
+                {st === 'all' 
+                  ? (isFr ? 'Tous Statuts' : 'All Status') 
+                  : st === 'sandbox_mode' 
+                  ? 'Sandbox' 
+                  : st === 'delivered' 
+                  ? (isFr ? 'Distribué' : 'Delivered') 
+                  : (isFr ? 'Échoué' : 'Failed')}
               </button>
             ))}
           </div>
@@ -417,12 +431,12 @@ const EmailAuditLogSection: React.FC = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-2xl text-xs font-mono text-slate-800 focus:outline-none focus:border-cyan-500"
           >
-            <option value="all">All Event Types</option>
-            <option value="client_thank_you">Client Thank You</option>
-            <option value="admin_audit_alert">Admin Consultation Alert</option>
-            <option value="test_dispatch">Test Dispatch</option>
-            <option value="contact_inquiry">Contact Inquiries</option>
-            <option value="lead_notification">Lead Intakes</option>
+            <option value="all">{isFr ? 'Tous Types d\'Événements' : 'All Event Types'}</option>
+            <option value="client_thank_you">{isFr ? 'Accusé Client' : 'Client Thank You'}</option>
+            <option value="admin_audit_alert">{isFr ? 'Alerte Consultation Admin' : 'Admin Consultation Alert'}</option>
+            <option value="test_dispatch">{isFr ? 'Test d\'Envoi' : 'Test Dispatch'}</option>
+            <option value="contact_inquiry">{isFr ? 'Demande de Contact' : 'Contact Inquiries'}</option>
+            <option value="lead_notification">{isFr ? 'Prospects Entrants' : 'Lead Intakes'}</option>
           </select>
 
           {/* Refresh Button */}
@@ -430,7 +444,7 @@ const EmailAuditLogSection: React.FC = () => {
             onClick={fetchLogs}
             disabled={isLoading}
             className="p-2.5 rounded-2xl bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 transition-all cursor-pointer"
-            title="Refresh logs"
+            title={isFr ? 'Actualiser les journaux' : 'Refresh logs'}
           >
             <RefreshCw size={16} className={isLoading ? 'animate-spin' : ''} />
           </button>
@@ -439,7 +453,7 @@ const EmailAuditLogSection: React.FC = () => {
           <button
             onClick={handleClearLogs}
             className="p-2.5 rounded-2xl bg-red-50 hover:bg-red-100 text-red-500 border border-red-200 transition-all cursor-pointer"
-            title="Clear audit log"
+            title={isFr ? 'Vider le journal' : 'Clear audit log'}
           >
             <Trash2 size={16} />
           </button>
@@ -453,14 +467,14 @@ const EmailAuditLogSection: React.FC = () => {
           <div className="flex items-center gap-3">
             <Activity size={18} className="text-cyan-600" />
             <h4 className="font-bold text-slate-900 text-base font-serif-display">
-              Resend Delivery Audit Trail
+              {isFr ? 'Journal de Distribution Resend' : 'Resend Delivery Audit Trail'}
             </h4>
             <span className="text-xs font-mono text-gray-400 bg-gray-100 px-2.5 py-0.5 rounded-full">
-              Showing {filteredLogs.length} of {data?.logs?.length || 0} events
+              {isFr ? `Affichage de ${filteredLogs.length} sur ${data?.logs?.length || 0} événements` : `Showing ${filteredLogs.length} of ${data?.logs?.length || 0} events`}
             </span>
           </div>
           <span className="text-xs font-mono text-gray-400">
-            Auto-synced with server store
+            {isFr ? 'Synchronisé avec le serveur' : 'Auto-synced with server store'}
           </span>
         </div>
 
@@ -469,18 +483,20 @@ const EmailAuditLogSection: React.FC = () => {
             <div className="w-16 h-16 rounded-3xl bg-gray-50 border border-gray-200 flex items-center justify-center mx-auto mb-4 text-gray-400">
               <Inbox size={28} />
             </div>
-            <h5 className="font-bold text-slate-800 text-base mb-1">No Email Events Match Filter</h5>
+            <h5 className="font-bold text-slate-800 text-base mb-1">
+              {isFr ? 'Aucun événement ne correspond au filtre' : 'No Email Events Match Filter'}
+            </h5>
             <p className="text-xs text-gray-400 max-w-sm mx-auto font-mono mb-6">
               {searchQuery || statusFilter !== 'all' || typeFilter !== 'all'
-                ? 'Try adjusting your search terms or filter criteria.'
-                : 'No emails have been dispatched yet. Click "Send Test Email" to generate your first audit entry!'}
+                ? (isFr ? 'Essayez d\'ajuster vos termes de recherche ou critères de filtre.' : 'Try adjusting your search terms or filter criteria.')
+                : (isFr ? 'Aucun e-mail n\'a encore été envoyé. Cliquez sur "Envoyer E-mail Test" pour générer votre première entrée !' : 'No emails have been dispatched yet. Click "Send Test Email" to generate your first audit entry!')}
             </p>
             <button
               onClick={handleTestDispatch}
               disabled={isTestingEmail}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-cyan-500 text-slate-950 font-mono text-xs font-bold hover:bg-cyan-400 transition-all cursor-pointer"
             >
-              <Send size={14} /> Send First Test Email
+              <Send size={14} /> {isFr ? 'Envoyer Premier E-mail Test' : 'Send First Test Email'}
             </button>
           </div>
         ) : (
@@ -500,7 +516,7 @@ const EmailAuditLogSection: React.FC = () => {
                         {getTypeBadge(log.type)}
                         {getStatusBadge(log.status)}
                         <span className="text-[11px] font-mono text-gray-400 flex items-center gap-1">
-                          <Clock size={12} /> {formatRelativeTime(log.timestamp)}
+                          <Clock size={12} /> {formatRelativeTime(log.timestamp, isFr)}
                         </span>
                       </div>
 
@@ -510,11 +526,11 @@ const EmailAuditLogSection: React.FC = () => {
 
                       <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-gray-500">
                         <span>
-                          To: <strong className="text-slate-800">{log.recipient}</strong>
+                          {isFr ? 'À: ' : 'To: '}<strong className="text-slate-800">{log.recipient}</strong>
                         </span>
                         <span>•</span>
                         <span>
-                          Sender: <span className="text-gray-600">{log.sender}</span>
+                          {isFr ? 'Expéditeur: ' : 'Sender: '}<span className="text-gray-600">{log.sender}</span>
                         </span>
                       </div>
                     </div>
@@ -527,7 +543,7 @@ const EmailAuditLogSection: React.FC = () => {
                           <span className="font-bold">{log.resendMessageId.substring(0, 10)}...</span>
                           <button
                             onClick={() => copyToClipboard(log.resendMessageId!, log.id)}
-                            title="Copy full Resend ID"
+                            title={isFr ? 'Copier l\'ID Resend complet' : 'Copy full Resend ID'}
                             className="text-gray-400 hover:text-slate-900 p-0.5"
                           >
                             {copiedId === log.id ? (
@@ -543,13 +559,13 @@ const EmailAuditLogSection: React.FC = () => {
                         onClick={() => setSelectedEntry(log)}
                         className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-semibold transition-all cursor-pointer"
                       >
-                        Inspect Payload
+                        {isFr ? 'Inspecter Payload' : 'Inspect Payload'}
                       </button>
 
                       <button
                         onClick={() => setExpandedLogId(isExpanded ? null : log.id)}
                         className="p-2 rounded-xl text-gray-400 hover:text-slate-900 hover:bg-gray-100 transition-all cursor-pointer"
-                        title={isExpanded ? 'Collapse' : 'Expand Details'}
+                        title={isExpanded ? (isFr ? 'Réduire' : 'Collapse') : (isFr ? 'Déplier Détails' : 'Expand Details')}
                       >
                         {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </button>
@@ -570,19 +586,19 @@ const EmailAuditLogSection: React.FC = () => {
                     <div className="mt-4 pt-4 border-t border-gray-200/80 bg-gray-50 -mx-6 -mb-6 p-6 space-y-4 animate-in fade-in duration-200">
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
                         <div className="bg-white p-3 rounded-xl border border-gray-200">
-                          <span className="text-gray-400 uppercase text-[10px] block font-bold">Exact Timestamp</span>
+                          <span className="text-gray-400 uppercase text-[10px] block font-bold">{isFr ? 'Date Précise' : 'Exact Timestamp'}</span>
                           <span className="text-slate-800 font-semibold">{log.timestamp}</span>
                         </div>
                         <div className="bg-white p-3 rounded-xl border border-gray-200">
-                          <span className="text-gray-400 uppercase text-[10px] block font-bold">Dispatch Provider</span>
+                          <span className="text-gray-400 uppercase text-[10px] block font-bold">{isFr ? 'Fournisseur' : 'Dispatch Provider'}</span>
                           <span className="text-slate-800 font-semibold uppercase">{log.provider} API</span>
                         </div>
                         <div className="bg-white p-3 rounded-xl border border-gray-200">
-                          <span className="text-gray-400 uppercase text-[10px] block font-bold">Delivery Status</span>
+                          <span className="text-gray-400 uppercase text-[10px] block font-bold">{isFr ? 'Statut Distribution' : 'Delivery Status'}</span>
                           <span className="text-slate-800 font-semibold uppercase">{log.status}</span>
                         </div>
                         <div className="bg-white p-3 rounded-xl border border-gray-200">
-                          <span className="text-gray-400 uppercase text-[10px] block font-bold">Resend Message ID</span>
+                          <span className="text-gray-400 uppercase text-[10px] block font-bold">{isFr ? 'ID Message Resend' : 'Resend Message ID'}</span>
                           <span className="text-slate-800 font-semibold break-all">{log.resendMessageId || 'N/A'}</span>
                         </div>
                       </div>
@@ -590,7 +606,7 @@ const EmailAuditLogSection: React.FC = () => {
                       {log.metadata && Object.keys(log.metadata).length > 0 && (
                         <div>
                           <label className="text-[10px] font-bold font-mono text-gray-500 uppercase tracking-wider block mb-1">
-                            Associated Client / Interaction Metadata:
+                            {isFr ? 'Métadonnées Client / Interaction Associées :' : 'Associated Client / Interaction Metadata:'}
                           </label>
                           <pre className="bg-slate-950 text-cyan-300 p-4 rounded-xl text-xs font-mono overflow-x-auto border border-slate-800">
                             {JSON.stringify(log.metadata, null, 2)}
@@ -619,8 +635,8 @@ const EmailAuditLogSection: React.FC = () => {
                     <Mail size={24} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold font-serif-display">Email Telemetry Inspector</h3>
-                    <p className="text-xs font-mono text-oakivo-secondary mt-1">Audit Log Ref: {selectedEntry.id}</p>
+                    <h3 className="text-xl font-bold font-serif-display">{isFr ? 'Inspecteur de Télémétrie E-mail' : 'Email Telemetry Inspector'}</h3>
+                    <p className="text-xs font-mono text-oakivo-secondary mt-1">{isFr ? 'Réf. Journal : ' : 'Audit Log Ref: '}{selectedEntry.id}</p>
                   </div>
                 </div>
                 <button
@@ -637,35 +653,35 @@ const EmailAuditLogSection: React.FC = () => {
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">Event Type</span>
+                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">{isFr ? 'Type d\'Événement' : 'Event Type'}</span>
                   <div className="mt-1">{getTypeBadge(selectedEntry.type)}</div>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">Delivery Status</span>
+                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">{isFr ? 'Statut Distribution' : 'Delivery Status'}</span>
                   <div className="mt-1">{getStatusBadge(selectedEntry.status)}</div>
                 </div>
               </div>
 
               <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 space-y-2">
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">Subject Line</span>
+                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">{isFr ? 'Objet de l\'E-mail' : 'Subject Line'}</span>
                   <p className="text-sm font-bold text-slate-900 mt-0.5">{selectedEntry.subject}</p>
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">Target Recipient</span>
+                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">{isFr ? 'Destinataire Cible' : 'Target Recipient'}</span>
                   <p className="text-xs font-mono text-slate-800 font-semibold mt-0.5">{selectedEntry.recipient}</p>
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">Sender Header</span>
+                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">{isFr ? 'En-tête Expéditeur' : 'Sender Header'}</span>
                   <p className="text-xs font-mono text-slate-800 mt-0.5">{selectedEntry.sender}</p>
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">Timestamp</span>
+                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">{isFr ? 'Horodatage' : 'Timestamp'}</span>
                   <p className="text-xs font-mono text-slate-800 mt-0.5">{selectedEntry.timestamp}</p>
                 </div>
                 {selectedEntry.resendMessageId && (
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">Resend Message ID</span>
+                    <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">{isFr ? 'ID Message Resend' : 'Resend Message ID'}</span>
                     <p className="text-xs font-mono text-cyan-600 font-bold mt-0.5 break-all">{selectedEntry.resendMessageId}</p>
                   </div>
                 )}
@@ -673,7 +689,7 @@ const EmailAuditLogSection: React.FC = () => {
 
               {selectedEntry.metadata && (
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">Payload Attributes</span>
+                  <span className="text-[10px] font-mono uppercase text-gray-400 block font-bold">{isFr ? 'Attributs du Payload' : 'Payload Attributes'}</span>
                   <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 overflow-x-auto">
                     <pre className="text-cyan-300 text-xs font-mono">
                       {JSON.stringify(selectedEntry.metadata, null, 2)}
@@ -685,7 +701,7 @@ const EmailAuditLogSection: React.FC = () => {
               {selectedEntry.error && (
                 <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-mono space-y-1">
                   <span className="font-bold flex items-center gap-1 text-amber-900">
-                    <Info size={14} /> Diagnostic Note:
+                    <Info size={14} /> {isFr ? 'Note Diagnostique :' : 'Diagnostic Note:'}
                   </span>
                   <p>{selectedEntry.error}</p>
                 </div>
@@ -700,14 +716,14 @@ const EmailAuditLogSection: React.FC = () => {
                   onClick={() => copyToClipboard(selectedEntry.resendMessageId!, selectedEntry.id)}
                   className="inline-flex items-center gap-2 text-xs font-mono text-gray-600 hover:text-slate-900 cursor-pointer"
                 >
-                  <Copy size={14} /> Copy Resend Message ID
+                  <Copy size={14} /> {isFr ? 'Copier ID Resend' : 'Copy Resend Message ID'}
                 </button>
               )}
               <button
                 onClick={() => setSelectedEntry(null)}
                 className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-mono text-xs font-bold transition-all ml-auto cursor-pointer"
               >
-                Close Inspector
+                {isFr ? 'Fermer l\'Inspecteur' : 'Close Inspector'}
               </button>
             </div>
 

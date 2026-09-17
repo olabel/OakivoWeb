@@ -40,46 +40,46 @@ interface ConsultationOption {
   icon: string;
 }
 
-const CONSULTATION_TOPICS: ConsultationOption[] = [
+const getConsultationTopics = (isFr: boolean): ConsultationOption[] => [
   {
     id: 'cloud_cspm',
-    title: 'Cloud Security & CSPM Hardening',
-    desc: 'AWS, Azure, or GCP posture review, IAM boundary audits, and perimeter defense.',
+    title: isFr ? 'Sécurité Cloud & Durcissement CSPM' : 'Cloud Security & CSPM Hardening',
+    desc: isFr ? 'Revue de posture AWS, Azure ou GCP, audits des limites IAM et défense périmétrique.' : 'AWS, Azure, or GCP posture review, IAM boundary audits, and perimeter defense.',
     icon: 'cloud'
   },
   {
     id: 'devsecops_cicd',
-    title: 'DevSecOps & CI/CD Pipeline Automation',
-    desc: 'Automated SAST/DAST gating, container vulnerability scanning, and secrets management.',
+    title: isFr ? 'DevSecOps & Automatisation de Pipeline CI/CD' : 'DevSecOps & CI/CD Pipeline Automation',
+    desc: isFr ? 'Portillons SAST/DAST automatisés, scan de vulnérabilités conteneurs et gestion des secrets.' : 'Automated SAST/DAST gating, container vulnerability scanning, and secrets management.',
     icon: 'code'
   },
   {
     id: 'compliance_readiness',
-    title: 'SOC 2, ISO 27001 & PIPEDA Readiness',
-    desc: 'Audit evidence framework, Canadian data sovereignty, and compliance roadmap.',
+    title: isFr ? 'Préparation SOC 2, ISO 27001 & LPRPDE' : 'SOC 2, ISO 27001 & PIPEDA Readiness',
+    desc: isFr ? 'Cadre de preuves d\'audit, souveraineté des données canadiennes et feuille de route.' : 'Audit evidence framework, Canadian data sovereignty, and compliance roadmap.',
     icon: 'shield'
   },
   {
     id: 'zero_trust_iam',
-    title: 'Zero-Trust IAM & ERP (Odoo/SAP) Security',
-    desc: 'Least-privilege policy enforcement, multi-tenant isolation, and data governance.',
+    title: isFr ? 'IAM Zéro-Trust & Sécurité ERP (Odoo/SAP)' : 'Zero-Trust IAM & ERP (Odoo/SAP) Security',
+    desc: isFr ? 'Application du moindre privilège, isolation multi-locataires et gouvernance des données.' : 'Least-privilege policy enforcement, multi-tenant isolation, and data governance.',
     icon: 'lock'
   },
 ];
 
-const TIMEZONES = [
-  { code: 'AST', label: 'Atlantic Time (HQ - Halifax/Moncton)', offset: 'UTC-4 / AST' },
-  { code: 'EST', label: 'Eastern Time (Toronto/New York)', offset: 'UTC-5 / EST' },
-  { code: 'CST', label: 'Central Time (Chicago/Winnipeg)', offset: 'UTC-6 / CST' },
-  { code: 'MST', label: 'Mountain Time (Calgary/Denver)', offset: 'UTC-7 / MST' },
-  { code: 'PST', label: 'Pacific Time (Vancouver/San Francisco)', offset: 'UTC-8 / PST' },
-  { code: 'UTC', label: 'Coordinated Universal Time (UTC/GMT)', offset: 'UTC+0' }
+const getTimezones = (isFr: boolean) => [
+  { code: 'AST', label: isFr ? 'Heure de l\'Atlantique (Siège - Halifax/Moncton)' : 'Atlantic Time (HQ - Halifax/Moncton)', offset: 'UTC-4 / AST' },
+  { code: 'EST', label: isFr ? 'Heure de l\'Est (Toronto/Montréal/New York)' : 'Eastern Time (Toronto/New York)', offset: 'UTC-5 / EST' },
+  { code: 'CST', label: isFr ? 'Heure du Centre (Chicago/Winnipeg)' : 'Central Time (Chicago/Winnipeg)', offset: 'UTC-6 / CST' },
+  { code: 'MST', label: isFr ? 'Heure des Rocheuses (Calgary/Denver)' : 'Mountain Time (Calgary/Denver)', offset: 'UTC-7 / MST' },
+  { code: 'PST', label: isFr ? 'Heure du Pacifique (Vancouver/San Francisco)' : 'Pacific Time (Vancouver/San Francisco)', offset: 'UTC-8 / PST' },
+  { code: 'UTC', label: isFr ? 'Temps Universel Coordonné (UTC/GMT)' : 'Coordinated Universal Time (UTC/GMT)', offset: 'UTC+0' }
 ];
 
-const MEETING_FORMATS = [
-  { id: 'google_meet', label: 'Google Meet (Encrypted HD)', icon: Video },
-  { id: 'teams', label: 'Microsoft Teams', icon: Laptop },
-  { id: 'phone', label: 'Direct Secure Line (CA/US)', icon: PhoneCall },
+const getMeetingFormats = (isFr: boolean) => [
+  { id: 'google_meet', label: isFr ? 'Google Meet (HD Chiffré)' : 'Google Meet (Encrypted HD)', icon: Video },
+  { id: 'teams', label: isFr ? 'Microsoft Teams' : 'Microsoft Teams', icon: Laptop },
+  { id: 'phone', label: isFr ? 'Ligne Sécurisée Directe (CA/US)' : 'Direct Secure Line (CA/US)', icon: PhoneCall },
 ];
 
 const MORNING_SLOTS = ['09:00 AM', '10:15 AM', '11:30 AM'];
@@ -87,12 +87,18 @@ const AFTERNOON_SLOTS = ['01:30 PM', '02:45 PM', '04:00 PM', '05:15 PM'];
 
 export const Booking: React.FC = () => {
   const { language } = useLanguage();
+  const isFr = language === 'fr';
+
+  const consultationTopics = useMemo(() => getConsultationTopics(isFr), [isFr]);
+  const timezones = useMemo(() => getTimezones(isFr), [isFr]);
+  const meetingFormats = useMemo(() => getMeetingFormats(isFr), [isFr]);
+
   const langDict = translations[language] || translations['en'];
   const bData = langDict?.booking || translations['en'].booking || {
-    hero_title: "30-Minute Security Architecture Audit.",
-    hero_subtitle: "Select a timeslot for a live technical evaluation with a senior DevSecOps engineer.",
-    success_title: "Security Audit Confirmed.",
-    success_message: "A calendar invitation with meeting details has been sent to your work email."
+    hero_title: isFr ? "Audit d'Architecture de Sécurité 30-Minutes." : "30-Minute Security Architecture Audit.",
+    hero_subtitle: isFr ? "Sélectionnez un créneau pour une évaluation technique en direct avec un ingénieur DevSecOps senior." : "Select a timeslot for a live technical evaluation with a senior DevSecOps engineer.",
+    success_title: isFr ? "Audit de Sécurité Confirmé." : "Security Audit Confirmed.",
+    success_message: isFr ? "Une invitation d'agenda avec les détails de la réunion a été envoyée à votre courriel professionnel." : "A calendar invitation with meeting details has been sent to your work email."
   };
 
   // Multi-step progression (1: Focus & Format, 2: Date & Time, 3: Organization Dossier, 4: Confirmed)
@@ -174,7 +180,7 @@ export const Booking: React.FC = () => {
     }
 
     if (!form.name || !form.email || !form.company || !form.bottleneck) {
-      setErrorMessage('Please provide your name, work email, organization, and a brief description of your technical challenge.');
+      setErrorMessage(isFr ? 'Veuillez renseigner votre nom, courriel professionnel, organisation et une brève description de votre défi technique.' : 'Please provide your name, work email, organization, and a brief description of your technical challenge.');
       return;
     }
 
@@ -188,8 +194,8 @@ export const Booking: React.FC = () => {
       selectedDate: selectedDate || availableDates[0]?.fullDate,
       selectedTime: selectedTime || '10:15 AM',
       timezone,
-      consultationFocus: CONSULTATION_TOPICS.find(c => c.id === selectedFocus)?.title || selectedFocus,
-      meetingFormat: MEETING_FORMATS.find(m => m.id === meetingFormat)?.label || meetingFormat,
+      consultationFocus: consultationTopics.find(c => c.id === selectedFocus)?.title || selectedFocus,
+      meetingFormat: meetingFormats.find(m => m.id === meetingFormat)?.label || meetingFormat,
       confirmationCode: generatedCode,
       type: '30_MIN_SECURITY_AUDIT_BOOKING',
       submittedAt: new Date().toISOString(),
@@ -230,8 +236,10 @@ export const Booking: React.FC = () => {
       });
     } catch (err) {
       console.error("Booking Error:", err);
-      setErrorMessage('A network error occurred while securing your consultation slot. Please try again or reach out to us directly.');
-      toast.error('Scheduling Encountered an Issue', { description: 'Please retry or email olabel@gmail.com directly.' });
+      setErrorMessage(isFr ? 'Une erreur réseau est survenue lors de la réservation de votre créneau. Veuillez réessayer ou nous contacter directement.' : 'A network error occurred while securing your consultation slot. Please try again or reach out to us directly.');
+      toast.error(isFr ? 'Un problème est survenu lors de la planification' : 'Scheduling Encountered an Issue', { 
+        description: isFr ? 'Veuillez réessayer ou envoyer un courriel à olabel@gmail.com.' : 'Please retry or email olabel@gmail.com directly.' 
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -239,13 +247,13 @@ export const Booking: React.FC = () => {
 
   // Generate Google Calendar Link
   const googleCalendarUrl = useMemo(() => {
-    const title = encodeURIComponent(`Oakivo Security Architecture Evaluation (${form.company || 'Enterprise'})`);
+    const title = encodeURIComponent(isFr ? `Évaluation d'Architecture de Sécurité Oakivo (${form.company || 'Entreprise'})` : `Oakivo Security Architecture Evaluation (${form.company || 'Enterprise'})`);
     const details = encodeURIComponent(
       `Oakivo Solutions Confidential DevSecOps & Cloud Security Audit\n\nClient: ${form.name} (${form.company})\nFocus: ${selectedFocus}\nFormat: ${meetingFormat}\nTimezone: ${timezone}\n\nAssigned Lead: Senior DevSecOps Architect\nOakivo Solutions Inc. (Dieppe, NB)\nInquiries: olabel@gmail.com`
     );
     const location = encodeURIComponent('Secure Encrypted Video Bridge (Link dispatched via email)');
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}`;
-  }, [form, selectedFocus, meetingFormat, timezone]);
+  }, [form, selectedFocus, meetingFormat, timezone, isFr]);
 
   // Generate downloadable .ics iCalendar file
   const downloadIcsFile = () => {
@@ -273,14 +281,14 @@ export const Booking: React.FC = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    toast.success('Calendar file (.ics) downloaded');
+    toast.success(isFr ? 'Fichier calendrier (.ics) téléchargé' : 'Calendar file (.ics) downloaded');
   };
 
   return (
     <>
       <SEO 
-        title="Book A Free Security Audit | DevSecOps Moncton, Calgary & Toronto | Oakivo"
-        description="Book a 30-minute confidential cloud security & compliance audit with a Senior DevSecOps Architect. SOC 2 Type II audit readiness, Bill C-26, and Terraform AWS EKS hardening."
+        title={isFr ? "Réserver un Audit de Sécurité Gratuit | DevSecOps Moncton, Calgary & Toronto | Oakivo" : "Book A Free Security Audit | DevSecOps Moncton, Calgary & Toronto | Oakivo"}
+        description={isFr ? "Réservez un audit de sécurité cloud et de conformité confidentiel de 30 minutes avec un architecte DevSecOps senior. Préparation SOC 2 Type II, Loi C-26 et durcissement Terraform AWS EKS." : "Book a 30-minute confidential cloud security & compliance audit with a Senior DevSecOps Architect. SOC 2 Type II audit readiness, Bill C-26, and Terraform AWS EKS hardening."}
         keywords="Book security audit, SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, DevSecOps Moncton, Cloud Security New Brunswick, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax"
         canonical="/schedule"
       />
@@ -311,15 +319,15 @@ export const Booking: React.FC = () => {
           <div className="mt-8 flex flex-wrap justify-center items-center gap-6 text-xs text-slate-400 font-mono">
             <div className="flex items-center gap-2">
               <ShieldCheck size={16} className="text-emerald-400" />
-              <span>100% Mutual NDA Protected</span>
+              <span>{isFr ? 'Protégé par Accord de Confidentialité (NDA)' : '100% Mutual NDA Protected'}</span>
             </div>
             <div className="flex items-center gap-2">
               <Lock size={15} className="text-cyan-400" />
-              <span>Zero-Trace Data Storage</span>
+              <span>{isFr ? 'Stockage Zéro-Trace des Données' : 'Zero-Trace Data Storage'}</span>
             </div>
             <div className="flex items-center gap-2">
               <Building2 size={15} className="text-blue-400" />
-              <span>Dieppe, NB Regional HQ</span>
+              <span>{isFr ? 'Siège Régional à Dieppe, NB' : 'Dieppe, NB Regional HQ'}</span>
             </div>
           </div>
         </div>
@@ -405,19 +413,19 @@ export const Booking: React.FC = () => {
                   <div className="space-y-3.5 pt-4 border-t border-slate-800/80 text-xs text-slate-300">
                     <div className="flex items-center gap-3">
                       <Clock size={16} className="text-cyan-400 shrink-0" />
-                      <span><strong>Duration:</strong> 30 Minutes (Prompt start)</span>
+                      <span><strong>{isFr ? 'Durée :' : 'Duration:'}</strong> {isFr ? '30 Minutes (Démarrage ponctuel)' : '30 Minutes (Prompt start)'}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <Globe size={16} className="text-cyan-400 shrink-0" />
-                      <span><strong>Timezone:</strong> {timezone} Selected</span>
+                      <span><strong>{isFr ? 'Fuseau horaire :' : 'Timezone:'}</strong> {timezone} {isFr ? 'Sélectionné' : 'Selected'}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <Laptop size={16} className="text-cyan-400 shrink-0" />
-                      <span><strong>Format:</strong> {MEETING_FORMATS.find(m => m.id === meetingFormat)?.label}</span>
+                      <span><strong>{isFr ? 'Format :' : 'Format:'}</strong> {meetingFormats.find(m => m.id === meetingFormat)?.label}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <ShieldCheck size={16} className="text-emerald-400 shrink-0" />
-                      <span><strong>Lead:</strong> Senior DevSecOps Architect</span>
+                      <span><strong>{isFr ? 'Intervenant :' : 'Lead:'}</strong> {isFr ? 'Architecte DevSecOps Senior' : 'Senior DevSecOps Architect'}</span>
                     </div>
                   </div>
 
@@ -425,10 +433,10 @@ export const Booking: React.FC = () => {
                   {selectedFocus && (
                     <div className="p-3.5 bg-slate-900/90 rounded-2xl border border-slate-800">
                       <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block mb-1">
-                        Selected Focus
+                        {isFr ? 'Thème Sélectionné' : 'Selected Focus'}
                       </span>
                       <p className="text-xs font-semibold text-slate-200">
-                        {CONSULTATION_TOPICS.find(c => c.id === selectedFocus)?.title}
+                        {consultationTopics.find(c => c.id === selectedFocus)?.title}
                       </p>
                     </div>
                   )}
@@ -437,11 +445,11 @@ export const Booking: React.FC = () => {
                   {selectedDate && selectedTime && (
                     <div className="p-3.5 bg-cyan-950/30 border border-cyan-500/30 rounded-2xl">
                       <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block mb-1">
-                        Reserved Slot
+                        {isFr ? 'Créneau Réservé' : 'Reserved Slot'}
                       </span>
                       <p className="text-xs font-bold text-white flex items-center gap-2">
                         <CalendarCheck size={14} className="text-cyan-400" />
-                        {selectedDate} at {selectedTime} ({timezone})
+                        {selectedDate} {isFr ? 'à' : 'at'} {selectedTime} ({timezone})
                       </p>
                     </div>
                   )}
@@ -481,17 +489,17 @@ export const Booking: React.FC = () => {
                             {language === 'fr' ? '1. Sélectionnez le Thème d\'Intervention' : '1. Choose Consultation Objective'}
                           </h3>
                           <p className="text-xs text-slate-400">
-                            {language === 'fr' ? 'Personnalisez le périmètre de la revue technique.' : 'Tailor the technical evaluation to your architecture\'s priority.'}
+                            {language === 'fr' ? 'Personnalisez le périmètre de la revue technique selon les priorités de votre architecture.' : 'Tailor the technical evaluation to your architecture\'s priority.'}
                           </p>
                         </div>
                         <span className="text-xs font-mono text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded-full border border-cyan-500/30">
-                          Step 1 of 3
+                          {isFr ? 'Étape 1 sur 3' : 'Step 1 of 3'}
                         </span>
                       </div>
 
                       {/* Focus Topics Grid */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {CONSULTATION_TOPICS.map((topic) => {
+                        {consultationTopics.map((topic) => {
                           const isSelected = selectedFocus === topic.id;
                           return (
                             <button
@@ -522,10 +530,10 @@ export const Booking: React.FC = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-800/80">
                         <div>
                           <label className="text-[11px] font-mono uppercase text-slate-400 block mb-2 font-semibold">
-                            Meeting Channel
+                            {isFr ? 'Canal de Réunion' : 'Meeting Channel'}
                           </label>
                           <div className="space-y-2">
-                            {MEETING_FORMATS.map((fmt) => {
+                            {meetingFormats.map((fmt) => {
                               const FormatIcon = fmt.icon;
                               const isFmtSelected = meetingFormat === fmt.id;
                               return (
@@ -549,21 +557,24 @@ export const Booking: React.FC = () => {
 
                         <div>
                           <label className="text-[11px] font-mono uppercase text-slate-400 block mb-2 font-semibold">
-                            Your Timezone
+                            {isFr ? 'Votre Fuseau Horaire' : 'Your Timezone'}
                           </label>
                           <select
                             value={timezone}
                             onChange={(e) => setTimezone(e.target.value)}
                             className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-500 cursor-pointer font-mono"
                           >
-                            {TIMEZONES.map((tz) => (
+                            {timezones.map((tz) => (
                               <option key={tz.code} value={tz.code} className="bg-slate-950 text-white">
                                 {tz.label} ({tz.offset})
                               </option>
                             ))}
                           </select>
                           <p className="text-[10px] text-slate-500 mt-2 font-light">
-                            All calendar invites automatically adjust to your calendar client's local clock.
+                            {isFr 
+                              ? 'Toutes les invitations s\'ajustent automatiquement à l\'horloge locale de votre agenda.' 
+                              : 'All calendar invites automatically adjust to your calendar client\'s local clock.'
+                            }
                           </p>
                         </div>
                       </div>
@@ -575,7 +586,7 @@ export const Booking: React.FC = () => {
                           onClick={() => setCurrentStep(2)}
                           className="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs font-mono flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/20 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
                         >
-                          <span>{language === 'fr' ? 'Continuer vers le Calendrier' : 'Proceed to Timeslots'}</span>
+                          <span>{language === 'fr' ? 'Continuer vers les Créneaux' : 'Proceed to Timeslots'}</span>
                           <ArrowRight size={14} />
                         </button>
                       </div>
@@ -598,7 +609,10 @@ export const Booking: React.FC = () => {
                             {language === 'fr' ? '2. Choisissez la Date et l\'Heure' : '2. Select Date & Timeslot'}
                           </h3>
                           <p className="text-xs text-slate-400">
-                            Times formatted in <strong>{timezone}</strong> (Atlantic DevSecOps Operations Desk)
+                            {isFr 
+                              ? <>Heures au format <strong>{timezone}</strong> (Fuseau de l'équipe DevSecOps Oakivo)</>
+                              : <>Times formatted in <strong>{timezone}</strong> (Atlantic DevSecOps Operations Desk)</>
+                            }
                           </p>
                         </div>
                         
@@ -608,19 +622,19 @@ export const Booking: React.FC = () => {
                             type="button"
                             disabled={monthOffset === 0}
                             onClick={() => setMonthOffset(p => Math.max(0, p - 1))}
-                            aria-label="Previous week"
+                            aria-label={isFr ? "Semaine précédente" : "Previous week"}
                             className="p-1.5 rounded-lg text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                           >
                             <ChevronLeft size={16} />
                           </button>
                           <span className="text-[11px] font-mono text-slate-300 px-2">
-                            Week {monthOffset + 1} of {maxPages}
+                            {isFr ? `Semaine ${monthOffset + 1} sur ${maxPages}` : `Week ${monthOffset + 1} of ${maxPages}`}
                           </span>
                           <button
                             type="button"
                             disabled={monthOffset >= maxPages - 1}
                             onClick={() => setMonthOffset(p => Math.min(maxPages - 1, p + 1))}
-                            aria-label="Next week"
+                            aria-label={isFr ? "Semaine suivante" : "Next week"}
                             className="p-1.5 rounded-lg text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                           >
                             <ChevronRight size={16} />
@@ -662,16 +676,16 @@ export const Booking: React.FC = () => {
                         <div className="flex items-center justify-between">
                           <h4 className="text-[11px] font-mono uppercase text-slate-400 font-semibold flex items-center gap-2">
                             <Clock size={13} className="text-cyan-400" />
-                            <span>{selectedDate ? `Timeslots for ${selectedDate}` : 'Available Timeslots'}</span>
+                            <span>{selectedDate ? (isFr ? `Créneaux pour le ${selectedDate}` : `Timeslots for ${selectedDate}`) : (isFr ? 'Créneaux Disponibles' : 'Available Timeslots')}</span>
                           </h4>
                           <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                            Active Architect On Duty
+                            {isFr ? 'Architecte en Service' : 'Active Architect On Duty'}
                           </span>
                         </div>
 
                         {/* Morning Slots */}
                         <div>
-                          <p className="text-[10px] font-mono text-slate-500 mb-2 uppercase">Morning Sessions</p>
+                          <p className="text-[10px] font-mono text-slate-500 mb-2 uppercase">{isFr ? 'Sessions du Matin' : 'Morning Sessions'}</p>
                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                             {MORNING_SLOTS.map((slot) => {
                               const isSelected = selectedTime === slot;
@@ -695,7 +709,7 @@ export const Booking: React.FC = () => {
 
                         {/* Afternoon Slots */}
                         <div>
-                          <p className="text-[10px] font-mono text-slate-500 mb-2 uppercase">Afternoon Sessions</p>
+                          <p className="text-[10px] font-mono text-slate-500 mb-2 uppercase">{isFr ? 'Sessions de l\'Après-Midi' : 'Afternoon Sessions'}</p>
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                             {AFTERNOON_SLOTS.map((slot) => {
                               const isSelected = selectedTime === slot;
@@ -726,7 +740,7 @@ export const Booking: React.FC = () => {
                           className="px-4 py-2.5 rounded-xl border border-slate-800 hover:bg-slate-900 text-slate-400 hover:text-white text-xs font-mono flex items-center gap-2 cursor-pointer transition-all"
                         >
                           <ArrowLeft size={14} />
-                          <span>Back</span>
+                          <span>{isFr ? 'Retour' : 'Back'}</span>
                         </button>
 
                         <button
@@ -770,7 +784,10 @@ export const Booking: React.FC = () => {
                               {language === 'fr' ? '3. Dossier Technique de l\'Organisation' : '3. Organization & Architecture Brief'}
                             </h3>
                             <p className="text-xs text-slate-400">
-                              Helps our senior architect review relevant blueprints before connecting.
+                              {isFr 
+                                ? 'Permet à notre architecte senior d\'analyser les schémas d\'architecture pertinents avant l\'appel.'
+                                : 'Helps our senior architect review relevant blueprints before connecting.'
+                              }
                             </p>
                           </div>
                           <button
@@ -778,7 +795,7 @@ export const Booking: React.FC = () => {
                             onClick={() => setCurrentStep(2)}
                             className="text-xs font-mono text-cyan-400 hover:underline cursor-pointer"
                           >
-                            Edit Time ({selectedTime})
+                            {isFr ? `Modifier l'heure (${selectedTime})` : `Edit Time (${selectedTime})`}
                           </button>
                         </div>
 
@@ -786,7 +803,7 @@ export const Booking: React.FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="text-[11px] font-mono uppercase text-slate-300 block mb-1.5 font-semibold">
-                              Full Name *
+                              {isFr ? 'Nom Complet *' : 'Full Name *'}
                             </label>
                             <div className="relative">
                               <User size={14} className="absolute left-3.5 top-3.5 text-slate-500" />
@@ -795,7 +812,7 @@ export const Booking: React.FC = () => {
                                 required
                                 value={form.name}
                                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                                placeholder="Sarah Jenkins"
+                                placeholder={isFr ? "Sarah Tremblay" : "Sarah Jenkins"}
                                 className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
                               />
                             </div>
@@ -803,7 +820,7 @@ export const Booking: React.FC = () => {
 
                           <div>
                             <label className="text-[11px] font-mono uppercase text-slate-300 block mb-1.5 font-semibold">
-                              Work Email *
+                              {isFr ? 'Courriel Professionnel *' : 'Work Email *'}
                             </label>
                             <div className="relative">
                               <Mail size={14} className="absolute left-3.5 top-3.5 text-slate-500" />
@@ -823,7 +840,7 @@ export const Booking: React.FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="text-[11px] font-mono uppercase text-slate-300 block mb-1.5 font-semibold">
-                              Organization / Company *
+                              {isFr ? 'Organisation / Entreprise *' : 'Organization / Company *'}
                             </label>
                             <div className="relative">
                               <Building2 size={14} className="absolute left-3.5 top-3.5 text-slate-500" />
@@ -840,17 +857,17 @@ export const Booking: React.FC = () => {
 
                           <div>
                             <label className="text-[11px] font-mono uppercase text-slate-300 block mb-1.5 font-semibold">
-                              Team Size
+                              {isFr ? 'Taille de l\'Équipe' : 'Team Size'}
                             </label>
                             <select
                               value={form.teamSize}
                               onChange={(e) => setForm({ ...form, teamSize: e.target.value })}
                               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500 font-mono"
                             >
-                              <option value="1-20 engineers">1 - 20 engineers / staff</option>
-                              <option value="20-100 employees">20 - 100 employees</option>
-                              <option value="100-500 employees">100 - 500 employees</option>
-                              <option value="500+ enterprise">500+ Enterprise / Public Sector</option>
+                              <option value="1-20 engineers">{isFr ? '1 - 20 ingénieurs / employés' : '1 - 20 engineers / staff'}</option>
+                              <option value="20-100 employees">{isFr ? '20 - 100 employés' : '20 - 100 employees'}</option>
+                              <option value="100-500 employees">{isFr ? '100 - 500 employés' : '100 - 500 employees'}</option>
+                              <option value="500+ enterprise">{isFr ? '500+ Grande Entreprise / Secteur Public' : '500+ Enterprise / Public Sector'}</option>
                             </select>
                           </div>
                         </div>
@@ -859,7 +876,7 @@ export const Booking: React.FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="text-[11px] font-mono uppercase text-slate-300 block mb-1.5 font-semibold">
-                              Primary Cloud Environment
+                              {isFr ? 'Environnement Cloud Principal' : 'Primary Cloud Environment'}
                             </label>
                             <div className="relative">
                               <Server size={14} className="absolute left-3.5 top-3.5 text-slate-500" />
@@ -867,7 +884,7 @@ export const Booking: React.FC = () => {
                                 type="text"
                                 value={form.cloudProvider}
                                 onChange={(e) => setForm({ ...form, cloudProvider: e.target.value })}
-                                placeholder="AWS, Azure, GCP, or Hybrid"
+                                placeholder={isFr ? "AWS, Azure, GCP ou Hybride" : "AWS, Azure, GCP, or Hybrid"}
                                 className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
                               />
                             </div>
@@ -875,16 +892,16 @@ export const Booking: React.FC = () => {
 
                           <div>
                             <label className="text-[11px] font-mono uppercase text-slate-300 block mb-1.5 font-semibold">
-                              Timeline / Urgency
+                              {isFr ? 'Échéance / Urgence' : 'Timeline / Urgency'}
                             </label>
                             <select
                               value={form.urgency}
                               onChange={(e) => setForm({ ...form, urgency: e.target.value })}
                               className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500 font-mono"
                             >
-                              <option value="Immediate (Active Audit/Remediation)">Immediate (Active Audit / Remediation Needed)</option>
-                              <option value="Standard (Within 2 Weeks)">Standard (Within Next 2 Weeks)</option>
-                              <option value="Strategic Planning (Next Quarter)">Strategic Planning (Next Quarter Budget)</option>
+                              <option value="Immediate (Active Audit/Remediation)">{isFr ? 'Immédiat (Audit actif / Remédiation urgente)' : 'Immediate (Active Audit / Remediation Needed)'}</option>
+                              <option value="Standard (Within 2 Weeks)">{isFr ? 'Standard (Dans les 2 prochaines semaines)' : 'Standard (Within Next 2 Weeks)'}</option>
+                              <option value="Strategic Planning (Next Quarter)">{isFr ? 'Planification Stratégique (Budget prochain trimestre)' : 'Strategic Planning (Next Quarter Budget)'}</option>
                             </select>
                           </div>
                         </div>
@@ -892,14 +909,14 @@ export const Booking: React.FC = () => {
                         {/* Challenge / Bottleneck */}
                         <div>
                           <label className="text-[11px] font-mono uppercase text-slate-300 block mb-1.5 font-semibold">
-                            Primary Infrastructure Challenge / Security Goal *
+                            {isFr ? 'Défi Technique Principal / Objectif de Sécurité *' : 'Primary Infrastructure Challenge / Security Goal *'}
                           </label>
                           <textarea
                             rows={3}
                             required
                             value={form.bottleneck}
                             onChange={(e) => setForm({ ...form, bottleneck: e.target.value })}
-                            placeholder="e.g. Preparing for SOC 2 Type II audit, automating container security gating in GitLab/GitHub Actions, or isolating multi-tenant ERP databases..."
+                            placeholder={isFr ? "ex. Préparation à l'audit SOC 2 Type II, automatisation des barrières de sécurité conteneurs dans GitLab/GitHub Actions, ou isolation de bases de données ERP multi-tenants..." : "e.g. Preparing for SOC 2 Type II audit, automating container security gating in GitLab/GitHub Actions, or isolating multi-tenant ERP databases..."}
                             className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 resize-none font-sans"
                           />
                         </div>
@@ -918,7 +935,7 @@ export const Booking: React.FC = () => {
                             className="px-4 py-2.5 rounded-xl border border-slate-800 hover:bg-slate-900 text-slate-400 hover:text-white text-xs font-mono flex items-center gap-2 cursor-pointer transition-all"
                           >
                             <ArrowLeft size={14} />
-                            <span>Back to Calendar</span>
+                            <span>{isFr ? 'Retour au Calendrier' : 'Back to Calendar'}</span>
                           </button>
 
                           <button
@@ -927,7 +944,7 @@ export const Booking: React.FC = () => {
                             className="px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 text-slate-950 font-bold text-xs font-mono flex items-center justify-center gap-2 transition-all shadow-lg shadow-cyan-500/20 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
                           >
                             {isSubmitting ? (
-                              <span className="animate-pulse">Securing Architecture Slot...</span>
+                              <span className="animate-pulse">{isFr ? 'Réservation du créneau en cours...' : 'Securing Architecture Slot...'}</span>
                             ) : (
                               <>
                                 <Sparkles size={14} />
@@ -954,7 +971,7 @@ export const Booking: React.FC = () => {
                           <CheckCircle2 size={32} />
                         </div>
                         <span className="text-[11px] font-mono text-emerald-400 font-bold uppercase tracking-widest block mb-1">
-                          Consultation Confirmed & Dispatched
+                          {isFr ? 'Consultation Confirmée et Transmise' : 'Consultation Confirmed & Dispatched'}
                         </span>
                         <h3 className="text-2xl font-bold text-white tracking-tight">
                           {bData.success_title}
@@ -968,31 +985,31 @@ export const Booking: React.FC = () => {
                       <div className="p-5 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-4">
                         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
                           <div>
-                            <span className="text-[10px] font-mono text-slate-500 uppercase">Confirmation Reference</span>
+                            <span className="text-[10px] font-mono text-slate-500 uppercase">{isFr ? 'Référence de Confirmation' : 'Confirmation Reference'}</span>
                             <p className="text-sm font-mono font-bold text-cyan-400">{bookingConfirmationCode}</p>
                           </div>
                           <div className="text-right">
-                            <span className="text-[10px] font-mono text-slate-500 uppercase">Consultation Lead</span>
-                            <p className="text-xs font-semibold text-white">Senior DevSecOps Architect</p>
+                            <span className="text-[10px] font-mono text-slate-500 uppercase">{isFr ? 'Architecte Référent' : 'Consultation Lead'}</span>
+                            <p className="text-xs font-semibold text-white">{isFr ? 'Architecte DevSecOps Senior' : 'Senior DevSecOps Architect'}</p>
                           </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                           <div>
-                            <span className="text-slate-500 block text-[11px]">Appointment Slot</span>
-                            <span className="font-semibold text-white">{selectedDate} at {selectedTime} ({timezone})</span>
+                            <span className="text-slate-500 block text-[11px]">{isFr ? 'Créneau de la Réunion' : 'Appointment Slot'}</span>
+                            <span className="font-semibold text-white">{selectedDate} {isFr ? 'à' : 'at'} {selectedTime} ({timezone})</span>
                           </div>
                           <div>
-                            <span className="text-slate-500 block text-[11px]">Meeting Channel</span>
-                            <span className="font-semibold text-white">{MEETING_FORMATS.find(m => m.id === meetingFormat)?.label}</span>
+                            <span className="text-slate-500 block text-[11px]">{isFr ? 'Canal de Réunion' : 'Meeting Channel'}</span>
+                            <span className="font-semibold text-white">{meetingFormats.find(m => m.id === meetingFormat)?.label}</span>
                           </div>
                           <div>
-                            <span className="text-slate-500 block text-[11px]">Client Organization</span>
+                            <span className="text-slate-500 block text-[11px]">{isFr ? 'Organisation Cliente' : 'Client Organization'}</span>
                             <span className="font-semibold text-white">{form.company} ({form.name})</span>
                           </div>
                           <div>
-                            <span className="text-slate-500 block text-[11px]">Objective</span>
-                            <span className="font-semibold text-white">{CONSULTATION_TOPICS.find(c => c.id === selectedFocus)?.title}</span>
+                            <span className="text-slate-500 block text-[11px]">{isFr ? 'Objectif' : 'Objective'}</span>
+                            <span className="font-semibold text-white">{consultationTopics.find(c => c.id === selectedFocus)?.title}</span>
                           </div>
                         </div>
                       </div>
@@ -1006,7 +1023,7 @@ export const Booking: React.FC = () => {
                           className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-850 border border-slate-800 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
                         >
                           <CalendarIcon size={14} className="text-cyan-400" />
-                          <span>Add to Google Calendar</span>
+                          <span>{isFr ? 'Ajouter à Google Agenda' : 'Add to Google Calendar'}</span>
                           <ExternalLink size={12} className="text-slate-500" />
                         </a>
 
@@ -1016,7 +1033,7 @@ export const Booking: React.FC = () => {
                           className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-850 border border-slate-800 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
                         >
                           <Download size={14} className="text-emerald-400" />
-                          <span>Download .ics File (Outlook/Apple)</span>
+                          <span>{isFr ? 'Télécharger le fichier .ics (Outlook/Apple)' : 'Download .ics File (Outlook/Apple)'}</span>
                         </button>
                       </div>
 
@@ -1024,12 +1041,12 @@ export const Booking: React.FC = () => {
                       <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-xs text-slate-400">
                         <p className="font-mono text-cyan-400 text-[11px] font-semibold uppercase mb-1.5 flex items-center gap-1.5">
                           <FileCheck2 size={13} />
-                          <span>Recommended Preparation for Maximum Value</span>
+                          <span>{isFr ? 'Préparation Recommandée pour Optimiser la Session' : 'Recommended Preparation for Maximum Value'}</span>
                         </p>
                         <ul className="space-y-1 list-disc list-inside text-slate-300 font-light text-[11px]">
-                          <li>Have a high-level architecture diagram or cloud provider list ready (AWS/Azure/GCP).</li>
-                          <li>List any upcoming compliance obligations (SOC 2, ISO 27001, PIPEDA, FedRAMP).</li>
-                          <li>Review team access control patterns and CI/CD deployment pipelines.</li>
+                          <li>{isFr ? 'Avoir un schéma d\'architecture général ou la liste de vos fournisseurs cloud (AWS/Azure/GCP).' : 'Have a high-level architecture diagram or cloud provider list ready (AWS/Azure/GCP).'}</li>
+                          <li>{isFr ? 'Lister vos obligations de conformité à venir (SOC 2, ISO 27001, LPRPDE, Loi C-26, FedRAMP).' : 'List any upcoming compliance obligations (SOC 2, ISO 27001, PIPEDA, FedRAMP).'}</li>
+                          <li>{isFr ? 'Examiner vos règles de contrôle d\'accès d\'équipe et vos pipelines de déploiement CI/CD.' : 'Review team access control patterns and CI/CD deployment pipelines.'}</li>
                         </ul>
                       </div>
 
@@ -1053,7 +1070,7 @@ export const Booking: React.FC = () => {
                           }}
                           className="text-xs font-mono text-slate-400 hover:text-white transition-colors cursor-pointer"
                         >
-                          Schedule another technical consultation
+                          {isFr ? 'Planifier une autre consultation technique' : 'Schedule another technical consultation'}
                         </button>
                       </div>
                     </motion.div>

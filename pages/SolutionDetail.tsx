@@ -5,6 +5,7 @@ import Section from '../components/Section';
 import SEO from '../components/SEO';
 import LeadDrawer from '../components/LeadDrawer';
 import { NavRoute } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SolutionData {
   title: string;
@@ -22,7 +23,7 @@ interface SolutionData {
   faq: { question: string; answer: string }[];
 }
 
-const solutionsMap: Record<string, SolutionData> = {
+const solutionsMapEn: Record<string, SolutionData> = {
   'invoice-automation': {
     title: 'Accounting & Invoice Synchronization',
     subtitle: 'Eliminate manual invoice typing between email, CRM, and accounting software.',
@@ -129,11 +130,121 @@ const solutionsMap: Record<string, SolutionData> = {
   }
 };
 
+const solutionsMapFr: Record<string, SolutionData> = {
+  'invoice-automation': {
+    title: 'Comptabilité & Synchronisation des Factures',
+    subtitle: 'Éliminez la saisie manuelle des factures entre courriels, CRM et logiciels comptables.',
+    description: 'Nous concevons des passerelles directes automatisées reliant vos ventes, répartition ou portails clients directement à QuickBooks en ligne, Xero ou Sage - vos factures se créent automatiquement sans double saisie.',
+    icon: FileText,
+    benefits: [
+      'Création automatique de factures à partir des bons de commande validés',
+      'Synchronisation instantanée du statut de paiement dans votre base opérationnelle',
+      'Zéro faute de frappe ou erreur de double saisie dans les codes de facturation',
+      'Acheminement automatique des reçus vers la boîte de réception comptable'
+    ],
+    useCase: {
+      client: 'Atlantic Wholesale & Supply',
+      location: 'Halifax, Nouvelle-Écosse',
+      challenge: 'Le personnel consacrait 14 heures par semaine à recopier manuellement les détails des factures PDF dans QuickBooks.',
+      outcome: 'Les factures s\'enregistrent désormais automatiquement dès la confirmation de la commande, éliminant 100 % des doubles saisies.',
+      hoursSaved: '14 heures économisées par semaine'
+    },
+    faq: [
+      {
+        question: 'Devons-nous changer de compte QuickBooks ou Sage actuel ?',
+        answer: 'Non. Nous nous intégrons directement avec vos logiciels et abonnements existants. Aucun nouvel outil à acheter.'
+      },
+      {
+        question: 'Combien de temps prend la mise en œuvre ?',
+        answer: 'La plupart des intégrations comptables sont construites, testées en bac à sable et déployées en 5 à 10 jours ouvrables sans interruption.'
+      }
+    ]
+  },
+  'order-inventory-sync': {
+    title: 'Passerelles de Commandes & d\'Inventaire',
+    subtitle: 'Maintenez les stocks d\'entrepôt et les commandes en ligne parfaitement synchronisés 24/7.',
+    description: 'Fini le survente ou les mises à jour manuelles sur tableurs. Nous synchronisons votre boutique en ligne, votre caisse PDV et votre système de gestion d\'entrepôt à chaque transaction.',
+    icon: Layers,
+    benefits: [
+      'Déduction des stocks en temps réel sur tous vos canaux de vente',
+      'Alertes automatisées de réapprovisionnement sous les seuils critiques',
+      'Centralisation des journaux de commandes à travers toutes vos succursales',
+      'Élimination complète des feuilles de calcul d\'inventaire manuelles'
+    ],
+    useCase: {
+      client: 'Maritime Equipment & Industrial',
+      location: 'Moncton, Nouveau-Brunswick',
+      challenge: 'Le personnel au comptoir devait constamment recouper les tableaux blancs de l\'entrepôt avec des chiffriers Excel.',
+      outcome: 'La passerelle commandes-stocks synchronise en direct l\'inventaire entre 3 succursales régionales.',
+      hoursSaved: '12 heures économisées par semaine'
+    },
+    faq: [
+      {
+        question: 'Est-ce compatible avec des bases de données sur mesure plus anciennes ?',
+        answer: 'Oui, nous développons des connecteurs API ou bases de données sur mesure pour les systèmes patrimoniaux comme pour le cloud.'
+      }
+    ]
+  },
+  'dispatch-route-logging': {
+    title: 'Automatisation de la Répartition & des Trajets',
+    subtitle: 'Reliez l\'achèvement des travaux sur le terrain directement à la facturation client et à la paie.',
+    description: 'Lorsque des chauffeurs ou techniciens terminent des interventions sur le terrain, les feuilles de temps, horodatages et pièces utilisées alimentent instantanément vos logiciels de facturation et de coûts de revient.',
+    icon: Clock,
+    benefits: [
+      'Transmission instantanée des bons d\'intervention du terrain au bureau',
+      'Enregistrement automatisé des heures et du kilométrage pour la paie',
+      'Facturation accélérée dès la fin de l\'intervention de service',
+      'Fin des bordereaux papier égarés et des cycles de facturation retardés'
+    ],
+    useCase: {
+      client: 'Bay Logistics & Service Fleet',
+      location: 'Saint John, Nouveau-Brunswick',
+      challenge: 'Les techniciens déposaient leurs ordres de travail papier le vendredi, retardant la facturation de 7 jours.',
+      outcome: 'L\'achèvement de l\'intervention génère immédiatement une facture brouillon dès la signature mobile du client.',
+      hoursSaved: '15 heures économisées par semaine'
+    },
+    faq: [
+      {
+        question: 'Les techniciens peuvent-ils utiliser leurs téléphones ou tablettes existants ?',
+        answer: 'Oui. Nous nous connectons aux applications mobiles existantes ou mettons en place des formulaires mobiles simples.'
+      }
+    ]
+  },
+  'custom-report-automation': {
+    title: 'Automatisation des Rapports de Direction',
+    subtitle: 'Consolidez vos tableurs opérationnels en tableaux de bord de direction clairs et quotidiens.',
+    description: 'N\'attendez plus la fin du mois pour comprendre vos indicateurs opérationnels. Nous agrégeons automatiquement les données de vente, paie, inventaire et comptabilité dans une synthèse matinale.',
+    icon: Database,
+    benefits: [
+      'Condensés quotidiens par courriel résumant les indicateurs clés',
+      'Suivi en temps réel des KPI pour l\'ensemble des succursales régionales',
+      'Zéro copier-coller fastidieux entre classeurs Excel disparates',
+      'Prévisions précises des flux de trésorerie et du pipeline d\'affaires'
+    ],
+    useCase: {
+      client: 'Island Food Processing & Supply',
+      location: 'Charlottetown, Île-du-Prince-Édouard',
+      challenge: 'Le directeur général passait 3 heures chaque lundi matin à compiler les chiffres de 4 services.',
+      outcome: 'Le rapport matinal automatisé livre désormais les KPI consolidés directement par courriel à 7h00 chaque matin.',
+      hoursSaved: '10 heures économisées par semaine'
+    },
+    faq: [
+      {
+        question: 'Pouvons-nous recevoir le rapport directement par courriel ou messagerie ?',
+        answer: 'Oui, les synthèses peuvent être transmises en PDF, alertes Slack/Teams ou visualisées sur un tableau de bord web sécurisé.'
+      }
+    ]
+  }
+};
+
 const SolutionDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { language } = useLanguage();
+  const isFr = language === 'fr';
 
   const solutionKey = slug || 'invoice-automation';
+  const solutionsMap = isFr ? solutionsMapFr : solutionsMapEn;
   const solution = solutionsMap[solutionKey] || solutionsMap['invoice-automation'];
   const IconComponent = solution.icon;
 
@@ -181,13 +292,13 @@ const SolutionDetail: React.FC = () => {
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-4xl">
           <Link to={NavRoute.SERVICES} className="inline-flex items-center gap-2 text-cyan-400 mb-8 hover:underline font-mono font-bold uppercase tracking-wider text-xs">
-            <ArrowLeft size={16} /> All Solutions & Process
+            <ArrowLeft size={16} /> {isFr ? "Toutes les solutions & processus" : "All Solutions & Process"}
           </Link>
 
           <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 px-3.5 py-1.5 rounded-full mb-6">
             <IconComponent size={16} className="text-cyan-400" />
             <span className="text-[11px] font-mono text-cyan-400 font-bold uppercase tracking-widest">
-              Done-For-You Workflow Integration
+              {isFr ? "Intégration Clé en Main des Processus" : "Done-For-You Workflow Integration"}
             </span>
           </div>
 
@@ -203,7 +314,7 @@ const SolutionDetail: React.FC = () => {
             onClick={() => setIsDrawerOpen(true)}
             className="px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
           >
-            <Sparkles size={16} /> Schedule Your Operational Audit
+            <Sparkles size={16} /> {isFr ? "Planifier Votre Audit Opérationnel" : "Schedule Your Operational Audit"}
           </button>
         </div>
       </section>
@@ -213,13 +324,17 @@ const SolutionDetail: React.FC = () => {
           
           {/* Overview */}
           <div className="space-y-4">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-white">How It Works</h2>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white">
+              {isFr ? "Comment Ça Fonctionne" : "How It Works"}
+            </h2>
             <p className="text-base text-gray-300 leading-relaxed font-light">{solution.description}</p>
           </div>
 
           {/* Key Benefits */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-white">Key Features & Impact</h2>
+            <h2 className="text-2xl font-bold text-white">
+              {isFr ? "Caractéristiques Clés & Impact" : "Key Features & Impact"}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {solution.benefits.map((benefit, idx) => (
                 <div key={idx} className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl p-5 border border-white/10 flex items-start gap-3">
@@ -234,14 +349,14 @@ const SolutionDetail: React.FC = () => {
           <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-3xl p-8 border border-white/10 space-y-6">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <span className="text-[10px] font-mono uppercase text-cyan-400 font-bold tracking-widest">
-                Regional Case Study
+                {isFr ? "Étude de Cas Régionale" : "Regional Case Study"}
               </span>
               <span className="text-xs font-mono text-gray-400">{solution.useCase.location}</span>
             </div>
             <h3 className="text-xl font-bold text-white">{solution.useCase.client}</h3>
             <div className="space-y-2 text-xs md:text-sm text-gray-300">
-              <p><strong className="text-white">Challenge:</strong> {solution.useCase.challenge}</p>
-              <p><strong className="text-white">Solution Outcome:</strong> {solution.useCase.outcome}</p>
+              <p><strong className="text-white">{isFr ? "Défi :" : "Challenge:"}</strong> {solution.useCase.challenge}</p>
+              <p><strong className="text-white">{isFr ? "Résultat :" : "Solution Outcome:"}</strong> {solution.useCase.outcome}</p>
             </div>
             <div className="pt-4 border-t border-white/10 text-cyan-400 font-mono font-bold text-xs uppercase tracking-wider flex items-center gap-2">
               <Clock size={16} /> {solution.useCase.hoursSaved}
@@ -250,7 +365,9 @@ const SolutionDetail: React.FC = () => {
 
           {/* FAQ Section */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-white">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-bold text-white">
+              {isFr ? "Foire Aux Questions" : "Frequently Asked Questions"}
+            </h2>
             <div className="space-y-4">
               {solution.faq.map((item, i) => (
                 <div key={i} className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl p-6 border border-white/10 space-y-2">
@@ -264,19 +381,23 @@ const SolutionDetail: React.FC = () => {
           {/* Final Callout */}
           <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-3xl p-8 md:p-12 border border-white/10 text-center space-y-6">
             <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest block">
-              Start
+              {isFr ? "Passez à l'Action" : "Start"}
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-white">
-              Ready to eliminate manual data entry in your operations?
+              {isFr 
+                ? "Prêt à éliminer la saisie manuelle de données dans vos opérations ?"
+                : "Ready to eliminate manual data entry in your operations?"}
             </h2>
             <p className="text-xs md:text-sm text-gray-400 font-light max-w-xl mx-auto">
-              Schedule a 15-minute operational audit. We'll show you exactly how to connect your tools without buying expensive new software.
+              {isFr
+                ? "Planifiez un audit opérationnel de 15 minutes. Nous vous montrerons précisément comment interconnecter vos outils sans licence logicielle coûteuse."
+                : "Schedule a 15-minute operational audit. We'll show you exactly how to connect your tools without buying expensive new software."}
             </p>
             <button
               onClick={() => setIsDrawerOpen(true)}
               className="px-8 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
             >
-              <Sparkles size={16} /> Schedule Your Operational Audit
+              <Sparkles size={16} /> {isFr ? "Planifier Votre Audit Opérationnel" : "Schedule Your Operational Audit"}
             </button>
           </div>
 

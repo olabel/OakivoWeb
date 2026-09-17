@@ -20,8 +20,12 @@ import SEO from '../components/SEO';
 import { auth } from '../utils/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, User } from 'firebase/auth';
 import SecurityHealthDashboard from '../components/SecurityHealthDashboard';
+import { useLanguage } from '../context/LanguageContext';
 
 const ClientPortal: React.FC = () => {
+  const { language } = useLanguage();
+  const isFr = language === 'fr';
+
   const [user, setUser] = useState<User | null>(null);
   const [isInitializing, setIsInitializing] = useState(true);
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -54,13 +58,21 @@ const ClientPortal: React.FC = () => {
     } catch (err: any) {
       console.error(err);
       if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-        setError('Invalid credentials. Please verify your access provisioning.');
+        setError(isFr 
+          ? 'Identifiants invalides. Veuillez vérifier les accès attribués.' 
+          : 'Invalid credentials. Please verify your access provisioning.');
       } else if (err.code === 'auth/email-already-in-use') {
-        setError('An account with this corporate email already exists.');
+        setError(isFr 
+          ? 'Un compte avec cette adresse courriel corporative existe déjà.' 
+          : 'An account with this corporate email already exists.');
       } else if (err.code === 'auth/weak-password') {
-        setError('Password must be at least 6 characters to meet compliance standards.');
+        setError(isFr 
+          ? 'Le mot de passe doit comporter au moins 6 caractères pour satisfaire les normes de sécurité.' 
+          : 'Password must be at least 6 characters to meet compliance standards.');
       } else {
-        setError('Authentication failed. Please contact your Oakivo technical account manager.');
+        setError(isFr 
+          ? 'Échec d\'authentification. Veuillez contacter votre responsable technique de compte Oakivo.' 
+          : 'Authentication failed. Please contact your Oakivo technical account manager.');
       }
     } finally {
       setIsLoading(false);
@@ -87,8 +99,12 @@ const ClientPortal: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Secure Client Portal & Security Health Dashboard | Oakivo"
-        description="Real-time Security Health Dashboard displaying automated scan metrics, continuous zero-trust posture, and autonomous incident remediations."
+        title={isFr 
+          ? "Portail Client Sécurisé & Tableau de Bord de Santé Sécurité | Oakivo" 
+          : "Secure Client Portal & Security Health Dashboard | Oakivo"}
+        description={isFr 
+          ? "Tableau de bord de santé de sécurité en temps réel affichant la télémétrie des analyses automatisées, la posture Zéro Confiance continue et les remédiations autonomes d'incidents."
+          : "Real-time Security Health Dashboard displaying automated scan metrics, continuous zero-trust posture, and autonomous incident remediations."}
       />
       <section className="pt-28 pb-24 px-4 sm:px-6 min-h-screen bg-slate-950 relative flex flex-col items-center">
         {/* Glow Effects */}
@@ -110,9 +126,13 @@ const ClientPortal: React.FC = () => {
                   <div className="w-16 h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(6,182,212,0.15)]">
                     <Lock className="text-cyan-400" size={28} />
                   </div>
-                  <h1 className="text-3xl font-display font-bold text-white mb-3">Client Enclave</h1>
+                  <h1 className="text-3xl font-display font-bold text-white mb-3">
+                    {isFr ? "Enclave Client" : "Client Enclave"}
+                  </h1>
                   <p className="text-slate-300 font-normal text-sm">
-                    Authenticate to access your real-time Security Health Dashboard, automated scan telemetry, and incident audit trails.
+                    {isFr
+                      ? "Authentifiez-vous pour accéder à votre tableau de bord de santé de sécurité, à la télémétrie des scans et aux pistes d'audit des incidents."
+                      : "Authenticate to access your real-time Security Health Dashboard, automated scan telemetry, and incident audit trails."}
                   </p>
                 </div>
 
@@ -126,7 +146,9 @@ const ClientPortal: React.FC = () => {
 
                   <form onSubmit={handleAuth} className="space-y-4">
                     <div className="space-y-1.5">
-                      <label htmlFor="email" className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">Corporate Email</label>
+                      <label htmlFor="email" className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">
+                        {isFr ? "Courriel Corporatif" : "Corporate Email"}
+                      </label>
                       <div className="relative">
                         <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                         <input 
@@ -136,13 +158,15 @@ const ClientPortal: React.FC = () => {
                           value={email}
                           onChange={e => setEmail(e.target.value)}
                           className="w-full bg-slate-950/50 border border-slate-800 rounded-xl py-3.5 pl-12 pr-4 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors text-sm"
-                          placeholder="executive@enterprise.com"
+                          placeholder="direction@entreprise.ca"
                         />
                       </div>
                     </div>
                     
                     <div className="space-y-1.5">
-                      <label htmlFor="password" className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">Access Token / Password</label>
+                      <label htmlFor="password" className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">
+                        {isFr ? "Jeton d'Accès / Mot de Passe" : "Access Token / Password"}
+                      </label>
                       <div className="relative">
                         <Key size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                         <input 
@@ -160,12 +184,12 @@ const ClientPortal: React.FC = () => {
                     <button 
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-cyan-500 text-slate-950 font-bold font-mono text-sm py-4 rounded-xl hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors flex items-center justify-center gap-2 mt-4"
+                      className="w-full bg-cyan-500 text-slate-950 font-bold font-mono text-sm py-4 rounded-xl hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors flex items-center justify-center gap-2 mt-4 cursor-pointer"
                     >
                       {isLoading ? (
-                        <><Loader2 size={16} className="animate-spin" /> VERIFYING ENCLAVE KEY...</>
+                        <><Loader2 size={16} className="animate-spin" /> {isFr ? "VÉRIFICATION DE LA CLÉ..." : "VERIFYING ENCLAVE KEY..."}</>
                       ) : (
-                        <>{isLoginMode ? 'AUTHENTICATE SESSION' : 'PROVISION ACCESS'} <ArrowRight size={16} /></>
+                        <>{isLoginMode ? (isFr ? 'AUTHENTIFIER LA SESSION' : 'AUTHENTICATE SESSION') : (isFr ? 'INITIALISER L\'ACCÈS' : 'PROVISION ACCESS')} <ArrowRight size={16} /></>
                       )}
                     </button>
                   </form>
@@ -174,22 +198,26 @@ const ClientPortal: React.FC = () => {
                   <div className="pt-4 border-t border-slate-800/80">
                     <button
                       onClick={() => setIsDemoActive(true)}
-                      className="w-full py-3.5 px-4 rounded-xl bg-slate-950/80 hover:bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2.5 group"
+                      className="w-full py-3.5 px-4 rounded-xl bg-slate-950/80 hover:bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2.5 group cursor-pointer"
                     >
                       <Sparkles className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform" />
-                      <span>EXPLORE LIVE SECURITY DASHBOARD (DEMO)</span>
+                      <span>{isFr ? "EXPLORER LE TABLEAU DE BORD EN DIRECT (DÉMO)" : "EXPLORE LIVE SECURITY DASHBOARD (DEMO)"}</span>
                     </button>
                     <p className="text-[11px] text-slate-500 text-center font-mono mt-2">
-                      Instant evaluation mode with live automated telemetry & simulated remediations.
+                      {isFr
+                        ? "Mode d'évaluation immédiat avec télémétrie en direct et remédiations simulées."
+                        : "Instant evaluation mode with live automated telemetry & simulated remediations."}
                     </p>
                   </div>
 
                   <div className="pt-2 text-center">
                     <button 
                       onClick={() => { setIsLoginMode(!isLoginMode); setError(''); }}
-                      className="text-slate-400 hover:text-cyan-400 text-xs font-mono transition-colors"
+                      className="text-slate-400 hover:text-cyan-400 text-xs font-mono transition-colors cursor-pointer"
                     >
-                      {isLoginMode ? "Need to provision new client access? Register here." : "Already provisioned? Authenticate here."}
+                      {isLoginMode 
+                        ? (isFr ? "Besoin de configurer un nouvel accès client ? Créez un compte ici." : "Need to provision new client access? Register here.")
+                        : (isFr ? "Accès déjà configuré ? Connectez-vous ici." : "Already provisioned? Authenticate here.")}
                     </button>
                   </div>
                 </div>
@@ -206,15 +234,17 @@ const ClientPortal: React.FC = () => {
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-3">
                       <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-emerald-400 uppercase bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">
-                        <Shield size={12} /> {isDemoActive ? 'Demo Enclave Active' : 'Secure Session Active'}
+                        <Shield size={12} /> {isDemoActive ? (isFr ? 'Enclave Démo Active' : 'Demo Enclave Active') : (isFr ? 'Session Sécurisée Active' : 'Secure Session Active')}
                       </div>
                       <span className="text-xs font-mono text-slate-400">
-                        Environment: <strong className="text-cyan-400">AWS ca-central-1 (Atlantic Mesh)</strong>
+                        {isFr ? "Environnement :" : "Environment:"} <strong className="text-cyan-400">AWS ca-central-1 (Maillage Atlantique)</strong>
                       </span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-display font-bold text-white">Client Intelligence Enclave</h1>
+                    <h1 className="text-3xl md:text-4xl font-display font-bold text-white">
+                      {isFr ? "Enclave d'Intelligence Client" : "Client Intelligence Enclave"}
+                    </h1>
                     <p className="text-slate-400 font-mono text-xs">
-                      Authenticated Identity: <span className="text-cyan-300">{user?.email || 'demo.enterprise@oakivo.cloud'}</span>
+                      {isFr ? "Identité Authentifiée :" : "Authenticated Identity:"} <span className="text-cyan-300">{user?.email || 'demo.enterprise@oakivo.cloud'}</span>
                     </p>
                   </div>
 
@@ -223,34 +253,34 @@ const ClientPortal: React.FC = () => {
                     <div className="bg-slate-900/80 border border-slate-800 p-1 rounded-xl flex items-center">
                       <button
                         onClick={() => setActiveTab('health_dashboard')}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
                           activeTab === 'health_dashboard'
                             ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
                             : 'text-slate-400 hover:text-white'
                         }`}
                       >
                         <LayoutDashboard className="w-3.5 h-3.5" />
-                        Security Health Dashboard
+                        {isFr ? "Santé Sécurité" : "Security Health Dashboard"}
                       </button>
 
                       <button
                         onClick={() => setActiveTab('compliance_assets')}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
                           activeTab === 'compliance_assets'
                             ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
                             : 'text-slate-400 hover:text-white'
                         }`}
                       >
                         <FileCheck className="w-3.5 h-3.5" />
-                        Compliance Assets & Blueprints
+                        {isFr ? "Ressources & Modèles de Conformité" : "Compliance Assets & Blueprints"}
                       </button>
                     </div>
 
                     <button 
                       onClick={handleSignOut}
-                      className="flex items-center gap-2 text-slate-400 hover:text-red-400 font-mono text-xs uppercase tracking-widest transition-colors bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-xl"
+                      className="flex items-center gap-2 text-slate-400 hover:text-red-400 font-mono text-xs uppercase tracking-widest transition-colors bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-xl cursor-pointer"
                     >
-                      <LogOut size={14} /> Exit
+                      <LogOut size={14} /> {isFr ? "Déconnexion" : "Exit"}
                     </button>
                   </div>
                 </div>
@@ -267,9 +297,13 @@ const ClientPortal: React.FC = () => {
                 {activeTab === 'compliance_assets' && (
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-xl font-display font-bold text-white mb-2">Enterprise Compliance Blueprints</h3>
+                      <h3 className="text-xl font-display font-bold text-white mb-2">
+                        {isFr ? "Plans d'Architecture & Conformité Entreprise" : "Enterprise Compliance Blueprints"}
+                      </h3>
                       <p className="text-slate-400 text-sm">
-                        Curated security architectures, Terraform audit modules, and threat matrices available exclusively to Oakivo enterprise retainers.
+                        {isFr
+                          ? "Architectures de sécurité vérifiées, modules d'audit Terraform et matrices de menaces réservés exclusivement aux clients partenaires d'Oakivo."
+                          : "Curated security architectures, Terraform audit modules, and threat matrices available exclusively to Oakivo enterprise retainers."}
                       </p>
                     </div>
 
@@ -279,9 +313,13 @@ const ClientPortal: React.FC = () => {
                         <div className="w-12 h-12 bg-cyan-950 border border-cyan-900 rounded-xl flex items-center justify-center mb-6">
                           <FileText className="text-cyan-400" size={24} />
                         </div>
-                        <h4 className="text-xl font-display font-bold text-white mb-3">Enterprise SOC 2 Blueprint</h4>
+                        <h4 className="text-xl font-display font-bold text-white mb-3">
+                          {isFr ? "Plan Architectural SOC 2 Entreprise" : "Enterprise SOC 2 Blueprint"}
+                        </h4>
                         <p className="text-slate-400 text-sm font-light mb-6">
-                          A comprehensive 45-page architectural reference for automating continuous SOC 2 compliance on AWS using Terraform and OPA Gatekeeper.
+                          {isFr
+                            ? "Guide de référence complet de 45 pages pour automatiser la conformité continue SOC 2 sur AWS avec Terraform et OPA Gatekeeper."
+                            : "A comprehensive 45-page architectural reference for automating continuous SOC 2 compliance on AWS using Terraform and OPA Gatekeeper."}
                         </p>
                         <button 
                           onClick={() => {
@@ -292,9 +330,9 @@ const ClientPortal: React.FC = () => {
                             a.download = "Oakivo-SOC2-Blueprint-2026.pdf";
                             a.click();
                           }}
-                          className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors"
+                          className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors cursor-pointer"
                         >
-                          <Download size={14} /> DOWNLOAD BLUEPRINT (12MB)
+                          <Download size={14} /> {isFr ? "TÉLÉCHARGER LE PLAN (12 Mo)" : "DOWNLOAD BLUEPRINT (12MB)"}
                         </button>
                       </div>
 
@@ -303,9 +341,13 @@ const ClientPortal: React.FC = () => {
                         <div className="w-12 h-12 bg-cyan-950 border border-cyan-900 rounded-xl flex items-center justify-center mb-6">
                           <Activity className="text-cyan-400" size={24} />
                         </div>
-                        <h4 className="text-xl font-display font-bold text-white mb-3">2026 Threat Telemetry Matrix</h4>
+                        <h4 className="text-xl font-display font-bold text-white mb-3">
+                          {isFr ? "Matrice de Télémétrie des Menaces 2026" : "2026 Threat Telemetry Matrix"}
+                        </h4>
                         <p className="text-slate-400 text-sm font-light mb-6">
-                          Proprietary analysis of the top zero-day vectors, container supply chain attack vectors, and eBPF detection signatures.
+                          {isFr
+                            ? "Analyse exclusive des principaux vecteurs zero-day, vulnérabilités de la chaîne d'approvisionnement des conteneurs et signatures eBPF."
+                            : "Proprietary analysis of the top zero-day vectors, container supply chain attack vectors, and eBPF detection signatures."}
                         </p>
                         <button 
                           onClick={() => {
@@ -316,9 +358,9 @@ const ClientPortal: React.FC = () => {
                             a.download = "Oakivo-Threat-Matrix-2026.pdf";
                             a.click();
                           }}
-                          className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors"
+                          className="w-full flex items-center justify-center gap-2 py-3 bg-slate-800 text-white font-mono text-xs font-bold rounded-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors cursor-pointer"
                         >
-                          <Download size={14} /> DOWNLOAD REPORT (8MB)
+                          <Download size={14} /> {isFr ? "TÉLÉCHARGER LE RAPPORT (8 Mo)" : "DOWNLOAD REPORT (8MB)"}
                         </button>
                       </div>
 
@@ -328,9 +370,13 @@ const ClientPortal: React.FC = () => {
                         <div className="w-12 h-12 bg-cyan-500/20 border border-cyan-500/30 rounded-xl flex items-center justify-center mb-6">
                           <Shield className="text-cyan-400" size={24} />
                         </div>
-                        <h4 className="text-xl font-display font-bold text-white mb-3">PIPEDA / Law 25 Compliance Pack</h4>
+                        <h4 className="text-xl font-display font-bold text-white mb-3">
+                          {isFr ? "Trousse de Conformité LPRPDE & Loi 25" : "PIPEDA / Law 25 Compliance Pack"}
+                        </h4>
                         <p className="text-slate-400 text-sm font-light mb-6">
-                          Validated infrastructure templates ensuring all customer PII and database archives remain restricted to Canadian sovereign data regions.
+                          {isFr
+                            ? "Modèles d'infrastructure validés assurant que toutes les données personnelles et bases de données demeurent sur le sol canadien."
+                            : "Validated infrastructure templates ensuring all customer PII and database archives remain restricted to Canadian sovereign data regions."}
                         </p>
                         <button 
                           onClick={() => {
@@ -341,9 +387,9 @@ const ClientPortal: React.FC = () => {
                             a.download = "Oakivo-PIPEDA-Compliance-Pack.pdf";
                             a.click();
                           }}
-                          className="w-full flex items-center justify-center gap-2 py-3 bg-cyan-500 text-slate-950 font-mono text-xs font-bold rounded-lg hover:bg-cyan-400 transition-colors"
+                          className="w-full flex items-center justify-center gap-2 py-3 bg-cyan-500 text-slate-950 font-mono text-xs font-bold rounded-lg hover:bg-cyan-400 transition-colors cursor-pointer"
                         >
-                          DOWNLOAD COMPLIANCE PACK <ArrowRight size={14} />
+                          {isFr ? "TÉLÉCHARGER LA TROUSSE" : "DOWNLOAD COMPLIANCE PACK"} <ArrowRight size={14} />
                         </button>
                       </div>
                     </div>

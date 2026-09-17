@@ -3,16 +3,24 @@ import SEO from '../components/SEO';
 import { ShieldCheck, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 export const BrandShowcase: React.FC = () => {
+  const { language } = useLanguage();
+  const isFr = language === 'fr';
+
   const concepts = [
     {
       id: 'concept-1',
-      title: 'Concept 1: The Interlocking Timber Joint',
-      metaphor: 'Joinery & Connection Metaphor',
-      subtitle: 'Solid oak joinery meets seamless systems connection',
-      colorsUsed: ['#D97706 (Warm Amber)', '#475569 (Slate Earth)', '#10B981 (Key Emerald)'],
-      description: 'Two structural mortise-and-tenon L-blocks lock together with an emerald precision keyway to form a unified square "O". Visualizes taking separate accounting and inventory silos and locking them into one solid operational structure.',
+      title: isFr ? 'Concept 1 : L\'Assemblage de Bois Franc Encastré' : 'Concept 1: The Interlocking Timber Joint',
+      metaphor: isFr ? 'Métaphore d\'Ébénisterie & de Connexion' : 'Joinery & Connection Metaphor',
+      subtitle: isFr ? 'L\'assemblage en chêne massif rencontre la connexion fluide des systèmes' : 'Solid oak joinery meets seamless systems connection',
+      colorsUsed: isFr 
+        ? ['#D97706 (Ambre Chaud)', '#475569 (Ardoise Terrestre)', '#10B981 (Clé Émeraude)']
+        : ['#D97706 (Warm Amber)', '#475569 (Slate Earth)', '#10B981 (Key Emerald)'],
+      description: isFr
+        ? 'Deux blocs structurels à tenon et mortaise en « L » s\'emboîtent avec une clavette de précision émeraude pour former un « O » unifié. Représente l\'intégration des silos comptables et d\'inventaire dans une structure opérationnelle solide.'
+        : 'Two structural mortise-and-tenon L-blocks lock together with an emerald precision keyway to form a unified square "O". Visualizes taking separate accounting and inventory silos and locking them into one solid operational structure.',
       svgMark: (fg = 'default') => {
         if (fg === 'mono-dark') {
           return (
@@ -40,15 +48,21 @@ export const BrandShowcase: React.FC = () => {
           </svg>
         );
       },
-      qaAudit: 'PASS  -  Zero forbidden elements. Grounded timber joinery motif. Legible at 24px favicon. Distinctly Oakivo.'
+      qaAudit: isFr 
+        ? 'VALIDE  -  Zéro cliché tech. Motif ancré d\'assemblage bois. Lisible en favicon 24px.'
+        : 'PASS  -  Zero forbidden elements. Grounded timber joinery motif. Legible at 24px favicon. Distinctly Oakivo.'
     },
     {
       id: 'concept-2',
-      title: 'Concept 2: The Tidal Channel & Keystone',
-      metaphor: 'Atlantic Maritime Motif Reinterpreted Abstractly',
-      subtitle: 'Maritime coastal bedrock framing an unchoked operational channel',
-      colorsUsed: ['#0F172A (Bay Navy)', '#D4A373 (Coast Sandstone)', '#059669 (Harbor Teal)'],
-      description: 'A heavy squircle keystone split by a crisp 45° negative space channel, forming dual bedrock pillars enclosing a central flow path. Rooted in Atlantic Canadian coastal resilience - signifying fluid data movement through solid operational foundations.',
+      title: isFr ? 'Concept 2 : Le Chenal de Marée & Clé de Voûte' : 'Concept 2: The Tidal Channel & Keystone',
+      metaphor: isFr ? 'Motif Maritime Atlantique Réinterprété' : 'Atlantic Maritime Motif Reinterpreted Abstractly',
+      subtitle: isFr ? 'Le socle côtier maritime encadrant un chenal opérationnel fluide' : 'Maritime coastal bedrock framing an unchoked operational channel',
+      colorsUsed: isFr 
+        ? ['#0F172A (Bleu Baie)', '#D4A373 (Grès Côtier)', '#059669 (Sarcelle Portuaire)']
+        : ['#0F172A (Bay Navy)', '#D4A373 (Coast Sandstone)', '#059669 (Harbor Teal)'],
+      description: isFr
+        ? 'Une clé de voûte en squircle divisée par un chenal négatif à 45°, formant deux piliers protégeant un flux central. Ancré dans la résilience côtière de l\'Atlantique canadien.'
+        : 'A heavy squircle keystone split by a crisp 45° negative space channel, forming dual bedrock pillars enclosing a central flow path. Rooted in Atlantic Canadian coastal resilience - signifying fluid data movement through solid operational foundations.',
       svgMark: (fg = 'default') => {
         if (fg === 'mono-dark') {
           return (
@@ -73,15 +87,21 @@ export const BrandShowcase: React.FC = () => {
           </svg>
         );
       },
-      qaAudit: 'PASS  -  Zero forbidden items. Atlantic maritime keystone theme. Crisp single-color performance. High regional authenticity.'
+      qaAudit: isFr 
+        ? 'VALIDE  -  Thème de clé de voûte maritime atlantique. Excellente clarté monochrome.'
+        : 'PASS  -  Zero forbidden items. Atlantic maritime keystone theme. Crisp single-color performance. High regional authenticity.'
     },
     {
       id: 'concept-3',
-      title: 'Concept 3: The Architectural Monolithic O-K Ligature',
-      metaphor: 'Typographic & Monogram Solution',
-      subtitle: 'Plain-spoken architectural typography joining O & K into a single pillar',
-      colorsUsed: ['#1E293B (Granite Black)', '#EA580C (Industrial Amber)'],
-      description: 'A custom structural monogram combining "O" and "K" into a unified geometric frame. The left architectural pillar forms the stem of the "O" while two angled structural braces complete the internal "K", creating a solid, trustworthy industrial mark.',
+      title: isFr ? 'Concept 3 : La Ligature Architecturale O-K' : 'Concept 3: The Architectural Monolithic O-K Ligature',
+      metaphor: isFr ? 'Solution Typographique & Monogramme' : 'Typographic & Monogram Solution',
+      subtitle: isFr ? 'Typographie architecturale directe reliant O et K en un pilier unique' : 'Plain-spoken architectural typography joining O & K into a single pillar',
+      colorsUsed: isFr 
+        ? ['#1E293B (Noir Granit)', '#EA580C (Ambre Industriel)']
+        : ['#1E293B (Granite Black)', '#EA580C (Industrial Amber)'],
+      description: isFr
+        ? 'Monogramme structurel combinant « O » et « K » dans un cadre géométrique unifié. Le pilier gauche forme la base du « O » tandis que deux diagonales complètent le « K », créant un symbole industriel solide.'
+        : 'A custom structural monogram combining "O" and "K" into a unified geometric frame. The left architectural pillar forms the stem of the "O" while two angled structural braces complete the internal "K", creating a solid, trustworthy industrial mark.',
       svgMark: (fg = 'default') => {
         if (fg === 'mono-dark') {
           return (
@@ -107,15 +127,21 @@ export const BrandShowcase: React.FC = () => {
           </svg>
         );
       },
-      qaAudit: 'PASS  -  Zero forbidden tech clichés. Direct O-K typographic ligature. Maximum legibility at micro favicon sizes.'
+      qaAudit: isFr 
+        ? 'VALIDE  -  Ligature typographique directe O-K. Lisibilité maximale en petite taille.'
+        : 'PASS  -  Zero forbidden tech clichés. Direct O-K typographic ligature. Maximum legibility at micro favicon sizes.'
     },
     {
       id: 'concept-4',
-      title: 'Concept 4: The Modular Systems Bridge',
-      metaphor: 'Architectural & Systems Integration Mark',
-      subtitle: 'Translating scattered legacy tools into an engineered bridge',
-      colorsUsed: ['#334155 (Steel Slate)', '#F59E0B (Ochre Copper)'],
-      description: 'Three structural interlocking bridge beams framed inside an open square arch. Directly expresses Oakivo’s core promise: building solid automated bridges between existing accounting, inventory, and scheduling software for Atlantic Canadian business owners.',
+      title: isFr ? 'Concept 4 : Le Pont de Systèmes Modulaire' : 'Concept 4: The Modular Systems Bridge',
+      metaphor: isFr ? 'Symbole Architectural d\'Intégration Systèmes' : 'Architectural & Systems Integration Mark',
+      subtitle: isFr ? 'Traduire les outils hérités dispersés en un pont d\'ingénierie robuste' : 'Translating scattered legacy tools into an engineered bridge',
+      colorsUsed: isFr 
+        ? ['#334155 (Ardoise Acier)', '#F59E0B (Cuivre Ocre)']
+        : ['#334155 (Steel Slate)', '#F59E0B (Ochre Copper)'],
+      description: isFr
+        ? 'Trois poutres de pont structurelles imbriquées dans une arche carrée ouverte. Exprime la promesse d\'Oakivo : bâtir des ponts automatisés solides entre comptabilité, inventaire et logistique pour les entreprises atlantiques.'
+        : 'Three structural interlocking bridge beams framed inside an open square arch. Directly expresses Oakivo’s core promise: building solid automated bridges between existing accounting, inventory, and scheduling software for Atlantic Canadian business owners.',
       svgMark: (fg = 'default') => {
         if (fg === 'mono-dark') {
           return (
@@ -139,15 +165,21 @@ export const BrandShowcase: React.FC = () => {
           </svg>
         );
       },
-      qaAudit: 'PASS  -  Zero abstract swooshes or circuit nodes. Clear systems-bridge metaphor. Exceptional flat single-color clarity.'
+      qaAudit: isFr 
+        ? 'VALIDE  -  Zéro trait abstrait ou nœud de circuit. Métaphore claire de pont de systèmes.'
+        : 'PASS  -  Zero abstract swooshes or circuit nodes. Clear systems-bridge metaphor. Exceptional flat single-color clarity.'
     }
   ];
 
   return (
     <>
       <SEO 
-        title="Brand Identity Concepts | Cloud Security Atlantic Canada"
-        description="Explore Oakivo Solutions' brand identity concepts, designed for Atlantic Canada enterprises seeking DevSecOps, compliance, and process automation expertise."
+        title={isFr 
+          ? "Concepts d'Identité de Marque | Sécurité Cloud Canada Atlantique | Oakivo"
+          : "Brand Identity Concepts | Cloud Security Atlantic Canada | Oakivo"}
+        description={isFr
+          ? "Explorez les concepts d'identité de marque d'Oakivo Solutions, conçus pour les entreprises du Canada atlantique recherchant l'expertise DevSecOps et d'automatisation."
+          : "Explore Oakivo Solutions' brand identity concepts, designed for Atlantic Canada enterprises seeking DevSecOps, compliance, and process automation expertise."}
         canonical="/brandshowcase"
       />
 
@@ -157,16 +189,18 @@ export const BrandShowcase: React.FC = () => {
           {/* Header */}
           <div className="space-y-4 max-w-4xl border-b border-white/10 pb-8">
             <Link to={NavRoute.HOME} className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 hover:underline mb-2">
-              <ArrowLeft size={14} /> Back to Homepage
+              <ArrowLeft size={14} /> {isFr ? "Retour à l'accueil" : "Back to Homepage"}
             </Link>
             <div className="inline-block px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs uppercase font-bold tracking-widest">
-              Brand Identity Audit & Concept Directions
+              {isFr ? "Audit d'Identité & Orientations de Marque" : "Brand Identity Audit & Concept Directions"}
             </div>
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white">
-              Oakivo Solutions Brand Identity Directions
+              {isFr ? "Orientations d'Identité de Marque d'Oakivo Solutions" : "Oakivo Solutions Brand Identity Directions"}
             </h1>
             <p className="text-sm md:text-base text-gray-400 leading-relaxed max-w-3xl">
-              Prepared for Atlantic Canadian small-to-mid-size business owners. Designed to project grounded competence, quiet reliability, and seamless software integration - strictly eliminating tech marketing clichés, gradient hexagons, and artificial hype.
+              {isFr 
+                ? "Conçu pour les gestionnaires et dirigeants d'entreprises du Canada atlantique. Axé sur la compétence pragmatique, la fiabilité durable et l'intégration logicielle fluide - éliminant strictement les clichés technologiques et le battage publicitaire artificiel."
+                : "Prepared for Atlantic Canadian small-to-mid-size business owners. Designed to project grounded competence, quiet reliability, and seamless software integration - strictly eliminating tech marketing clichés, gradient hexagons, and artificial hype."}
             </p>
           </div>
 
@@ -198,7 +232,7 @@ export const BrandShowcase: React.FC = () => {
                 {/* Concept Explanation */}
                 <div className="bg-black/30 p-5 rounded-2xl border border-white/5 text-xs md:text-sm text-gray-300 leading-relaxed space-y-2">
                   <span className="text-[10px] font-mono uppercase tracking-wider text-gray-500 block font-bold">
-                    Strategic Rationale & Brief Alignment
+                    {isFr ? "Justification Stratégique & Alignement" : "Strategic Rationale & Brief Alignment"}
                   </span>
                   <p>{concept.description}</p>
                   <div className="flex flex-wrap gap-2 pt-2">
@@ -216,7 +250,7 @@ export const BrandShowcase: React.FC = () => {
                   {/* Test 1: Near Black */}
                   <div className="space-y-3">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 block font-bold">
-                      1. Large Mark (#070A0F)
+                      {isFr ? "1. Grand Symbole (#070A0F)" : "1. Large Mark (#070A0F)"}
                     </span>
                     <div className="bg-slate-950 border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center h-48 relative group">
                       <div className="w-16 h-16">
@@ -234,7 +268,7 @@ export const BrandShowcase: React.FC = () => {
                   {/* Test 2: White Background */}
                   <div className="space-y-3">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 block font-bold">
-                      2. Large Mark (#FFFFFF)
+                      {isFr ? "2. Grand Symbole (#FFFFFF)" : "2. Large Mark (#FFFFFF)"}
                     </span>
                     <div className="bg-white border border-gray-200 rounded-2xl p-8 flex flex-col items-center justify-center h-48">
                       <div className="w-16 h-16">
@@ -252,7 +286,7 @@ export const BrandShowcase: React.FC = () => {
                   {/* Test 3: Favicon 24px */}
                   <div className="space-y-3">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 block font-bold">
-                      3. Simulated 24px Favicon
+                      {isFr ? "3. Simulation Favicon 24px" : "3. Simulated 24px Favicon"}
                     </span>
                     <div className="bg-[#0F172A] border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center h-48 space-y-4">
                       <div className="flex items-center gap-3">
@@ -265,7 +299,7 @@ export const BrandShowcase: React.FC = () => {
                         </div>
                       </div>
                       <span className="text-[10px] text-cyan-400 font-mono text-center">
-                        ✓ Survives 24×24px micro reduction cleanly
+                        {isFr ? "✓ Lisible nettement à 24×24px" : "✓ Survives 24×24px micro reduction cleanly"}
                       </span>
                     </div>
                   </div>
@@ -273,14 +307,14 @@ export const BrandShowcase: React.FC = () => {
                   {/* Test 4: Flat Single Color */}
                   <div className="space-y-3">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 block font-bold">
-                      4. Flat 1-Color (Monochrome)
+                      {isFr ? "4. Teinte Unique (Monochrome)" : "4. Flat 1-Color (Monochrome)"}
                     </span>
                     <div className="bg-gray-900 border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center h-48">
                       <div className="w-16 h-16">
                         {concept.svgMark('mono-dark')}
                       </div>
                       <span className="mt-3 text-[10px] font-mono text-gray-400">
-                        100% Solid Single Color
+                        {isFr ? "100% Monochrome Solide" : "100% Solid Single Color"}
                       </span>
                     </div>
                   </div>
@@ -295,20 +329,22 @@ export const BrandShowcase: React.FC = () => {
           <div className="bg-gradient-to-r from-emerald-950/40 via-emerald-900/20 to-emerald-950/40 border border-cyan-500/30 rounded-3xl p-8 space-y-4">
             <div className="flex items-center gap-3 text-cyan-400">
               <CheckCircle2 size={24} />
-              <h3 className="text-xl font-bold">QA Reviewer Audit & Final Sign-Off</h3>
+              <h3 className="text-xl font-bold">
+                {isFr ? "Audit & Approbation de Conformité Graphique" : "QA Reviewer Audit & Final Sign-Off"}
+              </h3>
             </div>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs md:text-sm text-gray-300 font-mono">
               <li className="flex items-center gap-2">
-                <span className="text-cyan-400 font-bold">✓</span> No gradient hexagons or generic 3D shapes used.
+                <span className="text-cyan-400 font-bold">✓</span> {isFr ? "Aucun hexagone en dégradé ni forme 3D générique." : "No gradient hexagons or generic 3D shapes used."}
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-cyan-400 font-bold">✓</span> Zero circuit-board lines, node dots, or complex swooshes.
+                <span className="text-cyan-400 font-bold">✓</span> {isFr ? "Zéro ligne de circuit imprimé, points nodaux ou courbes abstraites." : "Zero circuit-board lines, node dots, or complex swooshes."}
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-cyan-400 font-bold">✓</span> No generic rocket ships, upward arrows, or hidden checkmarks.
+                <span className="text-cyan-400 font-bold">✓</span> {isFr ? "Aucune fusée clichée, flèches montantes ou coches artificielles." : "No generic rocket ships, upward arrows, or hidden checkmarks."}
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-cyan-400 font-bold">✓</span> Replaced overused blue-cyan gradients with grounded Atlantic copper/amber & bay slate tones.
+                <span className="text-cyan-400 font-bold">✓</span> {isFr ? "Tonalités authentiques : ambre atlantique, ardoise de baie et cuivre côtier." : "Replaced overused blue-cyan gradients with grounded Atlantic copper/amber & bay slate tones."}
               </li>
             </ul>
           </div>
