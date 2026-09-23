@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Button from '../components/Button';
 import Logo from '../components/Logo';
+import SEO from '../components/SEO';
 import AdminAnalyticsDashboard from '../components/AdminAnalyticsDashboard';
 import EmailAuditLogSection from '../components/EmailAuditLogSection';
 
@@ -166,6 +167,7 @@ const AdminPortal: React.FC = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#020504] flex items-center justify-center p-6 relative overflow-hidden font-sans">
+        <SEO title="Strategy Vault | Oakivo Admin" description="Restricted command portal." noindex={true} />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-oakivo-secondary/10 rounded-full blur-[160px] -mr-40 -mt-40"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-oakivo-blue/5 rounded-full blur-[140px] -ml-40 -mb-40"></div>
         
@@ -232,6 +234,7 @@ const AdminPortal: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-oakivo-surface pt-36 pb-24 font-sans">
+      <SEO title="Strategy Vault | Oakivo Admin" description="Restricted command portal." noindex={true} />
       <div className="container mx-auto px-6">
         
         {/* Operations Command Header */}

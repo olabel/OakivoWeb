@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /admin-portal
+Disallow: /client-portal-demo
 Disallow: /api/
+Disallow: /404
 
 Sitemap: https://www.oakivo.com/sitemap.xml

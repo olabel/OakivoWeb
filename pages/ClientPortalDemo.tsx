@@ -205,7 +205,7 @@ const ClientPortalDemo: React.FC = () => {
         description={isFr
           ? "Explorez le tableau de bord client DevSecOps d'Oakivo. Visualisez les scores simulés de conformité cloud, les analyses de vulnérabilité et l'automatisation des processus au Canada atlantique."
           : "Experience Oakivo's DevSecOps client dashboard. View simulated cloud security compliance scores, vulnerability scans, and process automation in Atlantic Canada."}
-        canonical="/clientportaldemo"
+        noindex={true}
       />
 
       {/* Demo Mode Banner */}

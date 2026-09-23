@@ -13,7 +13,7 @@ const NotFound: React.FC = () => {
       <SEO 
         title={language === 'fr' ? "404 - Périmètre Dépassé | Oakivo Solutions" : "404 - Perimeter Boundary Exceeded | Oakivo Solutions"}
         description={language === 'fr' ? "La ressource demandée n'existe pas ou a été déplacée vers une enclave isolée." : "The requested resource does not exist or has been relocated to an isolated enclave."}
-        canonical="/404"
+        noindex={true}
       />
       <section className="min-h-[85vh] pt-32 pb-20 px-6 flex items-center justify-center relative bg-slate-950 text-slate-100 overflow-hidden">
         {/* Ambient Glow */}

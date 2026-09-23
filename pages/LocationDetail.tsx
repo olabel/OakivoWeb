@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Sparkles, MapPin, CheckCircle2, ShieldCheck, Clock, ArrowLeft, ArrowRight, Shield } from 'lucide-react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
+import NotFound from './NotFound';
 import LeadDrawer from '../components/LeadDrawer';
 import { NavRoute } from '../types';
 import { useLanguage } from '../context/LanguageContext';
@@ -133,14 +134,21 @@ const locationsMap: Record<string, LocationData> = {
   }
 };
 
+// Support both 'newfoundland' and 'newfoundland-labrador'
+locationsMap['newfoundland'] = locationsMap['newfoundland-labrador'];
+
 const LocationDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { t, language } = useLanguage();
   const isFr = language === 'fr';
 
-  const locKey = slug || 'new-brunswick';
-  const location = locationsMap[locKey] || locationsMap['new-brunswick'];
+  const locKey = slug ? slug.toLowerCase() : null;
+  const location = locKey ? locationsMap[locKey] : null;
+
+  if (!location || !locKey) {
+    return <NotFound />;
+  }
 
   const localBusinessSchema = {
     '@context': 'https://schema.org',

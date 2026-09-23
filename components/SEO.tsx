@@ -12,6 +12,7 @@ interface SEOProps {
   keywords?: string;
   image?: string;
   imageAlt?: string;
+  noindex?: boolean;
 }
 
 const SEO: React.FC<SEOProps> = ({ 
@@ -22,7 +23,8 @@ const SEO: React.FC<SEOProps> = ({
   type = 'website',
   keywords,
   image = '/og-image.png',
-  imageAlt
+  imageAlt,
+  noindex = false
 }) => {
   const { language } = useLanguage();
   const siteUrl = 'https://www.oakivo.com';
@@ -129,21 +131,34 @@ const SEO: React.FC<SEOProps> = ({
       <title>{title}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
-      <link rel="canonical" href={fullUrl} />
+      {keywords && !noindex && <meta name="keywords" content={keywords} />}
+      {!noindex && <link rel="canonical" href={fullUrl} />}
       
       {/* Multi-language Hreflang Tags */}
-      <link rel="alternate" hrefLang="en-CA" href={fullUrl} />
-      <link rel="alternate" hrefLang="fr-CA" href={`${fullUrl}?lang=fr`} />
-      <link rel="alternate" hrefLang="x-default" href={fullUrl} />
+      {!noindex && (
+        <>
+          <link rel="alternate" hrefLang="en-CA" href={fullUrl} />
+          <link rel="alternate" hrefLang="fr-CA" href={`${fullUrl}?lang=fr`} />
+          <link rel="alternate" hrefLang="x-default" href={fullUrl} />
+        </>
+      )}
       
       {/* Advanced Robot Directives */}
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-      <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+      {noindex ? (
+        <>
+          <meta name="robots" content="noindex, nofollow" />
+          <meta name="googlebot" content="noindex, nofollow" />
+        </>
+      ) : (
+        <>
+          <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+          <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        </>
+      )}
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
-      <meta property="og:url" content={fullUrl} />
+      {!noindex && <meta property="og:url" content={fullUrl} />}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content="Oakivo Solutions" />
@@ -157,7 +172,7 @@ const SEO: React.FC<SEOProps> = ({
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={fullUrl} />
+      {!noindex && <meta name="twitter:url" content={fullUrl} />}
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={fullImageUrl} />
@@ -166,7 +181,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:creator" content="@oakivosolutions" />
 
       {/* Structured Data (JSON-LD) */}
-      {renderSchema()}
+      {!noindex && renderSchema()}
     </Helmet>
   );
 };

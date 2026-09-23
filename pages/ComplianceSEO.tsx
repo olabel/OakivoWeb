@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import SEO from '../components/SEO';
+import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
 
 interface FrameworkDetails {
@@ -283,6 +284,498 @@ const FRAMEWORK_DATA: Record<string, FrameworkDetails> = {
         answer: 'A qualified (failed) SOC 2 report or an audit report riddled with exceptions halts enterprise sales pipelines, forces emergency remediation work, damages brand reputation, and requires re-testing at substantial CPA firm costs.'
       }
     ]
+  },
+  'iso27001': {
+    id: 'iso27001',
+    name: 'ISO/IEC 27001:2022 Information Security Management System (ISMS)',
+    shortName: 'ISO 27001',
+    regulator: 'International Organization for Standardization (ISO) / Standards Council of Canada (SCC)',
+    badge: 'Global Enterprise Security Standard',
+    jurisdiction: 'International & Canadian Global Markets',
+    penaltyText: 'Disqualification from international procurement tenders, loss of accreditation, and contract termination.',
+    executiveSummary: 'ISO/IEC 27001:2022 is the universally acknowledged global benchmark for information security governance. The 2022 revision introduces 11 new Annex A security controls specifically targeting cloud services, threat intelligence, data masking, and configuration management. Oakivo translates ISO 27001 controls into automated cloud guardrails and continuous audit telemetry.',
+    targetAudience: 'Global Canadian SaaS companies, international defense suppliers, cross-border fintechs, and enterprises serving multinational enterprise clients.',
+    urgencyDriver: 'Mandatory supplier qualification requirements from European and international enterprise buyers requiring accredited ISO 27001 certification.',
+    coreRequirements: [
+      {
+        title: 'Annex A 5.23 - Cloud Services Security',
+        desc: 'Establishing deterministic security policies for acquiring, utilizing, managing, and exiting commercial cloud service provider environments.'
+      },
+      {
+        title: 'Annex A 8.9 - Configuration Management',
+        desc: 'Continuous automated baselining of cloud infrastructure (Terraform / OpenTofu) to prevent unauthorized drift and unreviewed changes.'
+      },
+      {
+        title: 'Annex A 8.28 - Secure Coding & CI/CD Governance',
+        desc: 'Integrating static and dynamic security analysis (SAST/DAST) and Software Bill of Materials (SBOM) generation into deployment pipelines.'
+      },
+      {
+        title: 'Annex A 8.16 - Monitoring & Threat Intelligence',
+        desc: 'Continuous network, system, and cloud account behavioral logging with automated alerting on anomalous activity.'
+      }
+    ],
+    technicalBlueprint: [
+      {
+        phase: 'Phase 01',
+        title: 'ISMS Scope & Annex A Gap Analysis',
+        deliverables: [
+          'Identification of all cloud assets, repositories, and third-party data processing flows',
+          'Statement of Applicability (SoA) mapping against ISO 27001:2022 controls',
+          'Codified risk assessment methodology aligned with ISO 27005 guidelines'
+        ]
+      },
+      {
+        phase: 'Phase 02',
+        title: 'Automated Cloud Guardrails & IaC Hardening',
+        deliverables: [
+          'Terraform policies enforcing zero-trust networking, encryption at-rest (AES-256), and in-transit (TLS 1.3)',
+          'Automated cloud configuration scanning verifying compliance across AWS, Azure, and GCP',
+          'Role-based access control (RBAC) with just-in-time privileged access deprovisioning'
+        ]
+      },
+      {
+        phase: 'Phase 03',
+        title: 'DevSecOps & Supply Chain Security Gates',
+        deliverables: [
+          'CI/CD pipeline scanning blocking vulnerable open-source dependencies and container images',
+          'Cryptographic artifact signing ensuring verified production deployment provenance',
+          'Automated secret rotation eliminating hardcoded credentials'
+        ]
+      },
+      {
+        phase: 'Phase 04',
+        title: 'Stage 1 & Stage 2 Certification Audit Support',
+        deliverables: [
+          'Automated generation of audit-ready compliance evidence bundles',
+          'Technical advisory during registrar audit walkthroughs',
+          'Successful accreditation with zero major non-conformities'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the difference between ISO 27001 and SOC 2?',
+        answer: 'ISO 27001 is a globally recognized certification focusing on an overarching Information Security Management System (ISMS) framework, widely demanded in Europe and Asia. SOC 2 is an attestation report focusing on Trust Services Criteria predominantly demanded by North American enterprise buyers. Oakivo builds unified control frameworks that satisfy both standards simultaneously.'
+      },
+      {
+        question: 'How does ISO 27001:2022 impact cloud deployments?',
+        answer: 'The 2022 update explicitly requires organizations to manage cloud configurations, monitor threat intelligence, and enforce secure coding in CI/CD. Oakivo automates these requirements via Policy-as-Code so engineers never spend manual hours tracking controls.'
+      },
+      {
+        question: 'How long does ISO 27001 certification take with Oakivo?',
+        answer: 'By leveraging pre-built Infrastructure-as-Code modules and automated policy templates, Oakivo enables organizations to achieve full audit readiness in 6 to 8 weeks, significantly cutting traditional consulting timelines in half.'
+      }
+    ]
+  },
+  'hipaa': {
+    id: 'hipaa',
+    name: 'HIPAA Security & Breach Notification Rule Cloud Compliance',
+    shortName: 'HIPAA',
+    regulator: 'U.S. Department of Health and Human Services (HHS) / Office for Civil Rights (OCR)',
+    badge: 'Healthcare & ePHI Protection Standard',
+    jurisdiction: 'United States & Canadian HealthTech Exporting to US',
+    penaltyText: 'Civil Monetary Penalties up to $2,000,000 USD per violation category, mandatory corrective action plans, and criminal liability.',
+    executiveSummary: 'For Canadian digital health, MedTech, and telehealth providers exporting services or cloud software to United States healthcare organizations, HIPAA compliance is a legal prerequisite. Cloud infrastructures hosting electronic Protected Health Information (ePHI) require rigorous physical and technical safeguards, signed Business Associate Agreements (BAAs), dedicated encryption key management, and zero-trust microsegmentation.',
+    targetAudience: 'HealthTech startups, medical device software companies, electronic health record (EHR) integrations, telehealth platforms, and clinical data processors.',
+    urgencyDriver: 'Stringent enterprise hospital procurement bars, mandatory 60-day HHS breach notifications, and cross-border data transfer requirements.',
+    coreRequirements: [
+      {
+        title: 'ePHI Cryptographic Isolation',
+        desc: 'End-to-end encryption for ePHI at rest (AES-256) and in transit (TLS 1.3) with Customer Managed Keys in dedicated HSMs.'
+      },
+      {
+        title: 'Business Associate Agreement (BAA) Governance',
+        desc: 'Executing and technically enforcing BAAs with AWS, Azure, GCP, and all third-party downstream sub-processors.'
+      },
+      {
+        title: 'Immutable Audit Telemetry (§ 164.312(b))',
+        desc: 'Recording and automatically archiving all ePHI read, write, query, and administrative access events in tamper-proof cloud storage.'
+      },
+      {
+        title: 'Automatic Session Termination & Zero-Trust MFA',
+        desc: 'Enforcing strict idle session timeouts, phishing-resistant MFA, and role-based access restricted strictly to verified clinical roles.'
+      }
+    ],
+    technicalBlueprint: [
+      {
+        phase: 'Phase 01',
+        title: 'ePHI Data Flow Mapping & BAA Verification',
+        deliverables: [
+          'Comprehensive data classification identifying all ePHI ingestion, storage, and egress points',
+          'Execution and validation of cloud provider BAAs (AWS, Azure, Google Cloud)',
+          'Network boundary isolation separating marketing/general assets from ePHI enclaves'
+        ]
+      },
+      {
+        phase: 'Phase 02',
+        title: 'Technical Safeguards & Sovereign Encryption',
+        deliverables: [
+          'KMS customer managed encryption keys configured with automated annual key rotation',
+          'Database encryption with field-level tokenization for patient identifiers',
+          'Zero-trust network access (ZTNA) eliminating public exposure of healthcare databases'
+        ]
+      },
+      {
+        phase: 'Phase 03',
+        title: 'Automated HIPAA Audit Logging & SIEM',
+        deliverables: [
+          'CloudTrail, VPC Flow Logs, and application audit streams forwarded to immutable WORM storage',
+          'Real-time anomaly detection alerting on bulk patient record export attempts',
+          'Automated quarterly disaster recovery and failover verification'
+        ]
+      },
+      {
+        phase: 'Phase 04',
+        title: 'Security Assessment & Enterprise Vendor Review',
+        deliverables: [
+          'Third-party HIPAA Security Rule compliance assessment report',
+          'Standardized Vendor Security Assessment Questionnaire (VSAQ) repository for hospital procurement',
+          'Automated continuous compliance monitoring'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can Canadian HealthTech companies store US patient data on Canadian servers?',
+        answer: 'HIPAA does not explicitly forbid storing ePHI outside the US, provided all Security Rule controls and a signed BAA are maintained. However, US enterprise hospital systems often require domestic US cloud hosting (e.g. AWS us-east-1). Oakivo designs dual-region architectures keeping Canadian data under PIPEDA in Canada and US data under HIPAA in the United States.'
+      },
+      {
+        question: 'What is required for a cloud database to be HIPAA compliant?',
+        answer: 'Databases must have encryption at rest (AES-256), encrypted backups, TLS 1.3 in-transit connections, detailed query audit logs identifying user access, automatic backup replication, and zero public IP exposure.'
+      },
+      {
+        question: 'How do PIPEDA and HIPAA differ for healthcare software?',
+        answer: 'PIPEDA applies broadly to all commercial personal data across Canada, while HIPAA strictly regulates Protected Health Information (PHI) with prescriptive technical safeguard rules and formal Business Associate Agreements. Oakivo architectures harmonize both standards.'
+      }
+    ]
+  },
+  'pci-dss': {
+    id: 'pci-dss',
+    name: 'PCI-DSS v4.0 Payment Card Industry Cloud Security Standard',
+    shortName: 'PCI-DSS',
+    regulator: 'Payment Card Industry Security Standards Council (PCI SSC)',
+    badge: 'Cardholder Data & Financial Security Standard',
+    jurisdiction: 'Global & North American Financial Ecosystems',
+    penaltyText: 'Monthly fines up to $100,000 USD from card brands (Visa, Mastercard), card replacement liabilities, and revocation of merchant accounts.',
+    executiveSummary: 'PCI-DSS v4.0 represents the most significant update to payment security in over a decade, mandating continuous security verification, automated script management on payment pages, and zero-trust microsegmentation. Organizations handling credit card numbers or processing payment tokens must minimize their Cardholder Data Environment (CDE) scope to prevent devastating breach liabilities.',
+    targetAudience: 'Fintech platforms, payment service providers, e-commerce retailers, billing platforms, and software vendors integrating card payments.',
+    urgencyDriver: 'Mandatory PCI-DSS v4.0 compliance deadlines requiring authenticated vulnerability scanning, MFA for all console access, and automated script tamper detection.',
+    coreRequirements: [
+      {
+        title: 'Requirement 1 & 2 - CDE Scope Isolation',
+        desc: 'Strict firewall rules, VPC peering controls, and Kubernetes network policies preventing communication between general workloads and cardholder environments.'
+      },
+      {
+        title: 'Requirement 3 & 4 - Primary Account Number (PAN) Cryptography',
+        desc: 'Strong cryptography protecting cardholder data during transmission and at rest with keyed cryptographic hashes and tokenization.'
+      },
+      {
+        title: 'Requirement 6 - Secure Systems & CI/CD Pipeline Scanning',
+        desc: 'Automated vulnerability scanning, web application firewalls (WAF), and automated patching of all critical components within 30 days.'
+      },
+      {
+        title: 'Requirement 11 - Continuous Vulnerability Testing & Tamper Detection',
+        desc: 'Quarterly external vulnerability scans by Approved Scanning Vendors (ASV) and automated tamper detection for client-side checkout scripts.'
+      }
+    ],
+    technicalBlueprint: [
+      {
+        phase: 'Phase 01',
+        title: 'CDE Scope Reduction & Network Microsegmentation',
+        deliverables: [
+          'Implementation of payment tokenization via iframe/hosted fields reducing PCI scope to SAQ A or SAQ A-EP',
+          'VPC network isolation establishing strict ingress/egress boundaries around payment infrastructure',
+          'Automated data discovery verifying zero unmasked PAN storage in databases or logs'
+        ]
+      },
+      {
+        phase: 'Phase 02',
+        title: 'Zero-Trust Access & Key Management',
+        deliverables: [
+          'Mandatory phishing-resistant MFA for all personnel with administrative access to the CDE',
+          'Hardware Security Module (HSM) key storage with split-knowledge dual-control management',
+          'Automated revocation of inactive accounts within 90 days'
+        ]
+      },
+      {
+        phase: 'Phase 03',
+        title: 'DevSecOps Vulnerability Gating & WAF Deployment',
+        deliverables: [
+          'Cloud WAF deployed in blocking mode with automated OWASP Top 10 rule updates',
+          'Container image vulnerability scanning integrated into CI/CD pipelines',
+          'Subresource Integrity (SRI) and CSP headers preventing Magecart/e-skimming attacks'
+        ]
+      },
+      {
+        phase: 'Phase 04',
+        title: 'Audit Attestation & ASV Scan Remediation',
+        deliverables: [
+          'Execution and passing of ASV quarterly vulnerability scans with zero high/critical findings',
+          'Preparation of Attestation of Compliance (AoC) and Report on Compliance (RoC)',
+          'Automated continuous compliance evidence archiving'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the biggest change in PCI-DSS v4.0 for cloud applications?',
+        answer: 'PCI-DSS v4.0 shifts focus from point-in-time compliance to continuous security. It mandates MFA for all access into the CDE, requires automated management and tamper detection for all scripts running on payment pages, and requires documented targeted risk analyses.'
+      },
+      {
+        question: 'How can Oakivo reduce our organization’s PCI scope?',
+        answer: 'By architecting serverless tokenization pipelines and utilizing modern hosted payment fields, Oakivo reduces your CDE scope from an exhaustive 300+ control audit (SAQ D) to a minimal 22-control questionnaire (SAQ A).'
+      },
+      {
+        question: 'Can cardholder data be stored in AWS or Azure?',
+        answer: 'Yes, both AWS and Azure are Level 1 PCI-DSS certified service providers. However, under the shared responsibility model, configuring database encryption, access controls, network segmentation, and audit logging remains 100% the customer\'s responsibility.'
+      }
+    ]
+  },
+  'gdpr': {
+    id: 'gdpr',
+    name: 'EU GDPR Article 32 & International Sovereign Cloud Compliance',
+    shortName: 'GDPR',
+    regulator: 'European Data Protection Board (EDPB) & EU National Data Protection Authorities',
+    badge: 'European Union Sovereign Privacy Mandate',
+    jurisdiction: 'European Union, United Kingdom & Global Operations',
+    penaltyText: 'Administrative fines up to €20,000,000 or 4% of total global annual turnover, whichever is greater.',
+    executiveSummary: 'The European Union General Data Protection Regulation (GDPR) sets the world benchmark for fundamental data rights. Article 32 mandates state-of-the-art technical security controls, pseudonymization, and rapid breach recovery. For Canadian businesses processing data of European residents, cloud architectures must provide cryptographic sovereignty, enforce Standard Contractual Clauses (SCCs), and support programmatic user erasure (Right to be Forgotten).',
+    targetAudience: 'Canadian enterprises expanding into the EU/UK, global SaaS providers, international e-commerce platforms, and cross-border digital services.',
+    urgencyDriver: 'Aggressive enforcement actions by European DPAs against unencrypted cross-border data transfers and non-compliant analytics telemetry.',
+    coreRequirements: [
+      {
+        title: 'Article 32 - Security of Processing',
+        desc: 'Pseudonymization, encryption at rest and in transit, continuous confidentiality, integrity, availability, and resilience of processing systems.'
+      },
+      {
+        title: 'Article 17 - Right to Erasure (RTBF)',
+        desc: 'Automated data deletion pipelines capable of completely scrubbing user records across databases, caches, and cold storage backups upon request.'
+      },
+      {
+        title: 'Chapter V - International Data Transfers',
+        desc: 'Cryptographic barriers and Transfer Impact Assessments (TIAs) ensuring data transferred outside the EU/EEA remains shielded from foreign state surveillance.'
+      },
+      {
+        title: 'Article 33 - 72-Hour Breach Notification',
+        desc: 'Automated detection telemetry alerting Data Protection Officers (DPOs) and regulators within 72 hours of an identified data security incident.'
+      }
+    ],
+    technicalBlueprint: [
+      {
+        phase: 'Phase 01',
+        title: 'Data Discovery & Cross-Border Transfer Mapping',
+        deliverables: [
+          'Inventory of all EU resident personal data stored across databases, logs, and third-party SaaS',
+          'Implementation of Standard Contractual Clauses (SCCs) and supplementary technical measures',
+          'Data residency pinning restricting EU customer records to European cloud regions (e.g. AWS eu-central-1, eu-west-1)'
+        ]
+      },
+      {
+        phase: 'Phase 02',
+        title: 'Pseudonymization & Cryptographic Sovereignty',
+        deliverables: [
+          'Automated data masking engines scrubbing PII from developer environments and analytics lakes',
+          'Customer Managed Keys (CMK) ensuring cloud hosting providers cannot access plaintext personal data',
+          'Zero-trust database access controls with granular audit trails'
+        ]
+      },
+      {
+        phase: 'Phase 03',
+        title: 'Automated DSAR & Erasure Workflows',
+        deliverables: [
+          'API-driven user data export endpoints satisfying Article 15 Data Subject Access Requests',
+          'Automated cascade deletion runbooks scrubbing user records from RDS, DynamoDB, Elasticsearch, and S3 archives',
+          'Consent management telemetry ensuring tracking pixels only activate after explicit opt-in'
+        ]
+      },
+      {
+        phase: 'Phase 04',
+        title: 'Continuous Compliance & DPIA Automation',
+        deliverables: [
+          'Continuous Cloud Security Posture Management (CSPM) alerting on EU data exfiltration',
+          'Automated Data Protection Impact Assessment (DPIA) documentation generation',
+          'Annual simulated breach notification dry-run testing'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Does Canada have an adequacy decision under GDPR?',
+        answer: 'Yes, the European Commission has recognized Canada\'s PIPEDA as providing adequate protection for commercial organizations. However, Canadian companies must still implement Article 32 technical safeguards, honor GDPR data subject rights (erasure, portability), and ensure cloud sub-processors satisfy European transfer requirements.'
+      },
+      {
+        question: 'How do you automate the Right to be Forgotten in modern cloud databases?',
+        answer: 'Oakivo implements event-driven microservices that receive user deletion requests, query primary relational and NoSQL databases, issue cryptographic tombstone records, and purge identifying telemetry from logging pipelines within statutory timelines.'
+      },
+      {
+        question: 'What happens if EU user data is accessed by US cloud administrators?',
+        answer: 'Following the Schrems II ruling, international transfers to US providers require supplementary technical measures. Oakivo implements client-side encryption and Customer Managed Keys held within domestic European or Canadian boundaries to neutralize third-party cloud subpoena risks.'
+      }
+    ]
+  },
+  'fedramp': {
+    id: 'fedramp',
+    name: 'FedRAMP & Canadian Protected B Cloud Security Architecture',
+    shortName: 'FedRAMP / Protected B',
+    regulator: 'U.S. General Services Administration (GSA) / Treasury Board of Canada Secretariat (TBS)',
+    badge: 'Federal Government Cloud Authorization',
+    jurisdiction: 'United States Federal Agencies & Canadian Public Sector',
+    penaltyText: 'Immediate revocation of government cloud authorizations, debarment from federal contracts, and contractual default.',
+    executiveSummary: 'Selling mission-critical software to Canadian and United States government departments requires meeting the highest security assurance thresholds in the world: Canadian Protected B / MITS and US FedRAMP Moderate/High. Oakivo engineers sovereign, FIPS 140-3 validated cloud architectures featuring zero-trust perimeter boundaries, continuous vulnerability monitoring, and automated system security plan (SSP) evidence generation.',
+    targetAudience: 'GovTech startups, enterprise SaaS expanding into public sector contracts, defense tech innovators, and aerospace software providers.',
+    urgencyDriver: 'Strict federal procurement gatekeeping requiring certified cloud security baselines before entering public sector production agreements.',
+    coreRequirements: [
+      {
+        title: 'NIST SP 800-53 Rev. 5 Security Controls',
+        desc: 'Over 300 rigorous technical controls covering access control, incident response, configuration management, and contingency planning.'
+      },
+      {
+        title: 'FIPS 140-3 Cryptographic Validation',
+        desc: 'Mandatory cryptographic modules validated under NIST FIPS 140-3 standards for all encryption at rest, in transit, and key storage.'
+      },
+      {
+        title: 'Continuous Monitoring (ConMon)',
+        desc: 'Monthly vulnerability scanning, automated container image vetting, and real-time SIEM reporting submitted directly to authorizing officials.'
+      },
+      {
+        title: 'Sovereign Personnel & Boundary Isolation',
+        desc: 'Ensuring production administrative access is restricted strictly to vetted citizens in dedicated isolated government cloud enclaves (GovCloud).'
+      }
+    ],
+    technicalBlueprint: [
+      {
+        phase: 'Phase 01',
+        title: 'Government Enclave Architecture & Baseline Mapping',
+        deliverables: [
+          'Provisioning of dedicated isolated environments (AWS GovCloud / Azure Government / AWS Canada Central Protected B)',
+          'NIST SP 800-53 control traceability matrix mapping software architecture to federal baselines',
+          'Boundary perimeter lockdown with zero shared multi-tenant resources'
+        ]
+      },
+      {
+        phase: 'Phase 02',
+        title: 'FIPS 140-3 Cryptographic Hardening',
+        deliverables: [
+          'Enforcement of FIPS-validated cryptographic ciphers across all load balancers, TLS terminations, and VPNs',
+          'Dedicated CloudHSM key storage with dual-custody authorization',
+          'Hardened golden machine images adhering strictly to CIS Level 2 Benchmarks'
+        ]
+      },
+      {
+        phase: 'Phase 03',
+        title: 'Automated Continuous Monitoring (ConMon) Pipelines',
+        deliverables: [
+          'Automated daily static and dynamic vulnerability scans with 30-day remediation SLAs for high/critical findings',
+          'Centralized SIEM ingestion streaming immutable audit logs to government inspection endpoints',
+          'Plan of Action and Milestones (POA&M) automated generation'
+        ]
+      },
+      {
+        phase: 'Phase 04',
+        title: '3PAO Assessment & Authorization Support',
+        deliverables: [
+          'Complete System Security Plan (SSP) technical documentation bundle',
+          'Technical representation during Third Party Assessment Organization (3PAO) audits',
+          'Authority to Operate (ATO) achievement support'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the relationship between FedRAMP and Canadian Protected B?',
+        answer: 'FedRAMP is the US federal standard based on NIST SP 800-53, while Canadian Protected B represents the Treasury Board of Canada baseline for sensitive government data. Both standards share extensive control overlap. Oakivo designs unified cloud architectures that satisfy Canadian Protected B while aligning seamlessly with FedRAMP Moderate baselines.'
+      },
+      {
+        question: 'Is AWS GovCloud required for FedRAMP compliance?',
+        answer: 'FedRAMP High authorizations generally require AWS GovCloud or Azure Government. However, many SaaS applications can achieve FedRAMP Moderate in commercial cloud regions (such as AWS US East/West) provided strict boundary controls and FIPS 140-3 cryptography are enforced.'
+      },
+      {
+        question: 'How long does it take to achieve federal cloud authorization?',
+        answer: 'Traditional federal authorization cycles often take 12 to 18 months. By deploying pre-engineered Infrastructure-as-Code modules and automated ConMon monitoring, Oakivo reduces the technical implementation phase to under 90 days.'
+      }
+    ]
+  },
+  'cjis': {
+    id: 'cjis',
+    name: 'CJIS & Law Enforcement Cloud Security Architecture',
+    shortName: 'CJIS',
+    regulator: 'Federal Bureau of Investigation (FBI) / Public Safety Canada & Provincial Police Services',
+    badge: 'Law Enforcement & Public Safety Data Standard',
+    jurisdiction: 'North American Law Enforcement, Public Safety & Justice Sectors',
+    penaltyText: 'Immediate termination of CJIS database connectivity, criminal sanctions, and disqualification from police agency procurement.',
+    executiveSummary: 'Criminal Justice Information Services (CJIS) compliance governs cloud systems storing, transmitting, or processing Criminal Justice Information (CJI), including biometric data, criminal histories, and 911 dispatch records. Public safety software vendors and emergency response platforms must deploy hardened sovereign enclaves with air-gapped network segmentation, 512-bit encryption, and rigorous background-check verification.',
+    targetAudience: 'Public safety software, 911 dispatch platforms, automated license plate reader (ALPR) systems, digital evidence management, and corrections technology.',
+    urgencyDriver: 'Mandatory state and provincial CJIS security audits required prior to connecting to law enforcement information networks.',
+    coreRequirements: [
+      {
+        title: 'CJI Data Cryptographic Isolation',
+        desc: 'Advanced encryption standard (AES-256) for CJI at rest and in transit across all network tiers with dedicated customer managed keys.'
+      },
+      {
+        title: 'CJIS Security Addendum Governance',
+        desc: 'Execution of formal CJIS Security Addendums with all cloud providers and fingerprint-based background vetting of administrative engineers.'
+      },
+      {
+        title: 'Air-Gapped Network Segmentation',
+        desc: 'Strict logical or physical separation ensuring law enforcement databases cannot be accessed by commercial non-justice workloads.'
+      },
+      {
+        title: 'Immutable Event Auditing & Non-Repudiation',
+        desc: 'Comprehensive logging capturing user login attempts, query executions, record exports, and administrative modifications.'
+      }
+    ],
+    technicalBlueprint: [
+      {
+        phase: 'Phase 01',
+        title: 'CJIS Perimeter Definition & Scope Isolation',
+        deliverables: [
+          'Architectural isolation of CJI storage vaults into dedicated, single-tenant cloud subnets',
+          'Execution of CJIS Security Addendums with AWS / Azure / Google Cloud',
+          'Verification of employee security clearance and access controls'
+        ]
+      },
+      {
+        phase: 'Phase 02',
+        title: 'Zero-Trust Cryptographic Hardening',
+        deliverables: [
+          'Implementation of FIPS 140-3 validated encryption engines for all databases and telemetry',
+          'Phishing-resistant biometric or hardware security key (FIDO2) multi-factor authentication',
+          'Immediate automated session termination after 15 minutes of inactivity'
+        ]
+      },
+      {
+        phase: 'Phase 03',
+        title: 'Tamper-Proof Audit Logging & SIEM',
+        deliverables: [
+          'Forwarding of all access, read, update, and delete events to write-once-read-many (WORM) storage',
+          'Sub-second alerting on unauthorized access attempts to criminal history records',
+          'Automated daily backup replication with cross-region disaster recovery'
+        ]
+      },
+      {
+        phase: 'Phase 04',
+        title: 'Law Enforcement Audit Readiness & Verification',
+        deliverables: [
+          'CJIS Compliance Technical Documentation Binder for state and provincial police auditors',
+          'Independent third-party penetration testing and vulnerability assessment report',
+          'Continuous automated compliance verification'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Can Criminal Justice Information (CJI) be stored in commercial public cloud regions?',
+        answer: 'Major cloud providers (AWS, Azure, Google Cloud) have signed CJIS agreements covering both commercial and specialized government cloud regions. Provided strict encryption, customer-managed keys, and network isolation are enforced, CJI can be securely hosted with full regulatory compliance.'
+      },
+      {
+        question: 'Who is authorized to access CJIS-compliant cloud environments?',
+        answer: 'Only personnel who have passed FBI fingerprint-based background checks and completed CJIS Security Awareness training may possess logical or physical access to environments hosting unencrypted CJI.'
+      },
+      {
+        question: 'How does Oakivo assist public safety software vendors with CJIS audits?',
+        answer: 'Oakivo designs and deploys the entire CJIS-compliant cloud infrastructure stack via Terraform, provides auditor-ready System Security Plans, and configures automated continuous evidence collection that satisfies law enforcement review boards.'
+      }
+    ]
   }
 };
 
@@ -301,7 +794,7 @@ const ComplianceSEO: React.FC = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   // Normalize slug
-  let frameworkKey = 'bill-c26';
+  let frameworkKey: string | null = null;
   let providerKey: string | null = null;
 
   if (slug) {
@@ -320,25 +813,53 @@ const ComplianceSEO: React.FC = () => {
         frameworkKey = 'pipeda';
       } else if (parsedFw.includes('soc2')) {
         frameworkKey = 'soc2';
+      } else if (parsedFw.includes('iso')) {
+        frameworkKey = 'iso27001';
+      } else if (parsedFw.includes('hipaa')) {
+        frameworkKey = 'hipaa';
+      } else if (parsedFw.includes('pci')) {
+        frameworkKey = 'pci-dss';
+      } else if (parsedFw.includes('gdpr')) {
+        frameworkKey = 'gdpr';
+      } else if (parsedFw.includes('fedramp')) {
+        frameworkKey = 'fedramp';
+      } else if (parsedFw.includes('cjis')) {
+        frameworkKey = 'cjis';
       }
       if (PROVIDER_NAMES[parsedPr]) {
         providerKey = parsedPr;
       }
     } else {
       // Single slug
-      if (lowerSlug.includes('c26') || lowerSlug.includes('ccspa') || lowerSlug.includes('critical-cyber')) {
+      if (FRAMEWORK_DATA[lowerSlug]) {
+        frameworkKey = lowerSlug;
+      } else if (lowerSlug.includes('c26') || lowerSlug.includes('ccspa') || lowerSlug.includes('critical-cyber')) {
         frameworkKey = 'bill-c26';
-      } else if (lowerSlug.includes('pipeda') || lowerSlug.includes('law-25') || lowerSlug.includes('privacy') || lowerSlug.includes('hipaa')) {
+      } else if (lowerSlug.includes('pipeda') || lowerSlug.includes('law-25') || lowerSlug.includes('privacy')) {
         frameworkKey = 'pipeda';
       } else if (lowerSlug.includes('soc2') || lowerSlug.includes('soc-2') || lowerSlug.includes('audit-readiness')) {
         frameworkKey = 'soc2';
-      } else if (FRAMEWORK_DATA[lowerSlug]) {
-        frameworkKey = lowerSlug;
+      } else if (lowerSlug.includes('iso')) {
+        frameworkKey = 'iso27001';
+      } else if (lowerSlug.includes('hipaa')) {
+        frameworkKey = 'hipaa';
+      } else if (lowerSlug.includes('pci')) {
+        frameworkKey = 'pci-dss';
+      } else if (lowerSlug.includes('gdpr')) {
+        frameworkKey = 'gdpr';
+      } else if (lowerSlug.includes('fedramp')) {
+        frameworkKey = 'fedramp';
+      } else if (lowerSlug.includes('cjis')) {
+        frameworkKey = 'cjis';
       }
     }
   }
 
-  const framework = FRAMEWORK_DATA[frameworkKey] || FRAMEWORK_DATA['bill-c26'];
+  const framework = frameworkKey ? FRAMEWORK_DATA[frameworkKey] : null;
+
+  if (!framework) {
+    return <NotFound />;
+  }
   const providerName = providerKey ? PROVIDER_NAMES[providerKey] : null;
 
   const pageTitle = providerName 

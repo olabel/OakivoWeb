@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { insightsData } from './content/insights';
+import { validateRoute, VALID_SOLUTIONS, VALID_LOCATIONS, VALID_FRAMEWORKS, VALID_PROVIDERS, VALID_COMPLIANCE_SPECIAL_SLUGS } from './utils/routeValidator';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -1662,21 +1663,17 @@ Timestamp: ${new Date().toISOString()}
       console.error("Error generating dynamic routes from App.tsx", e);
     }
 
-    // Core static routes fallback to ensure complete coverage
+    // Core static canonical routes (no alias duplicates)
     const coreRoutes = [
       '/',
       '/services',
-      '/capabilities',
       '/case-studies',
-      '/work',
       '/contact',
-      '/schedule',
+      '/booking',
       '/methodology',
       '/careers',
       '/about',
-      '/firm',
       '/verticals',
-      '/industries',
       '/privacy',
       '/compliance-matrix',
       '/brand-identity',
@@ -1685,35 +1682,23 @@ Timestamp: ${new Date().toISOString()}
       '/risk-calculator'
     ];
 
-    allRoutes = [...new Set([...allRoutes, ...coreRoutes])].filter(route => !route.includes('/admin-portal') && !route.includes('/client-portal-demo'));
+    allRoutes = [...coreRoutes];
 
-    // Dynamic solution pages
-    const solutionSlugs = [
-      'invoice-automation',
-      'order-inventory-sync',
-      'dispatch-route-logging',
-      'custom-report-automation'
-    ];
-    solutionSlugs.forEach(slug => allRoutes.push(`/solutions/${slug}`));
+    // Dynamic solution pages (all 9 valid solutions)
+    VALID_SOLUTIONS.forEach(slug => allRoutes.push(`/solutions/${slug}`));
 
-    // Dynamic location pages
-    const locationSlugs = [
-      'new-brunswick',
-      'nova-scotia',
-      'prince-edward-island',
-      'newfoundland-labrador',
-      'alberta',
-      'ontario'
-    ];
-    locationSlugs.forEach(slug => allRoutes.push(`/locations/${slug}`));
+    // Dynamic location pages (all 6 valid Canadian regions)
+    VALID_LOCATIONS.forEach(slug => allRoutes.push(`/locations/${slug}`));
 
-    // Dynamic compliance pages
-    const complianceFrameworks = ['soc2', 'bill-c26', 'hipaa', 'iso27001', 'pci-dss', 'gdpr', 'pipeda', 'fedramp', 'cjis'];
-    const complianceProviders = ['aws', 'azure', 'gcp', 'kubernetes'];
-    complianceFrameworks.forEach(fw => {
-      complianceProviders.forEach(prov => {
+    // Dynamic compliance pages (all 9 frameworks + providers + special slugs)
+    VALID_FRAMEWORKS.forEach(fw => {
+      allRoutes.push(`/compliance/${fw}`);
+      VALID_PROVIDERS.forEach(prov => {
         allRoutes.push(`/compliance/${fw}-on-${prov}`);
       });
+    });
+    VALID_COMPLIANCE_SPECIAL_SLUGS.forEach(slug => {
+      allRoutes.push(`/compliance/${slug}`);
     });
 
     // Dynamic insights/articles
@@ -1734,7 +1719,7 @@ Timestamp: ${new Date().toISOString()}
       if (route === '/') {
         priority = '1.0';
         changefreq = 'daily';
-      } else if (route === '/insights' || route === '/services' || route === '/capabilities') {
+      } else if (route === '/insights' || route === '/services' || route === '/compliance-matrix') {
         priority = '0.9';
         changefreq = 'daily';
       } else if (route.startsWith('/insights/') || route.startsWith('/solutions/') || route.startsWith('/locations/')) {
@@ -1743,7 +1728,7 @@ Timestamp: ${new Date().toISOString()}
       } else if (route.startsWith('/compliance/')) {
         priority = '0.8';
         changefreq = 'weekly';
-      } else if (route === '/privacy' || route === '/compliance-matrix') {
+      } else if (route === '/privacy') {
         priority = '0.5';
         changefreq = 'monthly';
       }
@@ -1768,7 +1753,7 @@ ${sitemapUrls}
 
   app.get('/robots.txt', (req, res) => {
     res.header('Content-Type', 'text/plain');
-    res.send(`User-agent: *\nAllow: /\nDisallow: /admin-portal\nDisallow: /api/\n\nSitemap: https://www.oakivo.com/sitemap.xml\n`);
+    res.send(`User-agent: *\nAllow: /\nDisallow: /admin-portal\nDisallow: /client-portal-demo\nDisallow: /api/\nDisallow: /404\n\nSitemap: https://www.oakivo.com/sitemap.xml\n`);
   });
 
   // Health check
@@ -1778,6 +1763,42 @@ ${sitemapUrls}
 
   // Vite middleware for development vs static serving in production
   if (process.env.NODE_ENV !== 'production') {
+    // In development mode, check route validity for non-asset GET/HEAD requests
+    app.use((req, res, next) => {
+      if (
+        (req.method !== 'GET' && req.method !== 'HEAD') ||
+        req.path.startsWith('/api') ||
+        req.path.startsWith('/@') ||
+        req.path.startsWith('/src') ||
+        req.path.startsWith('/node_modules') ||
+        req.path.includes('.')
+      ) {
+        return next();
+      }
+
+      const routeCheck = validateRoute(req.path);
+      if (routeCheck.redirectUrl) {
+        return res.redirect(301, routeCheck.redirectUrl);
+      }
+
+      if (!routeCheck.valid || routeCheck.statusCode === 404) {
+        const notFoundPath = path.join(process.cwd(), 'public', '404.html');
+        if (fs.existsSync(notFoundPath)) {
+          return res.status(404).set({
+            'Content-Type': 'text/html; charset=utf-8',
+            'X-Robots-Tag': 'noindex, nofollow',
+            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0'
+          }).sendFile(notFoundPath);
+        }
+        return res.status(404).set({
+          'Content-Type': 'text/plain; charset=utf-8',
+          'X-Robots-Tag': 'noindex, nofollow'
+        }).send('404 Not Found');
+      }
+
+      next();
+    });
+
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -1846,8 +1867,48 @@ ${sitemapUrls}
       next();
     });
 
-    // Catch-all SPA fallback for production refreshing
+    // Catch-all SPA fallback with strict HTTP status code routing to eliminate Soft 404s
     app.get('*all', (req, res) => {
+      const routeCheck = validateRoute(req.path);
+
+      // Handle 301 Permanent Redirects for aliases and legacy URLs
+      if (routeCheck.redirectUrl) {
+        return res.redirect(301, routeCheck.redirectUrl);
+      }
+
+      // Handle Invalid / Non-existent routes -> Return true HTTP 404 Status with noindex
+      if (!routeCheck.valid || routeCheck.statusCode === 404) {
+        const notFoundPath = path.join(distPath, '404.html');
+        if (fs.existsSync(notFoundPath)) {
+          return res.status(404).set({
+            'Content-Type': 'text/html; charset=utf-8',
+            'X-Robots-Tag': 'noindex, nofollow',
+            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }).sendFile(notFoundPath);
+        }
+
+        const indexPath = path.join(distPath, 'index.html');
+        if (fs.existsSync(indexPath)) {
+          let html = fs.readFileSync(indexPath, 'utf-8');
+          html = html.replace('<head>', '<head>\n    <meta name="robots" content="noindex, nofollow" />');
+          return res.status(404).set({
+            'Content-Type': 'text/html; charset=utf-8',
+            'X-Robots-Tag': 'noindex, nofollow',
+            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }).send(html);
+        }
+
+        return res.status(404).set({
+          'Content-Type': 'text/plain; charset=utf-8',
+          'X-Robots-Tag': 'noindex, nofollow'
+        }).send('404 Not Found');
+      }
+
+      // Valid route -> HTTP 200 OK with SPA index.html
       const indexPath = path.join(distPath, 'index.html');
       if (fs.existsSync(indexPath)) {
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');

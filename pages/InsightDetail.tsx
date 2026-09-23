@@ -6,6 +6,7 @@ import { ArrowLeft, Clock, Calendar, Share2, Twitter, Linkedin, ChevronRight, Bu
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/SEO';
+import NotFound from './NotFound';
 import OptimizedImage from '../components/OptimizedImage';
 import { db } from '../utils/database';
 import { InsightPost, insightsData } from '../content/insights';
@@ -73,15 +74,18 @@ const InsightDetail: React.FC = () => {
         if (found) {
           setPost(found);
         } else {
-          // Fallback to static if not found in db or not loaded
-          // static import used instead
+          // Fallback to static if not found in db
           const staticPost = insightsData.find(p => p.id === id);
-          if (staticPost) setPost(staticPost);
-          else navigate('/insights', { replace: true });
+          if (staticPost) {
+            setPost(staticPost);
+          } else {
+            setPost(null);
+          }
         }
       } catch (err) {
         console.error(err);
-        navigate('/insights', { replace: true });
+        const staticPost = insightsData.find(p => p.id === id);
+        setPost(staticPost || null);
       } finally {
         setIsLoading(false);
       }
@@ -141,7 +145,7 @@ const InsightDetail: React.FC = () => {
     );
   }
 
-  if (!post) return null;
+  if (!post) return <NotFound />;
 
   const currentUrl = window.location.href;
 

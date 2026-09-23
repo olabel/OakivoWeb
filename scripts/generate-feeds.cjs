@@ -81,58 +81,69 @@ fs.writeFileSync(path.join(publicDir, 'rss.xml'), rssXml.trim(), 'utf8');
 fs.writeFileSync(path.join(publicDir, 'feed.xml'), rssXml.trim(), 'utf8');
 console.log('Successfully written public/rss.xml and public/feed.xml');
 
-// 2. Generate Comprehensive Sitemap XML
+// 2. Generate Comprehensive Sitemap XML (Only Canonical, Indexable URLs - No Aliases)
 const coreRoutes = [
-  { path: '/', priority: '1.0', changefreq: 'weekly' },
-  { path: '/services', priority: '0.9', changefreq: 'weekly' },
-  { path: '/capabilities', priority: '0.9', changefreq: 'weekly' },
-  { path: '/expertise', priority: '0.9', changefreq: 'weekly' },
+  { path: '/', priority: '1.0', changefreq: 'daily' },
+  { path: '/services', priority: '0.9', changefreq: 'daily' },
   { path: '/case-studies', priority: '0.9', changefreq: 'weekly' },
-  { path: '/compliance-matrix', priority: '0.95', changefreq: 'weekly' },
-  { path: '/compliance', priority: '0.95', changefreq: 'weekly' },
-  
-  // Specialized Canadian Compliance Frameworks (High-Intent SEO)
-  { path: '/compliance/bill-c26', priority: '0.95', changefreq: 'weekly' },
-  { path: '/compliance/pipeda', priority: '0.95', changefreq: 'weekly' },
-  { path: '/compliance/soc2', priority: '0.95', changefreq: 'weekly' },
-  { path: '/compliance/bill-c26-critical-cyber-systems', priority: '0.9', changefreq: 'weekly' },
-  { path: '/compliance/pipeda-canadian-data-sovereignty', priority: '0.9', changefreq: 'weekly' },
-  { path: '/compliance/soc2-audit-readiness-canada', priority: '0.9', changefreq: 'weekly' },
-  { path: '/compliance/bill-c26-on-aws', priority: '0.9', changefreq: 'weekly' },
-  { path: '/compliance/bill-c26-on-azure', priority: '0.9', changefreq: 'weekly' },
-  { path: '/compliance/bill-c26-on-kubernetes', priority: '0.85', changefreq: 'weekly' },
-  { path: '/compliance/pipeda-on-aws', priority: '0.9', changefreq: 'weekly' },
-  { path: '/compliance/pipeda-on-azure', priority: '0.85', changefreq: 'weekly' },
-  { path: '/compliance/soc2-on-aws', priority: '0.9', changefreq: 'weekly' },
-  { path: '/compliance/soc2-on-azure', priority: '0.85', changefreq: 'weekly' },
-  { path: '/compliance/soc2-on-kubernetes', priority: '0.85', changefreq: 'weekly' },
-
-  // Provincial Hubs
-  { path: '/locations/new-brunswick', priority: '0.9', changefreq: 'weekly' },
-  { path: '/locations/alberta', priority: '0.85', changefreq: 'weekly' },
-  { path: '/locations/ontario', priority: '0.85', changefreq: 'weekly' },
-  { path: '/locations/nova-scotia', priority: '0.85', changefreq: 'weekly' },
-  { path: '/locations/prince-edward-island', priority: '0.8', changefreq: 'monthly' },
-  { path: '/locations/newfoundland', priority: '0.8', changefreq: 'monthly' },
-
-  // Solution detail pages
-  { path: '/solutions/cloud-security', priority: '0.85', changefreq: 'monthly' },
-  { path: '/solutions/devsecops-automation', priority: '0.85', changefreq: 'monthly' },
-  { path: '/solutions/continuous-compliance', priority: '0.85', changefreq: 'monthly' },
-  { path: '/solutions/zero-trust-architecture', priority: '0.85', changefreq: 'monthly' },
-  { path: '/solutions/enterprise-erp-hardening', priority: '0.8', changefreq: 'monthly' },
-
-  // Hubs, Tools & Conversions
-  { path: '/risk-calculator', priority: '0.85', changefreq: 'weekly' },
-  { path: '/schedule', priority: '0.9', changefreq: 'monthly' },
-  { path: '/booking', priority: '0.85', changefreq: 'monthly' },
+  { path: '/compliance-matrix', priority: '0.95', changefreq: 'daily' },
+  { path: '/booking', priority: '0.9', changefreq: 'weekly' },
   { path: '/contact', priority: '0.85', changefreq: 'monthly' },
   { path: '/about', priority: '0.8', changefreq: 'monthly' },
   { path: '/methodology', priority: '0.8', changefreq: 'monthly' },
+  { path: '/verticals', priority: '0.8', changefreq: 'monthly' },
   { path: '/careers', priority: '0.7', changefreq: 'monthly' },
   { path: '/privacy', priority: '0.5', changefreq: 'monthly' },
+  { path: '/risk-calculator', priority: '0.85', changefreq: 'weekly' },
+  { path: '/brand-identity', priority: '0.7', changefreq: 'monthly' },
+  { path: '/client-portal', priority: '0.7', changefreq: 'monthly' },
   { path: '/insights', priority: '0.9', changefreq: 'daily' }
 ];
+
+// Dynamic Solution Detail Pages
+const solutions = [
+  'cloud-security',
+  'devsecops-automation',
+  'continuous-compliance',
+  'zero-trust-architecture',
+  'enterprise-erp-hardening',
+  'invoice-automation',
+  'order-inventory-sync',
+  'dispatch-route-logging',
+  'custom-report-automation'
+];
+solutions.forEach(slug => {
+  coreRoutes.push({ path: `/solutions/${slug}`, priority: '0.85', changefreq: 'weekly' });
+});
+
+// Provincial Hubs
+const locations = [
+  'new-brunswick',
+  'nova-scotia',
+  'prince-edward-island',
+  'newfoundland-labrador',
+  'alberta',
+  'ontario'
+];
+locations.forEach(slug => {
+  coreRoutes.push({ path: `/locations/${slug}`, priority: '0.85', changefreq: 'weekly' });
+});
+
+// Compliance Frameworks & Cloud Providers
+const frameworks = ['bill-c26', 'pipeda', 'soc2', 'iso27001', 'hipaa', 'pci-dss', 'gdpr', 'fedramp', 'cjis'];
+const providers = ['aws', 'azure', 'gcp', 'kubernetes'];
+
+frameworks.forEach(fw => {
+  coreRoutes.push({ path: `/compliance/${fw}`, priority: '0.9', changefreq: 'weekly' });
+  providers.forEach(prov => {
+    coreRoutes.push({ path: `/compliance/${fw}-on-${prov}`, priority: '0.85', changefreq: 'weekly' });
+  });
+});
+
+// Special Canadian Compliance Intent Pages
+coreRoutes.push({ path: '/compliance/bill-c26-critical-cyber-systems', priority: '0.9', changefreq: 'weekly' });
+coreRoutes.push({ path: '/compliance/pipeda-canadian-data-sovereignty', priority: '0.9', changefreq: 'weekly' });
+coreRoutes.push({ path: '/compliance/soc2-audit-readiness-canada', priority: '0.9', changefreq: 'weekly' });
 
 const today = new Date().toISOString().split('T')[0];
 

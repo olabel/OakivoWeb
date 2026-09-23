@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Sparkles, ArrowRight, CheckCircle2, ShieldCheck, Clock, FileText, Layers, Database, ArrowLeft } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2, ShieldCheck, Clock, FileText, Layers, Database, ArrowLeft, Shield, Lock, Cpu, Cloud, Terminal } from 'lucide-react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
+import NotFound from './NotFound';
 import LeadDrawer from '../components/LeadDrawer';
 import { NavRoute } from '../types';
 import { useLanguage } from '../context/LanguageContext';
@@ -127,6 +128,135 @@ const solutionsMapEn: Record<string, SolutionData> = {
         answer: 'Yes, reports can be delivered as PDF attachments, Slack/Teams notifications, or live web dashboards.'
       }
     ]
+  },
+  'cloud-security': {
+    title: 'Cloud Security Posture Management & Hardening',
+    subtitle: 'Automated continuous cloud security baselining, IAM guardrails, and real-time misconfiguration remediation.',
+    description: 'We harden multi-cloud environments across AWS, Azure, and GCP using automated Policy-as-Code and eBPF runtime monitors, ensuring sovereign Canadian data residency and zero-drift infrastructure.',
+    icon: Cloud,
+    benefits: [
+      'Continuous Cloud Security Posture Management (CSPM) against CIS Benchmarks',
+      'Immutable Terraform/OpenTofu infrastructure baselines with drift detection',
+      'Least-privilege cloud IAM enforcement and automated key rotation',
+      'Sovereign Canadian data residency pinning in AWS ca-central-1 and Azure canadaeast'
+    ],
+    useCase: {
+      client: 'Atlantic Financial Technology Group',
+      location: 'Halifax, Nova Scotia',
+      challenge: 'Rapid cloud migration left 42 AWS accounts with unmonitored security groups, public S3 buckets, and overlapping IAM roles.',
+      outcome: 'Engineered centralized Control Tower governance and automated SCP guardrails, eliminating 100% of high-severity misconfigurations in 14 days.',
+      hoursSaved: '40 DevOps hours saved per month'
+    },
+    faq: [
+      {
+        question: 'How quickly can Oakivo audit our cloud infrastructure?',
+        answer: 'We deploy non-invasive scanning read-only roles and deliver an executive risk report with automated remediation code within 48 to 72 hours.'
+      },
+      {
+        question: 'Do you support multi-cloud deployments?',
+        answer: 'Yes. We architect unified policy guardrails across AWS, Microsoft Azure, Google Cloud, and on-premises sovereign private clusters.'
+      }
+    ]
+  },
+  'devsecops-automation': {
+    title: 'Automated DevSecOps & CI/CD Security Gating',
+    subtitle: 'Shift security left into your deployment pipelines with zero-friction developer guardrails.',
+    description: 'We integrate static code analysis (SAST), software composition analysis (SCA), container vulnerability scanning, and cryptographic artifact signing directly into GitHub Actions and GitLab CI.',
+    icon: Terminal,
+    benefits: [
+      'Sub-minute automated security gating in CI/CD pipelines',
+      'Software Bill of Materials (SBOM) generation satisfying executive orders',
+      'Cosign / Sigstore container image signing ensuring verified production provenance',
+      'Automated secret detection preventing API credential leaks to git repositories'
+    ],
+    useCase: {
+      client: 'Maritime Health Informatics',
+      location: 'Moncton, New Brunswick',
+      challenge: 'Manual security reviews delayed production releases by 12 days per sprint cycle.',
+      outcome: 'Implemented automated pipeline guardrails, reducing release security verification from 12 days to 3.5 minutes.',
+      hoursSaved: '80 engineering hours saved per release'
+    },
+    faq: [
+      {
+        question: 'Will DevSecOps gating slow down our engineers?',
+        answer: 'No. Our security tests run concurrently with existing unit test suites in under 90 seconds, providing immediate feedback in pull request comments.'
+      }
+    ]
+  },
+  'continuous-compliance': {
+    title: 'Continuous Compliance & Audit Automation',
+    subtitle: 'Eliminate manual audit preparation for SOC 2 Type II, Bill C-26, and PIPEDA.',
+    description: 'We transform compliance from a stressful annual spreadsheet scramble into automated, continuous background evidence collection directly from your cloud API telemetry.',
+    icon: ShieldCheck,
+    benefits: [
+      'Automated evidence collection from cloud APIs, GitHub, and IAM providers',
+      'Continuous compliance dashboards with real-time pass/fail control telemetry',
+      'Pre-built audit packages aligned with SOC 2, Bill C-26, and ISO 27001',
+      'Seamless integration with compliance platforms including Vanta, Drata, and Sprinto'
+    ],
+    useCase: {
+      client: 'Boreal Energy Logistics',
+      location: 'Calgary, Alberta',
+      challenge: 'Preparing for annual SOC 2 Type II audit consumed 300+ engineering and management hours.',
+      outcome: 'Codified automated evidence collection pipelines, passing the audit with zero exceptions and zero manual screenshots.',
+      hoursSaved: '300 staff hours saved per audit'
+    },
+    faq: [
+      {
+        question: 'Can Oakivo help us achieve SOC 2 certification from scratch?',
+        answer: 'Yes. We build the infrastructure, codify the policies, and guide you through the CPA observation period to guaranteed audit success.'
+      }
+    ]
+  },
+  'zero-trust-architecture': {
+    title: 'Zero-Trust Architecture & Microsegmentation',
+    subtitle: 'Never trust, always verify. Hardware-enforced cryptographic boundaries for mission-critical systems.',
+    description: 'We replace outdated perimeter VPNs with modern Zero-Trust Network Access (ZTNA), mutual TLS (mTLS) service meshes, and SPIFFE/SPIRE cryptographic workload identities.',
+    icon: Lock,
+    benefits: [
+      'Microsegmented Kubernetes networking eliminating lateral threat movement',
+      'Hardware-enforced identity boundaries with FIDO2/WebAuthn phishing-resistant MFA',
+      'Ephemeral sub-minute credential issuance replacing permanent API keys',
+      'eBPF in-kernel network monitoring with sub-second automated threat isolation'
+    ],
+    useCase: {
+      client: 'Fundy Critical Infrastructure Consortium',
+      location: 'Saint John, New Brunswick',
+      challenge: 'Legacy VPN concentrators exposed internal OT control systems to lateral network traversal.',
+      outcome: 'Engineered zero-trust service mesh with kernel-level eBPF firewalls, restricting all cross-service communication to verified mTLS channels.',
+      hoursSaved: '25 security operations hours saved weekly'
+    },
+    faq: [
+      {
+        question: 'Does zero trust replace our existing firewalls?',
+        answer: 'Zero trust complements your network by adding granular application-layer and identity-layer controls, rendering firewall bypass attacks obsolete.'
+      }
+    ]
+  },
+  'enterprise-erp-hardening': {
+    title: 'Enterprise ERP & Core Systems Hardening',
+    subtitle: 'Shield SAP, NetSuite, and mission-critical operational databases from ransomware and unauthorized exfiltration.',
+    description: 'We harden enterprise ERP platforms and operational databases with dedicated isolated network enclaves, immutable WORM backups, and role-based zero-trust API proxies.',
+    icon: Database,
+    benefits: [
+      'Immutable write-once-read-many (WORM) air-gapped backups resisting ransomware',
+      'Real-time anomaly detection alerting on bulk database exports and schema tampering',
+      'Encrypted transit proxies for legacy ERP APIs without application code modifications',
+      'Full compliance alignment with OSFI B-13 and Canadian critical infrastructure standards'
+    ],
+    useCase: {
+      client: 'Maritime Distribution Network',
+      location: 'Fredericton, New Brunswick',
+      challenge: 'Aging on-premise ERP infrastructure faced persistent ransomware threats and unencrypted internal database connections.',
+      outcome: 'Migrated ERP database to sovereign AWS enclave with automated point-in-time recovery and zero public IP exposures.',
+      hoursSaved: '100% downtime risk eliminated'
+    },
+    faq: [
+      {
+        question: 'Can you harden legacy on-premise ERP systems?',
+        answer: 'Yes. We deploy hybrid secure access gateways and air-gapped immutable backup vaults that protect on-premise systems without expensive software rewrites.'
+      }
+    ]
   }
 };
 
@@ -234,6 +364,131 @@ const solutionsMapFr: Record<string, SolutionData> = {
         answer: 'Oui, les synthèses peuvent être transmises en PDF, alertes Slack/Teams ou visualisées sur un tableau de bord web sécurisé.'
       }
     ]
+  },
+  'cloud-security': {
+    title: 'Gestion de la Posture de Sécurité Cloud (CSPM)',
+    subtitle: 'Surveillance continue automatisée, garde-fous IAM et correction en temps réel des erreurs de configuration.',
+    description: 'Nous renforçons vos environnements multi-cloud sur AWS, Azure et GCP avec du Policy-as-Code et des sondes eBPF au niveau du noyau, garantissant la souveraineté des données canadiennes.',
+    icon: Cloud,
+    benefits: [
+      'Gestion automatisée de la posture de sécurité selon les benchmarks CIS',
+      'Infrastructures immuables Terraform/OpenTofu avec détection automatique de dérive',
+      'Application du principe du moindre privilège et rotation automatique des clés IAM',
+      'Résidence stricte des données canadiennes dans les régions AWS ca-central-1 et Azure canadaeast'
+    ],
+    useCase: {
+      client: 'Groupe FinTech de l\'Atlantique',
+      location: 'Halifax, Nouvelle-Écosse',
+      challenge: 'La migration rapide vers le cloud avait laissé 42 comptes AWS sans surveillance avec des compartiments S3 publics.',
+      outcome: 'Déploiement centralisé d\'AWS Control Tower et de Service Control Policies (SCP), résolvant 100% des vulnérabilités critiques.',
+      hoursSaved: '40 heures DevOps économisées par mois'
+    },
+    faq: [
+      {
+        question: 'En combien de temps Oakivo peut-elle auditer notre cloud ?',
+        answer: 'Nous déployons des rôles de lecture seule non intrusifs et livrons un rapport de remédiation complet en 48 à 72 heures.'
+      }
+    ]
+  },
+  'devsecops-automation': {
+    title: 'Automatisation DevSecOps & Portails CI/CD',
+    subtitle: 'Intégrez la sécurité en amont dans vos pipelines de livraison sans ralentir vos ingénieurs.',
+    description: 'Nous intégrons des analyses statiques (SAST), la vérification de la composition logicielle (SCA) et la signature cryptographique des conteneurs directement dans GitHub Actions et GitLab CI.',
+    icon: Terminal,
+    benefits: [
+      'Validation de sécurité automatisée en moins de 90 secondes dans les pipelines CI/CD',
+      'Génération dynamique du Software Bill of Materials (SBOM) pour la conformité',
+      'Signature cryptographique des conteneurs via Cosign / Sigstore',
+      'Détection automatisée des secrets empêchant toute fuite de clés d\'API'
+    ],
+    useCase: {
+      client: 'Informatique Santé Maritime',
+      location: 'Moncton, Nouveau-Brunswick',
+      challenge: 'Les audits manuels retardaient les livraisons en production de 12 jours par cycle.',
+      outcome: 'Mise en place de garde-fous de pipeline automatisés réduisant la validation de sécurité à 3,5 minutes.',
+      hoursSaved: '80 heures d\'ingénierie sauvées par livraison'
+    },
+    faq: [
+      {
+        question: 'L\'intégration DevSecOps ralentit-elle les développeurs ?',
+        answer: 'Non, nos tests s\'exécutent en parallèle des tests unitaires en moins de 90 secondes avec des retours directs dans les Pull Requests.'
+      }
+    ]
+  },
+  'continuous-compliance': {
+    title: 'Conformité Continue & Automatisation des Audits',
+    subtitle: 'Éliminez le stress des préparatifs d\'audits pour SOC 2 Type II, le Projet de loi C-26 et la LPRPDE.',
+    description: 'Nous transformons la conformité réglementaire en une collecte continue et automatisée de preuves directement issue des API cloud.',
+    icon: ShieldCheck,
+    benefits: [
+      'Collecte automatisée de preuves depuis les API cloud, GitHub et les fournisseurs IAM',
+      'Tableaux de bord de conformité continue avec télémétrie en temps réel',
+      'Modules préconfigurés pour SOC 2, Loi C-26 et ISO 27001',
+      'Intégration transparente avec Vanta, Drata et Sprinto'
+    ],
+    useCase: {
+      client: 'Logistique Énergétique Boréale',
+      location: 'Calgary, Alberta',
+      challenge: 'La préparation de l\'audit annuel SOC 2 monopolisait plus de 300 heures d\'ingénierie.',
+      outcome: 'Automatisation complète de la collecte de preuves, passant l\'audit avec zéro exception.',
+      hoursSaved: '300 heures économisées par cycle d\'audit'
+    },
+    faq: [
+      {
+        question: 'Oakivo peut-elle nous accompagner dès le début vers SOC 2 ?',
+        answer: 'Oui. Nous bâtissons l\'infrastructure, codifions les politiques et vous guidons durant toute la période d\'observation du cabinet CPA.'
+      }
+    ]
+  },
+  'zero-trust-architecture': {
+    title: 'Architecture Zero-Trust & Micro-segmentation',
+    subtitle: 'Ne jamais faire confiance, toujours vérifier. Cloisonnement cryptographique strict pour systèmes critiques.',
+    description: 'Nous remplaçons les VPN désuets par un accès réseau Zero-Trust (ZTNA), un maillage de services mTLS et des identités éphémères SPIFFE/SPIRE.',
+    icon: Lock,
+    benefits: [
+      'Micro-segmentation réseau Kubernetes empêchant les mouvements latéraux malveillants',
+      'Authentification forte FIDO2/WebAuthn résistante à l\'hameçonnage',
+      'Émission de jetons d\'accès éphémères de moins d\'une minute remplaçant les clés statiques',
+      'Surveillance réseau au niveau du noyau eBPF avec isolation instantanée des menaces'
+    ],
+    useCase: {
+      client: 'Consortium des Infrastructures de Fundy',
+      location: 'Saint John, Nouveau-Brunswick',
+      challenge: 'Les concentrateurs VPN historiques exposaient les réseaux opérationnels industriels.',
+      outcome: 'Architecture d\'un maillage de services Zero-Trust avec filtrage eBPF chiffrant 100% des flux internes.',
+      hoursSaved: '25 heures d\'opérations de sécurité sauvées par semaine'
+    },
+    faq: [
+      {
+        question: 'Le Zero-Trust remplace-t-il nos pare-feu existants ?',
+        answer: 'Le Zero-Trust renforce votre réseau en y ajoutant des contrôles fins d\'identité et d\'application, neutralisant le contournement des pare-feu.'
+      }
+    ]
+  },
+  'enterprise-erp-hardening': {
+    title: 'Sécurisation des ERP d\'Entreprise & Systèmes Cœurs',
+    subtitle: 'Protégez SAP, NetSuite et vos bases de données opérationnelles contre les rançongiciels et l\'exfiltration.',
+    description: 'Nous blindons vos ERP d\'entreprise et vos bases de données opérationnelles avec des enclaves réseau isolées, des sauvegardes immuables WORM et des proxys API Zero-Trust.',
+    icon: Database,
+    benefits: [
+      'Sauvegardes immuables WORM (Write Once Read Many) résistantes aux ransomwares',
+      'Détection d\'anomalies en temps réel alertant sur les exports massifs de bases de données',
+      'Proxys chiffrés pour les API ERP héritées sans modification du code applicatif',
+      'Conformité stricte avec les directives B-13 du BSIF et les normes canadiennes'
+    ],
+    useCase: {
+      client: 'Réseau de Distribution Maritime',
+      location: 'Fredericton, Nouveau-Brunswick',
+      challenge: 'L\'ERP sur site vieillissant subissait des tentatives répétées d\'attaques par rançongiciel.',
+      outcome: 'Migration de la base ERP vers une enclave AWS souveraine avec reprise automatisée sans interruption de service.',
+      hoursSaved: 'Risque d\'interruption d\'activité éliminé à 100%'
+    },
+    faq: [
+      {
+        question: 'Pouvez-vous sécuriser des ERP anciens sur site ?',
+        answer: 'Oui. Nous déployons des passerelles d\'accès sécurisées hybrides et des coffres de sauvegarde immuables sans refonte logicielle.'
+      }
+    ]
   }
 };
 
@@ -243,9 +498,14 @@ const SolutionDetail: React.FC = () => {
   const { language } = useLanguage();
   const isFr = language === 'fr';
 
-  const solutionKey = slug || 'invoice-automation';
+  const solutionKey = slug ? slug.toLowerCase() : null;
   const solutionsMap = isFr ? solutionsMapFr : solutionsMapEn;
-  const solution = solutionsMap[solutionKey] || solutionsMap['invoice-automation'];
+  const solution = solutionKey ? solutionsMap[solutionKey] : null;
+
+  if (!solution || !solutionKey) {
+    return <NotFound />;
+  }
+
   const IconComponent = solution.icon;
 
   const faqSchema = {

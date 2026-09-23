@@ -104,39 +104,36 @@ const AppLayout = () => {
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
             <Route path={NavRoute.HOME} element={<Home />} />
-            <Route path={NavRoute.SERVICES} element={<Expertise />} />
-            <Route path={NavRoute.CAPABILITIES} element={<Expertise />} />
             <Route path="/services" element={<Expertise />} />
-            <Route path="/capabilities" element={<Expertise />} />
-            <Route path="/expertise" element={<Expertise />} />
-            <Route path={NavRoute.CASE_STUDIES} element={<CaseStudies />} />
-            <Route path="/casestudies" element={<CaseStudies />} />
-            <Route path="/work" element={<CaseStudies />} />
-            <Route path={NavRoute.CONTACT} element={<Contact />} />
-            <Route path={NavRoute.BOOKING} element={<Booking />} />
-            <Route path="/schedule" element={<Booking />} />
+            <Route path="/capabilities" element={<Navigate to="/services" replace />} />
+            <Route path="/expertise" element={<Navigate to="/services" replace />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/casestudies" element={<Navigate to="/case-studies" replace />} />
+            <Route path="/work" element={<Navigate to="/case-studies" replace />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/booking" element={<Booking />} />
-            <Route path="/audit" element={<Booking />} />
-            <Route path={NavRoute.METHODOLOGY} element={<Methodology />} />
-            <Route path={NavRoute.CAREERS} element={<Careers />} />
-            <Route path={NavRoute.ABOUT} element={<About />} />
-            <Route path={NavRoute.FIRM} element={<About />} />
-            <Route path={NavRoute.VERTICALS} element={<Verticals />} />
-            <Route path={NavRoute.INDUSTRIES} element={<Verticals />} />
-            <Route path={NavRoute.ADMIN_PORTAL} element={<AdminPortal />} />
-            <Route path={NavRoute.PRIVACY} element={<Privacy />} />
-            <Route path={NavRoute.COMPLIANCE} element={<ComplianceMatrix />} />
-            <Route path="/compliance" element={<ComplianceMatrix />} />
+            <Route path="/schedule" element={<Navigate to="/booking" replace />} />
+            <Route path="/audit" element={<Navigate to="/booking" replace />} />
+            <Route path="/methodology" element={<Methodology />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/firm" element={<Navigate to="/about" replace />} />
+            <Route path="/verticals" element={<Verticals />} />
+            <Route path="/industries" element={<Navigate to="/verticals" replace />} />
+            <Route path="/admin-portal" element={<AdminPortal />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="/compliance-matrix" element={<ComplianceMatrix />} />
-            <Route path="/matrix" element={<ComplianceMatrix />} />
-            <Route path={NavRoute.BRAND_IDENTITY} element={<BrandShowcase />} />
-            <Route path={NavRoute.CLIENT_DEMO} element={<ClientPortalDemo />} />
+            <Route path="/compliance" element={<Navigate to="/compliance-matrix" replace />} />
+            <Route path="/matrix" element={<Navigate to="/compliance-matrix" replace />} />
+            <Route path="/brand-identity" element={<BrandShowcase />} />
+            <Route path="/client-portal-demo" element={<ClientPortalDemo />} />
             <Route path="/client-portal" element={<ClientPortal />} />
             <Route path="/insights" element={<Insights />} />
             <Route path="/insights/:id" element={<InsightDetail />} />
             <Route path="/perspectives" element={<Navigate to="/insights" replace />} />
             <Route path="/perspectives/:id" element={<Navigate to="/insights" replace />} />
             <Route path="/solutions/:slug" element={<SolutionDetail />} />
+            <Route path="/locations/newfoundland" element={<Navigate to="/locations/newfoundland-labrador" replace />} />
             <Route path="/locations/:slug" element={<LocationDetail />} />
             <Route path="/compliance/:slug" element={<ComplianceSEO />} />
             <Route path="/risk-calculator" element={<RiskCalculator />} />
