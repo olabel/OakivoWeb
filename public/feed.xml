@@ -11,8 +11,18 @@
     <copyright>Copyright 2026 Oakivo Solutions Inc. All rights reserved.</copyright>
     <managingEditor>contact@oakivo.com (Oakivo Editorial Team)</managingEditor>
     <webMaster>contact@oakivo.com (Oakivo Webmaster)</webMaster>
-    <lastBuildDate>Wed, 23 Sep 2026 17:43:54 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 13:54:44 GMT</lastBuildDate>
     <atom:link href="https://www.oakivo.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[Model Context Protocol (MCP) & Shadow Agent Governance: The 2026 Enterprise Blueprint for Autonomous Tool Security]]></title>
+      <link>https://www.oakivo.com/insights/mcp-shadow-agent-governance-2026</link>
+      <guid isPermaLink="true">https://www.oakivo.com/insights/mcp-shadow-agent-governance-2026</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+      <author><![CDATA[Oakivo Applied Security Research Group]]></author>
+      <description><![CDATA[As enterprises connect frontier AI models directly to production databases, code repositories, and ERP pipelines via Model Context Protocol (MCP), a severe security frontier emerges. An in-depth analysis of Tool Poisoning, Schema Inversion, and Context Bleed—with an engineering blueprint for zero-trust MCP proxy gateways, cryptographic tool attestation, and OSFI B-13 alignment.]]></description>
+      <category><![CDATA[AI Architecture & Governance]]></category>
+      <enclosure url="/images/insights/mcp-agentic-governance-2026.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title><![CDATA[Securing Autonomous AI Fleets: Confidential Computing, Ephemeral Tokens, and Zero-Trust Guardrails]]></title>
       <link>https://www.oakivo.com/insights/autonomous-ai-agent-fleet-security-2026</link>

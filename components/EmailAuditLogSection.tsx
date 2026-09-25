@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useLanguage } from '../context/LanguageContext';
+import { auth } from '../utils/firebase';
 
 export interface EmailAuditLogEntry {
   id: string;
@@ -70,10 +71,17 @@ const EmailAuditLogSection: React.FC = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [expandedLogId, setExpandedLogId] = useState<string | null>(null);
 
+  const [confirmClear, setConfirmClear] = useState(false);
+
   const fetchLogs = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('/api/email-audit-logs');
+      const token = await auth.currentUser?.getIdToken();
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      const res = await fetch('/api/email-audit-logs', { headers });
       if (res.ok) {
         const json = await res.json();
         setData(json);
@@ -94,7 +102,12 @@ const EmailAuditLogSection: React.FC = () => {
     setIsTestingEmail(true);
     setTestResult(null);
     try {
-      const res = await fetch('/api/test-email', { method: 'POST' });
+      const token = await auth.currentUser?.getIdToken();
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      const res = await fetch('/api/test-email', { method: 'POST', headers });
       const json = await res.json();
       if (json.success) {
         toast.success(isFr ? 'E-mail de test envoyé avec succès via l\'API Resend à olabel@gmail.com !' : 'Live test email dispatched successfully via Resend API to olabel@gmail.com!');
@@ -113,11 +126,20 @@ const EmailAuditLogSection: React.FC = () => {
   };
 
   const handleClearLogs = async () => {
-    if (!window.confirm(isFr ? 'Êtes-vous sûr de vouloir vider l\'historique du journal des e-mails ?' : 'Are you sure you want to clear the email audit log history?')) {
+    if (!confirmClear) {
+      setConfirmClear(true);
+      toast.info(isFr ? 'Cliquez à nouveau sur Vider pour confirmer la suppression.' : 'Click Clear again within 5 seconds to confirm deletion.');
+      setTimeout(() => setConfirmClear(false), 5000);
       return;
     }
+    setConfirmClear(false);
     try {
-      const res = await fetch('/api/email-audit-logs/clear', { method: 'POST' });
+      const token = await auth.currentUser?.getIdToken();
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      const res = await fetch('/api/email-audit-logs/clear', { method: 'POST', headers });
       if (res.ok) {
         toast.success(isFr ? 'Journal des e-mails vidé.' : 'Email audit logs cleared.');
         await fetchLogs();

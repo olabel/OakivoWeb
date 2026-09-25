@@ -1418,8 +1418,57 @@ Timestamp: ${new Date().toISOString()}
     });
   });
 
+  // Security Middleware: Require Verified Firebase Authentication for Admin Endpoints
+  const requireAdminAuth = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Unauthorized: Authentication required.' });
+    }
+
+    const idToken = authHeader.split('Bearer ')[1]?.trim();
+    if (!idToken) {
+      return res.status(401).json({ error: 'Unauthorized: Invalid token provided.' });
+    }
+
+    try {
+      const configPath = path.join(process.cwd(), 'firebase-applet-config.json');
+      let apiKey = '';
+      if (fs.existsSync(configPath)) {
+        try {
+          const conf = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+          apiKey = conf.apiKey;
+        } catch {}
+      }
+
+      if (!apiKey) {
+        return res.status(500).json({ error: 'Server authentication configuration missing.' });
+      }
+
+      const verifyRes = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken })
+      });
+
+      if (!verifyRes.ok) {
+        return res.status(401).json({ error: 'Unauthorized: Invalid or expired authentication token.' });
+      }
+
+      const data = await verifyRes.json();
+      if (!data.users || data.users.length === 0) {
+        return res.status(401).json({ error: 'Unauthorized: User identity not found.' });
+      }
+
+      (req as any).adminUser = data.users[0];
+      next();
+    } catch (err) {
+      console.error('[SECURITY AUDIT] Authentication check failure:', err);
+      return res.status(500).json({ error: 'Authentication verification service error.' });
+    }
+  };
+
   // Resend Test Email Endpoint - Allows on-demand verification of inbox delivery to olabel@gmail.com
-  app.post('/api/test-email', formLimiter, async (req, res) => {
+  app.post('/api/test-email', formLimiter, requireAdminAuth, async (req, res) => {
     try {
       const now = new Date().toISOString();
       const testDelivery = await sendThirdPartyEmail({
@@ -1487,7 +1536,7 @@ Timestamp: ${new Date().toISOString()}
   });
 
   // Comprehensive Email Audit Logs API Endpoint for AdminPortal
-  app.get('/api/email-audit-logs', (req, res) => {
+  app.get('/api/email-audit-logs', requireAdminAuth, (req, res) => {
     const hasResend = !!process.env.RESEND_API_KEY;
     const configuredFrom = process.env.RESEND_FROM || process.env.EMAIL_FROM || 'Oakivo Security <hello@oakivo.com>';
 
@@ -1513,7 +1562,7 @@ Timestamp: ${new Date().toISOString()}
   });
 
   // Clear Audit Logs Endpoint (Admin Utility)
-  app.post('/api/email-audit-logs/clear', formLimiter, (req, res) => {
+  app.post('/api/email-audit-logs/clear', formLimiter, requireAdminAuth, (req, res) => {
     emailAuditLogs = [];
     try {
       if (fs.existsSync(EMAIL_LOGS_FILE)) {
@@ -1816,18 +1865,21 @@ ${sitemapUrls}
       const indexPath = path.join(distPath, 'index.html');
       if (post && fs.existsSync(indexPath)) {
         let html = fs.readFileSync(indexPath, 'utf-8');
-        const host = (req.headers['x-forwarded-host'] as string) || req.get('host') || 'www.oakivo.com';
-        const proto = (req.headers['x-forwarded-proto'] as string) || (req.secure ? 'https' : 'https');
+        const rawHost = (req.headers['x-forwarded-host'] as string) || req.get('host') || 'www.oakivo.com';
+        // Validate host against strict RFC hostname characters to eliminate Host Header Injection
+        const host = /^[a-zA-Z0-9.\-:]+$/.test(rawHost) ? rawHost : 'www.oakivo.com';
+        const proto = req.headers['x-forwarded-proto'] === 'http' ? 'http' : 'https';
         const origin = `${proto}://${host}`;
-        const title = `${post.title} | Oakivo DevSecOps Insights`;
-        const description = post.excerpt || 'Read the latest DevSecOps and cloud security insights from Oakivo Solutions in Atlantic Canada.';
+        const title = escapeHtml(`${post.title} | Oakivo DevSecOps Insights`);
+        const description = escapeHtml(post.excerpt || 'Read the latest DevSecOps and cloud security insights from Oakivo Solutions in Atlantic Canada.');
         
         let image = post.coverImage || '/og-image.png';
         if (!image.startsWith('http://') && !image.startsWith('https://')) {
           // Absolute URL is strictly required by LinkedIn, Facebook, Twitter, Slack, and WhatsApp
           image = `${origin}${image.startsWith('/') ? '' : '/'}${image}`;
         }
-        const url = `${origin}/insights/${post.id}`;
+        const safeImage = escapeHtml(image);
+        const safeUrl = escapeHtml(`${origin}/insights/${post.id}`);
 
         const ogTags = `
           <title>${title}</title>
@@ -1836,21 +1888,21 @@ ${sitemapUrls}
           <meta name="author" content="Oakivo Solutions Inc." />
           <meta property="og:type" content="article" />
           <meta property="og:site_name" content="Oakivo Solutions Inc." />
-          <meta property="og:url" content="${url}" />
+          <meta property="og:url" content="${safeUrl}" />
           <meta property="og:title" content="${title}" />
           <meta property="og:description" content="${description}" />
-          <meta property="og:image" content="${image}" />
-          <meta property="og:image:secure_url" content="${image}" />
+          <meta property="og:image" content="${safeImage}" />
+          <meta property="og:image:secure_url" content="${safeImage}" />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
           <meta property="og:image:alt" content="${title}" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@oakivosolutions" />
           <meta name="twitter:creator" content="@oakivosolutions" />
-          <meta name="twitter:url" content="${url}" />
+          <meta name="twitter:url" content="${safeUrl}" />
           <meta name="twitter:title" content="${title}" />
           <meta name="twitter:description" content="${description}" />
-          <meta name="twitter:image" content="${image}" />
+          <meta name="twitter:image" content="${safeImage}" />
           <meta name="twitter:image:alt" content="${title}" />`;
 
         html = html.replace(/<meta property="og:.*?>/gi, '');

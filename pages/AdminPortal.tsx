@@ -91,7 +91,12 @@ const AdminPortal: React.FC = () => {
     setIsTestingEmail(true);
     setTestEmailResult(null);
     try {
-      const res = await fetch('/api/test-email', { method: 'POST' });
+      const token = await auth.currentUser?.getIdToken();
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      const res = await fetch('/api/test-email', { method: 'POST', headers });
       const data = await res.json();
       if (data.success) {
         const prov = data.delivery?.provider || 'resend';

@@ -21,7 +21,8 @@ service cloud.firestore {
       allow create: if isValidId(entryId) &&
         request.resource.data.type in ['lead', 'applicant', 'subscriber'] &&
         request.resource.data.status in ['new', 'processed', 'archived'] &&
-        request.resource.data.createdAt is string;
+        request.resource.data.createdAt is string &&
+        request.resource.data.createdAt.size() <= 64;
       allow read, update, delete: if request.auth != null;
     }
 
@@ -29,7 +30,9 @@ service cloud.firestore {
     match /subscribers/{subscriberId} {
       allow create, update: if isValidId(subscriberId) &&
         request.resource.data.email is string &&
-        request.resource.data.email.size() <= 256;
+        request.resource.data.email.size() > 3 &&
+        request.resource.data.email.size() <= 256 &&
+        request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$');
       allow read, delete: if request.auth != null;
     }
 
@@ -37,7 +40,9 @@ service cloud.firestore {
     match /analytics_events/{eventId} {
       allow create: if isValidId(eventId) &&
         request.resource.data.path is string &&
-        request.resource.data.timestamp is string;
+        request.resource.data.path.size() <= 256 &&
+        request.resource.data.timestamp is string &&
+        request.resource.data.timestamp.size() <= 64;
       allow read, delete: if request.auth != null;
     }
 
@@ -46,7 +51,9 @@ service cloud.firestore {
       allow read: if true;
       allow create, update: if isValidId(scanId) &&
         request.resource.data.target is string &&
-        request.resource.data.timestamp is string;
+        request.resource.data.target.size() <= 256 &&
+        request.resource.data.timestamp is string &&
+        request.resource.data.timestamp.size() <= 64;
       allow delete: if request.auth != null;
     }
 
@@ -55,7 +62,9 @@ service cloud.firestore {
       allow read: if true;
       allow create, update: if isValidId(remediationId) &&
         request.resource.data.title is string &&
-        request.resource.data.timestamp is string;
+        request.resource.data.title.size() <= 256 &&
+        request.resource.data.timestamp is string &&
+        request.resource.data.timestamp.size() <= 64;
       allow delete: if request.auth != null;
     }
   }
