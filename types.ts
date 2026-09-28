@@ -49,6 +49,7 @@ export enum NavRoute {
   CAREERS = '/careers',
   PRIVACY = '/privacy',
   COMPLIANCE = '/compliance-matrix',
+  COMPLIANCE_GRADER = '/compliance-grader',
   ADMIN_PORTAL = '/admin-portal',
   BRAND_IDENTITY = '/brand-identity',
   CLIENT_DEMO = '/client-portal-demo',

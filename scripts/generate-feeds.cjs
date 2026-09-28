@@ -87,6 +87,7 @@ const coreRoutes = [
   { path: '/services', priority: '0.9', changefreq: 'daily' },
   { path: '/case-studies', priority: '0.9', changefreq: 'weekly' },
   { path: '/compliance-matrix', priority: '0.95', changefreq: 'daily' },
+  { path: '/compliance-grader', priority: '0.95', changefreq: 'daily' },
   { path: '/booking', priority: '0.9', changefreq: 'weekly' },
   { path: '/contact', priority: '0.85', changefreq: 'monthly' },
   { path: '/about', priority: '0.8', changefreq: 'monthly' },

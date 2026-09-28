@@ -56,13 +56,15 @@ const SolutionsInAction: React.FC = () => {
       <div className="container mx-auto max-w-7xl relative z-10">
         
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-cyan-500 uppercase bg-cyan-500/10 px-4 py-2 rounded-full border border-cyan-500/20 mb-6">
-            <Play size={14} /> {solData.badge}
+          <div className="flex items-center justify-center gap-2 text-xs font-mono font-semibold tracking-widest text-cyan-400 uppercase mb-4">
+            <span>PROVEN IN PRODUCTION</span>
+            <span className="text-slate-600" aria-hidden="true">·</span>
+            <span>{solData.badge}</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-5 tracking-tight">
             {solData.title}
           </h2>
-          <p className="text-slate-400 font-light max-w-2xl mx-auto text-lg">
+          <p className="text-slate-400 font-light max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
             {solData.subtitle}
           </p>
         </div>
@@ -71,42 +73,53 @@ const SolutionsInAction: React.FC = () => {
           {localizedVideos.map((vid, idx) => (
             <motion.div 
               key={vid.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="group cursor-pointer"
+              transition={{ delay: idx * 0.08 }}
+              className="group cursor-pointer rounded-2xl bg-slate-900/40 border border-slate-800/70 p-3.5 hover:border-cyan-500/40 transition-all duration-300 flex flex-col justify-between"
               onClick={() => setActiveVideo(vid.id)}
             >
-              <div className="relative rounded-2xl overflow-hidden mb-4 border border-slate-800/80 aspect-video shadow-lg">
-                <OptimizedImage 
-                  src={vid.thumbnail} 
-                  alt={`${vid.title} - Oakivo DevSecOps Video Demonstration`}
-                  className="w-full h-full transform group-hover:scale-105 transition-transform duration-700 opacity-60 group-hover:opacity-100"
-                />
-                <div className="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
-                
-                {/* Play Button Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 rounded-full bg-slate-900/80 backdrop-blur-md border border-slate-700/50 flex items-center justify-center group-hover:bg-cyan-500 group-hover:border-cyan-400 transition-all duration-300 transform group-hover:scale-110 shadow-xl">
-                    <Play className="text-white ml-1" size={24} fill="currentColor" />
+              <div>
+                <div className="relative rounded-xl overflow-hidden mb-4 border border-slate-800/80 aspect-video shadow-md bg-slate-950">
+                  <OptimizedImage 
+                    src={vid.thumbnail} 
+                    alt={`${vid.title} - Oakivo DevSecOps Video Demonstration`}
+                    className="w-full h-full transform group-hover:scale-105 transition-transform duration-700 opacity-60 group-hover:opacity-90 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors"></div>
+                  
+                  {/* Play Button Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-slate-900/90 backdrop-blur-md border border-slate-700/60 flex items-center justify-center group-hover:bg-cyan-500 group-hover:border-cyan-400 text-slate-300 group-hover:text-slate-950 transition-all duration-300 transform group-hover:scale-105 shadow-xl">
+                      <Play className="ml-0.5" size={20} fill="currentColor" />
+                    </div>
+                  </div>
+
+                  {/* Clean unboxed simulation tag */}
+                  <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2 py-0.5 rounded bg-slate-950/80 backdrop-blur border border-slate-800 text-[10px] font-mono text-cyan-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                    <span>SIMULATION</span>
                   </div>
                 </div>
                 
-                <div className="absolute bottom-3 left-3 bg-slate-900/90 backdrop-blur px-2.5 py-1 rounded text-[10px] font-mono text-slate-300 font-bold tracking-wider">
-                  01:45
+                <div className="flex items-center gap-2 mb-2 px-1">
+                  <div className="text-cyan-400 shrink-0">
+                    {vid.icon}
+                  </div>
+                  <h3 className="text-base font-display font-bold text-white group-hover:text-cyan-400 transition-colors leading-snug">
+                    {vid.title}
+                  </h3>
                 </div>
+                <p className="text-xs text-slate-400 font-light leading-relaxed line-clamp-2 px-1 mb-2">
+                  {vid.description}
+                </p>
               </div>
-              
-              <div className="flex items-center gap-2 mb-2">
-                <div className={`text-${vid.color}-400`}>
-                  {vid.icon}
-                </div>
-                <h3 className="text-lg font-display font-bold text-white group-hover:text-cyan-400 transition-colors">{vid.title}</h3>
+
+              <div className="px-1 pt-2 border-t border-slate-800/50 flex items-center justify-between text-[11px] font-mono text-slate-500 group-hover:text-cyan-400 transition-colors">
+                <span>{language === 'fr' ? 'Lancer le terminal' : 'Launch Simulation'}</span>
+                <span>→</span>
               </div>
-              <p className="text-sm text-slate-400 font-light leading-relaxed line-clamp-2">
-                {vid.description}
-              </p>
             </motion.div>
           ))}
         </div>

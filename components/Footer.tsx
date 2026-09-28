@@ -122,7 +122,13 @@ const Footer: React.FC = () => {
                         </h4>
                         <ul className="space-y-4">
                             <li>
-                              <Link to="/compliance-matrix" className="text-sm text-cyan-400 font-medium hover:text-cyan-300 transition-colors">
+                              <Link to="/compliance-grader" className="text-sm text-cyan-400 font-medium hover:text-cyan-300 transition-colors flex items-center gap-1.5">
+                                <span>{language === 'fr' ? 'Évaluateur de Préparation Réglementaire' : 'Compliance Readiness Grader'}</span>
+                                <span className="text-[10px] font-mono text-emerald-400 font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30">Live</span>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/compliance-matrix" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
                                 {language === 'fr' ? 'Matrice de Conformité' : 'Compliance Matrix'}
                               </Link>
                             </li>

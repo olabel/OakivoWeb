@@ -18,6 +18,7 @@ export const VALID_STATIC_ROUTES = new Set([
   '/verticals',
   '/privacy',
   '/compliance-matrix',
+  '/compliance-grader',
   '/brand-identity',
   '/client-portal',
   '/client-portal-demo',
@@ -38,6 +39,7 @@ export const ROUTE_REDIRECTS: Record<string, string> = {
   '/industries': '/verticals',
   '/compliance': '/compliance-matrix',
   '/matrix': '/compliance-matrix',
+  '/compliance-readiness-grader': '/compliance-grader',
   '/perspectives': '/insights',
   '/locations/newfoundland': '/locations/newfoundland-labrador'
 };

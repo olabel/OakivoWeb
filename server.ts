@@ -1725,6 +1725,7 @@ Timestamp: ${new Date().toISOString()}
       '/verticals',
       '/privacy',
       '/compliance-matrix',
+      '/compliance-grader',
       '/brand-identity',
       '/client-portal',
       '/insights',
@@ -1888,6 +1889,58 @@ ${sitemapUrls}
           <meta name="author" content="Oakivo Solutions Inc." />
           <meta property="og:type" content="article" />
           <meta property="og:site_name" content="Oakivo Solutions Inc." />
+          <meta property="og:url" content="${safeUrl}" />
+          <meta property="og:title" content="${title}" />
+          <meta property="og:description" content="${description}" />
+          <meta property="og:image" content="${safeImage}" />
+          <meta property="og:image:secure_url" content="${safeImage}" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content="${title}" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@oakivosolutions" />
+          <meta name="twitter:creator" content="@oakivosolutions" />
+          <meta name="twitter:url" content="${safeUrl}" />
+          <meta name="twitter:title" content="${title}" />
+          <meta name="twitter:description" content="${description}" />
+          <meta name="twitter:image" content="${safeImage}" />
+          <meta name="twitter:image:alt" content="${title}" />`;
+
+        html = html.replace(/<meta property="og:.*?>/gi, '');
+        html = html.replace(/<meta name="twitter:.*?>/gi, '');
+        html = html.replace(/<title>.*?<\/title>/i, '');
+        html = html.replace('</head>', `${ogTags}\n</head>`);
+        return res.status(200).set({
+          'Content-Type': 'text/html',
+          'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }).send(html);
+      }
+      next();
+    });
+
+    // Dynamic OG meta tags for social crawlers on Compliance Readiness Grader
+    app.get(['/compliance-grader', '/compliance-readiness-grader'], (req, res, next) => {
+      const indexPath = path.join(distPath, 'index.html');
+      if (fs.existsSync(indexPath)) {
+        let html = fs.readFileSync(indexPath, 'utf-8');
+        const rawHost = (req.headers['x-forwarded-host'] as string) || req.get('host') || 'www.oakivo.com';
+        const host = /^[a-zA-Z0-9.\-:]+$/.test(rawHost) ? rawHost : 'www.oakivo.com';
+        const proto = req.headers['x-forwarded-proto'] === 'http' ? 'http' : 'https';
+        const origin = `${proto}://${host}`;
+        const title = escapeHtml('Regulatory Compliance Readiness Grader | Oakivo Solutions');
+        const description = escapeHtml('Benchmark your cloud security against Bill C-26, OSFI B-13, SOC 2 Type II, PIPEDA / Law 25, and ISO 27001. Instant multi-standard compliance scoring and executive gap analysis.');
+        const safeImage = escapeHtml(`${origin}/images/compliance-grader-hero.jpg`);
+        const safeUrl = escapeHtml(`${origin}/compliance-grader`);
+
+        const ogTags = `
+          <title>${title}</title>
+          <meta name="title" content="${title}" />
+          <meta name="description" content="${description}" />
+          <meta name="author" content="Oakivo Solutions Inc." />
+          <meta property="og:type" content="website" />
+          <meta property="og:site_name" content="Oakivo Solutions" />
           <meta property="og:url" content="${safeUrl}" />
           <meta property="og:title" content="${title}" />
           <meta property="og:description" content="${description}" />

@@ -179,6 +179,31 @@ const ComplianceMatrix: React.FC = () => {
               : "Demystifying Canadian data sovereignty (Bill C-26, PIPEDA, Law 25) and international compliance frameworks (SOC 2, ISO 27001). See how Oakivo engineers automated compliance directly into your deployment pipelines."}
           </p>
 
+          {/* Interactive Compliance Readiness Grader Spotlight */}
+          <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/60 to-emerald-950/40 border border-cyan-500/30 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="space-y-1.5 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>INTERACTIVE COMPLIANCE AUDIT BENCHMARK</span>
+              </div>
+              <h2 className="text-xl font-display font-bold text-white">
+                {isFr ? "Évaluez Votre Niveau de Préparation Réglementaire en 3 Minutes" : "Benchmark Your Regulatory Compliance Readiness in 3 Minutes"}
+              </h2>
+              <p className="text-sm text-slate-300 font-light">
+                {isFr 
+                  ? "Testez votre infrastructure face aux exigences de la Loi C-26, des directives B-13 du BSIF, de SOC 2 et de la Loi 25. Obtenez un score chiffré et un plan de remédiation personnalisé."
+                  : "Diagnose your infrastructure against Bill C-26, OSFI B-13, SOC 2, and Law 25 mandates. Get an instant readiness score (0-100%) and personalized remediation dossier."}
+              </p>
+            </div>
+            <Link
+              to="/compliance-grader"
+              className="px-5 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono text-xs tracking-wider transition-colors flex items-center gap-2 shrink-0 shadow-lg shadow-cyan-500/10"
+            >
+              <span>{isFr ? "LANCER L'ÉVALUATION GRATUITE" : "LAUNCH COMPLIANCE GRADER"}</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+
           {/* Quick Landing Page Links */}
           <div className="flex flex-wrap gap-3 pt-2">
             <span className="text-xs font-mono text-slate-500 self-center">

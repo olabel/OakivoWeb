@@ -47,7 +47,7 @@ const PremiumCapabilities: React.FC = () => {
               <p className="text-lg text-slate-400 font-light leading-relaxed mb-8">
                 {t('caps.subtitle')}
               </p>
-              <a href="#engagement" className="inline-flex items-center gap-3 text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-sm tracking-wide uppercase group">
+              <a href="#methodology" className="inline-flex items-center gap-3 text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-sm tracking-wide uppercase group">
                 {t('caps.cta')} 
                 <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
               </a>

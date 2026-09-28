@@ -20,6 +20,7 @@ const Careers = lazy(() => import('./pages/Careers'));
 const AdminPortal = lazy(() => import('./pages/AdminPortal'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const ComplianceMatrix = lazy(() => import('./pages/ComplianceMatrix'));
+const ComplianceGrader = lazy(() => import('./pages/ComplianceGrader'));
 const BrandShowcase = lazy(() => import('./pages/BrandShowcase'));
 const SolutionDetail = lazy(() => import('./pages/SolutionDetail'));
 const LocationDetail = lazy(() => import('./pages/LocationDetail'));
@@ -123,6 +124,8 @@ const AppLayout = () => {
             <Route path="/admin-portal" element={<AdminPortal />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/compliance-matrix" element={<ComplianceMatrix />} />
+            <Route path="/compliance-grader" element={<ComplianceGrader />} />
+            <Route path="/compliance-readiness-grader" element={<Navigate to="/compliance-grader" replace />} />
             <Route path="/compliance" element={<Navigate to="/compliance-matrix" replace />} />
             <Route path="/matrix" element={<Navigate to="/compliance-matrix" replace />} />
             <Route path="/brand-identity" element={<BrandShowcase />} />

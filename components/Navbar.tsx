@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8 text-sm font-light text-slate-300" role="menubar">
+            <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-light text-slate-300" role="menubar">
                 {navLinks.map((link) => (
                   <NavLink
                     key={link.path}
