@@ -56,9 +56,27 @@
     <meta name="twitter:description" content="Automate compliance, lock down cloud infrastructure, and accelerate release velocity without security bottlenecks. Based in Dieppe, NB." />
     <meta name="twitter:image" content="https://www.oakivo.com/og-image.png" />
     
-    <!-- Favicon & Feed -->
+    <!-- Favicon, PWA Web App Manifest & Feed -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/og-image.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Oakivo" />
     <link rel="alternate" type="application/rss+xml" title="Oakivo Security Insights &amp; DevSecOps Feed" href="https://www.oakivo.com/rss.xml" />
+
+    <!-- Service Worker Registration for Instant Offline Browsing -->
+    <script>
+      if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(reg) {
+            console.log('[PWA] ServiceWorker registered for offline browsing');
+          }).catch(function(err) {
+            console.warn('[PWA] ServiceWorker registration notice:', err);
+          });
+        });
+      }
+    </script>
 
     <!-- Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

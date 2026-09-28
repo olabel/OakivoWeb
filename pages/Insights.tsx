@@ -26,8 +26,100 @@ import {
   CheckCircle2,
   BookOpen,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  SlidersHorizontal,
+  Filter,
+  Zap,
+  Bookmark
 } from 'lucide-react';
+
+export interface RegulatoryFrameworkOption {
+  id: string;
+  name: string;
+  shortName: string;
+  tag: string;
+  keywords: string[];
+}
+
+export const REGULATORY_FRAMEWORKS: RegulatoryFrameworkOption[] = [
+  {
+    id: 'all',
+    name: 'All Compliance Frameworks',
+    shortName: 'All Frameworks',
+    tag: 'ALL',
+    keywords: []
+  },
+  {
+    id: 'soc2',
+    name: 'SOC 2 Type II',
+    shortName: 'SOC 2',
+    tag: 'SOC 2',
+    keywords: ['soc 2', 'soc 2 type ii', 'tsc', 'aicpa', 'type 2']
+  },
+  {
+    id: 'bill_c26',
+    name: 'Bill C-26 (CCSPA)',
+    shortName: 'Bill C-26',
+    tag: 'Bill C-26',
+    keywords: ['bill c-26', 'c-26', 'ccspa', 'critical cyber systems', 'cyber systems protection']
+  },
+  {
+    id: 'osfi_b13',
+    name: 'OSFI Guideline B-13',
+    shortName: 'OSFI B-13',
+    tag: 'OSFI B-13',
+    keywords: ['osfi b-13', 'osfi b13', 'osfi guideline b-13', 'osfi e-21', 'frfi', 'superintendent of financial institutions']
+  },
+  {
+    id: 'law25',
+    name: 'Quebec Law 25',
+    shortName: 'Law 25',
+    tag: 'Law 25',
+    keywords: ['law 25', 'loi 25', 'quebec', 'cai', 'commission d\'accès à l\'information']
+  },
+  {
+    id: 'pipeda',
+    name: 'PIPEDA / Canadian Sovereignty',
+    shortName: 'PIPEDA',
+    tag: 'PIPEDA',
+    keywords: ['pipeda', 'lprpde', 'canadian data sovereignty', 'privacy commissioner', 'sovereign data']
+  },
+  {
+    id: 'nist_ai',
+    name: 'NIST AI RMF 1.0 & SP 800-207',
+    shortName: 'NIST AI RMF',
+    tag: 'NIST AI',
+    keywords: ['nist ai', 'nist ai rmf', 'ai rmf', 'nist sp 800-207', 'nist', 'sp 800-207']
+  },
+  {
+    id: 'iso27001',
+    name: 'ISO/IEC 27001 & 42001',
+    shortName: 'ISO 27001 / 42001',
+    tag: 'ISO 27001',
+    keywords: ['iso 27001', 'iso/iec 27001', 'iso 42001', 'iso/iec 42001', 'aims', 'isms']
+  },
+  {
+    id: 'ebpf',
+    name: 'eBPF Kernel Telemetry',
+    shortName: 'eBPF Kernel',
+    tag: 'eBPF',
+    keywords: ['ebpf', 'kernel', 'bpf', 'cnapp', 'runtime security', 'socket filter', 'berkeley packet filter']
+  },
+  {
+    id: 'mcp',
+    name: 'Model Context Protocol (MCP)',
+    shortName: 'MCP Governance',
+    tag: 'MCP',
+    keywords: ['mcp', 'model context protocol', 'shadow agent', 'tool poisoning', 'context bleed', 'agentic']
+  },
+  {
+    id: 'zero_trust',
+    name: 'Zero-Trust & SPIFFE/SPIRE',
+    shortName: 'Zero-Trust',
+    tag: 'Zero-Trust',
+    keywords: ['zero trust', 'zero-trust', 'spiffe', 'spire', 'svid', 'mtls', 'least privilege', 'confidential computing']
+  }
+];
 
 const calculateReadingTime = (content?: string, fallback?: string): string => {
   if (fallback) return fallback;
@@ -47,6 +139,7 @@ const Insights: React.FC = () => {
   // URL-driven or local industry filter
   const initialIndustry = (searchParams.get('industry') as IndustryId) || 'all';
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryId>(initialIndustry);
+  const [selectedFramework, setSelectedFramework] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
@@ -142,38 +235,134 @@ const Insights: React.FC = () => {
     return counts;
   }, [enrichedPosts]);
 
-  // Quick topics for fast filtering
-  const quickTopics = [
-    'Zero-Trust',
-    'Bill C-26',
-    'SOC 2',
-    'PIPEDA & Law 25',
-    'PCI-DSS 4.0',
-    'eBPF Kernel',
-    'AI Agents'
+  // Counts per regulatory framework
+  const frameworkCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: enrichedPosts.length };
+    REGULATORY_FRAMEWORKS.forEach(fw => {
+      if (fw.id !== 'all') {
+        counts[fw.id] = enrichedPosts.filter(post => {
+          const text = (
+            post.title + ' ' + 
+            post.excerpt + ' ' + 
+            (post.complianceStandards?.join(' ') || '') + ' ' + 
+            (post.industryConfig?.keyRegulations?.join(' ') || '') + ' ' +
+            (post.content || '')
+          ).toLowerCase();
+          return fw.keywords.some(k => text.includes(k));
+        }).length;
+      }
+    });
+    return counts;
+  }, [enrichedPosts]);
+
+  // Quick compliance search shortcuts
+  const complianceShortcuts = [
+    { label: 'OSFI B-13', query: 'OSFI B-13' },
+    { label: 'Bill C-26', query: 'Bill C-26' },
+    { label: 'eBPF Kernel', query: 'eBPF' },
+    { label: 'MCP Agents', query: 'MCP' },
+    { label: 'Zero-Trust', query: 'Zero-Trust' },
+    { label: 'SOC 2 Type II', query: 'SOC 2' },
+    { label: 'Law 25', query: 'Law 25' }
   ];
 
-  // Filtering logic
+  // Real-time Fuzzy Match algorithm across titles, abstracts, and regulatory standards
+  const calculateFuzzyMatch = (query: string, post: any): number => {
+    if (!query.trim()) return 100;
+    const cleanQ = query.trim().toLowerCase().replace(/[-_]/g, ' ');
+    const qTokens = cleanQ.split(/\s+/).filter(Boolean);
+
+    const title = (post.title || '').toLowerCase().replace(/[-_]/g, ' ');
+    const excerpt = (post.excerpt || '').toLowerCase().replace(/[-_]/g, ' ');
+    const category = (post.category || '').toLowerCase().replace(/[-_]/g, ' ');
+    const standards = (post.complianceStandards || []).map((s: string) => s.toLowerCase().replace(/[-_]/g, ' '));
+    const regulations = (post.industryConfig?.keyRegulations || []).map((r: string) => r.toLowerCase().replace(/[-_]/g, ' '));
+    const content = (post.content || '').toLowerCase();
+
+    let score = 0;
+
+    // 1. Exact query match in title
+    if (title.includes(cleanQ)) {
+      score += 180;
+    }
+
+    // 2. High-priority Regulatory Standards match (e.g., OSFI B-13, Bill C-26, eBPF, MCP, Zero-Trust)
+    for (const std of [...standards, ...regulations]) {
+      if (std.includes(cleanQ)) score += 160;
+      for (const t of qTokens) {
+        if (std.includes(t)) score += 50;
+      }
+    }
+
+    // 3. Excerpt & category match
+    if (excerpt.includes(cleanQ)) score += 90;
+    if (category.includes(cleanQ)) score += 70;
+
+    // 4. Token matches
+    let matchedTokens = 0;
+    for (const token of qTokens) {
+      if (title.includes(token)) {
+        score += 60;
+        matchedTokens++;
+      } else if (standards.some((s: string) => s.includes(token)) || regulations.some((r: string) => r.includes(token))) {
+        score += 50;
+        matchedTokens++;
+      } else if (excerpt.includes(token)) {
+        score += 30;
+        matchedTokens++;
+      } else if (content.includes(token)) {
+        score += 15;
+        matchedTokens++;
+      }
+    }
+
+    // Specific domain fuzzy boosts for exact technical queries
+    if (cleanQ === 'mcp' && (title.includes('model context protocol') || content.includes('model context protocol'))) {
+      score += 200;
+    }
+    if (cleanQ.includes('ebpf') && (title.includes('ebpf') || content.includes('ebpf') || content.includes('berkeley packet filter'))) {
+      score += 200;
+    }
+    if ((cleanQ.includes('b13') || cleanQ.includes('b 13') || cleanQ.includes('osfi')) && (title.includes('osfi') || standards.some((s: string) => s.includes('osfi')) || content.includes('osfi'))) {
+      score += 200;
+    }
+    if ((cleanQ.includes('c26') || cleanQ.includes('c 26') || cleanQ.includes('bill c')) && (title.includes('c-26') || standards.some((s: string) => s.includes('c-26')) || content.includes('c-26'))) {
+      score += 200;
+    }
+    if ((cleanQ.includes('zero trust') || cleanQ.includes('zerotrust')) && (title.includes('zero-trust') || title.includes('zero trust') || content.includes('zero-trust'))) {
+      score += 200;
+    }
+
+    if (matchedTokens === qTokens.length && qTokens.length > 1) {
+      score += 60;
+    }
+
+    return score;
+  };
+
+  // Real-time Filtering logic
   const filteredPosts = useMemo(() => {
-    return enrichedPosts.filter(post => {
+    const scored = enrichedPosts.map(post => {
       // 1. Sector match
       if (selectedIndustry !== 'all' && post.detectedIndustry !== selectedIndustry) {
-        return false;
+        return { post, score: -1 };
       }
 
-      // 2. Search query match
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
-        const matchesTitle = post.title.toLowerCase().includes(q);
-        const matchesExcerpt = post.excerpt.toLowerCase().includes(q);
-        const matchesCategory = post.category.toLowerCase().includes(q);
-        const matchesAuthor = post.author.toLowerCase().includes(q);
-        const matchesStandards = post.complianceStandards?.some(s => s.toLowerCase().includes(q));
-        const matchesRegulations = post.industryConfig?.keyRegulations.some(r => r.toLowerCase().includes(q));
-        const matchesContent = post.content?.toLowerCase().includes(q);
-
-        if (!matchesTitle && !matchesExcerpt && !matchesCategory && !matchesAuthor && !matchesStandards && !matchesRegulations && !matchesContent) {
-          return false;
+      // 2. Regulatory Framework Filter Chip match
+      if (selectedFramework !== 'all') {
+        const fw = REGULATORY_FRAMEWORKS.find(f => f.id === selectedFramework);
+        if (fw && fw.keywords.length > 0) {
+          const text = (
+            post.title + ' ' + 
+            post.excerpt + ' ' + 
+            (post.complianceStandards?.join(' ') || '') + ' ' + 
+            (post.industryConfig?.keyRegulations?.join(' ') || '') + ' ' +
+            (post.content || '')
+          ).toLowerCase();
+          const matchesFw = fw.keywords.some(k => text.includes(k));
+          if (!matchesFw) {
+            return { post, score: -1 };
+          }
         }
       }
 
@@ -186,13 +375,24 @@ const Insights: React.FC = () => {
         const inStandards = post.complianceStandards?.some(s => s.toLowerCase().includes(t));
         const inContent = post.content?.toLowerCase().includes(t);
         if (!inTitle && !inExcerpt && !inCategory && !inStandards && !inContent) {
-          return false;
+          return { post, score: -1 };
         }
       }
 
-      return true;
+      // 4. Real-time Fuzzy Match scoring
+      if (!searchQuery.trim()) {
+        return { post, score: 100 };
+      }
+
+      const score = calculateFuzzyMatch(searchQuery, post);
+      return { post, score };
     });
-  }, [enrichedPosts, selectedIndustry, searchQuery, activeTag]);
+
+    return scored
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(item => item.post);
+  }, [enrichedPosts, selectedIndustry, selectedFramework, searchQuery, activeTag]);
 
   // Active sector profile & matched case study
   const activeSectorProfile: IndustrySecurityProfile | null =
@@ -203,13 +403,14 @@ const Insights: React.FC = () => {
     return caseStudiesData.find(cs => cs.id === activeSectorProfile.matchedCaseStudyId) || caseStudiesData[0];
   }, [activeSectorProfile]);
 
-  // Featured lead post (only displayed when on 'all' with no search text to avoid layout confusion)
-  const isDefaultView = selectedIndustry === 'all' && !searchQuery.trim() && !activeTag;
+  // Featured lead post
+  const isDefaultView = selectedIndustry === 'all' && selectedFramework === 'all' && !searchQuery.trim() && !activeTag;
   const featuredPost = isDefaultView && filteredPosts.length > 0 ? filteredPosts[0] : null;
   const gridPosts = isDefaultView && featuredPost ? filteredPosts.slice(1) : filteredPosts;
 
   const resetFilters = () => {
     setSelectedIndustry('all');
+    setSelectedFramework('all');
     setSearchQuery('');
     setActiveTag(null);
     searchParams.delete('industry');
@@ -317,8 +518,26 @@ const Insights: React.FC = () => {
               </div>
             </div>
 
+              {/* Quick Compliance Search Shortcuts */}
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mr-0.5">
+                  {language === 'fr' ? 'Recherche rapide :' : 'Audit Shortcuts:'}
+                </span>
+                {complianceShortcuts.map((sc) => (
+                  <button
+                    key={sc.label}
+                    type="button"
+                    onClick={() => setSearchQuery(sc.query)}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-950/80 border border-slate-800 text-[11px] font-mono text-cyan-400 hover:text-white hover:border-cyan-500/40 transition-colors cursor-pointer"
+                  >
+                    <Zap size={11} className="text-cyan-400" />
+                    <span>{sc.label}</span>
+                  </button>
+                ))}
+              </div>
+
             {/* Sector Tabs Bar */}
-            <div className="pt-4 space-y-3">
+            <div className="pt-4 space-y-3 border-t border-slate-800/60 mt-4">
               <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                 {sectorTabs.map((tab) => {
                   const Icon = tab.icon;
@@ -347,27 +566,51 @@ const Insights: React.FC = () => {
                 })}
               </div>
 
-              {/* Quick Topic Pills */}
-              <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mr-1">
-                  {language === 'fr' ? 'Sujets :' : 'Topics:'}
-                </span>
-                {quickTopics.map((topic) => {
-                  const isActive = activeTag === topic;
-                  return (
+              {/* Regulatory Framework Filter Chips Row */}
+              <div className="pt-3 border-t border-slate-800/50">
+                <div className="flex items-center justify-between mb-2.5">
+                  <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">
+                    <SlidersHorizontal size={13} />
+                    <span>{language === 'fr' ? 'Filtrer par Norme & Cadre Réglementaire :' : 'Filter by Regulatory Framework & Standard:'}</span>
+                  </div>
+                  {selectedFramework !== 'all' && (
                     <button
-                      key={topic}
-                      onClick={() => setActiveTag(isActive ? null : topic)}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-colors border cursor-pointer ${
-                        isActive
-                          ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400/40 font-bold'
-                          : 'bg-slate-950/40 text-slate-400 border-slate-800/80 hover:text-white hover:border-slate-700'
-                      }`}
+                      onClick={() => setSelectedFramework('all')}
+                      className="text-[11px] font-mono text-slate-400 hover:text-white transition-colors cursor-pointer"
                     >
-                      #{topic}
+                      {language === 'fr' ? 'Toutes les normes' : 'Reset standard'}
                     </button>
-                  );
-                })}
+                  )}
+                </div>
+
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                  {REGULATORY_FRAMEWORKS.map((fw) => {
+                    const isSelected = selectedFramework === fw.id;
+                    const count = frameworkCounts[fw.id] || 0;
+                    if (fw.id !== 'all' && count === 0) return null;
+
+                    return (
+                      <button
+                        key={fw.id}
+                        type="button"
+                        onClick={() => setSelectedFramework(isSelected && fw.id !== 'all' ? 'all' : fw.id)}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium whitespace-nowrap transition-all border cursor-pointer ${
+                          isSelected
+                            ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400/60 shadow-sm shadow-cyan-500/10 font-bold'
+                            : 'bg-slate-950/70 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white'
+                        }`}
+                      >
+                        <ShieldCheck size={12} className={isSelected ? 'text-cyan-400' : 'text-slate-500'} />
+                        <span>{fw.shortName}</span>
+                        <span className={`px-1.5 py-0.2 rounded text-[10px] ${
+                          isSelected ? 'bg-cyan-400 text-slate-950 font-bold' : 'bg-slate-800 text-slate-400'
+                        }`}>
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </section>

@@ -1,0 +1,50 @@
+{
+  "id": "/",
+  "name": "Oakivo Solutions - DevSecOps & Cloud Security",
+  "short_name": "Oakivo",
+  "description": "Elite DevSecOps, Cloud Security, and Compliance Intelligence for Atlantic Canada and enterprise organizations.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#070A0F",
+  "theme_color": "#070A0F",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Insights & Research",
+      "short_name": "Insights",
+      "description": "Access technical whitepapers and regulatory security frameworks",
+      "url": "/insights",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Compliance Matrix",
+      "short_name": "Compliance",
+      "description": "Evaluate SOC 2, Bill C-26, and Law 25 compliance requirements",
+      "url": "/compliance-matrix",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Compliance Grader",
+      "short_name": "Grader",
+      "description": "Interactive enterprise compliance readiness benchmark",
+      "url": "/compliance-grader",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ]
+}

@@ -34,6 +34,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 import { LanguageProvider } from './context/LanguageContext';
 import { NavRoute } from './types';
 import { analytics } from './utils/analytics';
+import { initGlobalRoutePrefetch } from './utils/routePrefetch';
 import LiveChat from './components/LiveChat';
 import { Analytics } from './components/Analytics';
 import { Toaster } from 'sonner';
@@ -91,6 +92,11 @@ const ScrollToTopAndTrack = () => {
 const AppLayout = () => {
   const { pathname } = useLocation();
   const isDemo = pathname === NavRoute.CLIENT_DEMO;
+
+  useEffect(() => {
+    const cleanup = initGlobalRoutePrefetch();
+    return cleanup;
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen relative">

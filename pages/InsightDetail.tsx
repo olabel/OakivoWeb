@@ -1,8 +1,29 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLanguage, translations } from '../context/LanguageContext';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { ArrowLeft, Clock, Calendar, Share2, Twitter, Linkedin, ChevronRight, Building2, CheckCircle2, ArrowRight, ArrowUpRight, ShieldCheck, Sparkles, ExternalLink, Copy, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { 
+  ArrowLeft, 
+  Clock, 
+  Calendar, 
+  Share2, 
+  Twitter, 
+  Linkedin, 
+  ChevronRight, 
+  Building2, 
+  CheckCircle2, 
+  ArrowRight, 
+  ArrowUpRight, 
+  ShieldCheck, 
+  Sparkles, 
+  ExternalLink, 
+  Copy, 
+  Check,
+  Bookmark,
+  BookmarkCheck,
+  Printer,
+  FileText
+} from 'lucide-react';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/SEO';
@@ -15,12 +36,11 @@ import { caseStudiesData, CaseStudyItem } from './CaseStudies';
 
 import SubscribeNewsletter from '../components/SubscribeNewsletter';
 
-const calculateReadingTime = (content: string): string => {
-  if (!content) return "5 min read";
-  const wordsPerMinute = 238;
+const calculateReadingMinutes = (content: string): number => {
+  if (!content) return 5;
+  const wordsPerMinute = 220;
   const wordCount = content.split(/\s+/).length;
-  const minutes = Math.ceil(wordCount / wordsPerMinute);
-  return `${minutes} MIN READ`;
+  return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
 };
 
 const InsightDetail: React.FC = () => {
@@ -32,6 +52,48 @@ const InsightDetail: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  // Sync bookmark state from localStorage
+  useEffect(() => {
+    if (!id) return;
+    try {
+      const saved: string[] = JSON.parse(localStorage.getItem('oakivo_bookmarked_insights') || '[]');
+      setIsBookmarked(saved.includes(id));
+    } catch {
+      // LocalStorage sandboxed
+    }
+  }, [id]);
+
+  const toggleBookmark = () => {
+    if (!id) return;
+    try {
+      const saved: string[] = JSON.parse(localStorage.getItem('oakivo_bookmarked_insights') || '[]');
+      let updated: string[];
+      if (saved.includes(id)) {
+        updated = saved.filter(item => item !== id);
+        setIsBookmarked(false);
+        toast.info(
+          language === 'fr' ? 'Article retiré des signets' : 'Briefing removed from bookmarks'
+        );
+      } else {
+        updated = [...saved, id];
+        setIsBookmarked(true);
+        toast.success(
+          language === 'fr' ? 'Article enregistré pour consultation hors ligne' : 'Briefing Saved for Offline Review',
+          {
+            description: language === 'fr'
+              ? 'Disponible hors ligne sur cet appareil pour vos déplacements.'
+              : 'Cached locally for offline reading during flights and executive meetings.',
+            duration: 4000
+          }
+        );
+      }
+      localStorage.setItem('oakivo_bookmarked_insights', JSON.stringify(updated));
+    } catch {
+      toast.error('Unable to update local bookmarks');
+    }
+  };
 
   const handleCopyShareLink = async () => {
     const url = window.location.href;
@@ -52,9 +114,9 @@ const InsightDetail: React.FC = () => {
       }
       setCopied(true);
       toast.success(
-        language === 'fr' ? 'Lien copié dans le presse-papiers' : 'Link Copied to Clipboard',
+        language === 'fr' ? 'Lien copié dans le presse-papiers' : 'Executive Link Copied to Clipboard',
         { 
-          description: language === 'fr' ? 'Le lien de l’article a été copié.' : 'Direct URL copied for seamless sharing with your team.',
+          description: language === 'fr' ? 'Le lien direct de l’article a été copié.' : 'Direct URL ready for instant sharing with your security team.',
           duration: 3500,
         }
       );
@@ -63,6 +125,26 @@ const InsightDetail: React.FC = () => {
       console.error('Failed to copy link:', err);
       toast.error(language === 'fr' ? 'Échec de la copie du lien' : 'Could not copy link automatically');
     }
+  };
+
+  const handleNativeShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: post?.title || 'Oakivo Security Intelligence',
+          text: post?.excerpt,
+          url: window.location.href
+        });
+        return;
+      } catch (err) {
+        // User dismissed share dialog
+      }
+    }
+    handleCopyShareLink();
+  };
+
+  const handlePrintBriefing = () => {
+    window.print();
   };
 
   useEffect(() => {
@@ -97,10 +179,10 @@ const InsightDetail: React.FC = () => {
     const handleScroll = () => {
       const scrollPx = document.documentElement.scrollTop;
       const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (scrollPx / winHeightPx) * 100;
-      setScrollProgress(scrolled);
+      const scrolled = winHeightPx > 0 ? (scrollPx / winHeightPx) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, scrolled)));
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -120,6 +202,9 @@ const InsightDetail: React.FC = () => {
 
     return { industryProfile: profile, matchedCaseStudy: study };
   }, [post]);
+
+  const totalMinutes = post ? calculateReadingMinutes(post.content) : 5;
+  const remainingMinutes = Math.max(1, Math.ceil(totalMinutes * (1 - scrollProgress / 100)));
 
   if (isLoading) {
     return (
@@ -147,7 +232,7 @@ const InsightDetail: React.FC = () => {
 
   if (!post) return <NotFound />;
 
-  const currentUrl = window.location.href;
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : `https://www.oakivo.com/insights/${post.id}`;
 
   return (
     <>
@@ -155,7 +240,7 @@ const InsightDetail: React.FC = () => {
         title={`${post.title} | Oakivo Insights`}
         description={post.excerpt}
         image={post.coverImage}
-        imageAlt={`${post.title} - Oakivo DevSecOps Insights`}
+        imageAlt={`${post.title} - Oakivo DevSecOps Intelligence`}
         type="article"
         canonical={`/insights/${post.id}`}
         keywords={`${post.category}, DevSecOps, Canadian Cloud Security, ${post.complianceStandards?.join(', ') || ''}`}
@@ -164,31 +249,110 @@ const InsightDetail: React.FC = () => {
           '@type': 'TechArticle',
           headline: post.title,
           description: post.excerpt,
-          image: [post.coverImage.startsWith('http') ? post.coverImage : `https://www.oakivo.com${post.coverImage}`],
+          image: [post.coverImage?.startsWith('http') ? post.coverImage : `https://www.oakivo.com${post.coverImage}`],
           datePublished: post.date,
+          dateModified: post.date,
           author: [{ '@type': 'Organization', name: post.author, url: 'https://www.oakivo.com' }],
           publisher: {
             '@type': 'Organization',
             name: 'Oakivo Solutions Inc.',
             logo: { '@type': 'ImageObject', url: 'https://www.oakivo.com/logo.png' }
+          },
+          about: (post.complianceStandards || []).map((std) => ({
+            '@type': 'Thing',
+            name: std
+          })),
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://www.oakivo.com/insights/${post.id}`
           }
         }}
       />
       
-      {/* Reading Progress Bar */}
+      {/* Top Reading Progress Bar (Pinned at top edge) */}
       <div className="fixed top-0 left-0 w-full h-1 bg-slate-900 z-50">
         <div 
-          className="h-full bg-cyan-500 transition-all duration-150 ease-out"
+          className="h-full bg-gradient-to-r from-cyan-500 to-sky-400 shadow-sm shadow-cyan-500/50 transition-all duration-150 ease-out"
           style={{ width: `${scrollProgress}%` }}
-        ></div>
+        />
       </div>
 
-      <article className="pt-32 pb-24 bg-slate-950 min-h-screen">
+      {/* Sticky Executive Reading & Bookmark/Share Bar */}
+      <nav 
+        aria-label="Executive Reading Controls" 
+        className="sticky top-20 z-40 w-full bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-6 py-2.5 transition-all"
+      >
+        <div className="container mx-auto max-w-4xl flex items-center justify-between gap-4">
+          
+          {/* Left: Reading Progress HUD */}
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="flex items-center gap-2 text-xs font-mono">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-cyan-400 font-bold">{Math.round(scrollProgress)}%</span>
+              <span className="text-slate-500 hidden sm:inline">·</span>
+              <span className="text-slate-400 hidden sm:inline">
+                {language === 'fr' ? `~${remainingMinutes} min restante${remainingMinutes > 1 ? 's' : ''}` : `~${remainingMinutes} min read remaining`}
+              </span>
+            </div>
+            
+            <div className="h-4 w-px bg-slate-800 hidden md:block" />
+
+            <span className="text-xs font-medium text-slate-300 truncate hidden md:inline-block max-w-[280px]">
+              {post.title}
+            </span>
+          </div>
+
+          {/* Right: Bookmark & Share Actions */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Bookmark button */}
+            <button
+              type="button"
+              onClick={toggleBookmark}
+              aria-label={isBookmarked ? "Remove bookmark" : "Bookmark briefing for offline review"}
+              title={isBookmarked ? "Bookmarked (Saved locally)" : "Bookmark for offline review"}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors cursor-pointer ${
+                isBookmarked
+                  ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400/50 font-bold'
+                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+              }`}
+            >
+              {isBookmarked ? <BookmarkCheck size={14} className="text-cyan-400" /> : <Bookmark size={14} />}
+              <span className="hidden sm:inline">{isBookmarked ? (language === 'fr' ? 'Enregistré' : 'Saved') : (language === 'fr' ? 'Signet' : 'Save')}</span>
+            </button>
+
+            {/* Quick Share / Copy Link */}
+            <button
+              type="button"
+              onClick={handleNativeShare}
+              aria-label="Share article"
+              title="Share briefing"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 hover:text-white hover:border-cyan-500/40 transition-colors cursor-pointer"
+            >
+              {copied ? <Check size={14} className="text-emerald-400" /> : <Share2 size={14} className="text-cyan-400" />}
+              <span className="hidden sm:inline">{copied ? (language === 'fr' ? 'Copié !' : 'Copied!') : (language === 'fr' ? 'Partager' : 'Share')}</span>
+            </button>
+
+            {/* Print / Board Package Export */}
+            <button
+              type="button"
+              onClick={handlePrintBriefing}
+              aria-label="Print executive briefing memo"
+              title="Print / Save PDF Briefing"
+              className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-colors cursor-pointer hidden sm:inline-flex"
+            >
+              <Printer size={14} />
+            </button>
+          </div>
+
+        </div>
+      </nav>
+
+      <article className="pt-12 pb-24 bg-slate-950 min-h-screen">
         <div className="container mx-auto px-6 max-w-4xl">
           
           <button 
             onClick={() => navigate('/insights')}
-            className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 font-mono text-sm tracking-widest uppercase transition-colors mb-8"
+            className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 font-mono text-sm tracking-widest uppercase transition-colors mb-8 cursor-pointer"
           >
             <ArrowLeft size={16} /> {language === 'fr' ? 'Retour aux rapports' : 'Back to Insights'}
           </button>
@@ -212,7 +376,7 @@ const InsightDetail: React.FC = () => {
               <Calendar size={14} /> {post.date}
             </span>
             <span className="flex items-center gap-1.5 bg-slate-800/80 text-cyan-400 px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase">
-              <Clock size={12} /> {post.readTime || calculateReadingTime(post.content)}
+              <Clock size={12} /> {post.readTime || `${totalMinutes} MIN READ`}
             </span>
           </div>
 
