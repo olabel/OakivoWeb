@@ -12,46 +12,86 @@ import MeetOurExperts from '../components/MeetOurExperts';
 const OperatingPrinciples = [
   {
     number: '01',
-    title: 'Grounded Security Engineering',
-    icon: <ShieldCheck size={24} className="text-cyan-400" />,
-    description: 'No fear-mongering or vanity metrics. We focus on automated security guardrails that eliminate actual breach risks and audit friction.'
+    title: 'Personal Touch & Direct Founder Access',
+    icon: <Users size={24} className="text-cyan-400" />,
+    description: 'No junior hand-offs or multi-tier ticket escalation. You work directly with experienced founders and senior engineers who take personal ownership of your outcomes.'
   },
   {
     number: '02',
-    title: 'Zero Development Friction',
+    title: 'Pragmatic Automation & Rapid ROI',
     icon: <Zap size={24} className="text-cyan-400" />,
-    description: 'Security should accelerate shipping, not stall it. We embed automated scanning directly into developer CI/CD workflows with sub-second feedback.'
+    description: 'We replace manual spreadsheets and double-entry toil with resilient automated pipelines and tailored Odoo ERP rollouts in weeks instead of months.'
   },
   {
     number: '03',
     title: '100% Atlantic Canada Presence',
-    icon: <Users size={24} className="text-cyan-400" />,
-    description: 'Headquartered in Dieppe, New Brunswick. Direct bilingual (EN/FR) senior DevSecOps architects operating in Atlantic Standard Time.'
+    icon: <MapPin size={24} className="text-cyan-400" />,
+    description: 'Headquartered in Dieppe, New Brunswick. Fully bilingual (EN/FR) senior architects operating in Atlantic Standard Time (AST) with zero offshore queues.'
   },
   {
     number: '04',
-    title: 'Continuous Compliance & Assurance',
-    icon: <Clock size={24} className="text-amber-400" />,
-    description: 'Every pipeline and cloud environment we protect continuous cryptographic compliance archives for SOC 2, PIPEDA, and Canadian data sovereignty.'
+    title: 'Built-in Compliance & Canadian Sovereignty',
+    icon: <ShieldCheck size={24} className="text-amber-400" />,
+    description: 'Every Odoo environment and automated workflow is fortified with automated SOC 2, PIPEDA, and Canadian data sovereignty guardrails from day one.'
   }
 ];
 
 const TrustMetrics = [
   { value: '100% Bilingual', label: 'English & French Engineering', subtext: 'Direct Dieppe, NB team' },
-  { value: '< 15 Mins', label: 'Local Incident Response SLA', subtext: 'Atlantic Standard Time' },
-  { value: '24/7/365', label: 'Continuous CSPM & Compliance', subtext: 'SOC 2 & PIPEDA ready' },
-  { value: '0 Drift', label: 'Infrastructure-as-Code Integrity', subtext: 'Terraform & OpenTofu' }
+  { value: '< 15 Mins', label: 'Local Response SLA', subtext: 'Atlantic Standard Time' },
+  { value: 'Weeks, Not Years', label: 'Rapid ERP & Automation Deployment', subtext: 'Agile delivery model' },
+  { value: '24/7/365', label: 'Continuous Automated Compliance', subtext: 'SOC 2 & PIPEDA ready' }
 ];
 
 const About: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isFr = language === 'fr';
+
+  const boutiqueComparison = [
+    {
+      parameter: isFr ? 'Modèle d\'Équipe' : 'Team & Leadership',
+      bigConsulting: isFr ? 'Consultants juniors après la vente, bureaucratie lourde' : 'Junior staff post-pitch, heavy layers of bureaucracy',
+      commodityMSP: isFr ? 'Techniciens de soutien généralistes (niveau 1)' : 'Tier-1 helpdesk & break-fix technicians',
+      oakivo: isFr ? 'Accès direct aux fondateurs & ingénieurs seniors' : 'Direct senior founders & engineers on every project'
+    },
+    {
+      parameter: isFr ? 'Odoo & ERP Moderne' : 'Odoo & Modern ERP',
+      bigConsulting: isFr ? 'Projets SAP à plusieurs millions de dollars et 12 mois de slides' : 'Multi-million dollar custom builds or SAP only',
+      commodityMSP: isFr ? 'Aucune compétence en programmation ou ERP' : 'Zero ERP or software engineering capabilities',
+      oakivo: isFr ? 'Déploiement Odoo pragmatique et sur mesure en quelques semaines' : 'Pragmatic, tailored Odoo deployments delivering ROI in weeks'
+    },
+    {
+      parameter: isFr ? 'Automatisation des Flux' : 'Workflow Automation',
+      bigConsulting: isFr ? 'Intergiciels complexes et hors de prix' : 'Expensive custom middleware retainers',
+      commodityMSP: isFr ? 'Bricolages manuels ou scripts fragiles' : 'Basic script / fragile manual fixes',
+      oakivo: isFr ? 'Pipelines automatisés déterministes et auto-cicatrisants' : 'End-to-end resilient automated pipelines'
+    },
+    {
+      parameter: isFr ? 'Délai de Rentabilité' : 'Speed to Value',
+      bigConsulting: isFr ? '6 à 12 mois de présentations PowerPoint' : '6–12 months of slide decks & discovery',
+      commodityMSP: isFr ? 'Réactif au coup par coup' : 'Ad-hoc / reactive break-fix tickets',
+      oakivo: isFr ? 'Prototypes fonctionnels et gains mesurables en semaines' : 'Working prototypes & ROI in weeks'
+    },
+    {
+      parameter: isFr ? 'Proximité & Culture' : 'Local Touch & Culture',
+      bigConsulting: isFr ? 'Équipes éloignées à Toronto ou à l\'étranger' : 'Remote Toronto / offshore call centers',
+      commodityMSP: isFr ? 'Local mais portée technique très restreinte' : 'Local, but limited technical scope',
+      oakivo: isFr ? '100 % Bilingue (FR/EN) • Heure de l\'Atlantique (HNA)' : '100% Bilingual (EN/FR) in Atlantic Standard Time'
+    },
+    {
+      parameter: isFr ? 'Sécurité & Conformité' : 'Security & Compliance',
+      bigConsulting: isFr ? 'Classeurs théoriques de 300 pages' : '300-page theoretical binders',
+      commodityMSP: isFr ? 'Simple antivirus de base' : 'Basic antivirus installation only',
+      oakivo: isFr ? 'Garde-fous automatisés continus (SOC 2, LPRPDE, Loi 25)' : 'Automated, continuous compliance guardrails'
+    }
+  ];
 
   return (
     <>
       <SEO 
-        title="About Oakivo | DevSecOps Moncton & Canadian Cloud Security Engineers"
-        description="Oakivo Solutions is a premier DevSecOps and cloud security firm in Moncton, New Brunswick and Calgary, Alberta. Certified engineers in KCSP, HashiCorp Terraform, and SOC 2 / Bill C-26 compliance."
-        keywords="DevSecOps Moncton, Cloud Security New Brunswick, DevSecOps Calgary, Canadian cloud security engineers, Terraform AWS EKS hardening consultant, SOC 2 Type II audit readiness checklist Canada"
+        title="About Oakivo | Agile Digital Transformation & Odoo ERP in Atlantic Canada"
+        description="Founded in Dieppe, New Brunswick, Oakivo delivers tailored Odoo ERP, workflow automation, and built-in compliance with direct founder accountability and zero corporate bureaucracy."
+        keywords="About Oakivo, Odoo ERP Atlantic Canada, Digital Transformation Moncton, Workflow Automation New Brunswick, Cloud Engineers Dieppe NB, SOC 2 Canada"
         canonical="/about"
       />
 
@@ -74,25 +114,31 @@ const About: React.FC = () => {
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-slate-100 leading-[1.06]">
-              Defending Atlantic Canadian Enterprises Through <span className="text-linear-accent font-semibold">DevSecOps Automation.</span>
+              {isFr ? 'L\'Approche Boutique Agile : ' : 'The Agile Boutique Advantage: '}<span className="text-linear-accent font-semibold">{isFr ? 'Proximité & Vélocité.' : 'Personal Touch & Velocity.'}</span>
             </h1>
 
             {/* Brand Mission Statement */}
-            <div className="p-6 md:p-8 rounded-2xl bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 border border-white/10 space-y-3">
+            <div className="p-6 md:p-8 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-slate-800 space-y-3">
               <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-cyan-400 block">
-                Our Mission & Positioning
+                {isFr ? 'Notre Positionnement & Notre Raison d\'Être' : 'Our Positioning & Mission'}
               </span>
               <p className="text-base md:text-lg text-gray-200 font-normal leading-relaxed tracking-linear-normal">
-                Oakivo Solutions Inc. is headquartered in Dieppe, New Brunswick. We provide senior DevSecOps pipeline engineering, Cloud Security Posture Management (CSPM), and autonomous incident remediation for logistics, retail, healthcare, and enterprise organizations across Atlantic Canada.
+                {isFr
+                  ? 'Oakivo Solutions Inc. est implantée à Dieppe, au Nouveau-Brunswick. Nous concevons des implémentations Odoo ERP sur mesure, des automatisations de processus d\'affaires et des architectures infonuagiques résilientes pour les entreprises en croissance à travers le Canada atlantique.'
+                  : 'Oakivo Solutions Inc. is headquartered in Dieppe, New Brunswick. We provide tailored Odoo ERP implementations, workflow automations, and resilient cloud engineering for growing businesses across Atlantic Canada.'
+                }
               </p>
               <p className="text-xs text-gray-400 pt-1 leading-relaxed">
-                Unlike national consulting monoliths that offload tickets to generic call centers, our bilingual engineering team works directly alongside your technical leaders in Atlantic Standard Time to protect mission-critical systems and ensure strict Canadian data sovereignty.
+                {isFr
+                  ? 'Contrairement aux méga-consultants distants qui délèguent vos projets à des juniors ou aux dépanneurs informatiques limités au matériel, notre équipe bilingue intervient directement avec les fondateurs dans votre fuseau horaire pour libérer votre temps et sécuriser vos systèmes.'
+                  : 'Unlike national consulting monoliths that delegate work to junior staff after the pitch or commodity IT shops with zero software capabilities, our bilingual senior team works directly with founders in Atlantic Standard Time to eliminate operational toil and accelerate revenue.'
+                }
               </p>
             </div>
 
             <div className="pt-2 flex items-center gap-4">
               <button onClick={() => window.dispatchEvent(new CustomEvent("open-lead-drawer"))}
-                className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group"
+                className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group cursor-pointer"
               >
                 <span>{t('common.cta_book_audit')}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
@@ -178,54 +224,76 @@ const About: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="max-w-3xl mb-12 space-y-3">
             <span className="text-xs font-mono font-medium uppercase tracking-wider text-cyan-400">
-              The Oakivo Advantage
+              {isFr ? 'L’Avantage Oakivo' : 'The Oakivo Boutique Advantage'}
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-linear-tight text-slate-100">
-              Oakivo DevSecOps vs. Traditional IT Vendors
+              {isFr ? 'Comment nous nous démarquons' : 'How We Compare in Atlantic Canada'}
             </h2>
+            <p className="text-sm md:text-base text-[#8A8F98]">
+              {isFr 
+                ? 'Ni cabinet de conseil lourd aux honoraires astronomiques, ni simple dépanneur informatique. Une équipe agile de haut niveau à vos côtés.'
+                : 'Neither an overpriced global consultancy selling slideware, nor a commodity IT shop stuck resetting passwords. A high-touch, senior engineering partner.'
+              }
+            </p>
           </div>
 
-          <div className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl border border-white/[0.08] overflow-x-auto">
-            <table className="w-full text-left text-xs md:text-sm border-collapse min-w-[600px]">
+          <div className="bg-slate-900/40 backdrop-blur-md rounded-2xl border border-white/[0.08] overflow-x-auto">
+            <table className="w-full text-left text-xs md:text-sm border-collapse min-w-[700px]">
               <thead>
                 <tr className="border-b border-white/10 bg-white/[0.02]">
-                  <th className="p-4 md:p-5 font-mono text-gray-400 font-medium uppercase">Parameter</th>
-                  <th className="p-4 md:p-5 font-mono text-white font-bold uppercase bg-cyan-500/10">Oakivo DevSecOps & Cloud Security</th>
-                  <th className="p-4 md:p-5 font-mono text-gray-500 font-medium uppercase">Generic Outsourced Vendors</th>
+                  <th className="p-4 md:p-5 font-mono text-gray-400 font-medium uppercase">Dimension</th>
+                  <th className="p-4 md:p-5 font-mono text-white font-bold uppercase bg-cyan-500/10 border-x border-cyan-500/20">
+                    Oakivo Solutions (Agile Boutique)
+                  </th>
+                  <th className="p-4 md:p-5 font-mono text-gray-400 font-medium uppercase">Legacy Consultancies (Big 4)</th>
+                  <th className="p-4 md:p-5 font-mono text-gray-400 font-medium uppercase">Commodity MSPs & IT Shops</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.06] text-gray-300">
                 <tr>
-                  <td className="p-4 md:p-5 font-semibold text-white">Security Velocity</td>
-                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 flex items-center gap-2">
+                  <td className="p-4 md:p-5 font-semibold text-white">Client Engagement & Personal Touch</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 border-x border-cyan-500/20 flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-cyan-400 shrink-0" />
-                    <span>Automated CI/CD security gates catching issues in milliseconds</span>
+                    <span>Direct access to senior founders in Atlantic Standard Time. Bilingual, dedicated accountability.</span>
                   </td>
-                  <td className="p-4 md:p-5 text-gray-400">Slow manual reviews stalling deployments for weeks</td>
+                  <td className="p-4 md:p-5 text-gray-400">Sold by partners, handed off to junior consultants who learn on your dime.</td>
+                  <td className="p-4 md:p-5 text-gray-400">Anonymous ticket queue, rigid call-center routing.</td>
                 </tr>
                 <tr>
-                  <td className="p-4 md:p-5 font-semibold text-white">Compliance Assurance</td>
-                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 flex items-center gap-2">
+                  <td className="p-4 md:p-5 font-semibold text-white">Odoo ERP & Digital Transformation</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 border-x border-cyan-500/20 flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-cyan-400 shrink-0" />
-                    <span>Continuous automated SOC 2 & PIPEDA cryptographic archives</span>
+                    <span>Turnkey implementation, clean data migrations, customized to your exact operations in weeks.</span>
                   </td>
-                  <td className="p-4 md:p-5 text-gray-400">Stressful manual spreadsheet audits once a year</td>
+                  <td className="p-4 md:p-5 text-gray-400">Massive SAP/NetSuite bloated 18-month projects with 7-figure budgets.</td>
+                  <td className="p-4 md:p-5 text-gray-400">Zero ERP capability; purely install commodity desktop apps.</td>
                 </tr>
                 <tr>
-                  <td className="p-4 md:p-5 font-semibold text-white">Local Authority & SLA</td>
-                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 flex items-center gap-2">
+                  <td className="p-4 md:p-5 font-semibold text-white">Automation & Revenue Engineering</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 border-x border-cyan-500/20 flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-cyan-400 shrink-0" />
-                    <span>Dieppe, NB headquarters with direct AST bilingual support</span>
+                    <span>Cross-system bots, automated invoicing, order sync, and CRM pipelines paying for themselves.</span>
                   </td>
-                  <td className="p-4 md:p-5 text-gray-400">Generic offshore ticket queues and delayed response times</td>
+                  <td className="p-4 md:p-5 text-gray-400">Lengthy advisory memos and strategy decks with no hands-on code.</td>
+                  <td className="p-4 md:p-5 text-gray-400">Basic printer setups and password resets; no workflow automations.</td>
                 </tr>
                 <tr>
-                  <td className="p-4 md:p-5 font-semibold text-white">Cloud Data Sovereignty</td>
-                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 flex items-center gap-2">
+                  <td className="p-4 md:p-5 font-semibold text-white">Speed to Measurable Value</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 border-x border-cyan-500/20 flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-cyan-400 shrink-0" />
-                    <span>Strict Canadian data residency and zero cross-border leakage</span>
+                    <span>Live automations in 2 to 4 weeks; full ERP deployments in under 90 days.</span>
                   </td>
-                  <td className="p-4 md:p-5 text-gray-400">Unmonitored cloud routing and foreign jurisdiction risks</td>
+                  <td className="p-4 md:p-5 text-gray-400">6 to 18 months before any software actually goes into production.</td>
+                  <td className="p-4 md:p-5 text-gray-400">Reactive repairs; never drives strategic business momentum.</td>
+                </tr>
+                <tr>
+                  <td className="p-4 md:p-5 font-semibold text-white">Compliance, PIPEDA & Cloud Security</td>
+                  <td className="p-4 md:p-5 text-white font-bold bg-cyan-500/5 border-x border-cyan-500/20 flex items-center gap-2">
+                    <CheckCircle2 size={16} className="text-cyan-400 shrink-0" />
+                    <span>Built-in Canadian data residency, automated security controls, and pain-free audits.</span>
+                  </td>
+                  <td className="p-4 md:p-5 text-gray-400">High-overhead governance binders that gather dust on executive desks.</td>
+                  <td className="p-4 md:p-5 text-gray-400">Off-the-shelf antivirus with unmonitored security gaps.</td>
                 </tr>
               </tbody>
             </table>

@@ -39,31 +39,31 @@ export interface IndustryHeroContent {
 export const INDUSTRY_HERO_CONTENT: Record<IndustryKey, IndustryHeroContent> = {
   default: {
     id: 'default',
-    iconName: 'ShieldCheck',
+    iconName: 'Sparkles',
     name: {
-      en: 'Enterprise DevSecOps',
-      fr: 'DevSecOps Entreprise'
+      en: 'Boutique Digital Transformation',
+      fr: 'Transformation Numérique Boutique'
     },
     badge: {
-      en: 'Canadian DevSecOps & Cloud Security Authority',
-      fr: 'Autorité Canadienne en Sécurité Cloud & DevSecOps'
+      en: 'The Atlantic Canada Boutique Advantage',
+      fr: 'L’Avantage Boutique du Canada Atlantique'
     },
     headline: {
-      en: 'Automated Cloud Security & DevSecOps for Modern Enterprise',
-      fr: 'Sécurité Cloud et DevSecOps Automatisés pour Entreprises Modernes',
-      highlightEn: 'Modern Enterprise',
-      highlightFr: 'Entreprises Modernes'
+      en: 'Smart Automation. Seamless Odoo ERP. The Personal Touch.',
+      fr: 'Automatisation Intelligente. ERP Odoo Sans Faille. La Touche Personnelle.',
+      highlightEn: 'The Personal Touch.',
+      highlightFr: 'La Touche Personnelle.'
     },
     subheadline: {
-      en: 'We transform high-friction manual security reviews into automated, continuous compliance pipelines. Zero Trust identity, real-time threat neutralization, and audit-ready governance engineered in Atlantic Canada.',
-      fr: 'Nous transformons les revues de sécurité manuelles en pipelines de conformité continue. Identité Zéro-Trust, neutralisation des menaces et gouvernance prête pour l’audit.'
+      en: 'We modernize and automate growing Canadian businesses—from turnkey Odoo ERP implementations to hands-free workflow automations. Direct senior founder partnership in Atlantic Standard Time.',
+      fr: 'Nous modernisons et automatisons les entreprises canadiennes en pleine croissance — de l’implémentation clé en main d’Odoo ERP aux automatisations de processus d’affaires. Un partenariat direct avec les fondateurs.'
     },
     metricChip: {
-      en: 'SOC 2 Type II • Bill C-26 • Hardened Multi-Cloud',
-      fr: 'SOC 2 Type II • Loi C-26 • Multi-Cloud Renforcé'
+      en: 'Bilingual • AST Time Zone • Guaranteed Go-Live',
+      fr: 'Bilingue • Fuseau Atlantique • Mise en Service Garantie'
     },
-    ctaFocus: 'General Cloud Security & DevSecOps Architecture Audit',
-    targetFrameworks: ['SOC 2 Type II', 'Bill C-26', 'Zero Trust IAM', 'Terraform CSPM']
+    ctaFocus: 'Odoo ERP Implementation or Migration',
+    targetFrameworks: ['Odoo 17/18', 'Business Automations', 'PIPEDA Compliance', 'Canadian Cloud']
   },
 
   logistics: {

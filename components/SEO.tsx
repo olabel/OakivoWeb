@@ -41,10 +41,11 @@ const SEO: React.FC<SEOProps> = ({
     'url': siteUrl,
     'logo': `${siteUrl}/logo.png`,
     'image': fullImageUrl,
-    'description': 'Elite DevSecOps automation, autonomous infrastructure design, and zero-trust cloud security for Atlantic Canadian enterprises.',
+    'description': 'Modern ERP implementations, hands-free business workflow automations, and enterprise cloud cybersecurity for growing Canadian businesses.',
     'address': {
       '@type': 'PostalAddress',
-      'addressRegion': 'Atlantic Canada',
+      'addressLocality': 'Dieppe',
+      'addressRegion': 'New Brunswick',
       'addressCountry': 'CA'
     },
     'areaServed': [
@@ -54,23 +55,25 @@ const SEO: React.FC<SEOProps> = ({
       { '@type': 'AdministrativeArea', 'name': 'Newfoundland and Labrador' }
     ],
     'serviceType': [
-      'DevSecOps Automation',
-      'Cloud Security Posture Management (CSPM)',
-      'Zero-Trust Architecture',
-      'CI/CD Pipeline Security',
-      'Site Reliability Engineering (SRE)'
+      'Modern ERP Implementation & Operations',
+      'Business Workflow & Revenue Automation',
+      'Cloud Architecture & DevSecOps Modernization',
+      'Enterprise Cybersecurity & Zero-Trust Architecture',
+      'Continuous Compliance Automation (SOC 2, PIPEDA, Law 25)'
     ],
     'priceRange': '$$$',
     'knowsAbout': [
+      'Modern ERP',
+      'Workflow Automation',
+      'Enterprise Cybersecurity',
+      'Cloud Architecture',
       'DevSecOps',
-      'Cloud Security',
-      'Infrastructure as Code (IaC)',
-      'Kubernetes Security',
+      'Zero-Trust Architecture',
       'Compliance Automation',
-      'Zero-Trust',
-      'SOC 2',
+      'SOC 2 Type II',
       'PIPEDA',
-      'ISO 27001'
+      'Law 25',
+      'Canadian Data Sovereignty'
     ]
   };
 
@@ -79,7 +82,7 @@ const SEO: React.FC<SEOProps> = ({
     '@type': 'WebSite',
     'name': 'Oakivo Solutions',
     'url': siteUrl,
-    'description': 'Premium DevSecOps & Cloud Security for Atlantic Canadian enterprises.',
+    'description': 'Modern ERP, business workflow automation, and enterprise cloud cybersecurity for growing Canadian businesses.',
     'publisher': {
       '@type': 'Organization',
       'name': 'Oakivo Solutions'

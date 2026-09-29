@@ -63,9 +63,9 @@ const rssXml = `<?xml version="1.0" encoding="UTF-8" ?>
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Oakivo Security Insights | Cloud Security &amp; DevSecOps Intelligence</title>
+    <title>Oakivo Insights | Modern ERP, Workflow Automation &amp; Cloud Cybersecurity</title>
     <link>${siteUrl}/insights</link>
-    <description>Authoritative research on Bill C-26, PIPEDA &amp; Law 25 sovereign cloud architectures, SOC 2 Type II audit automation, Zero-Trust, and Kubernetes posture management by Oakivo Solutions.</description>
+    <description>Authoritative research on modern ERP architectures, quote-to-cash workflow automations, Canadian data sovereignty (PIPEDA &amp; Law 25), SOC 2 compliance, and cloud security by Oakivo Solutions.</description>
     <language>en-ca</language>
     <copyright>Copyright ${new Date().getFullYear()} Oakivo Solutions Inc. All rights reserved.</copyright>
     <managingEditor>contact@oakivo.com (Oakivo Editorial Team)</managingEditor>

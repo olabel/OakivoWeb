@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
                 type="button"
                 id="nav-book-audit-btn"
                 onClick={handleBookAuditClick}
-                aria-label={language === 'fr' ? "Réserver un audit gratuit d'architecture de sécurité" : "Book a free security architecture audit"}
+                aria-label={language === 'fr' ? "Réserver une session découverte gratuite" : "Book a complimentary 30-minute discovery call"}
                 aria-haspopup="dialog"
                 className="group relative inline-flex items-center justify-center text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white border border-slate-200 hover:border-cyan-400/80 px-6 py-2.5 rounded-full transition-all duration-300 ease-out transform hover:scale-[1.04] active:scale-[0.98] hover:shadow-[0_0_22px_rgba(6,182,212,0.45)] text-slate-950 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
               >

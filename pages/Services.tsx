@@ -1,81 +1,83 @@
 import React from 'react';
 import { 
   ArrowRight, ShieldCheck, Zap, Layers, CheckCircle2, 
-  Sparkles, RefreshCw, Clock, ArrowUpRight, GitBranch, Database, Activity, Terminal, Shield
+  Sparkles, RefreshCw, Clock, ArrowUpRight, GitBranch, Database, Activity, Terminal, Shield, Server, Lock
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import SEO from '../components/SEO';
 import { useLanguage } from '../context/LanguageContext';
 import DownloadBrochureButton from '../components/DownloadBrochureButton';
+import RoiCalculator from '../components/RoiCalculator';
+import IntersectionAnimatedCard from '../components/IntersectionAnimatedCard';
 
 const Services: React.FC = () => {
   const { t } = useLanguage();
 
   const corePillars = [
     {
-      id: 'cspm-compliance',
-      title: 'Cloud Security Posture Management (CSPM)',
-      tagline: 'Continuous Multi-Cloud Scanning & Compliance',
-      icon: <ShieldCheck size={28} className="text-cyan-400" />,
-      headline: 'Turn Compliance from an Annual Nightmare into Continuous Assurance.',
-      problem: 'Engineering teams spend weeks capturing manual screenshots and log extracts before PIPEDA, SOC 2, and ISO 27001 audits while cloud drift goes unnoticed.',
-      capabilities: [
-        'Automated cloud misconfiguration detection across AWS, Azure, GCP',
-        'Real-time drift detection for Infrastructure-as-Code (Terraform, OpenTofu)',
-        'Continuous compliance mapping (SOC 2, PIPEDA, ISO 27001, NIST)',
-        'Push-button cryptographic audit evidence and compliance archives'
-      ],
-      outcomeMetric: '24/7 Continuous Proof',
-      outcomeDesc: 'Replaced weeks of stressful pre-audit panic with automated 24/7 compliance evidence and zero cloud configuration drift.'
-    },
-    {
-      id: 'devsecops-pipelines',
-      title: 'DevSecOps Pipeline Engineering',
-      tagline: 'Shift-Left CI/CD Security Automation',
-      icon: <GitBranch size={28} className="text-cyan-400" />,
-      headline: 'Build Fast. Break Nothing. Secure Every Single Commit.',
-      problem: 'Security reviews happen at the end of release sprints, stalling deployments and forcing developers into expensive last-minute code rewrites.',
-      capabilities: [
-        'Automated SAST, DAST, and Software Bill of Materials (SBOM) generation',
-        'Container image scanning and cryptographic cosign verification',
-        'Secret leakage detection and credential gating in pull requests',
-        'Policy-as-Code enforcement guaranteeing zero unsecured code deploys'
-      ],
-      outcomeMetric: 'Accelerated Release Velocity',
-      outcomeDesc: 'Eliminated release security bottlenecks while shifting vulnerability scans directly into developer pull requests.'
-    },
-    {
-      id: 'erp-security-iam',
-      title: 'Odoo Implementation & ERP Security',
-      tagline: 'Digital Transformation & Zero Trust Access',
+      id: 'modern-erp-transformation',
+      title: 'Modern ERP & Operations Modernization',
+      tagline: 'Single Source of Truth & Operational Flow',
       icon: <Database size={28} className="text-cyan-400" />,
-      headline: 'Protect and Streamline the Operational Core of Your Business.',
-      problem: 'Businesses struggle with disconnected processes and insecure access across finance, HR, and operations, limiting growth and exposing data.',
+      headline: 'Replace Disjointed Systems with One Unified Business Engine.',
+      problem: 'Disconnected spreadsheets, outdated software, and manual silos bleed administrative hours and cause shipping and billing errors.',
       capabilities: [
-        'Comprehensive Odoo ERP implementation and custom integration',
-        'Sub-second automated offboarding and credential de-provisioning',
-        'Least-privilege role matrix implementation and tokenized API gateways',
-        'Zero Trust mutual TLS (mTLS) database perimeter security'
+        'Turnkey modern ERP implementation, module customization & data migration',
+        'Integrated CRM, Sales, Inventory, Accounting, Invoicing & Dispatch',
+        'Canadian banking, payment gateway & carrier API integrations',
+        'Direct founder leadership, hands-on team training & zero operational downtime'
       ],
-      outcomeMetric: 'Accelerated Transformation',
-      outcomeDesc: 'Unified business operations within Odoo, secured by zero trust architecture and instantaneous credential management.'
+      outcomeMetric: '60% Less Admin Overhead',
+      outcomeDesc: 'Unified end-to-end business operations, eliminating double-entry and synchronizing all departments.'
     },
     {
-      id: 'sre-incident-remediation',
-      title: 'Automated Incident Remediation (SRE)',
-      tagline: 'Autonomous Threat Neutralization & Uptime',
-      icon: <Activity size={28} className="text-amber-400" />,
-      headline: 'Neutralize Threats at Machine Speed Before They Impact Operations.',
-      problem: 'Human analysts cannot respond in milliseconds when brute-force or credential stuff attacks hit cloud infrastructure at 3 AM.',
+      id: 'workflow-revenue-automation',
+      title: 'Workflow & Revenue Automation',
+      tagline: 'Accelerated Cash Flow & Hands-Free Pipelines',
+      icon: <Zap size={28} className="text-amber-400" />,
+      headline: 'Turn Manual Hand-Offs into Hands-Free Revenue Boosters.',
+      problem: 'Manual quote-to-cash handoffs, delayed invoicing, and disconnected inventory lead to missed sales, slow collections, and cash flow strain.',
       capabilities: [
-        'Automated event-driven runbooks that isolate compromised nodes instantly',
-        'Sub-millisecond secret and API key rotation upon anomaly detection',
-        'Immutable audit logging and centralized SIEM streaming',
-        'Self-healing cloud architectures guaranteeing 99.99% operational uptime'
+        'Automated quote-to-cash and instant invoice reconciliation pipelines',
+        'Real-time inventory synchronization across warehouse hubs and sales channels',
+        'Automated route dispatch logging and customer status alerts',
+        'Self-healing data validation pipelines that eliminate human error'
+      ],
+      outcomeMetric: 'Accelerated Cash Flow',
+      outcomeDesc: 'Eliminated invoicing bottlenecks and manual double-entry, accelerating order-to-cash cycles.'
+    },
+    {
+      id: 'cloud-architecture-devops',
+      title: 'Cloud Architecture & DevOps Modernization',
+      tagline: 'Resilient Multi-Cloud & Fast Software Delivery',
+      icon: <Server size={28} className="text-emerald-400" />,
+      headline: 'Resilient Cloud Infrastructure Built for Scale.',
+      problem: 'Fragile server environments, unmonitored cloud spending, and slow deployment cycles drag down business velocity.',
+      capabilities: [
+        'Canadian sovereign cloud architecture design and migration (AWS, Azure)',
+        'Automated CI/CD pipelines (GitHub Actions, GitLab) for zero-downtime releases',
+        'Declarative Infrastructure-as-Code (Terraform / OpenTofu) with drift detection',
+        'High-availability cloud clustering with 99.99% operational uptime'
       ],
       outcomeMetric: '99.99% Cloud Uptime',
-      outcomeDesc: 'Autonomous event-driven remediation neutralizing threats in milliseconds with zero operational downtime.'
+      outcomeDesc: 'Reliable, scalable cloud environments with 2x faster release velocity and Canadian data sovereignty.'
+    },
+    {
+      id: 'compliance-security-assurance',
+      title: 'Enterprise Cybersecurity & Painless Compliance',
+      tagline: 'Continuous Zero Trust Protection & Automated Proof',
+      icon: <ShieldCheck size={28} className="text-cyan-400" />,
+      headline: 'Enterprise-Grade Peace of Mind Without the Bureaucracy.',
+      problem: 'Unmonitored security gaps, ransomware threats, or panic over upcoming SOC 2, PIPEDA, Law 25 audits stalling contracts.',
+      capabilities: [
+        'Automated Cloud Security Posture Management (CSPM) with 24/7 continuous evidence',
+        'Canadian sovereign data residency guarantees (AWS ca-central-1, Azure Canada)',
+        'Granular Zero Trust identity governance and automated credential rotation',
+        'Plain-English remediation blueprints that satisfy enterprise vendor audits & cyber insurance'
+      ],
+      outcomeMetric: 'Continuous 24/7 Proof',
+      outcomeDesc: 'Continuous automated compliance evidence generation replacing chaotic manual spreadsheet gathering.'
     }
   ];
 
@@ -103,9 +105,9 @@ const Services: React.FC = () => {
   return (
     <>
       <SEO 
-        title="DevSecOps & Cloud Security Services | Moncton, New Brunswick & Calgary"
-        description="Full-lifecycle DevSecOps engineering, Terraform AWS EKS hardening, CI/CD security automation, and continuous compliance for Canadian enterprises in Moncton, NB, Calgary, and Halifax."
-        keywords="DevSecOps Moncton, Cloud Security New Brunswick, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax, SOC 2 Type II audit readiness checklist Canada, DevSecOps Calgary, CI/CD security gating, Kubernetes CSPM"
+        title="Odoo ERP, Workflow Automation & Cloud Services | Oakivo Solutions"
+        description="Modernize operations with turnkey Odoo ERP implementation, automated quote-to-cash workflows, cloud architecture, and built-in SOC 2 / PIPEDA compliance for Atlantic Canadian businesses."
+        keywords="Odoo ERP Atlantic Canada, Odoo ERP Moncton, Workflow Automation New Brunswick, Digital Transformation Halifax, Cloud Architecture, SOC 2 compliance Canada"
         canonical="/services"
       />
 
@@ -166,78 +168,90 @@ const Services: React.FC = () => {
           </div>
 
           <div className="space-y-12">
-            {corePillars.map((pillar) => (
-              <div 
+            {corePillars.map((pillar, index) => (
+              <IntersectionAnimatedCard
                 key={pillar.id}
-                id={pillar.id}
-                className="bg-slate-900/40 backdrop-blur-md rounded-sm border border-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] relative overflow-hidden"
+                delayMs={index * 100}
+                className="group"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  
-                  {/* Left Column */}
-                  <div className="lg:col-span-5 space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-                      {pillar.icon}
-                    </div>
-                    <div>
-                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">
-                        {pillar.tagline}
-                      </span>
-                      <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mt-1">
-                        {pillar.title}
-                      </h3>
-                      <p className="text-xs md:text-sm font-semibold text-cyan-400 mt-2">
-                        {pillar.headline}
-                      </p>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-black/40 border border-white/[0.06] space-y-1.5">
-                      <span className="text-[10px] font-mono font-semibold text-amber-400 uppercase tracking-wider block">
-                        Common Operational Risk
-                      </span>
-                      <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
-                        {pillar.problem}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right Column */}
-                  <div className="lg:col-span-7 space-y-6 lg:pl-6 lg:border-l lg:border-white/[0.08]">
-                    <div>
-                      <h4 className="text-xs font-mono font-medium uppercase tracking-wider text-[#8A8F98] mb-4">
-                        What Oakivo Engineers Implement
-                      </h4>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {pillar.capabilities.map((cap, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm text-gray-200">
-                            <CheckCircle2 size={16} className="text-cyan-400 shrink-0 mt-0.5" />
-                            <span>{cap}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="p-5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div 
+                  id={pillar.id}
+                  className="bg-slate-900/40 backdrop-blur-md rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/[0.08] hover:border-cyan-500/30 transition-all duration-300 relative overflow-hidden shadow-xl"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    {/* Left Column */}
+                    <div className="lg:col-span-5 space-y-4">
+                      <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform duration-300">
+                        {pillar.icon}
+                      </div>
                       <div>
-                        <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider block">
-                          Real Business Result
+                        <span className="text-xs font-mono text-gray-400 uppercase tracking-wider block">
+                          {pillar.tagline}
                         </span>
-                        <p className="text-xs md:text-sm text-gray-200 mt-0.5">
-                          {pillar.outcomeDesc}
+                        <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mt-1">
+                          {pillar.title}
+                        </h3>
+                        <p className="text-xs md:text-sm font-semibold text-cyan-400 mt-2">
+                          {pillar.headline}
                         </p>
                       </div>
-                      <div className="shrink-0 bg-white/10 px-4 py-2 rounded-lg border border-white/10 text-center">
-                        <span className="text-base font-bold text-white font-mono block">
-                          {pillar.outcomeMetric}
+
+                      <div className="p-4 rounded-xl bg-black/40 border border-white/[0.06] space-y-1.5">
+                        <span className="text-[10px] font-mono font-semibold text-amber-400 uppercase tracking-wider block">
+                          Common Operational Risk
                         </span>
+                        <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
+                          {pillar.problem}
+                        </p>
                       </div>
                     </div>
-                  </div>
 
+                    {/* Right Column */}
+                    <div className="lg:col-span-7 space-y-6 lg:pl-6 lg:border-l lg:border-white/[0.08]">
+                      <div>
+                        <h4 className="text-xs font-mono font-medium uppercase tracking-wider text-[#8A8F98] mb-4">
+                          What Oakivo Engineers Implement
+                        </h4>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {pillar.capabilities.map((cap, i) => (
+                            <li key={i} className="flex items-start gap-2.5 text-xs md:text-sm text-gray-200">
+                              <CheckCircle2 size={16} className="text-cyan-400 shrink-0 mt-0.5" />
+                              <span>{cap}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="p-5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div>
+                          <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider block">
+                            Real Business Result
+                          </span>
+                          <p className="text-xs md:text-sm text-gray-200 mt-0.5">
+                            {pillar.outcomeDesc}
+                          </p>
+                        </div>
+                        <div className="shrink-0 bg-white/10 px-4 py-2 rounded-lg border border-white/10 text-center">
+                          <span className="text-base font-bold text-white font-mono block">
+                            {pillar.outcomeMetric}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
-              </div>
+              </IntersectionAnimatedCard>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Interactive ROI & Automation Savings Calculator */}
+      <section className="py-20 md:py-28 px-4 md:px-6 bg-[#070A0F] border-b border-white/[0.08] relative">
+        <div className="container mx-auto max-w-7xl">
+          <RoiCalculator />
         </div>
       </section>
 

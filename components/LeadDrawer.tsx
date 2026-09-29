@@ -17,6 +17,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
     name: '',
     email: '',
     company: '',
+    focusArea: 'Modern ERP Implementation & Migration',
     bottleneck: ''
   });
   const [honeypot, setHoneypot] = useState('');
@@ -34,7 +35,13 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
 
   const handleReset = () => {
     setStatus('idle');
-    setFormData({ name: '', email: '', company: '', bottleneck: '' });
+    setFormData({ 
+      name: '', 
+      email: '', 
+      company: '', 
+      focusArea: 'Modern ERP Implementation & Migration',
+      bottleneck: '' 
+    });
     setErrors({});
     setHoneypot('');
   };
@@ -50,7 +57,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
     if (!formData.company.trim()) newErrors.company = "Company name is required";
     
     if (!formData.bottleneck.trim()) newErrors.bottleneck = "Please provide details about your challenge";
-    else if (formData.bottleneck.trim().length < 10) newErrors.bottleneck = "Please provide a bit more detail";
+    else if (formData.bottleneck.trim().length < 5) newErrors.bottleneck = "Please provide a bit more detail";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -71,7 +78,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
       // Persist lead to database
       await db.saveEntry('lead', {
         ...formData,
-        type: 'SECURITY_ARCHITECTURE_AUDIT',
+        type: 'DIGITAL_TRANSFORMATION_DISCOVERY',
         submittedAt: new Date().toISOString()
       });
 
@@ -221,7 +228,25 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
                     {errors.company && <p className="text-[10px] text-red-400 font-medium pl-1">{errors.company}</p>}
                   </div>
 
-                  {/* Field 4: Bottleneck / Security Challenge */}
+                  {/* Field 4: Primary Focus Area */}
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-300 block">
+                      {t('drawer.focus_label')}
+                    </label>
+                    <select
+                      value={formData.focusArea}
+                      onChange={(e) => setFormData({ ...formData, focusArea: e.target.value })}
+                      className="w-full bg-[#0B0F17] border border-white/15 focus:border-white rounded-2xl px-4 py-3.5 text-xs text-white focus:outline-none transition-colors cursor-pointer"
+                    >
+                      <option value="Modern ERP Implementation & Migration">{t('drawer.focus_opt1')}</option>
+                      <option value="Workflow & Revenue Automation">{t('drawer.focus_opt2')}</option>
+                      <option value="Cloud Infrastructure Modernization & DevOps">{t('drawer.focus_opt3')}</option>
+                      <option value="Compliance & Security (SOC 2, PIPEDA, Law 25)">{t('drawer.focus_opt4')}</option>
+                      <option value="General Digital Transformation Advisory">{t('drawer.focus_opt5')}</option>
+                    </select>
+                  </div>
+
+                  {/* Field 5: Bottleneck / Challenge */}
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-300 block">
                       {t('drawer.bottleneck_label')}
