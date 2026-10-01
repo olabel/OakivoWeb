@@ -63,13 +63,13 @@ const rssXml = `<?xml version="1.0" encoding="UTF-8" ?>
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Oakivo Insights | Modern ERP, Workflow Automation &amp; Cloud Cybersecurity</title>
+    <title>Oakivo Insights | Modern ERP, Workflow Automation, Creative Web Design &amp; Cloud Security</title>
     <link>${siteUrl}/insights</link>
-    <description>Authoritative research on modern ERP architectures, quote-to-cash workflow automations, Canadian data sovereignty (PIPEDA &amp; Law 25), SOC 2 compliance, and cloud security by Oakivo Solutions.</description>
+    <description>Authoritative research on modern ERP architectures, quote-to-cash workflow automations, creative website design &amp; digital exposure, Canadian healthcare data sovereignty, SOC 2 compliance, and cloud security by Oakivo Solutions.</description>
     <language>en-ca</language>
     <copyright>Copyright ${new Date().getFullYear()} Oakivo Solutions Inc. All rights reserved.</copyright>
-    <managingEditor>contact@oakivo.com (Oakivo Editorial Team)</managingEditor>
-    <webMaster>contact@oakivo.com (Oakivo Webmaster)</webMaster>
+    <managingEditor>hello@oakivo.com (Oakivo Editorial Team)</managingEditor>
+    <webMaster>hello@oakivo.com (Oakivo Webmaster)</webMaster>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml" />${rssItemsXml}
   </channel>
@@ -111,7 +111,8 @@ const solutions = [
   'invoice-automation',
   'order-inventory-sync',
   'dispatch-route-logging',
-  'custom-report-automation'
+  'custom-report-automation',
+  'creative-web-design'
 ];
 solutions.forEach(slug => {
   coreRoutes.push({ path: `/solutions/${slug}`, priority: '0.85', changefreq: 'weekly' });

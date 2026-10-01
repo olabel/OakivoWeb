@@ -4,15 +4,25 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Oakivo Insights | Modern ERP, Workflow Automation &amp; Cloud Cybersecurity</title>
+    <title>Oakivo Insights | Modern ERP, Workflow Automation, Creative Web Design &amp; Cloud Security</title>
     <link>https://www.oakivo.com/insights</link>
-    <description>Authoritative research on modern ERP architectures, quote-to-cash workflow automations, Canadian data sovereignty (PIPEDA &amp; Law 25), SOC 2 compliance, and cloud security by Oakivo Solutions.</description>
+    <description>Authoritative research on modern ERP architectures, quote-to-cash workflow automations, creative website design &amp; digital exposure, Canadian healthcare data sovereignty, SOC 2 compliance, and cloud security by Oakivo Solutions.</description>
     <language>en-ca</language>
     <copyright>Copyright 2026 Oakivo Solutions Inc. All rights reserved.</copyright>
-    <managingEditor>contact@oakivo.com (Oakivo Editorial Team)</managingEditor>
-    <webMaster>contact@oakivo.com (Oakivo Webmaster)</webMaster>
-    <lastBuildDate>Tue, 29 Sep 2026 15:41:59 GMT</lastBuildDate>
+    <managingEditor>hello@oakivo.com (Oakivo Editorial Team)</managingEditor>
+    <webMaster>hello@oakivo.com (Oakivo Webmaster)</webMaster>
+    <lastBuildDate>Wed, 30 Sep 2026 18:24:22 GMT</lastBuildDate>
     <atom:link href="https://www.oakivo.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[Canadian Healthcare Data Sovereignty: What Every Clinic, Hospital Network, and Health-Tech Founder Needs to Know in 2026]]></title>
+      <link>https://www.oakivo.com/insights/canadian-healthcare-data-sovereignty-2026</link>
+      <guid isPermaLink="true">https://www.oakivo.com/insights/canadian-healthcare-data-sovereignty-2026</guid>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+      <author><![CDATA[Oakivo Applied Research Group]]></author>
+      <description><![CDATA[Navigating PHIPA, Law 25, provincial health information acts, and the US CLOUD Act doesn]]></description>
+      <category><![CDATA[Healthcare & Compliance]]></category>
+      <enclosure url="/images/insights/canadian-healthcare-data-sovereignty-2026.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title><![CDATA[Model Context Protocol (MCP) & Shadow Agent Governance: The 2026 Enterprise Blueprint for Autonomous Tool Security]]></title>
       <link>https://www.oakivo.com/insights/mcp-shadow-agent-governance-2026</link>

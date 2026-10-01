@@ -53,7 +53,8 @@ export const VALID_SOLUTIONS = new Set([
   'devsecops-automation',
   'continuous-compliance',
   'zero-trust-architecture',
-  'enterprise-erp-hardening'
+  'enterprise-erp-hardening',
+  'creative-web-design'
 ]);
 
 export const VALID_LOCATIONS = new Set([

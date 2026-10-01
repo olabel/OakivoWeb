@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   ArrowRight, ShieldCheck, Zap, Layers, CheckCircle2, 
-  Sparkles, RefreshCw, Clock, ArrowUpRight, GitBranch, Database, Activity, Terminal, Shield, Server, Lock
+  Sparkles, RefreshCw, Clock, ArrowUpRight, GitBranch, Database, Activity, Terminal, Shield, Server, Lock, Palette
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
@@ -64,8 +64,24 @@ const Services: React.FC = () => {
       outcomeDesc: 'Reliable, scalable cloud environments with 2x faster release velocity and Canadian data sovereignty.'
     },
     {
+      id: 'creative-web-design',
+      title: 'Creative Website Design & Digital Exposure',
+      tagline: 'Custom Web Design · Brand Digital Exposure · High Conversion',
+      icon: <Palette size={28} className="text-cyan-400" />,
+      headline: 'A Website That Gives Your Company Undeniable Digital Presence.',
+      problem: 'Outdated websites that look like template clones, take 6 seconds to load, fail to rank on search engines, and leak potential clients to competitors.',
+      capabilities: [
+        'Bespoke, brand-aligned visual design that commands immediate authority',
+        'Blazing-fast mobile and desktop load speeds built on modern tech stacks',
+        'On-page technical SEO, rich schema metadata, and Google search readiness',
+        'Direct inquiry pipelines connecting customer forms to your CRM or inbox'
+      ],
+      outcomeMetric: 'High-Impact Web Presence',
+      outcomeDesc: 'Custom-designed websites that turn cold search visitors into qualified phone calls, quote requests, and client bookings.'
+    },
+    {
       id: 'compliance-security-assurance',
-      title: 'Enterprise Cybersecurity & Painless Compliance',
+      title: 'Enterprise Cybersecurity & Practical Compliance',
       tagline: 'Continuous Zero Trust Protection & Automated Proof',
       icon: <ShieldCheck size={28} className="text-cyan-400" />,
       headline: 'Enterprise-Grade Peace of Mind Without the Bureaucracy.',
@@ -105,9 +121,9 @@ const Services: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Odoo ERP, Workflow Automation & Cloud Services | Oakivo Solutions"
-        description="Modernize operations with turnkey Odoo ERP implementation, automated quote-to-cash workflows, cloud architecture, and built-in SOC 2 / PIPEDA compliance for Atlantic Canadian businesses."
-        keywords="Odoo ERP Atlantic Canada, Odoo ERP Moncton, Workflow Automation New Brunswick, Digital Transformation Halifax, Cloud Architecture, SOC 2 compliance Canada"
+        title="Modern ERP, Workflow Automation & Creative Web Design | Oakivo Solutions"
+        description="Modernize operations with clean ERP implementations, automated quote-to-cash workflows, creative custom websites, and sovereign cloud security for Canadian businesses."
+        keywords="Modern ERP Atlantic Canada, Business Workflow Automation, Creative Website Design Moncton, High Converting Web Design Halifax, Cloud Architecture Dieppe, SOC 2 compliance Canada"
         canonical="/services"
       />
 

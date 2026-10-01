@@ -55,15 +55,15 @@ export const translations: Record<Language, Record<string, any>> = {
       regional_sub: "Dieppe / Moncton • Halifax • Charlottetown • St. John's"
     },
     hero: {
-      badge: "Modern ERP • Workflow Automation • Cloud Cybersecurity • Atlantic Canada",
-      headline_main: "Smart Automation. Unified ERP.",
-      headline_accent: "Enterprise Cybersecurity.",
-      subtitle: "We modernize, automate, and secure growing Canadian businesses—from modern ERP operations and hands-free workflow automation to continuous cloud cybersecurity and compliance peace of mind.",
-      cta: "Schedule 30-Minute Automation & Discovery Session",
-      secondary_cta: "Explore Services & Solutions",
+      badge: "Modern Software • Workflow Automation • Creative Web Design • Cloud Security",
+      headline_main: "We build business software, automate the busywork,",
+      headline_accent: "and design websites that win customers.",
+      subtitle: "Running a business is hard enough without messy spreadsheets, clunky tools, or six-figure consulting bills. We help growing Canadian companies modernize with clean ERP, automated workflows, custom high-impact websites, and reliable cloud security.",
+      cta: "Book a Free 30-Minute Discovery Call",
+      secondary_cta: "See What We Build",
       guarantee: "100% Bilingual (EN/FR) • Direct Founder Access • Dieppe, NB Headquarters",
-      video_tag: "HIGH-TOUCH DIGITAL TRANSFORMATION",
-      video_desc: "Modern ERP operations, resilient workflow automations, and enterprise-grade cloud security tailored for Canadian businesses."
+      video_tag: "HANDS-ON SOFTWARE & DESIGN STUDIO",
+      video_desc: "Real engineers and designers building modern ERP systems, automated workflows, and stunning websites for growing Canadian companies."
     },
     problem: {
       badge: "Common Operational Hurdles",
@@ -174,26 +174,26 @@ export const translations: Record<Language, Record<string, any>> = {
       security3_desc: "Architected strictly within Canadian sovereign cloud regions (AWS ca-central-1, Azure Canada Central)."
     },
     landing: {
-      hero_headline: "Smart Automation. Unified ERP. Enterprise Cybersecurity.",
-      hero_subheadline: "We modernize, automate, and secure growing Canadian businesses—from modern ERP operations and hands-free workflow automation to continuous cloud cybersecurity. No corporate consulting overhead. No junior hand-offs. Just direct senior partner accountability in Atlantic Standard Time.",
-      strategic_headline: "The Agile Boutique Advantage",
-      strategic_body: "Growing businesses in Atlantic Canada deserve better than impersonal mega-consultancies with 6-month slide decks or basic break-fix IT shops. We combine deep engineering muscle with direct founder accountability: unifying your operations with modern ERP, automating tedious workflows, boosting cash flow, and locking down cloud security and compliance from day one.",
-      capabilities_headline: "Four Pillars of Digital Growth",
+      hero_headline: "We build software that works, automate your daily grind, and design websites that stand out.",
+      hero_subheadline: "Running a company is hard enough without duct-taped spreadsheets, manual data entry, or a website that doesn't bring in leads. We're a senior team based in Atlantic Canada who build clean back-office systems, connect your tools, design bespoke websites, and keep your data secure on Canadian soil. No junior hand-offs. No six-month slide decks.",
+      strategic_headline: "Why Companies Choose Us Over Big Agencies",
+      strategic_body: "Growing businesses deserve better than impersonal consulting firms with huge retainers or basic IT shops that only fix printers. We combine senior engineering with creative craft: modernizing your back office, automating repetitive admin, crafting websites that turn visitors into clients, and safeguarding your customer data from day one.",
+      capabilities_headline: "What We Help You Solve",
       cap1_title: "Modern ERP & Unified Operations",
-      cap1_body: "Replace disjointed spreadsheets and legacy software with a single source of truth for CRM, sales, inventory, invoicing, and fulfillment.",
-      cap2_title: "Workflow & Revenue Automation",
-      cap2_body: "Automate quote-to-cash, inventory sync, and billing pipelines to eliminate manual double-entry and plug revenue leaks.",
-      cap3_title: "Cloud Infrastructure & DevSecOps",
-      cap3_body: "Scalable, resilient Canadian cloud infrastructure (AWS/Azure) with automated CI/CD release guardrails and 99.99% uptime.",
-      cap4_title: "Cyber Security & Automated Compliance",
-      cap4_body: "Continuous cloud security posture (CSPM), Zero Trust access, and automated evidence archives for PIPEDA, Law 25, and SOC 2 without operational friction.",
-      methodology_headline: "How We Work",
-      step1_title: "Discovery & Blueprint (Days 1–5)",
-      step1_body: "A comprehensive 30-minute evaluation of your operational bottlenecks, software stack, security posture, and compliance goals followed by a clear, high-ROI execution blueprint.",
-      step2_title: "Agile Implementation & Automation (Weeks 2–4)",
-      step2_body: "Rapid deployment of modern ERP modules, automated workflow bridges, and hardened cloud guardrails in sandbox environments with zero disruption to live operations.",
-      step3_title: "Continuous Local Support & Evolution (Ongoing)",
-      step3_body: "Direct access to our senior bilingual team in Atlantic Standard Time for continuous optimization, proactive monitoring, and feature rollouts.",
+      cap1_body: "Bring your sales, inventory, accounting, and dispatch into one clean system so your team never has to re-type data across five spreadsheets again.",
+      cap2_title: "Hands-Free Workflow & Billing Automation",
+      cap2_body: "Connect your tools so approved quotes instantly trigger invoices, sync warehouse stock, and reconcile bank payments without manual busywork.",
+      cap3_title: "Creative Website Design & Digital Exposure",
+      cap3_body: "Stand out with a blazing-fast, custom-designed website that builds immediate credibility and turns casual visitors into qualified inquiries.",
+      cap4_title: "Cloud Infrastructure & Everyday Security",
+      cap4_body: "Keep your systems fast, backed up, and protected in Canadian cloud regions with continuous compliance proof for PIPEDA, Law 25, and SOC 2.",
+      methodology_headline: "How We Work With You",
+      step1_title: "1. Frank 30-Minute Discovery",
+      step1_body: "We look at your current software, bottlenecks, and website goals. If we're a great fit, we deliver a plain-English roadmap with clear costs and timelines.",
+      step2_title: "2. Hands-On Build & Automation",
+      step2_body: "We build your software modules, automated workflows, and web designs in isolated preview environments with zero interruption to your daily sales.",
+      step3_title: "3. Direct Senior Support & Care",
+      step3_body: "No ticketing queues or overseas call centers. You work directly with the senior founders right here in Atlantic Standard Time.",
     },
     drawer: {
       tag: "Oakivo Discovery & Growth Blueprint",
@@ -247,32 +247,32 @@ export const translations: Record<Language, Record<string, any>> = {
       compliance: "Security & Compliance"
     },
     chatbot: {
-      greeting: "Welcome to Oakivo Solutions! We help growing Canadian businesses unify operations with modern ERP, automate quote-to-cash workflows, deploy resilient cloud architectures, and ensure continuous cybersecurity & compliance. How can we assist you today?",
-      placeholder: "Ask about modern ERP, workflow automation, cloud security, or discovery...",
+      greeting: "Hello! Welcome to Oakivo. We build clean business software, automate the everyday grind, design memorable websites, and keep cloud data secure on Canadian soil. How can we help you today?",
+      placeholder: "Ask about modern ERP, workflow automation, website design, or booking...",
       quick_prompts: [
-        "Schedule 30-Min Discovery Session",
+        "Book a Free 30-Min Discovery Call",
         "Modern ERP & Operations",
-        "Workflow & Revenue Automation",
-        "Cloud Architecture & DevOps",
-        "Cybersecurity & Compliance (SOC 2, PIPEDA)"
+        "Workflow & Billing Automation",
+        "Creative Website Design & Exposure",
+        "Canadian Cloud & Compliance"
       ],
-      audit_btn: "Schedule 30-Min Discovery"
+      audit_btn: "Book a Free 30-Min Discovery"
     },
     verticals: {
       hero_title: "Industry Modernization & Automation.",
-      hero_subtitle: "Tailored Odoo ERP, workflow automation, and cloud security engineering built for Atlantic Canadian industries.",
+      hero_subtitle: "Tailored modern ERP, workflow automation, and cloud security engineering built for Atlantic Canadian industries.",
       cards: [
-        { title: "Logistics & Supply Chain", desc: "Unify warehouse inventory, dispatch APIs, and telematics in Odoo ERP with automated quote-to-cash pipelines.", impact: "Zero lost orders, 60% faster billing, and 99.99% system uptime." },
+        { title: "Logistics & Supply Chain", desc: "Unify warehouse inventory, dispatch APIs, and telematics in a modern ERP with automated quote-to-cash pipelines.", impact: "Zero lost orders, 60% faster billing, and 99.99% system uptime." },
         { title: "Healthcare & MedTech", desc: "Automate PIPEDA & Law 25 compliance guardrails across patient records, digital scheduling, and sovereign cloud storage.", impact: "Continuous 24/7 audit readiness with cryptographically signed logs." },
-        { title: "Retail & E-Commerce", desc: "Connect POS terminals, Shopify, warehouse stock, and automated invoicing under one real-time Odoo engine.", impact: "Automated inventory sync and zero double-entry errors." },
+        { title: "Retail & E-Commerce", desc: "Connect POS terminals, Shopify, warehouse stock, and automated invoicing under one real-time operational engine.", impact: "Automated inventory sync and zero double-entry errors." },
         { title: "Financial & Professional Services", desc: "Automate document billing, CRM pipeline tracking, and SOC 2 Type II compliance audit trails.", impact: "Accelerated cycle-to-cash and audit readiness in weeks." },
-        { title: "Manufacturing & Industrial", desc: "Integrate bills of materials (BOM), production scheduling, and inventory in Odoo with automated floor dispatch.", impact: "Eliminate production delays and optimize raw material purchasing." },
+        { title: "Manufacturing & Industrial", desc: "Integrate bills of materials (BOM), production scheduling, and inventory with automated floor dispatch.", impact: "Eliminate production delays and optimize raw material purchasing." },
         { title: "Public Sector & Crown Corps", desc: "Canadian data sovereignty enforcement, bilingual documentation, and hardened multi-cloud architecture.", impact: "Full adherence to Canadian Protected B cloud security controls." }
       ]
     },
     services: {
       hero_label: "Our Core Services",
-      hero_title: "Odoo ERP, Workflow Automation & Digital Resilience.",
+      hero_title: "Modern ERP, Workflow Automation & Creative Web Design.",
       service1_title: "Odoo ERP Implementation & Digital Transformation",
       service2_title: "Workflow & Revenue Automation",
       service3_title: "Cloud Architecture & DevOps Modernization",
@@ -666,15 +666,15 @@ export const translations: Record<Language, Record<string, any>> = {
       regional_sub: "Dieppe / Moncton • Halifax • Charlottetown • St. John's"
     },
     hero: {
-      badge: "ERP Moderne • Automatisation des Processus • Cybersécurité Cloud • Canada Atlantique",
-      headline_main: "Automatisation Intelligente. ERP Unifié.",
-      headline_accent: "Cybersécurité Inébranlable.",
-      subtitle: "Nous modernisons, automatisons et sécurisons les entreprises canadiennes en pleine croissance — de l'unification ERP aux flux de travail automatisés, avec une cybersécurité infonuagique continue et la conformité intégrée.",
-      cta: "Planifier une Session d'Automatisation & Découverte (30 min)",
-      secondary_cta: "Explorer Nos Solutions & Services",
+      badge: "Logiciels Modernes • Automatisation • Conception Web Créative • Sécurité Cloud",
+      headline_main: "Des logiciels fiables, moins de paperasse,",
+      headline_accent: "et des sites web qui marquent les esprits.",
+      subtitle: "Gérer une entreprise est assez exigeant sans se battre avec des tableurs emmêlés, des factures égarées ou un site web vieillissant. Nous vous aidons à unifier vos opérations, automatiser vos tâches quotidiennes, concevoir des sites web percutants et sécuriser vos données.",
+      cta: "Réserver un Appel Découverte de 30 min",
+      secondary_cta: "Découvrir Nos Réalisations",
       guarantee: "100 % Bilingue (FR/EN) • Accès Direct aux Fondateurs • Siège Social à Dieppe, N.-B.",
-      video_tag: "TRANSFORMATION NUMÉRIQUE SUR MESURE",
-      video_desc: "ERP moderne unifié, automatisations de flux résilientes et cybersécurité infonuagique d'entreprise taillée pour le Canada atlantique."
+      video_tag: "STUDIO LOGICIEL & CRÉATION WEB",
+      video_desc: "Une équipe d'ingénieurs et designers qui conçoivent des ERP modernes, des flux automatisés et des sites web sur mesure pour les entreprises d'ici."
     },
     problem: {
       badge: "Obstacles Opérationnels Majeurs",
@@ -785,26 +785,26 @@ export const translations: Record<Language, Record<string, any>> = {
       security3_desc: "Architecturé rigoureusement dans les régions infonuagiques souveraines canadiennes (AWS ca-central-1, Azure Canada Central)."
     },
     landing: {
-      hero_headline: "Automatisation Intelligente. ERP Unifié. Cybersécurité Inébranlable.",
-      hero_subheadline: "Nous modernisons, automatisons et sécurisons les entreprises canadiennes en pleine croissance — de l'unification ERP aux flux de travail automatisés et à la cybersécurité infonuagique continue. Un partenariat direct avec les fondateurs dans votre fuseau horaire.",
-      strategic_headline: "L'Avantage du Cabinet Agile & Boutique",
-      strategic_body: "Les entreprises en croissance du Canada atlantique méritent mieux que des consultants impersonnels aux présentations théoriques sans fin ou des dépanneurs informatiques limités. Nous allions l'expertise d'ingénierie avancée à l'implication directe de nos fondateurs : unifier vos opérations avec un ERP moderne, automatiser vos tâches répétitives, accélérer vos liquidités et verrouiller la sécurité infonuagique dès le premier jour.",
-      capabilities_headline: "Quatre Piliers de Croissance Numérique",
-      cap1_title: "ERP Moderne & Opérations Unifiées",
-      cap1_body: "Remplacez tableurs disparates et logiciels dépassés par une source unique de données pour CRM, ventes, stocks, facturation et logistique.",
-      cap2_title: "Automatisation des Flux & Revenus",
-      cap2_body: "Automatisez les pipelines devis-facturation, la synchronisation d'inventaire et les relances pour supprimer les erreurs et les fuites financières.",
-      cap3_title: "Infrastructures Cloud & DevSecOps",
-      cap3_body: "Infrastructures infonuagiques canadiennes résilientes (AWS/Azure) avec garde-fous CI/CD automatisés et 99,99% de disponibilité.",
-      cap4_title: "Cybersécurité & Conformité Automatisée",
-      cap4_body: "Collecte continue automatisée de preuves (SOC 2, LPRPDE, Loi 25), posture de sécurité CSPM et protection Zéro Confiance sans friction opérationnelle.",
-      methodology_headline: "Notre Méthode",
-      step1_title: "Session Découverte & Plan de Croissance (Jours 1 à 5)",
-      step1_body: "Une évaluation ciblée de 30 minutes de vos processus, de vos outils, de votre sécurité et de vos objectifs, suivie d'un plan d'action concret à fort ROI.",
-      step2_title: "Implémentation Agile en Bac à Sable (Semaines 2 à 4)",
-      step2_body: "Déploiement rapide de modules ERP modernes, automatisations et garde-fous infonuagiques sécurisés dans un environnement dédié avec zéro interruption de vos activités.",
-      step3_title: "Support Local Continu & Évolution (En Continu)",
-      step3_body: "Accès direct à notre équipe bilingue senior dans le fuseau de l'Atlantique (HNA) pour l'optimisation continue et l'accompagnement.",
+      hero_headline: "Des logiciels fiables, moins de paperasse et des sites web qui marquent les esprits.",
+      hero_subheadline: "Gérer une entreprise est assez exigeant sans se battre avec des tableurs emmêlés, des factures égarées ou un site web vieillissant. Nous sommes une équipe senior basée au Canada atlantique : nous unifions vos opérations, automatisons les tâches répétitives, concevons des sites web percutants et protégeons vos données sur le sol canadien. Sans intermédiaires juniors ni présentations théoriques infinies.",
+      strategic_headline: "Pourquoi Choisir un Atelier Dédié Plutôt qu'une Méga-Agence",
+      strategic_body: "Les entreprises d'ici méritent mieux que de gros cabinets aux honoraires exorbitants ou de simples dépanneurs informatiques. Nous combinons rigueur technique et créativité : nous modernisons vos opérations avec un ERP propre, automatisons vos tâches administratives, créons des sites web qui convertissent vos visiteurs en clients et sécurisons vos données dès le premier jour.",
+      capabilities_headline: "Ce Que Nous Réglons Pour Vous",
+      cap1_title: "ERP Moderne & Opérations Claires",
+      cap1_body: "Regroupez vos ventes, vos stocks, votre comptabilité et votre logistique dans un système unique et intuitif. Finie la ressaisie entre cinq logiciels.",
+      cap2_title: "Automatisation des Flux & Facturation",
+      cap2_body: "Reliez vos outils pour que chaque commande approuvée génère automatiquement la facture, ajuste les stocks et rapproche les paiements bancaires.",
+      cap3_title: "Conception Web Créative & Image Numérique",
+      cap3_body: "Démarquez-vous avec un site web sur mesure, ultra-rapide et mémorable qui renforce votre crédibilité et transforme vos visiteurs en rendez-vous qualifiés.",
+      cap4_title: "Infrastructures Cloud & Sécurité Concrète",
+      cap4_body: "Gardez vos systèmes rapides, sauvegardés et protégés dans des centres de données canadiens, avec la conformité LPRPDE, Loi 25 et SOC 2 garantie.",
+      methodology_headline: "Notre Façon de Travailler",
+      step1_title: "1. Appel Découverte Franc de 30 Minutes",
+      step1_body: "Nous analysons vos logiciels actuels, vos blocages et vos objectifs web. Si nous sommes le bon partenaire, nous vous livrons un plan d'action clair avec coûts et échéanciers nets.",
+      step2_title: "2. Développement & Automatisations Concrètes",
+      step2_body: "Nous construisons vos modules logiciels, flux automatisés et maquettes web dans un environnement dédié, sans aucune interruption de vos ventes quotidiennes.",
+      step3_title: "3. Accompagnement Direct par les Fondateurs",
+      step3_body: "Aucune file d'attente impersonnelle. Vous échangez directement avec les fondateurs et ingénieurs seniors ici au Canada atlantique.",
     },
     drawer: {
       tag: "Découverte & Plan de Croissance Oakivo",
@@ -858,41 +858,41 @@ export const translations: Record<Language, Record<string, any>> = {
       compliance: "Sécurité & Conformité"
     },
     chatbot: {
-      greeting: "Bienvenue chez Oakivo Solutions ! Nous aidons les entreprises canadiennes en pleine croissance à unifier leurs opérations avec un ERP moderne, automatiser leurs flux administratifs, sécuriser leur infonuagique et garantir leur conformité. Comment pouvons-nous vous aider aujourd'hui ?",
-      placeholder: "Posez vos questions sur l'ERP moderne, l'automatisation, la cybersécurité ou notre accompagnement...",
+      greeting: "Bonjour et bienvenue chez Oakivo ! Nous concevons des logiciels de gestion clairs, automatisons les tâches répétitives, créons des sites web mémorables et sécurisons vos données au Canada. Comment pouvons-nous vous aider aujourd'hui ?",
+      placeholder: "Posez vos questions sur l'ERP, l'automatisation, la création de site web...",
       quick_prompts: [
-        "Planifier Découverte (30 min)",
+        "Réserver un Appel Découverte (30 min)",
         "ERP Moderne & Opérations",
-        "Automatisation des Flux",
-        "Architecture Cloud & DevOps",
-        "Cybersécurité & Conformité LPRPDE / SOC 2"
+        "Automatisation des Flux & Facturation",
+        "Conception Web Créative & Visibilité",
+        "Cloud Souverain & Conformité"
       ],
-      audit_btn: "Planifier Découverte (30 min)"
+      audit_btn: "Réserver un Appel Découverte"
     },
     verticals: {
       hero_title: "Modernisation & Automatisation par Secteur.",
-      hero_subtitle: "Odoo ERP sur mesure, automatisation des processus et sécurité infonuagique conçus pour les entreprises du Canada atlantique.",
+      hero_subtitle: "ERP moderne sur mesure, automatisation des flux administratifs et sécurité infonuagique conçus pour les entreprises du Canada atlantique.",
       cards: [
-        { title: "Logistique & Chaîne d'Approvisionnement", desc: "Unifiez inventaire d'entrepôt, répartition et suivi de flotte dans Odoo avec des flux automatisés devis-facturation.", impact: "Zéro commande perdue, facturation 60 % plus rapide et disponibilité de 99,99 %." },
+        { title: "Logistique & Chaîne d'Approvisionnement", desc: "Unifiez inventaire d'entrepôt, répartition et suivi de flotte dans un ERP moderne avec des flux automatisés devis-facturation.", impact: "Zéro commande perdue, facturation 60 % plus rapide et disponibilité de 99,99 %." },
         { title: "Santé & Technologies Médicales", desc: "Automatisez les garde-fous de conformité LPRPDE et Loi 25 sur les dossiers patients, la prise de rendez-vous et le stockage souverain.", impact: "Préparation continue aux audits 24/7 avec journaux signés cryptographiquement." },
-        { title: "Commerce de Détail & E-Commerce", desc: "Connectez caisses POS, Shopify, stocks en entrepôt et facturation automatisée sous un seul moteur Odoo temps réel.", impact: "Synchronisation des stocks en direct et suppression des doubles saisies." },
+        { title: "Commerce de Détail & E-Commerce", desc: "Connectez caisses POS, Shopify, stocks en entrepôt et facturation automatisée sous un seul moteur opérationnel temps réel.", impact: "Synchronisation des stocks en direct et suppression des doubles saisies." },
         { title: "Services Financiers & Corporatifs", desc: "Automatisez la facturation d'honoraires, le suivi du CRM et les pistes d'audit de conformité SOC 2 Type II.", impact: "Cycle de facturation accéléré et audits réussis en quelques semaines." },
-        { title: "Manufacture & Industrie", desc: "Intégrez nomenclatures (BOM), planification de production et stocks dans Odoo avec répartition automatisée d'atelier.", impact: "Suppression des temps morts et optimisation des approvisionnements." },
+        { title: "Manufacture & Industrie", desc: "Intégrez nomenclatures (BOM), planification de production et stocks avec répartition automatisée d'atelier.", impact: "Suppression des temps morts et optimisation des approvisionnements." },
         { title: "Secteur Public & Sociétés d'État", desc: "Souveraineté des données canadiennes, documentation bilingue et architecture multi-cloud durcie.", impact: "Conformité totale aux exigences infonuagiques canadiennes Protégé B." }
       ]
     },
     services: {
       hero_label: "Nos Services Principaux",
-      hero_title: "Odoo ERP, Automatisation des Processus & Résilience Numérique.",
-      service1_title: "Implémentation Odoo ERP & Transformation Numérique",
+      hero_title: "ERP Moderne, Automatisation des Processus & Conception Web.",
+      service1_title: "Implémentation d'ERP Moderne & Opérations Claires",
       service2_title: "Automatisation des Flux & Revenus",
-      service3_title: "Modernisation Infonuagique & DevOps",
-      service4_title: "Conformité Simplifiée & Assurance Sécurité",
+      service3_title: "Conception Web Créative & Présence Numérique",
+      service4_title: "Cybersécurité Cloud & Souveraineté Canadienne",
       list: [
-        { title: "Odoo ERP & Transformation Numérique", desc: "Remplacez tableurs et outils disparates par un Odoo ERP unifié pour CRM, ventes, stocks, facturation et répartition.", insight: "Source unique de vérité et jusqu'à 60 % de charge administrative en moins.", magnet: "erp" },
+        { title: "ERP Moderne & Opérations Claires", desc: "Remplacez tableurs et outils disparates par un ERP unifié pour CRM, ventes, stocks, facturation et répartition.", insight: "Source unique de vérité et jusqu'à 60 % de charge administrative en moins.", magnet: "erp" },
         { title: "Automatisation des Flux & Revenus", desc: "Automatisez les transmissions devis-commandes-factures et la réconciliation pour supprimer les pertes de revenus.", insight: "Encaissement plus rapide et zéro erreur de double saisie.", magnet: "automation" },
-        { title: "Modernisation Cloud & DevOps", desc: "Infrastructures AWS et Azure résilientes avec pipelines CI/CD automatisés et souveraineté canadienne.", insight: "Déploiements 2x plus rapides avec 99,99 % de disponibilité.", magnet: "devsecops" },
-        { title: "Conformité Simplifiée & Sécurité", desc: "Génération continue automatisée des preuves de conformité (SOC 2, LPRPDE, Loi 25) sans perturber vos équipes.", insight: "Preuves d'audit 24/7 et zéro panique administrative.", magnet: "cspm" }
+        { title: "Conception Web Créative & Présence", desc: "Sites web sur mesure à haute conversion, rapides et optimisés pour le référencement naturel régional.", insight: "Visibilité numérique marquante et génération de prospects qualifiés.", magnet: "web" },
+        { title: "Cybersécurité Cloud & Conformité", desc: "Génération continue automatisée des preuves de conformité (SOC 2, LPRPDE, Loi 25) sans perturber vos équipes.", insight: "Preuves d'audit 24/7 et zéro panique administrative.", magnet: "cspm" }
       ],
       cta_title: "Prêt à supprimer les blocages et accélérer votre croissance ?",
       cta_text: "Échangez avec nos fondateurs et ingénieurs seniors pour un diagnostic de 30 minutes de vos processus d'affaires.",

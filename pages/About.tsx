@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   ShieldCheck, ArrowRight, Zap, CheckCircle2, Users, Layers, TrendingUp, Clock,
-  Terminal, GitBranch, Database, Activity, Lock, MapPin
+  Terminal, GitBranch, Database, Activity, Lock, MapPin, Palette
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
@@ -18,28 +18,28 @@ const OperatingPrinciples = [
   },
   {
     number: '02',
-    title: 'Pragmatic Automation & Rapid ROI',
+    title: 'Pragmatic Modern ERP & Automation',
     icon: <Zap size={24} className="text-cyan-400" />,
-    description: 'We replace manual spreadsheets and double-entry toil with resilient automated pipelines and tailored Odoo ERP rollouts in weeks instead of months.'
+    description: 'We replace messy spreadsheets and double-entry busywork with clean modern ERP systems, automated billing workflows, and back-office pipelines that pay for themselves.'
   },
   {
     number: '03',
-    title: '100% Atlantic Canada Presence',
-    icon: <MapPin size={24} className="text-cyan-400" />,
-    description: 'Headquartered in Dieppe, New Brunswick. Fully bilingual (EN/FR) senior architects operating in Atlantic Standard Time (AST) with zero offshore queues.'
+    title: 'Creative Web Design & Digital Presence',
+    icon: <Palette size={24} className="text-cyan-400" />,
+    description: 'We craft high-converting, bespoke websites and digital brand experiences that help Canadian businesses gain serious credibility, rank on Google, and win new clients.'
   },
   {
     number: '04',
-    title: 'Built-in Compliance & Canadian Sovereignty',
+    title: 'Built-in Security & Canadian Sovereignty',
     icon: <ShieldCheck size={24} className="text-amber-400" />,
-    description: 'Every Odoo environment and automated workflow is fortified with automated SOC 2, PIPEDA, and Canadian data sovereignty guardrails from day one.'
+    description: 'Every software environment and database is fortified with sovereign Canadian hosting (AWS/Azure) and automated compliance (SOC 2, PIPEDA, Law 25) from day one.'
   }
 ];
 
 const TrustMetrics = [
   { value: '100% Bilingual', label: 'English & French Engineering', subtext: 'Direct Dieppe, NB team' },
   { value: '< 15 Mins', label: 'Local Response SLA', subtext: 'Atlantic Standard Time' },
-  { value: 'Weeks, Not Years', label: 'Rapid ERP & Automation Deployment', subtext: 'Agile delivery model' },
+  { value: 'Weeks, Not Years', label: 'Rapid ERP & Web Deployment', subtext: 'Agile delivery model' },
   { value: '24/7/365', label: 'Continuous Automated Compliance', subtext: 'SOC 2 & PIPEDA ready' }
 ];
 
@@ -55,16 +55,22 @@ const About: React.FC = () => {
       oakivo: isFr ? 'Accès direct aux fondateurs & ingénieurs seniors' : 'Direct senior founders & engineers on every project'
     },
     {
-      parameter: isFr ? 'Odoo & ERP Moderne' : 'Odoo & Modern ERP',
-      bigConsulting: isFr ? 'Projets SAP à plusieurs millions de dollars et 12 mois de slides' : 'Multi-million dollar custom builds or SAP only',
-      commodityMSP: isFr ? 'Aucune compétence en programmation ou ERP' : 'Zero ERP or software engineering capabilities',
-      oakivo: isFr ? 'Déploiement Odoo pragmatique et sur mesure en quelques semaines' : 'Pragmatic, tailored Odoo deployments delivering ROI in weeks'
+      parameter: isFr ? 'ERP Moderne & Opérations' : 'Modern ERP & Operations',
+      bigConsulting: isFr ? 'Projets lourds à plusieurs millions de dollars et 12 mois de slides' : 'Multi-million dollar custom builds or SAP only',
+      commodityMSP: isFr ? 'Aucune compétence en programmation ou ERP' : 'Zero ERP or business software capabilities',
+      oakivo: isFr ? 'Déploiement ERP pragmatique et sur mesure en quelques semaines' : 'Pragmatic, tailored modern ERP delivering ROI in weeks'
     },
     {
       parameter: isFr ? 'Automatisation des Flux' : 'Workflow Automation',
       bigConsulting: isFr ? 'Intergiciels complexes et hors de prix' : 'Expensive custom middleware retainers',
       commodityMSP: isFr ? 'Bricolages manuels ou scripts fragiles' : 'Basic script / fragile manual fixes',
       oakivo: isFr ? 'Pipelines automatisés déterministes et auto-cicatrisants' : 'End-to-end resilient automated pipelines'
+    },
+    {
+      parameter: isFr ? 'Conception Web Créative' : 'Creative Web Design',
+      bigConsulting: isFr ? 'Sous-traité à des agences de branding tierces' : 'Outsourced to expensive third-party agencies',
+      commodityMSP: isFr ? 'Modèles génériques lents et peu attrayants' : 'Slow cookie-cutter templates that fail to convert',
+      oakivo: isFr ? 'Design sur mesure ultra-rapide, optimisé SEO et axé conversion' : 'Custom, blazing-fast websites engineered to convert'
     },
     {
       parameter: isFr ? 'Délai de Rentabilité' : 'Speed to Value',
@@ -89,9 +95,9 @@ const About: React.FC = () => {
   return (
     <>
       <SEO 
-        title="About Oakivo | Agile Digital Transformation & Odoo ERP in Atlantic Canada"
-        description="Founded in Dieppe, New Brunswick, Oakivo delivers tailored Odoo ERP, workflow automation, and built-in compliance with direct founder accountability and zero corporate bureaucracy."
-        keywords="About Oakivo, Odoo ERP Atlantic Canada, Digital Transformation Moncton, Workflow Automation New Brunswick, Cloud Engineers Dieppe NB, SOC 2 Canada"
+        title="About Oakivo | Modern Software, Automation & Web Design Studio"
+        description="Founded in Dieppe, New Brunswick, Oakivo delivers tailored modern ERP implementations, workflow automation, creative web design, and built-in cloud compliance with direct senior founder access."
+        keywords="About Oakivo, Modern ERP Atlantic Canada, Creative Website Design Moncton, Workflow Automation New Brunswick, Cloud Engineers Dieppe NB, SOC 2 Canada"
         canonical="/about"
       />
 

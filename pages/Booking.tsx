@@ -42,33 +42,33 @@ interface ConsultationOption {
 
 const getConsultationTopics = (isFr: boolean): ConsultationOption[] => [
   {
-    id: 'cloud_cspm',
-    title: isFr ? 'Sécurité Cloud & Durcissement CSPM' : 'Cloud Security & CSPM Hardening',
-    desc: isFr ? 'Revue de posture AWS, Azure ou GCP, audits des limites IAM et défense périmétrique.' : 'AWS, Azure, or GCP posture review, IAM boundary audits, and perimeter defense.',
-    icon: 'cloud'
+    id: 'modern_erp_operations',
+    title: isFr ? 'ERP Moderne & Opérations Claires' : 'Modern ERP & Clean Operations',
+    desc: isFr ? 'Remplacer vos tableurs disparates par une source unique de données reliant ventes, stocks et comptabilité en moins de 90 jours.' : 'Replace messy spreadsheets with a single source of truth connecting sales, inventory, and accounting in under 90 days.',
+    icon: 'database'
   },
   {
-    id: 'devsecops_cicd',
-    title: isFr ? 'DevSecOps & Automatisation de Pipeline CI/CD' : 'DevSecOps & CI/CD Pipeline Automation',
-    desc: isFr ? 'Portillons SAST/DAST automatisés, scan de vulnérabilités conteneurs et gestion des secrets.' : 'Automated SAST/DAST gating, container vulnerability scanning, and secrets management.',
-    icon: 'code'
+    id: 'workflow_billing_automation',
+    title: isFr ? 'Automatisation des Flux & Facturation' : 'Workflow & Billing Automation',
+    desc: isFr ? 'Éliminer la ressaisie manuelle, automatiser le cycle devis-facturation et accélérer les rentrées de fonds.' : 'Eliminate manual double-entry, automate your quote-to-cash pipeline, and speed up customer payments.',
+    icon: 'zap'
   },
   {
-    id: 'compliance_readiness',
-    title: isFr ? 'Préparation SOC 2, ISO 27001 & LPRPDE' : 'SOC 2, ISO 27001 & PIPEDA Readiness',
-    desc: isFr ? 'Cadre de preuves d\'audit, souveraineté des données canadiennes et feuille de route.' : 'Audit evidence framework, Canadian data sovereignty, and compliance roadmap.',
+    id: 'creative_web_design',
+    title: isFr ? 'Conception Web Créative & Visibilité' : 'Creative Website Design & Digital Exposure',
+    desc: isFr ? 'Créer un site web sur mesure, ultra-rapide et optimisé pour le référencement qui attire et convertit les clients qualifiés.' : 'Build a custom, blazing-fast, and SEO-optimized website that gives your company serious credibility and wins clients.',
+    icon: 'palette'
+  },
+  {
+    id: 'sovereign_cloud_security',
+    title: isFr ? 'Cloud Souverain & Sécurité Concrète' : 'Sovereign Canadian Cloud & Practical Security',
+    desc: isFr ? 'Hébergement souverain au Canada (AWS/Azure), 99,99 % de disponibilité et conformité LPRPDE / Loi 25 / SOC 2 sans stress.' : 'Sovereign Canadian cloud hosting (AWS/Azure), 99.99% uptime, and painless compliance for PIPEDA, Law 25, and SOC 2.',
     icon: 'shield'
-  },
-  {
-    id: 'zero_trust_iam',
-    title: isFr ? 'IAM Zéro-Trust & Sécurité ERP (Odoo/SAP)' : 'Zero-Trust IAM & ERP (Odoo/SAP) Security',
-    desc: isFr ? 'Application du moindre privilège, isolation multi-locataires et gouvernance des données.' : 'Least-privilege policy enforcement, multi-tenant isolation, and data governance.',
-    icon: 'lock'
   },
 ];
 
 const getTimezones = (isFr: boolean) => [
-  { code: 'AST', label: isFr ? 'Heure de l\'Atlantique (Siège - Halifax/Moncton)' : 'Atlantic Time (HQ - Halifax/Moncton)', offset: 'UTC-4 / AST' },
+  { code: 'AST', label: isFr ? 'Heure de l\'Atlantique (Siège - Dieppe/Moncton/Halifax)' : 'Atlantic Time (HQ - Dieppe/Moncton/Halifax)', offset: 'UTC-4 / AST' },
   { code: 'EST', label: isFr ? 'Heure de l\'Est (Toronto/Montréal/New York)' : 'Eastern Time (Toronto/New York)', offset: 'UTC-5 / EST' },
   { code: 'CST', label: isFr ? 'Heure du Centre (Chicago/Winnipeg)' : 'Central Time (Chicago/Winnipeg)', offset: 'UTC-6 / CST' },
   { code: 'MST', label: isFr ? 'Heure des Rocheuses (Calgary/Denver)' : 'Mountain Time (Calgary/Denver)', offset: 'UTC-7 / MST' },
@@ -77,9 +77,9 @@ const getTimezones = (isFr: boolean) => [
 ];
 
 const getMeetingFormats = (isFr: boolean) => [
-  { id: 'google_meet', label: isFr ? 'Google Meet (HD Chiffré)' : 'Google Meet (Encrypted HD)', icon: Video },
+  { id: 'google_meet', label: isFr ? 'Google Meet (Lien Vidéo HD)' : 'Google Meet (HD Video Link)', icon: Video },
   { id: 'teams', label: isFr ? 'Microsoft Teams' : 'Microsoft Teams', icon: Laptop },
-  { id: 'phone', label: isFr ? 'Ligne Sécurisée Directe (CA/US)' : 'Direct Secure Line (CA/US)', icon: PhoneCall },
+  { id: 'phone', label: isFr ? 'Appel Téléphonique Direct' : 'Direct Phone Call', icon: PhoneCall },
 ];
 
 const MORNING_SLOTS = ['09:00 AM', '10:15 AM', '11:30 AM'];
@@ -95,9 +95,9 @@ export const Booking: React.FC = () => {
 
   const langDict = translations[language] || translations['en'];
   const bData = langDict?.booking || translations['en'].booking || {
-    hero_title: isFr ? "Audit d'Architecture de Sécurité 30-Minutes." : "30-Minute Security Architecture Audit.",
-    hero_subtitle: isFr ? "Sélectionnez un créneau pour une évaluation technique en direct avec un ingénieur DevSecOps senior." : "Select a timeslot for a live technical evaluation with a senior DevSecOps engineer.",
-    success_title: isFr ? "Audit de Sécurité Confirmé." : "Security Audit Confirmed.",
+    hero_title: isFr ? "Appel Découverte & Stratégie de 30 Minutes." : "30-Minute Discovery & Strategy Call.",
+    hero_subtitle: isFr ? "Sélectionnez un créneau pratique pour échanger directement avec nos fondateurs seniors. Sans pression commerciale." : "Choose a time that works for you. You'll speak directly with our senior founders to explore your bottlenecks, software needs, or website goals.",
+    success_title: isFr ? "Appel Découverte Confirmé." : "Discovery Call Confirmed.",
     success_message: isFr ? "Une invitation d'agenda avec les détails de la réunion a été envoyée à votre courriel professionnel." : "A calendar invitation with meeting details has been sent to your work email."
   };
 
@@ -238,7 +238,7 @@ export const Booking: React.FC = () => {
       console.error("Booking Error:", err);
       setErrorMessage(isFr ? 'Une erreur réseau est survenue lors de la réservation de votre créneau. Veuillez réessayer ou nous contacter directement.' : 'A network error occurred while securing your consultation slot. Please try again or reach out to us directly.');
       toast.error(isFr ? 'Un problème est survenu lors de la planification' : 'Scheduling Encountered an Issue', { 
-        description: isFr ? 'Veuillez réessayer ou envoyer un courriel à olabel@gmail.com.' : 'Please retry or email olabel@gmail.com directly.' 
+        description: isFr ? 'Veuillez réessayer ou envoyer un courriel à hello@oakivo.com.' : 'Please retry or email hello@oakivo.com directly.' 
       });
     } finally {
       setIsSubmitting(false);
@@ -247,11 +247,11 @@ export const Booking: React.FC = () => {
 
   // Generate Google Calendar Link
   const googleCalendarUrl = useMemo(() => {
-    const title = encodeURIComponent(isFr ? `Évaluation d'Architecture de Sécurité Oakivo (${form.company || 'Entreprise'})` : `Oakivo Security Architecture Evaluation (${form.company || 'Enterprise'})`);
+    const title = encodeURIComponent(isFr ? `Session Découverte Oakivo (${form.company || 'Entreprise'})` : `Oakivo Discovery & Strategy Call (${form.company || 'Enterprise'})`);
     const details = encodeURIComponent(
-      `Oakivo Solutions Confidential DevSecOps & Cloud Security Audit\n\nClient: ${form.name} (${form.company})\nFocus: ${selectedFocus}\nFormat: ${meetingFormat}\nTimezone: ${timezone}\n\nAssigned Lead: Senior DevSecOps Architect\nOakivo Solutions Inc. (Dieppe, NB)\nInquiries: olabel@gmail.com`
+      `Oakivo Solutions Confidential Discovery Session\n\nClient: ${form.name} (${form.company})\nFocus: ${selectedFocus}\nFormat: ${meetingFormat}\nTimezone: ${timezone}\n\nAssigned: Senior Partner Team\nOakivo Solutions Inc. (Dieppe, NB)\nInquiries: hello@oakivo.com`
     );
-    const location = encodeURIComponent('Secure Encrypted Video Bridge (Link dispatched via email)');
+    const location = encodeURIComponent('Secure Video Link (Dispatched via email)');
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}`;
   }, [form, selectedFocus, meetingFormat, timezone, isFr]);
 
@@ -260,15 +260,15 @@ export const Booking: React.FC = () => {
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Oakivo Solutions Inc//Security Audit Schedule//EN',
+      'PRODID:-//Oakivo Solutions Inc//Discovery Schedule//EN',
       'CALSCALE:GREGORIAN',
       'METHOD:REQUEST',
       'BEGIN:VEVENT',
       `UID:${bookingConfirmationCode || 'OAK-BOOKING'}@oakivo.com`,
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
-      `SUMMARY:Oakivo Security Architecture Evaluation - ${form.company || 'Enterprise'}`,
-      `DESCRIPTION:Confidential DevSecOps and Cloud Security Consultation with Senior Architect.\\nFocus: ${selectedFocus}\\nFormat: ${meetingFormat}\\nTimezone: ${timezone}`,
-      'LOCATION:Secure Video Conference',
+      `SUMMARY:Oakivo Discovery & Strategy Call - ${form.company || 'Enterprise'}`,
+      `DESCRIPTION:Confidential consultation with Oakivo Senior Founders.\\nFocus: ${selectedFocus}\\nFormat: ${meetingFormat}\\nTimezone: ${timezone}`,
+      'LOCATION:Secure Video Link',
       'STATUS:CONFIRMED',
       'END:VEVENT',
       'END:VCALENDAR'
@@ -277,7 +277,7 @@ export const Booking: React.FC = () => {
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    link.setAttribute('download', `Oakivo-Security-Audit-${bookingConfirmationCode || 'Confirmation'}.ics`);
+    link.setAttribute('download', `Oakivo-Discovery-${bookingConfirmationCode || 'Confirmation'}.ics`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -287,10 +287,10 @@ export const Booking: React.FC = () => {
   return (
     <>
       <SEO 
-        title={isFr ? "Réserver un Audit de Sécurité Gratuit | DevSecOps Moncton, Calgary & Toronto | Oakivo" : "Book A Free Security Audit | DevSecOps Moncton, Calgary & Toronto | Oakivo"}
-        description={isFr ? "Réservez un audit de sécurité cloud et de conformité confidentiel de 30 minutes avec un architecte DevSecOps senior. Préparation SOC 2 Type II, Loi C-26 et durcissement Terraform AWS EKS." : "Book a 30-minute confidential cloud security & compliance audit with a Senior DevSecOps Architect. SOC 2 Type II audit readiness, Bill C-26, and Terraform AWS EKS hardening."}
-        keywords="Book security audit, SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, DevSecOps Moncton, Cloud Security New Brunswick, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax"
-        canonical="/schedule"
+        title={isFr ? "Réserver un Appel Découverte de 30 Minutes | Oakivo Solutions" : "Book a 30-Minute Discovery & Strategy Call | Oakivo Solutions"}
+        description={isFr ? "Réservez un échange sans engagement de 30 minutes avec nos fondateurs seniors. Discutons de vos besoins ERP, d'automatisation, de site web ou de sécurité infonuagique." : "Schedule a free 30-minute discovery call with senior founders. Explore your ERP bottlenecks, workflow automations, bespoke website goals, or Canadian cloud security."}
+        keywords="Book discovery call, Modern ERP Atlantic Canada, Workflow Automation Moncton, Creative Website Design Halifax, Canadian Cloud Security"
+        canonical="/booking"
       />
 
       {/* Hero Header */}

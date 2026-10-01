@@ -83,8 +83,8 @@ const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={13} className="text-cyan-400 shrink-0" />
-                <a href="mailto:contact@oakivo.com" className="hover:text-cyan-400 transition-colors">
-                  contact@oakivo.com
+                <a href="mailto:hello@oakivo.com" className="hover:text-cyan-400 transition-colors">
+                  hello@oakivo.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
@@ -110,27 +110,27 @@ const Footer: React.FC = () => {
               <ul className="space-y-3">
                 <li>
                   <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Cybersécurité Cloud & Zéro Confiance' : 'Enterprise Cybersecurity & Zero Trust'}
+                    {isFr ? 'ERP Moderne & Opérations Unifiées' : 'Modern ERP & Clean Operations'}
+                  </Link>
+                </li>
+                <li>
+                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                    {isFr ? 'Automatisation des Flux & Facturation' : 'Workflow & Billing Automation'}
+                  </Link>
+                </li>
+                <li>
+                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                    {isFr ? 'Conception Web Créative & Image Numérique' : 'Creative Website Design & Digital Exposure'}
+                  </Link>
+                </li>
+                <li>
+                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+                    {isFr ? 'Cloud Souverain & Sécurité Concrète' : 'Sovereign Cloud & Practical Security'}
                   </Link>
                 </li>
                 <li>
                   <Link to="/compliance-matrix" className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
                     {isFr ? 'Conformité Continue (LPRPDE, SOC 2, Loi 25)' : 'Continuous Compliance (SOC 2, PIPEDA, Law 25)'}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'ERP Moderne & Opérations Unifiées' : 'Modern ERP & Operations'}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Automatisation des Flux & Revenus' : 'Workflow & Revenue Automation'}
-                  </Link>
-                </li>
-                <li>
-                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Architecture Infonuagique & DevSecOps' : 'Cloud Architecture & DevSecOps'}
                   </Link>
                 </li>
               </ul>

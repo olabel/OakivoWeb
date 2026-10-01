@@ -145,7 +145,7 @@ export const DynamicHero: React.FC = () => {
 
           {/* Minimalist, authoritative kicker */}
           <div className="flex items-center gap-2.5 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-6">
-            <span>{isFrench ? 'ERP MODERNE · AUTOMATISATION · CLOUD · CYBERSÉCURITÉ' : 'MODERN ERP · AUTOMATION · CLOUD · CYBERSECURITY'}</span>
+            <span>{isFrench ? 'ERP MODERNE · AUTOMATISATION · CONCEPTION WEB · SÉCURITÉ' : 'MODERN ERP · AUTOMATION · CREATIVE WEB · CLOUD SECURITY'}</span>
             <span className="text-slate-600" aria-hidden="true">·</span>
             <span className="text-slate-400">{isFrench ? 'SOUVERAINETÉ CANADIENNE · DIEPPE, N.-B.' : 'CANADIAN DATA SOVEREIGNTY • DIEPPE, NB'}</span>
           </div>

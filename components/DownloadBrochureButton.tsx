@@ -247,17 +247,17 @@ const DownloadBrochureButton: React.FC<DownloadBrochureButtonProps> = ({
           <div style={{ border: '1px solid #cbd5e1', borderRadius: '6px', padding: '9px 11px', backgroundColor: '#ffffff' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3px' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: '#0f172a' }}>
-                3. {isFrench ? 'Sécurité ERP & Accès Zéro Confiance' : 'Odoo & Enterprise ERP Security'}
+                3. {isFrench ? 'Conception Web Créative & Visibilité' : 'Creative Website Design & Digital Exposure'}
               </span>
-              <span style={{ fontSize: '8px', color: '#0891b2', fontWeight: '700' }}>Odoo • SAP • RBAC</span>
+              <span style={{ fontSize: '8px', color: '#0891b2', fontWeight: '700' }}>UX • SEO • React</span>
             </div>
             <p style={{ fontSize: '9px', color: '#475569', lineHeight: '1.4', margin: '0 0 6px 0' }}>
               {isFrench 
-                ? 'Intégration Odoo sécurisée, matrices de rôles au moindre privilège, révocation de comptes en moins d\'une seconde et passerelles mTLS blindées.'
-                : 'Hardened Odoo ERP deployments, zero-trust least-privilege role matrices, sub-second automated de-provisioning, and tokenized mTLS API gateways.'}
+                ? 'Sites web sur mesure à haute conversion, optimisation SEO locale et capture de prospects reliée directement à vos opérations.'
+                : 'Custom high-converting websites, blazing speed, search engine exposure, and seamless automated lead capture connected to your backend.'}
             </p>
             <div style={{ fontSize: '8px', color: '#0369a1', fontWeight: '700', backgroundColor: '#f0f9ff', padding: '3px 6px', borderRadius: '3px' }}>
-              ✓ {isFrench ? 'Élimination totale des accès orphelins et risques internes' : 'Zero orphan accounts and unified operational core protection'}
+              ✓ {isFrench ? 'Présence numérique remarquable et taux de conversion supérieur' : 'Unforgettable brand exposure with verified visitor conversion'}
             </div>
           </div>
 
@@ -265,17 +265,17 @@ const DownloadBrochureButton: React.FC<DownloadBrochureButtonProps> = ({
           <div style={{ border: '1px solid #cbd5e1', borderRadius: '6px', padding: '9px 11px', backgroundColor: '#ffffff' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3px' }}>
               <span style={{ fontSize: '10.5px', fontWeight: '800', color: '#0f172a' }}>
-                4. {isFrench ? 'Remédiation Automatisée SRE' : 'Autonomous Incident Defense (SRE)'}
+                4. {isFrench ? 'Cybersécurité Cloud & Zéro Confiance' : 'Enterprise Cybersecurity & Sovereign Cloud'}
               </span>
-              <span style={{ fontSize: '8px', color: '#0891b2', fontWeight: '700' }}>eBPF • SIEM • 99.99%</span>
+              <span style={{ fontSize: '8px', color: '#0891b2', fontWeight: '700' }}>SOC 2 • PIPEDA • 99.99%</span>
             </div>
             <p style={{ fontSize: '9px', color: '#475569', lineHeight: '1.4', margin: '0 0 6px 0' }}>
               {isFrench 
-                ? 'Scénarios réactifs événementiels isolant les conteneurs compromis à la vitesse de la machine, rotation instantanée des clés et haute disponibilité garantie.'
-                : 'Autonomous event-driven runbooks that quarantine compromised nodes in milliseconds, rotate leaked API tokens automatically, and ensure 99.99% uptime.'}
+                ? 'Gouvernance continue multi-cloud, isolation des menaces, cryptage strict sur sol canadien et preuves d\'audit automatisées 24/7.'
+                : 'Continuous multi-cloud security, zero-trust IAM guardrails, sovereign Canadian data residency, and automated 24/7 audit evidence.'}
             </p>
             <div style={{ fontSize: '8px', color: '#0369a1', fontWeight: '700', backgroundColor: '#f0f9ff', padding: '3px 6px', borderRadius: '3px' }}>
-              ✓ {isFrench ? 'Résolution autonome des menaces sans réveil de nuit' : 'Machine-speed threat neutralization with zero operational downtime'}
+              ✓ {isFrench ? 'Résilience totale et conformité continue sans panique d\'audit' : 'Continuous audit readiness and uninterrupted operational uptime'}
             </div>
           </div>
         </div>
@@ -372,7 +372,7 @@ const DownloadBrochureButton: React.FC<DownloadBrochureButtonProps> = ({
           </div>
           <div style={{ textAlign: 'right' }}>
             <div style={{ fontSize: '10px', fontWeight: '800', color: '#0891b2' }}>
-              contact@oakivo.com • +1 (506) 800-2440
+              hello@oakivo.com • +1 (506) 800-2440
             </div>
             <p style={{ fontSize: '8.5px', color: '#64748b', margin: '1px 0 0 0' }}>
               www.oakivo.com • Dieppe, New Brunswick, Canada

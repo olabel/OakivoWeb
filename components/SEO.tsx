@@ -55,16 +55,18 @@ const SEO: React.FC<SEOProps> = ({
       { '@type': 'AdministrativeArea', 'name': 'Newfoundland and Labrador' }
     ],
     'serviceType': [
-      'Modern ERP Implementation & Operations',
-      'Business Workflow & Revenue Automation',
-      'Cloud Architecture & DevSecOps Modernization',
-      'Enterprise Cybersecurity & Zero-Trust Architecture',
-      'Continuous Compliance Automation (SOC 2, PIPEDA, Law 25)'
+      'Modern ERP Implementation & Clean Operations',
+      'Business Workflow & Billing Automation',
+      'Creative Website Design & Digital Exposure',
+      'Cloud Architecture & Sovereign Infrastructure',
+      'Enterprise Cybersecurity & Continuous Compliance (SOC 2, PIPEDA, Law 25)'
     ],
     'priceRange': '$$$',
     'knowsAbout': [
       'Modern ERP',
       'Workflow Automation',
+      'Creative Website Design',
+      'Brand Digital Exposure',
       'Enterprise Cybersecurity',
       'Cloud Architecture',
       'DevSecOps',

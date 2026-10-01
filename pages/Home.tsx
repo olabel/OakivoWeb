@@ -1,17 +1,42 @@
-import React from 'react';
-import { ArrowRight, ShieldCheck, CheckCircle2, Server, Mail, Phone, Database, Zap, Sparkles, TrendingUp, Clock, DollarSign, Calculator, Lock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, ShieldCheck, CheckCircle2, Server, Mail, Phone, Database, Zap, Sparkles, TrendingUp, Clock, DollarSign, Calculator, Lock, Palette, Activity, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import SEO from '../components/SEO';
 import TrustCarousel from '../components/TrustCarousel';
 import DynamicHero from '../components/DynamicHero';
 import IntersectionAnimatedCard from '../components/IntersectionAnimatedCard';
+import TransformationShowcase from '../components/TransformationShowcase';
+import RoiCalculator from '../components/RoiCalculator';
 import { useLanguage } from '../context/LanguageContext';
 import { NavRoute } from '../types';
 
 const Home: React.FC = () => {
   const { language } = useLanguage();
   const isFr = language === 'fr';
+
+  // Live Atlantic Time Clock (America/Moncton / Dieppe, NB)
+  const [astTime, setAstTime] = useState<string>('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const formatter = new Intl.DateTimeFormat(isFr ? 'fr-CA' : 'en-CA', {
+          timeZone: 'America/Moncton',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: !isFr
+        });
+        setAstTime(formatter.format(new Date()));
+      } catch {
+        setAstTime(new Date().toLocaleTimeString());
+      }
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, [isFr]);
 
   const triggerAuditDrawer = (focus = 'General Digital Transformation Advisory') => {
     window.dispatchEvent(new CustomEvent('open-lead-drawer', {
@@ -23,86 +48,86 @@ const Home: React.FC = () => {
     }));
   };
 
-  // Outcome-focused core transformations: Modern ERP, Automation, Cloud & Cybersecurity
+  // Practical business deliverables: Modern ERP, Automation, Creative Web Design, Sovereign Cloud & Security
   const outcomes = [
     {
       icon: Database,
       num: '01',
-      title: isFr ? 'Opérations Unifiées & ERP Moderne' : 'Unified Operations & Modern ERP',
-      outcomeMetric: isFr ? 'Déploiement en Moins de 90 Jours' : 'Live in Under 90 Days',
+      title: isFr ? 'ERP Moderne & Opérations Claires' : 'Modern ERP & Clean Operations',
+      outcomeMetric: isFr ? 'En Ligne en Moins de 90 Jours' : 'Live in Under 90 Days',
       description: isFr
-        ? 'Remplacez vos tableurs disparates et logiciels déconnectés par une source unique de vérité reliant vos ventes, stocks, finances et logistique.'
-        : 'Replace disconnected spreadsheets, email chains, and software silos with a single source of truth synchronizing sales, inventory, and finance.',
+        ? 'Fini le casse-tête des tableurs déconnectés. Nous regroupons vos ventes, stocks, finances et logistique dans un système unique et intuitif qui reflète exactement vos opérations.'
+        : 'Tired of juggling five software tools and ten spreadsheets? We bring your sales, inventory, and accounting into one clean system so your team always knows what is going on.',
       benefits: isFr
         ? [
-            'ERP unifié opérationnel reliant ventes, stocks et comptabilité',
-            'Migration propre et intégrale de vos données historiques',
-            'Formation pratique de vos équipes avec zéro interruption des ventes'
+            'Source unique de données pour toute votre équipe',
+            'Migration sécurisée de vos historiques avec zéro donnée perdue',
+            'Formation pratique de vos employés sans interruption des ventes'
           ]
         : [
-            'Turnkey unified ERP synchronizing sales, inventory & accounting',
-            'Complete historical data migration with zero data loss',
+            'Single source of truth for your entire operations team',
+            'Safe historical data migration with zero data loss',
             'Hands-on staff training with zero disruption to daily sales'
           ]
     },
     {
       icon: Zap,
       num: '02',
-      title: isFr ? 'Automatisation des Flux & Revenus' : 'Hands-Free Revenue Workflows',
-      outcomeMetric: isFr ? '25+ Heures Récupérées / Semaine' : '25+ Hours Recovered / Week',
+      title: isFr ? 'Automatisation des Flux & Facturation' : 'Workflow & Billing Automation',
+      outcomeMetric: isFr ? '25+ Heures Économisées / Semaine' : '25+ Hours Recovered / Week',
       description: isFr
-        ? 'Automatisez le cycle de la commande à la facturation pour accélérer vos encaissements et éliminer les erreurs manuelles.'
-        : 'Automate quote-to-cash, inventory fulfillment, and customer invoicing to accelerate cash collections and eliminate billing errors.',
+        ? 'Arrêtez de copier manuellement des commandes dans des factures. Nous connectons vos outils pour que chaque commande approuvée génère la facture et mette à jour vos stocks sans intervention humaine.'
+        : 'Stop manually copying data from emails into invoices. We connect your tools so approved orders automatically trigger invoices, sync warehouse stock, and update your bank records.',
       benefits: isFr
         ? [
-            'Pipeline devis-facturation automatisé sans double saisie',
-            'Émission et envoi automatisés des factures dès livraison',
-            'Rapprochement bancaire et alertes de trésorerie en temps réel'
+            'Factures envoyées dès la confirmation de livraison',
+            'Rapprochement bancaire automatique avec votre banque canadienne',
+            'Alertes instantanées en cas de goulot d’étranglement'
           ]
         : [
-            'Self-healing quote-to-cash pipeline without manual re-keying',
-            'Instant automated invoice generation upon order fulfillment',
-            'Real-time bank reconciliation & cash-flow health alerts'
+            'Invoices dispatched the minute orders are fulfilled',
+            'Automatic bank and payment reconciliation',
+            'Instant notifications when an order or shipment gets held up'
           ]
     },
     {
-      icon: Server,
+      icon: Palette,
       num: '03',
-      title: isFr ? 'Infrastructures Cloud & DevSecOps' : 'Cloud Architecture & DevSecOps',
-      outcomeMetric: isFr ? 'Garantie de Disponibilité 99,99 %' : '99.99% Cloud Uptime Guarantee',
+      title: isFr ? 'Conception Web Créative & Visibilité' : 'Creative Web Design & Digital Exposure',
+      outcomeMetric: isFr ? 'Image de Marque Remarquable' : 'High-Impact Brand Presence',
       description: isFr
-        ? 'Infrastructures infonuagiques canadiennes durcies, automatisations de déploiement et optimisation de vos coûts d’hébergement.'
-        : 'Hardened Canadian sovereign cloud architectures, automated release pipelines, and proactive cloud cost optimization.',
+        ? 'Votre site web est votre vitrine principale. Nous concevons des sites web sur mesure, ultra-rapides et esthétiques qui assoient votre autorité et convertissent vos visiteurs en clients payants.'
+        : 'Your website is your storefront. We build custom, blazing-fast, and unforgettable websites that give your business serious digital credibility and turn visitors into qualified leads.',
       benefits: isFr
         ? [
-            'Environnement infonuagique souverain au Canada (AWS / Azure)',
-            'Mises en production automatisées avec zéro temps d’arrêt',
-            'Rapports d’optimisation éliminant 30 à 40 % de gaspillage cloud'
+            'Design visuel unique et adapté au mobile sur mesure',
+            'Performances fulgurantes avec référencement Google (SEO) intégré',
+            'Formulaires de contact reliés directement à votre boîte courriel ou CRM'
           ]
         : [
-            'Canadian sovereign cloud architecture (AWS / Azure ca-central)',
-            'Automated production releases with zero downtime cutovers',
-            'Cloud cost governance eliminating 30–40% in monthly waste'
+            'Bespoke visual identity and mobile-first responsive layouts',
+            'Blazing load speeds with Google SEO baked in from day one',
+            'High-conversion inquiry pipelines connected straight to your inbox'
           ]
     },
     {
       icon: ShieldCheck,
       num: '04',
-      title: isFr ? 'Cybersécurité, Zéro Confiance & Conformité' : 'Cybersecurity, Zero Trust & Compliance',
-      outcomeMetric: isFr ? 'Preuves de Conformité 24/7' : '24/7 Automated Audit Proof',
+      title: isFr ? 'Cloud Souverain & Sécurité Concrète' : 'Sovereign Cloud & Practical Security',
+      outcomeMetric: isFr ? 'Résidence 100% au Canada' : '100% Canadian Data Residency',
       description: isFr
-        ? 'Protection Zéro Confiance des accès, remédiation automatisée des menaces et conformité continue (LPRPDE, Loi 25, SOC 2) avec preuves cryptographiques 24/7.'
-        : 'Zero Trust identity access, real-time threat neutralization, and automated compliance evidence (PIPEDA, Law 25, SOC 2) to win enterprise deals with confidence.',
+        ? 'Gardez vos logiciels rapides, sauvegardés et protégés sur le sol canadien. Nous gérons la conformité (LPRPDE, Loi 25, SOC 2) pour que vous passiez les audits et questionnaires de sécurité sans stress.'
+        : 'Keep your software fast, backed up, and protected on Canadian soil. We handle cloud architecture and compliance (PIPEDA, Law 25, SOC 2) so you never stress over an audit or security questionnaire.',
       benefits: isFr
         ? [
-            'Dossier de preuves cryptographiques archivé en continu (LPRPDE, SOC 2)',
-            'Architecture Zéro Confiance avec isolation instantanée des menaces',
-            'Paquet d’audit de sécurité prêt à signer pour vos acheteurs corporatifs'
+            'Hébergé strictement dans des centres de données canadiens (AWS / Azure)',
+            'Sauvegardes automatisées et garantie de disponibilité de 99,99 %',
+            'Dossier de sécurité complet prêt à présenter à vos clients corporatifs'
           ]
         : [
-            'Continuous automated audit evidence for SOC 2, PIPEDA & Law 25',
-            'Zero Trust credential security with autonomous threat isolation',
-            'Executive security package ready for enterprise vendor sign-offs'
+            'Hosted strictly in Canadian availability zones (AWS / Azure ca-central)',
+            'Automated backups and 99.99% operational uptime SLA',
+            'Executive security review package ready for enterprise buyers'
           ]
     }
   ];
@@ -126,6 +151,12 @@ const Home: React.FC = () => {
       bigConsulting: isFr ? 'Rapports stratégiques sans code exécutable' : 'Theoretical advisory slide decks with zero live code',
       commodityMSP: isFr ? 'Bricolages manuels ou scripts fragiles' : 'Basic off-the-shelf desktop repairs only',
       oakivo: isFr ? 'Pipelines automatisés et auto-cicatrisants déployés en direct' : 'Resilient, hands-free automation pipelines paying for themselves'
+    },
+    {
+      dimension: isFr ? 'Conception Web & Image' : 'Creative Web & Digital Presence',
+      bigConsulting: isFr ? 'Sous-traité à des agences tierces hors de prix' : 'Outsourced to expensive third-party branding agencies',
+      commodityMSP: isFr ? 'Modèles génériques lents et peu attrayants' : 'Cookie-cutter templates that fail to convert',
+      oakivo: isFr ? 'Design sur mesure ultra-rapide, optimisé SEO et axé conversion' : 'Custom, blazing-fast web designs engineered to convert'
     },
     {
       dimension: isFr ? 'Cybersécurité & Conformité' : 'Cloud Security & Compliance',
@@ -175,14 +206,44 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Modern ERP, Workflow Automation & Cloud Security | Atlantic Canada | Oakivo"
-        description="Modernize business operations with modern ERP, hands-free workflow automation, and enterprise cloud cybersecurity & PIPEDA compliance. Direct founder accountability in Atlantic Standard Time."
-        keywords="Modern ERP Atlantic Canada, Cloud Security New Brunswick, Business Workflow Automation, DevSecOps Dieppe, ERP Implementation Moncton, Automate Invoicing Canada, PIPEDA Cloud Compliance, Small Business Automation Halifax"
+        title="Modern ERP, Automation & Creative Website Design | Atlantic Canada | Oakivo"
+        description="We build software that works, automate your daily grind, and design websites that stand out. Modern ERP implementations, hands-free automation, bespoke web design, and sovereign Canadian cloud security."
+        keywords="Modern ERP Atlantic Canada, Creative Website Design Moncton, High Converting Web Design Halifax, Digital Exposure Canada, Business Workflow Automation, Bespoke Web Design Dieppe, PIPEDA Cloud Compliance, Small Business Software Canada"
         canonical="/"
       />
       
       {/* 1. Minimalist Dynamic Hero with Ambient Video */}
       <DynamicHero />
+
+      {/* Live Operations & AST Time Presence Bar */}
+      <div className="bg-[#05080D] border-b border-white/[0.08] py-2.5 px-4 text-xs font-mono">
+        <div className="container mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-3 text-slate-400">
+          <div className="flex items-center gap-2.5">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="text-slate-300 font-semibold">
+              {isFr ? 'Bureau d’Ingénierie en Direct · Dieppe, N.-B.' : 'Live Operations Hub · Dieppe, NB'}
+            </span>
+            <span className="text-slate-600 hidden sm:inline">|</span>
+            <span className="text-cyan-400 font-bold hidden sm:inline">
+              AST: {astTime || 'Atlantic Standard Time'}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[11px] text-slate-400">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+              <span>{isFr ? 'Infonuagique Canadienne Opérationnelle' : 'Canadian Sovereign Cloud: 100%'}</span>
+            </span>
+            <span className="text-slate-600 hidden md:inline">|</span>
+            <span className="hidden md:inline text-slate-300">
+              {isFr ? 'Associés Seniors Disponibles' : 'Senior Partners Active'}
+            </span>
+          </div>
+        </div>
+      </div>
 
       {/* 2. Executive Impact Strip - Balanced with Security, Automation & ERP */}
       <section className="py-12 px-6 bg-slate-950 border-y border-white/[0.06]">
@@ -250,18 +311,18 @@ const Home: React.FC = () => {
           
           <div className="max-w-3xl mb-16 md:mb-20 space-y-4">
             <div className="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">
-              {isFr ? 'LES 4 PILIERS : ERP · AUTOMATISATION · CLOUD · CYBERSÉCURITÉ' : 'THE FOUR PILLARS: ERP · AUTOMATION · CLOUD · CYBERSECURITY'}
+              {isFr ? 'CE QUE NOUS BÂTISSONS : ERP · AUTOMATISATION · SITES WEB · SÉCURITÉ' : 'WHAT WE BUILD: MODERN ERP · AUTOMATION · CREATIVE WEBSITES · CLOUD SECURITY'}
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-white leading-tight">
               {isFr 
-                ? 'Une ingénierie concrète pour moderniser, automatiser et sécuriser votre entreprise.'
-                : 'Engineered to modernize operations, eliminate admin drag, and secure your cloud.'
+                ? 'Moins de chaos. Des opérations fluides. Une présence web qui impressionne.'
+                : 'Less chaos. Cleaner operations. Software and websites that actually deliver.'
               }
             </h2>
             <p className="text-slate-400 font-light text-base md:text-lg leading-relaxed">
               {isFr
-                ? 'Nous unifions vos opérations avec un ERP moderne, automatisons vos flux de facturation, architecturons des environnements infonuagiques résilients et protégeons vos données avec une cybersécurité d\'entreprise continue.'
-                : 'We unify operations with modern ERP, automate quote-to-cash workflows, deploy resilient cloud architectures, and guard your critical assets with continuous enterprise cybersecurity.'
+                ? 'Que vous ayez besoin de remplacer des tableurs emmêlés, d’automatiser votre facturation, de créer un site web d’exception ou de protéger vos données, nous concevons des solutions durables avec une implication senior directe.'
+                : 'Whether you need to replace five messy spreadsheets, automate your billing, build an unforgettable website, or protect your customer data—we deliver working solutions with direct senior partner access.'
               }
             </p>
           </div>
@@ -313,30 +374,16 @@ const Home: React.FC = () => {
             })}
           </div>
 
-          {/* Quick link to interactive ROI calculator */}
-          <div className="mt-12 p-6 rounded-2xl bg-cyan-950/20 border border-cyan-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
-                <Calculator size={20} />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-white">
-                  {isFr ? 'Curieux de connaître vos économies réelles ?' : 'Curious how many hours your team could recover?'}
-                </h4>
-                <p className="text-xs text-slate-400 font-light">
-                  {isFr ? 'Testez notre calculateur de retour sur investissement interactif dans la section Services.' : 'Explore our interactive ROI Calculator in the Services section to quantify your annual dollar savings.'}
-                </p>
-              </div>
-            </div>
-            <Link
-              to="/services#roi-calculator"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-slate-950 hover:bg-slate-200 text-xs font-bold uppercase tracking-wider shrink-0 transition-all shadow-md hover:shadow-cyan-500/20"
-            >
-              <span>{isFr ? 'Calculer Mon RCI' : 'Calculate ROI'}</span>
-              <ArrowRight size={14} />
-            </Link>
-          </div>
+        </div>
+      </section>
 
+      {/* Interactive Before-and-After Showcase for All Four Pillars */}
+      <TransformationShowcase />
+
+      {/* Interactive Automation ROI Calculator Section */}
+      <section id="roi-estimator" className="py-20 md:py-28 px-6 bg-[#06090E] border-t border-white/[0.06] relative">
+        <div className="container mx-auto max-w-7xl">
+          <RoiCalculator />
         </div>
       </section>
 
@@ -486,9 +533,9 @@ const Home: React.FC = () => {
 
           {/* Direct Contact Option for Executives */}
           <div className="mt-12 pt-8 border-t border-white/[0.06] flex items-center justify-center gap-8 text-xs font-mono text-slate-500">
-            <a href="mailto:contact@oakivo.com" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+            <a href="mailto:hello@oakivo.com" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
               <Mail size={13} />
-              <span>contact@oakivo.com</span>
+              <span>hello@oakivo.com</span>
             </a>
             <a href="tel:+15068002440" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
               <Phone size={13} />

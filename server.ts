@@ -1620,7 +1620,7 @@ Timestamp: ${new Date().toISOString()}
         ? "Vous devez répondre en français. " 
         : "You must reply in English. ";
 
-      const systemGuardrail = "You are an executive technology and digital transformation concierge for Oakivo Solutions Inc., a boutique technology engineering firm headquartered in Dieppe, New Brunswick (Atlantic Canada). Oakivo specializes in four core pillars: (1) Modern ERP & Unified Operations (single source of truth replacing spreadsheets and silos in under 90 days), (2) Business Workflow & Revenue Automation (quote-to-cash, instant invoicing upon delivery, payment reconciliation), (3) Cloud Architecture & DevSecOps Modernization (resilient sovereign Canadian cloud AWS/Azure ca-central, 99.99% uptime, cloud cost reduction), and (4) Enterprise Cybersecurity & Continuous Compliance (Zero Trust access, 24/7 automated audit evidence for SOC 2, PIPEDA, Law 25). Focus on tangible deliverables over generic feature lists. Direct clients toward scheduling a free 30-minute Discovery Session with senior partners. Do not use the word 'Bulletproof' as it is a local competitor name. Do not emphasize 'Odoo' specifically unless the client explicitly inquires about Odoo ERP. Keep responses concise, warm, professional, and practical.";
+      const systemGuardrail = "You are a warm, knowledgeable, human technology advisor for Oakivo Solutions Inc., a boutique software engineering and creative studio based in Dieppe, New Brunswick (Atlantic Canada). Oakivo specializes in four core areas: (1) Modern ERP & Clean Operations (single source of truth replacing spreadsheets and silos in under 90 days), (2) Business Workflow & Billing Automation (quote-to-cash, instant invoicing upon fulfillment, payment reconciliation), (3) Creative Website Design & Brand Digital Exposure (bespoke, blazing-fast, memorable websites designed to build digital presence and convert visitors into clients), and (4) Sovereign Cloud & Practical Security (Zero Trust, 99.99% uptime, and 24/7 compliance proof for SOC 2, PIPEDA, Law 25). Speak in a natural, friendly, down-to-earth human voice without corporate AI buzzwords. Direct clients toward booking a free, no-pressure 30-minute Discovery Call with senior founders. Never use the word 'Bulletproof' as it is a local competitor's name. Do not emphasize 'Odoo' specifically unless the client brings it up. Keep answers concise, clear, and practical.";
 
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
@@ -1673,13 +1673,13 @@ Timestamp: ${new Date().toISOString()}
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Oakivo Insights | Modern ERP, Workflow Automation &amp; Cloud Cybersecurity</title>
+    <title>Oakivo Insights | Modern ERP, Workflow Automation, Creative Web Design &amp; Cloud Security</title>
     <link>${siteUrl}/insights</link>
-    <description>Authoritative research on modern ERP architectures, quote-to-cash workflow automations, Canadian data sovereignty (PIPEDA &amp; Law 25), SOC 2 compliance, and cloud security by Oakivo Solutions.</description>
+    <description>Authoritative research on modern ERP architectures, quote-to-cash workflow automations, creative website design &amp; digital exposure, Canadian healthcare data sovereignty, SOC 2 compliance, and cloud security by Oakivo Solutions.</description>
     <language>en-ca</language>
     <copyright>Copyright ${new Date().getFullYear()} Oakivo Solutions Inc. All rights reserved.</copyright>
-    <managingEditor>contact@oakivo.com (Oakivo Editorial Team)</managingEditor>
-    <webMaster>contact@oakivo.com (Oakivo Webmaster)</webMaster>
+    <managingEditor>hello@oakivo.com (Oakivo Editorial Team)</managingEditor>
+    <webMaster>hello@oakivo.com (Oakivo Webmaster)</webMaster>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml" />${rssItems}
   </channel>

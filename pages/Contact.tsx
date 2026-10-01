@@ -10,16 +10,20 @@ import { SuccessModal } from '../components/SuccessModal';
 
 const faqs = [
   {
-    question: 'Why should Atlantic Canadian businesses choose Oakivo over national consulting firms?',
-    answer: 'National vendors route tickets through generic offshore queues with long delay times. Headquartered in Dieppe, NB, Oakivo provides direct, bilingual (EN/FR) senior DevSecOps architects who understand regional regulatory requirements and operate in Atlantic Standard Time.'
+    question: 'Why choose Oakivo over big consulting firms or commodity IT repair shops?',
+    answer: 'Big national firms sell with senior partners, hand you off to junior staff, and charge six-figure retainers for slide decks. Local IT shops only fix hardware and reset passwords. Oakivo gives you direct, hands-on access to senior founders who build modern ERP systems, automate your invoicing, craft high-converting websites, and lock down cloud security—with measurable results in weeks.'
   },
   {
-    question: 'Will adding automated DevSecOps pipelines slow down our engineering release cycles?',
-    answer: 'No. Shifting security left into automated CI/CD pipelines (GitHub Actions, GitLab CI, ArgoCD) catches vulnerabilities in milliseconds during pull requests, eliminating weeks of manual security review delays.'
+    question: 'Will modernizing our software or automating workflows disrupt our daily sales?',
+    answer: 'No. We configure, customize, and test all ERP modules, automated workflow bridges, and web designs in isolated sandbox environments. Historical data is safely migrated, and go-live is executed with zero downtime to your daily operations.'
   },
   {
-    question: 'Do you offer custom engagements beyond the architectural audit?',
-    answer: 'Yes. While the audit is a great starting point, we frequently engage in long-term DevSecOps transformations, infrastructure-as-code migrations, and continuous compliance automation for SOC 2.'
+    question: 'How does the free 30-minute discovery call work?',
+    answer: 'It is a friendly, confidential conversation directly with our senior founders in Atlantic Standard Time. We review your current bottlenecks, software stack, or web goals. If we are a great fit, we outline a plain-English roadmap with clear costs and timelines. Zero sales pressure.'
+  },
+  {
+    question: 'Where is our business and customer data stored?',
+    answer: 'Strictly on Canadian soil. All primary databases, automated backups, and file storage reside in certified Canadian sovereign cloud regions (AWS ca-central-1 or Azure Canada Central), fully compliant with PIPEDA, Law 25, and SOC 2.'
   }
 ];
 
@@ -29,7 +33,7 @@ const Contact: React.FC = () => {
     name: '',
     email: '',
     company: '',
-    inquiryType: 'General Inquiry',
+    inquiryType: 'Modern ERP & Operations',
     message: ''
   });
   
@@ -64,7 +68,7 @@ const Contact: React.FC = () => {
 
   const handleModalClose = () => {
     setStatus('idle');
-    setFormState({ name: '', email: '', company: '', inquiryType: 'General Inquiry', message: '' });
+    setFormState({ name: '', email: '', company: '', inquiryType: 'Modern ERP & Operations', message: '' });
   };
 
   return (
@@ -72,14 +76,14 @@ const Contact: React.FC = () => {
       <SuccessModal 
         isOpen={status === 'success'}
         onClose={handleModalClose}
-        title="Contact Oakivo | DevSecOps & Cloud Security Atlantic Canada"
-        message="Thank you for reaching out to Oakivo Solutions. A member of our team will get back to you shortly."
+        title="Message Received | Oakivo Solutions"
+        message="Thank you for reaching out. One of our senior founders will personally review your inquiry and get back to you within one business day."
       />
 
       <SEO 
-        title="Contact Oakivo | DevSecOps Moncton, New Brunswick & Calgary"
-        description="Book a confidential architecture review with Oakivo. Fast-track SOC 2 Type II audit readiness, Bill C-26 compliance, and Terraform AWS EKS hardening in Moncton and Calgary."
-        keywords="DevSecOps Moncton, Cloud Security New Brunswick, DevSecOps Calgary, SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, Terraform AWS EKS hardening consultant"
+        title="Contact Oakivo | Modern Software, ERP & Web Design in Atlantic Canada"
+        description="Start a conversation with Oakivo. Direct senior partner advice on modern ERP implementations, workflow automation, custom web design, and Canadian cloud security."
+        keywords="Contact Oakivo, Modern ERP Atlantic Canada, Business Automation Dieppe, Creative Web Design Moncton, Cloud Security Canada"
         canonical="/contact"
       />
 
@@ -90,7 +94,7 @@ const Contact: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
               <Terminal size={13} className="text-cyan-400" />
               <span className="text-[11px] font-mono font-medium text-gray-300">
-                Dieppe, New Brunswick • Atlantic Canada Authority
+                Dieppe, New Brunswick • 100% Bilingual Team
               </span>
             </div>
             
@@ -99,7 +103,7 @@ const Contact: React.FC = () => {
             </h1>
             
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
-              Whether you're looking to automate your pipelines, achieve SOC 2 compliance, or just want to talk cloud architecture—our senior engineers are ready to help.
+              Whether you need to unify your back-office systems, automate tedious billing busywork, build a standout website, or lock down cloud security—we're ready to talk.
             </p>
           </div>
         </div>
@@ -129,7 +133,7 @@ const Contact: React.FC = () => {
 
                     <div>
                       <h2 className="text-xl font-bold text-white tracking-tight">How can we help?</h2>
-                      <p className="text-xs text-gray-300 mt-1">Direct evaluation from senior DevSecOps architects based in Dieppe, NB. 100% confidential.</p>
+                      <p className="text-xs text-gray-300 mt-1">Direct evaluation from our senior founders based in Dieppe, NB. 100% confidential.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -193,11 +197,11 @@ const Contact: React.FC = () => {
                           onChange={handleChange}
                           className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all"
                         >
+                          <option value="Modern ERP & Operations">Modern ERP & Operations</option>
+                          <option value="Workflow & Billing Automation">Workflow & Billing Automation</option>
+                          <option value="Creative Website Design & Exposure">Creative Website Design & Exposure</option>
+                          <option value="Sovereign Cloud & Security">Sovereign Cloud & Security</option>
                           <option value="General Inquiry">General Inquiry</option>
-                          <option value="Cloud Security & Architecture">Cloud Security & Architecture</option>
-                          <option value="CI/CD Pipeline Automation">CI/CD Pipeline Automation</option>
-                          <option value="Compliance (SOC 2 / PIPEDA)">Compliance (SOC 2 / PIPEDA)</option>
-                          <option value="ERP / Operations Alignment">ERP / Operations Alignment</option>
                         </select>
                       </div>
                     </div>
@@ -213,7 +217,7 @@ const Contact: React.FC = () => {
                         rows={5}
                         value={formState.message}
                         onChange={handleChange}
-                        placeholder="Tell us a bit about your current infrastructure and what you're looking to achieve..."
+                        placeholder="Tell us a bit about your current operations, software challenges, or what you're looking to achieve..."
                         className="w-full bg-black/50 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-white transition-all resize-none"
                       />
                     </div>

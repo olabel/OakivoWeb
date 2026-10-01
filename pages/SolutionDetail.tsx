@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Sparkles, ArrowRight, CheckCircle2, ShieldCheck, Clock, FileText, Layers, Database, ArrowLeft, Shield, Lock, Cpu, Cloud, Terminal } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2, ShieldCheck, Clock, FileText, Layers, Database, ArrowLeft, Shield, Lock, Cpu, Cloud, Terminal, Palette } from 'lucide-react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
 import NotFound from './NotFound';
@@ -257,6 +257,35 @@ const solutionsMapEn: Record<string, SolutionData> = {
         answer: 'Yes. We deploy hybrid secure access gateways and air-gapped immutable backup vaults that protect on-premise systems without expensive software rewrites.'
       }
     ]
+  },
+  'creative-web-design': {
+    title: 'Creative Website Design & Brand Digital Exposure',
+    subtitle: 'Stand out from generic cookie-cutter sites with a bespoke, lightning-fast digital storefront.',
+    description: 'We craft distinctive, modern websites engineered to turn casual visitors into committed clients. Blazing performance, search engine dominance, and direct automated lead integration straight into your workflow.',
+    icon: Palette,
+    benefits: [
+      'Bespoke, human visual identity designed specifically for your brand',
+      'Sub-second page loading speeds and 100/100 Core Web Vitals',
+      'Advanced regional SEO positioning your business above local competitors',
+      'Direct CRM and workflow integration capturing customer leads automatically'
+    ],
+    useCase: {
+      client: 'Atlantic Clean Energy Ventures',
+      location: 'Moncton, New Brunswick',
+      challenge: 'An outdated, slow template website failed to communicate technical credibility, losing bids to regional competitors.',
+      outcome: 'Designed a high-conversion, responsive digital platform with automated consultation intake, tripling high-intent client inquiries in 60 days.',
+      hoursSaved: '3x qualified inbound lead volume'
+    },
+    faq: [
+      {
+        question: 'Do you use generic WordPress templates or page builders?',
+        answer: 'Never. We build custom, bespoke React/TypeScript websites with pristine performance, zero bloat, and full ownership for your team.'
+      },
+      {
+        question: 'Will our website integrate with our existing CRM and invoicing tools?',
+        answer: 'Yes. Every website we build connects directly with your preferred email desks, calendars, CRM, and accounting pipelines.'
+      }
+    ]
   }
 };
 
@@ -487,6 +516,35 @@ const solutionsMapFr: Record<string, SolutionData> = {
       {
         question: 'Pouvez-vous sécuriser des ERP anciens sur site ?',
         answer: 'Oui. Nous déployons des passerelles d\'accès sécurisées hybrides et des coffres de sauvegarde immuables sans refonte logicielle.'
+      }
+    ]
+  },
+  'creative-web-design': {
+    title: 'Conception Web Créative & Visibilité Numérique',
+    subtitle: 'Distinguez-vous des sites génériques avec une vitrine numérique sur mesure et ultra-rapide.',
+    description: 'Nous concevons des sites web remarquables et modernes, pensés pour convertir les visiteurs en clients fidèles. Performance éclair, référencement naturel régional dominant et capture automatisée de prospects reliée directement à vos outils de gestion.',
+    icon: Palette,
+    benefits: [
+      'Identité visuelle humaine et sur mesure, pensée pour votre marque',
+      'Chargement inférieur à la seconde et score Core Web Vitals optimal',
+      'Optimisation SEO régionale devançant vos concurrents locaux',
+      'Intégration directe aux formulaires et CRM capturant les prospects sans délai'
+    ],
+    useCase: {
+      client: 'Atlantic Clean Energy Ventures',
+      location: 'Moncton, Nouveau-Brunswick',
+      challenge: 'Un site vieillissant et lent ne parvenait pas à inspirer confiance aux donneurs d\'ordres institutionnels.',
+      outcome: 'Conception d\'une plateforme web réactive et percutante avec prise de contact qualifiée, triplant les demandes entrantes en 60 jours.',
+      hoursSaved: 'Volume de prospects qualifiés multiplié par 3'
+    },
+    faq: [
+      {
+        question: 'Utilisez-vous des modèles génériques WordPress ?',
+        answer: 'Jamais. Nous développons des architectures web sur mesure en React/TypeScript sans surplus de code, rapides et dont vous détenez l\'entière propriété.'
+      },
+      {
+        question: 'Le site sera-t-il connecté à nos outils de facturation et CRM existants ?',
+        answer: 'Oui. Chaque site que nous concevons est directement relié à vos boîtes courriels, agendas, CRM et circuits comptables.'
       }
     ]
   }
