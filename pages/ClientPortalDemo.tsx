@@ -209,7 +209,7 @@ const ClientPortalDemo: React.FC = () => {
       />
 
       {/* Demo Mode Banner */}
-      <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-xs font-semibold py-2 px-4 flex justify-between items-center sticky top-0 z-50 shadow-lg">
+      <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-xs font-semibold py-2 px-4 flex justify-between items-center sticky top-20 z-30 shadow-lg">
         <div className="flex items-center gap-2">
           <GlobeLock size={14} className="animate-pulse" />
           <span>{isFr ? "Mode Démonstration Interactive : Accès Lecture Seule" : "Interactive Demo Mode: Read-Only Access"}</span>

@@ -35,10 +35,18 @@ const Navbar: React.FC = () => {
   };
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 15);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     
     const openDrawer = (e?: Event) => {
       const customEvent = e as CustomEvent<{ focus?: string; topic?: string }>;
@@ -73,7 +81,11 @@ const Navbar: React.FC = () => {
       <nav 
         role="navigation" 
         aria-label="Main Navigation" 
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'glass-panel border-b border-white/[0.04]' : 'bg-transparent border-b border-transparent'}`}
+        className={`fixed top-0 left-0 w-full z-[100] transition-colors duration-200 ${
+          isScrolled 
+            ? 'bg-[#06090F]/96 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.7)]' 
+            : 'bg-[#06090F]/85 backdrop-blur-xl border-b border-white/[0.04]'
+        }`}
       >
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
             <Link 
@@ -176,7 +188,7 @@ const Navbar: React.FC = () => {
           role="region"
           aria-label="Mobile Navigation Menu"
           aria-hidden={!isOpen}
-          className={`md:hidden absolute top-20 left-0 w-full glass-panel border-b border-white/[0.04] transition-all duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+          className={`md:hidden absolute top-20 left-0 w-full bg-[#06090F]/98 backdrop-blur-3xl border-b border-white/[0.1] shadow-2xl z-[105] transition-all duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
         >
           <div className="px-6 py-6 flex flex-col gap-6">
             {navLinks.map((link) => (

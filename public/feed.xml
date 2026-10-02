@@ -11,8 +11,18 @@
     <copyright>Copyright 2026 Oakivo Solutions Inc. All rights reserved.</copyright>
     <managingEditor>hello@oakivo.com (Oakivo Editorial Team)</managingEditor>
     <webMaster>hello@oakivo.com (Oakivo Webmaster)</webMaster>
-    <lastBuildDate>Fri, 02 Oct 2026 01:08:57 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 01:27:50 GMT</lastBuildDate>
     <atom:link href="https://www.oakivo.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[Platform Engineering for Digital Marketing: How High-Growth Companies Turn Cloud Infrastructure and Edge SEO into Compounding Customer Acquisition]]></title>
+      <link>https://www.oakivo.com/insights/platform-engineering-for-digital-marketing-2026</link>
+      <guid isPermaLink="true">https://www.oakivo.com/insights/platform-engineering-for-digital-marketing-2026</guid>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+      <author><![CDATA[Oakivo Growth & Infrastructure Lab]]></author>
+      <description><![CDATA[Traditional marketing departments are paralyzed by slow engineering backlogs, while engineers fight against messy third-party marketing tags that destroy Core Web Vitals. In 2026, the high-performance remedy is Platform Engineering for Growth: building self-service digital experience engines, edge-rendered Generative Engine Optimization (GEO), and server-side event streaming that scale revenue without code bloat.]]></description>
+      <category><![CDATA[Platform Engineering & Growth]]></category>
+      <enclosure url="/images/insights/platform-engineering-for-digital-marketing-2026.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title><![CDATA[The Composable Enterprise Stack: Why Forward-Thinking Companies Are Marrying Headless ERP, Agentic Workflows, and High-Converting Web Portals in 2026]]></title>
       <link>https://www.oakivo.com/insights/composable-erp-agentic-workflows-web-portals-2026</link>

@@ -1,131 +1,32 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/SEO';
 import { insightsData, InsightPost } from '../content/insights';
-import { INDUSTRIES_CONFIG, IndustryId, IndustrySecurityProfile } from '../content/industryInsights';
-import { caseStudiesData, CaseStudyItem } from './CaseStudies';
 import OptimizedImage from '../components/OptimizedImage';
 import SubscribeNewsletter from '../components/SubscribeNewsletter';
 import { db } from '../utils/database';
 import {
   Search,
   X,
-  Shield,
-  Calendar,
-  Clock,
   ArrowRight,
-  ArrowUpRight,
-  Layers,
-  HeartPulse,
-  ShoppingBag,
-  Truck,
-  Landmark,
-  ShieldCheck,
-  CheckCircle2,
-  BookOpen,
-  Sparkles,
-  ChevronRight,
-  SlidersHorizontal,
-  Filter,
-  Zap,
-  Bookmark
+  BookOpen
 } from 'lucide-react';
 
-export interface RegulatoryFrameworkOption {
+interface CategoryTab {
   id: string;
-  name: string;
-  shortName: string;
-  tag: string;
+  label: string;
+  labelFr: string;
   keywords: string[];
 }
 
-export const REGULATORY_FRAMEWORKS: RegulatoryFrameworkOption[] = [
-  {
-    id: 'all',
-    name: 'All Compliance Frameworks',
-    shortName: 'All Frameworks',
-    tag: 'ALL',
-    keywords: []
-  },
-  {
-    id: 'soc2',
-    name: 'SOC 2 Type II',
-    shortName: 'SOC 2',
-    tag: 'SOC 2',
-    keywords: ['soc 2', 'soc 2 type ii', 'tsc', 'aicpa', 'type 2']
-  },
-  {
-    id: 'bill_c26',
-    name: 'Bill C-26 (CCSPA)',
-    shortName: 'Bill C-26',
-    tag: 'Bill C-26',
-    keywords: ['bill c-26', 'c-26', 'ccspa', 'critical cyber systems', 'cyber systems protection']
-  },
-  {
-    id: 'osfi_b13',
-    name: 'OSFI Guideline B-13',
-    shortName: 'OSFI B-13',
-    tag: 'OSFI B-13',
-    keywords: ['osfi b-13', 'osfi b13', 'osfi guideline b-13', 'osfi e-21', 'frfi', 'superintendent of financial institutions']
-  },
-  {
-    id: 'law25',
-    name: 'Quebec Law 25',
-    shortName: 'Law 25',
-    tag: 'Law 25',
-    keywords: ['law 25', 'loi 25', 'quebec', 'cai', 'commission d\'accès à l\'information']
-  },
-  {
-    id: 'pipeda',
-    name: 'PIPEDA / Canadian Sovereignty',
-    shortName: 'PIPEDA',
-    tag: 'PIPEDA',
-    keywords: ['pipeda', 'lprpde', 'canadian data sovereignty', 'privacy commissioner', 'sovereign data']
-  },
-  {
-    id: 'nist_ai',
-    name: 'NIST AI RMF 1.0 & SP 800-207',
-    shortName: 'NIST AI RMF',
-    tag: 'NIST AI',
-    keywords: ['nist ai', 'nist ai rmf', 'ai rmf', 'nist sp 800-207', 'nist', 'sp 800-207']
-  },
-  {
-    id: 'iso27001',
-    name: 'ISO/IEC 27001 & 42001',
-    shortName: 'ISO 27001 / 42001',
-    tag: 'ISO 27001',
-    keywords: ['iso 27001', 'iso/iec 27001', 'iso 42001', 'iso/iec 42001', 'aims', 'isms']
-  },
-  {
-    id: 'ebpf',
-    name: 'eBPF Kernel Telemetry',
-    shortName: 'eBPF Kernel',
-    tag: 'eBPF',
-    keywords: ['ebpf', 'kernel', 'bpf', 'cnapp', 'runtime security', 'socket filter', 'berkeley packet filter']
-  },
-  {
-    id: 'mcp',
-    name: 'Model Context Protocol (MCP)',
-    shortName: 'MCP Governance',
-    tag: 'MCP',
-    keywords: ['mcp', 'model context protocol', 'shadow agent', 'tool poisoning', 'context bleed', 'agentic']
-  },
-  {
-    id: 'zero_trust',
-    name: 'Zero-Trust & SPIFFE/SPIRE',
-    shortName: 'Zero-Trust',
-    tag: 'Zero-Trust',
-    keywords: ['zero trust', 'zero-trust', 'spiffe', 'spire', 'svid', 'mtls', 'least privilege', 'confidential computing']
-  },
-  {
-    id: 'composable_erp',
-    name: 'Modern ERP & Workflow Automation',
-    shortName: 'ERP & Automation',
-    tag: 'ERP & Automation',
-    keywords: ['erp', 'headless erp', 'composable erp', 'workflow automation', 'agentic', 'quote-to-cash', 'odoo', 'erpnext', 'web portal']
-  }
+const CATEGORY_TABS: CategoryTab[] = [
+  { id: 'all', label: 'All Briefings', labelFr: 'Toutes les publications', keywords: [] },
+  { id: 'erp', label: 'Modern ERP & Automation', labelFr: 'ERP & Automatisation', keywords: ['erp', 'automation', 'quote-to-cash', 'workflow', 'odoo', 'composable'] },
+  { id: 'platform', label: 'Platform & Growth', labelFr: 'Plateforme & Croissance', keywords: ['platform', 'growth', 'marketing', 'geo', 'engine', 'conversion'] },
+  { id: 'security', label: 'Cloud Security & DevSecOps', labelFr: 'Sécurité Cloud & DevSecOps', keywords: ['security', 'soc 2', 'bill c-26', 'osfi', 'zero-trust', 'ebpf', 'agentic', 'mcp', 'governance'] },
+  { id: 'healthcare', label: 'Healthcare & Data Sovereignty', labelFr: 'Santé & Souveraineté', keywords: ['health', 'phipa', 'law 25', 'pipeda', 'sovereignty', 'clinic'] }
 ];
 
 const calculateReadingTime = (content?: string, fallback?: string): string => {
@@ -139,16 +40,14 @@ const calculateReadingTime = (content?: string, fallback?: string): string => {
 
 const Insights: React.FC = () => {
   const { language } = useLanguage();
+  const isFr = language === 'fr';
   const [searchParams, setSearchParams] = useSearchParams();
   const [posts, setPosts] = useState<InsightPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // URL-driven or local industry filter
-  const initialIndustry = (searchParams.get('industry') as IndustryId) || 'all';
-  const [selectedIndustry, setSelectedIndustry] = useState<IndustryId>(initialIndustry);
-  const [selectedFramework, setSelectedFramework] = useState<string>('all');
+  const initialCategory = searchParams.get('category') || 'all';
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTag, setActiveTag] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -169,278 +68,79 @@ const Insights: React.FC = () => {
     fetchPosts();
   }, []);
 
-  // Sync state if URL query changes
-  useEffect(() => {
-    const urlInd = (searchParams.get('industry') as IndustryId) || 'all';
-    setSelectedIndustry(urlInd);
-  }, [searchParams]);
-
-  const handleIndustrySelect = (id: IndustryId) => {
-    setSelectedIndustry(id);
-    if (id === 'all') {
-      searchParams.delete('industry');
-      setSearchParams(searchParams);
+  const handleCategorySelect = (catId: string) => {
+    setSelectedCategory(catId);
+    if (catId === 'all') {
+      searchParams.delete('category');
     } else {
-      setSearchParams({ industry: id });
+      searchParams.set('category', catId);
     }
-  };
-
-  // Sector tabs configuration
-  const sectorTabs = [
-    { id: 'all' as IndustryId, label: 'All Sectors', labelFr: 'Tous les Secteurs', icon: Layers },
-    { id: 'healthcare' as IndustryId, label: 'Healthcare & Life Sciences', labelFr: 'Santé & Sciences', icon: HeartPulse },
-    { id: 'retail' as IndustryId, label: 'Retail & E-Commerce', labelFr: 'Commerce & Retail', icon: ShoppingBag },
-    { id: 'logistics' as IndustryId, label: 'Logistics & Supply Chain', labelFr: 'Logistique & Transport', icon: Truck },
-    { id: 'fintech' as IndustryId, label: 'Financial & FinTech', labelFr: 'Finance & FinTech', icon: Landmark },
-    { id: 'infrastructure' as IndustryId, label: 'Critical Infrastructure', labelFr: 'Infrastructures Critiques', icon: ShieldCheck }
-  ];
-
-  // Map each post to its industry profile
-  const enrichedPosts = useMemo(() => {
-    return posts.map(post => {
-      let detectedIndustry: IndustryId = post.industry || 'infrastructure';
-      if (!post.industry) {
-        const found = Object.entries(INDUSTRIES_CONFIG).find(([_, profile]) =>
-          profile.articleIds.includes(post.id)
-        );
-        if (found) {
-          detectedIndustry = found[0] as IndustryId;
-        } else {
-          const text = (post.title + ' ' + post.excerpt + ' ' + post.category).toLowerCase();
-          if (text.includes('health') || text.includes('phi') || text.includes('pipeda') || text.includes('patient')) {
-            detectedIndustry = 'healthcare';
-          } else if (text.includes('retail') || text.includes('pos') || text.includes('checkout') || text.includes('pci')) {
-            detectedIndustry = 'retail';
-          } else if (text.includes('logistics') || text.includes('supply chain') || text.includes('shipping') || text.includes('fleet')) {
-            detectedIndustry = 'logistics';
-          } else if (text.includes('soc 2') || text.includes('fintech') || text.includes('banking') || text.includes('crypto')) {
-            detectedIndustry = 'fintech';
-          } else {
-            detectedIndustry = 'infrastructure';
-          }
-        }
-      }
-
-      const industryConfig = detectedIndustry !== 'all' ? INDUSTRIES_CONFIG[detectedIndustry] : null;
-      return {
-        ...post,
-        detectedIndustry,
-        industryConfig,
-        matchedCaseStudyId: post.relatedCaseStudyId || industryConfig?.matchedCaseStudyId || 'atlantic-seafood-logistics'
-      };
-    });
-  }, [posts]);
-
-  // Counts per sector
-  const sectorCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: enrichedPosts.length };
-    sectorTabs.forEach(tab => {
-      if (tab.id !== 'all') {
-        counts[tab.id] = enrichedPosts.filter(p => p.detectedIndustry === tab.id).length;
-      }
-    });
-    return counts;
-  }, [enrichedPosts]);
-
-  // Counts per regulatory framework
-  const frameworkCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: enrichedPosts.length };
-    REGULATORY_FRAMEWORKS.forEach(fw => {
-      if (fw.id !== 'all') {
-        counts[fw.id] = enrichedPosts.filter(post => {
-          const text = (
-            post.title + ' ' + 
-            post.excerpt + ' ' + 
-            (post.complianceStandards?.join(' ') || '') + ' ' + 
-            (post.industryConfig?.keyRegulations?.join(' ') || '') + ' ' +
-            (post.content || '')
-          ).toLowerCase();
-          return fw.keywords.some(k => text.includes(k));
-        }).length;
-      }
-    });
-    return counts;
-  }, [enrichedPosts]);
-
-  // Quick compliance search shortcuts
-  const complianceShortcuts = [
-    { label: 'OSFI B-13', query: 'OSFI B-13' },
-    { label: 'Bill C-26', query: 'Bill C-26' },
-    { label: 'eBPF Kernel', query: 'eBPF' },
-    { label: 'MCP Agents', query: 'MCP' },
-    { label: 'Zero-Trust', query: 'Zero-Trust' },
-    { label: 'SOC 2 Type II', query: 'SOC 2' },
-    { label: 'Law 25', query: 'Law 25' }
-  ];
-
-  // Real-time Fuzzy Match algorithm across titles, abstracts, and regulatory standards
-  const calculateFuzzyMatch = (query: string, post: any): number => {
-    if (!query.trim()) return 100;
-    const cleanQ = query.trim().toLowerCase().replace(/[-_]/g, ' ');
-    const qTokens = cleanQ.split(/\s+/).filter(Boolean);
-
-    const title = (post.title || '').toLowerCase().replace(/[-_]/g, ' ');
-    const excerpt = (post.excerpt || '').toLowerCase().replace(/[-_]/g, ' ');
-    const category = (post.category || '').toLowerCase().replace(/[-_]/g, ' ');
-    const standards = (post.complianceStandards || []).map((s: string) => s.toLowerCase().replace(/[-_]/g, ' '));
-    const regulations = (post.industryConfig?.keyRegulations || []).map((r: string) => r.toLowerCase().replace(/[-_]/g, ' '));
-    const content = (post.content || '').toLowerCase();
-
-    let score = 0;
-
-    // 1. Exact query match in title
-    if (title.includes(cleanQ)) {
-      score += 180;
-    }
-
-    // 2. High-priority Regulatory Standards match (e.g., OSFI B-13, Bill C-26, eBPF, MCP, Zero-Trust)
-    for (const std of [...standards, ...regulations]) {
-      if (std.includes(cleanQ)) score += 160;
-      for (const t of qTokens) {
-        if (std.includes(t)) score += 50;
-      }
-    }
-
-    // 3. Excerpt & category match
-    if (excerpt.includes(cleanQ)) score += 90;
-    if (category.includes(cleanQ)) score += 70;
-
-    // 4. Token matches
-    let matchedTokens = 0;
-    for (const token of qTokens) {
-      if (title.includes(token)) {
-        score += 60;
-        matchedTokens++;
-      } else if (standards.some((s: string) => s.includes(token)) || regulations.some((r: string) => r.includes(token))) {
-        score += 50;
-        matchedTokens++;
-      } else if (excerpt.includes(token)) {
-        score += 30;
-        matchedTokens++;
-      } else if (content.includes(token)) {
-        score += 15;
-        matchedTokens++;
-      }
-    }
-
-    // Specific domain fuzzy boosts for exact technical queries
-    if (cleanQ === 'mcp' && (title.includes('model context protocol') || content.includes('model context protocol'))) {
-      score += 200;
-    }
-    if (cleanQ.includes('ebpf') && (title.includes('ebpf') || content.includes('ebpf') || content.includes('berkeley packet filter'))) {
-      score += 200;
-    }
-    if ((cleanQ.includes('b13') || cleanQ.includes('b 13') || cleanQ.includes('osfi')) && (title.includes('osfi') || standards.some((s: string) => s.includes('osfi')) || content.includes('osfi'))) {
-      score += 200;
-    }
-    if ((cleanQ.includes('c26') || cleanQ.includes('c 26') || cleanQ.includes('bill c')) && (title.includes('c-26') || standards.some((s: string) => s.includes('c-26')) || content.includes('c-26'))) {
-      score += 200;
-    }
-    if ((cleanQ.includes('zero trust') || cleanQ.includes('zerotrust')) && (title.includes('zero-trust') || title.includes('zero trust') || content.includes('zero-trust'))) {
-      score += 200;
-    }
-
-    if (matchedTokens === qTokens.length && qTokens.length > 1) {
-      score += 60;
-    }
-
-    return score;
-  };
-
-  // Real-time Filtering logic
-  const filteredPosts = useMemo(() => {
-    const scored = enrichedPosts.map(post => {
-      // 1. Sector match
-      if (selectedIndustry !== 'all' && post.detectedIndustry !== selectedIndustry) {
-        return { post, score: -1 };
-      }
-
-      // 2. Regulatory Framework Filter Chip match
-      if (selectedFramework !== 'all') {
-        const fw = REGULATORY_FRAMEWORKS.find(f => f.id === selectedFramework);
-        if (fw && fw.keywords.length > 0) {
-          const text = (
-            post.title + ' ' + 
-            post.excerpt + ' ' + 
-            (post.complianceStandards?.join(' ') || '') + ' ' + 
-            (post.industryConfig?.keyRegulations?.join(' ') || '') + ' ' +
-            (post.content || '')
-          ).toLowerCase();
-          const matchesFw = fw.keywords.some(k => text.includes(k));
-          if (!matchesFw) {
-            return { post, score: -1 };
-          }
-        }
-      }
-
-      // 3. Quick Tag match
-      if (activeTag) {
-        const t = activeTag.toLowerCase();
-        const inTitle = post.title.toLowerCase().includes(t);
-        const inExcerpt = post.excerpt.toLowerCase().includes(t);
-        const inCategory = post.category.toLowerCase().includes(t);
-        const inStandards = post.complianceStandards?.some(s => s.toLowerCase().includes(t));
-        const inContent = post.content?.toLowerCase().includes(t);
-        if (!inTitle && !inExcerpt && !inCategory && !inStandards && !inContent) {
-          return { post, score: -1 };
-        }
-      }
-
-      // 4. Real-time Fuzzy Match scoring
-      if (!searchQuery.trim()) {
-        return { post, score: 100 };
-      }
-
-      const score = calculateFuzzyMatch(searchQuery, post);
-      return { post, score };
-    });
-
-    return scored
-      .filter(item => item.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .map(item => item.post);
-  }, [enrichedPosts, selectedIndustry, selectedFramework, searchQuery, activeTag]);
-
-  // Active sector profile & matched case study
-  const activeSectorProfile: IndustrySecurityProfile | null =
-    selectedIndustry !== 'all' ? INDUSTRIES_CONFIG[selectedIndustry] : null;
-
-  const matchedCaseStudy: CaseStudyItem | undefined = useMemo(() => {
-    if (!activeSectorProfile) return undefined;
-    return caseStudiesData.find(cs => cs.id === activeSectorProfile.matchedCaseStudyId) || caseStudiesData[0];
-  }, [activeSectorProfile]);
-
-  // Featured lead post
-  const isDefaultView = selectedIndustry === 'all' && selectedFramework === 'all' && !searchQuery.trim() && !activeTag;
-  const featuredPost = isDefaultView && filteredPosts.length > 0 ? filteredPosts[0] : null;
-  const gridPosts = isDefaultView && featuredPost ? filteredPosts.slice(1) : filteredPosts;
-
-  const resetFilters = () => {
-    setSelectedIndustry('all');
-    setSelectedFramework('all');
-    setSearchQuery('');
-    setActiveTag(null);
-    searchParams.delete('industry');
     setSearchParams(searchParams);
   };
+
+  // Filtered posts with noise-free matching
+  const filteredPosts = useMemo(() => {
+    return posts.filter(post => {
+      // 1. Category Filter
+      if (selectedCategory !== 'all') {
+        const activeTab = CATEGORY_TABS.find(t => t.id === selectedCategory);
+        if (activeTab && activeTab.keywords.length > 0) {
+          const searchable = (
+            post.title + ' ' +
+            post.category + ' ' +
+            post.excerpt + ' ' +
+            (post.complianceStandards?.join(' ') || '')
+          ).toLowerCase();
+          const matchesCategory = activeTab.keywords.some(kw => searchable.includes(kw));
+          if (!matchesCategory) return false;
+        }
+      }
+
+      // 2. Search Query Filter
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const searchable = (
+          post.title + ' ' +
+          post.excerpt + ' ' +
+          post.category + ' ' +
+          (post.complianceStandards?.join(' ') || '') + ' ' +
+          (post.author || '')
+        ).toLowerCase();
+        if (!searchable.includes(q)) return false;
+      }
+
+      return true;
+    });
+  }, [posts, selectedCategory, searchQuery]);
+
+  const resetFilters = () => {
+    setSelectedCategory('all');
+    setSearchQuery('');
+    searchParams.delete('category');
+    setSearchParams(searchParams);
+  };
+
+  const isDefaultView = selectedCategory === 'all' && !searchQuery.trim();
+  const featuredPost = isDefaultView && filteredPosts.length > 0 ? filteredPosts[0] : null;
+  const gridPosts = isDefaultView && featuredPost ? filteredPosts.slice(1) : filteredPosts;
 
   return (
     <>
       <SEO 
-        title={language === 'fr' 
-          ? "Analyses & Rapports de Sécurité Cloud | Oakivo Solutions" 
-          : "Engineering Insights & DevSecOps Intelligence | Oakivo Solutions"}
-        description={language === 'fr'
-          ? "Recherches appliquées sur le Zero-Trust, la souveraineté canadienne (Bill C-26, Loi 25, PIPEDA) et l'automatisation de conformité avec études de cas réelles."
-          : "Explore technical briefings on Canadian data sovereignty (Bill C-26, PIPEDA, Law 25), zero-trust cloud architecture, autonomous AI security, and production case studies."}
+        title={isFr 
+          ? "Analyses & Rapports Techniques | Oakivo Solutions" 
+          : "Engineering Insights & Strategic Briefings | Oakivo Solutions"}
+        description={isFr
+          ? "Recherche appliquée sur les architectures ERP modernes, l'automatisation des flux, le platform engineering et la souveraineté canadienne des données."
+          : "Authoritative engineering briefings on modern headless ERP, autonomous agentic workflows, platform engineering for growth, and Canadian cloud data sovereignty."}
         canonical="/insights"
-        keywords="SOC 2 Type II audit readiness checklist Canada, Bill C-26 Critical Cyber Systems compliance roadmap, PIPEDA vs. HIPAA cloud storage architecture, Terraform AWS EKS hardening consultant Calgary / Toronto / Halifax, DevSecOps Moncton, Cloud Security New Brunswick, Canadian cloud compliance"
+        keywords="modern ERP architecture, headless ERP, workflow automation, platform engineering, Canadian data sovereignty, SOC 2 Type II, Law 25, PIPEDA, generative engine optimization"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
-          name: 'Oakivo Engineering Insights & Security Intelligence',
+          name: 'Oakivo Engineering Insights & Strategic Briefings',
           url: 'https://www.oakivo.com/insights',
-          description: 'Technical whitepapers, cloud compliance frameworks, and verified DevSecOps architectures for Canadian enterprises.',
+          description: 'Authoritative research briefings on modern ERP, workflow automation, platform engineering, and cloud data sovereignty.',
           publisher: {
             '@type': 'Organization',
             name: 'Oakivo Solutions Inc.',
@@ -449,513 +149,242 @@ const Insights: React.FC = () => {
         }}
       />
 
-      <div className="bg-slate-950 min-h-screen text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+      <div className="bg-[#070A10] min-h-screen text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
         
-        {/* Subtle Ambient Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[450px] bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none" />
-
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-24 relative z-10">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-28 md:pt-36 pb-24 relative z-10">
           
-          {/* Header Section */}
-          <header className="max-w-3xl mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono font-bold tracking-widest uppercase mb-4">
-              <Shield size={14} />
-              <span>{language === 'fr' ? 'Recherche & Veille Sectorielle' : 'Research & Sector Intelligence'}</span>
-            </div>
+          {/* Minimalist Editorial Header */}
+          <header className="max-w-2xl mb-12">
+            <p className="text-xs font-mono font-medium tracking-widest text-cyan-400 uppercase mb-3">
+              {isFr ? 'Recherche Appliquée & Perspectives' : 'Applied Research & Perspectives'}
+            </p>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight leading-[1.1] mb-5">
-              {language === 'fr' ? (
-                <>Analyses de <span className="text-cyan-400">Sécurité</span> & Études de Cas</>
-              ) : (
-                <>Security <span className="text-cyan-400">Insights</span> & Case Studies</>
-              )}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-tight mb-4">
+              {isFr ? 'Analyses & Rapports Techniques' : 'Engineering Insights & Strategic Briefings'}
             </h1>
 
-            <p className="text-base sm:text-lg text-slate-400 font-light leading-relaxed">
-              {language === 'fr'
-                ? 'Recherche appliquée sur le Zero-Trust, la souveraineté des données canadiennes (Bill C-26, Loi 25, PIPEDA) et l\'ingénierie DevSecOps, accompagnée de déploiements clients vérifiés.'
-                : 'Applied research on Zero-Trust Architecture, Canadian data sovereignty (Bill C-26, PIPEDA, Law 25), and autonomous AI defense, paired with verified production client case studies.'}
+            <p className="text-sm sm:text-base text-slate-400 font-light leading-relaxed">
+              {isFr
+                ? 'Recherche appliquée sur les architectures ERP modernes, l’automatisation des flux, le platform engineering et la souveraineté des données.'
+                : 'Authoritative analysis on composable ERP backbones, autonomous agentic workflows, platform growth engineering, and sovereign cloud security.'}
             </p>
           </header>
 
-          {/* Unified Filter & Search Control Bar */}
-          <section aria-label="Filter insights" className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-2xl md:rounded-3xl p-5 md:p-6 mb-12 shadow-xl">
-            
-            {/* Search Input & Total Matches Counter */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-800">
-              <div className="relative flex-grow max-w-xl">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
+          {/* Minimalist Filter & Search Bar */}
+          <div className="mb-12 space-y-4">
+            {/* Top row: Clean search input & count */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" size={15} />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={language === 'fr' 
-                    ? 'Rechercher par titre, norme (SOC 2, Loi 25), mot-clé...' 
-                    : 'Search by topic, framework (SOC 2, Law 25, Bill C-26), keyword...'}
-                  aria-label="Search insights"
-                  className="w-full bg-slate-950/90 border border-slate-700/70 rounded-xl py-2.5 pl-10 pr-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors"
+                  placeholder={isFr ? 'Rechercher par sujet ou mot-clé...' : 'Search by topic, keyword, or framework...'}
+                  aria-label="Search briefings"
+                  className="w-full bg-slate-900/60 border border-white/[0.08] focus:border-cyan-400/60 rounded-xl py-2 pl-9 pr-9 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none transition-colors"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    aria-label="Clear search input"
+                    aria-label="Clear search"
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
                   >
-                    <X size={15} />
+                    <X size={14} />
                   </button>
                 )}
               </div>
 
-              {/* Status and Active Count */}
-              <div className="flex items-center justify-between md:justify-end gap-3 text-xs font-mono text-slate-400">
+              <div className="flex items-center justify-between sm:justify-end gap-3 text-xs font-mono text-slate-500">
                 <span>
-                  {language === 'fr' 
+                  {isFr 
                     ? `${filteredPosts.length} publication${filteredPosts.length > 1 ? 's' : ''}` 
-                    : `Showing ${filteredPosts.length} report${filteredPosts.length !== 1 ? 's' : ''}`}
+                    : `${filteredPosts.length} briefing${filteredPosts.length !== 1 ? 's' : ''}`}
                 </span>
 
-                {(selectedIndustry !== 'all' || searchQuery || activeTag) && (
+                {(selectedCategory !== 'all' || searchQuery) && (
                   <button
                     onClick={resetFilters}
-                    className="text-cyan-400 hover:text-cyan-300 font-bold hover:underline transition-colors cursor-pointer"
+                    className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors cursor-pointer"
                   >
-                    {language === 'fr' ? 'Réinitialiser' : 'Reset filters'}
+                    {isFr ? 'Réinitialiser' : 'Reset'}
                   </button>
                 )}
               </div>
             </div>
 
-              {/* Quick Compliance Search Shortcuts */}
-              <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mr-0.5">
-                  {language === 'fr' ? 'Recherche rapide :' : 'Audit Shortcuts:'}
-                </span>
-                {complianceShortcuts.map((sc) => (
+            {/* Quiet Category Selector Tabs (Unboxed, Minimalist Text Buttons) */}
+            <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none border-b border-white/[0.06]">
+              {CATEGORY_TABS.map((tab) => {
+                const isSelected = selectedCategory === tab.id;
+                return (
                   <button
-                    key={sc.label}
-                    type="button"
-                    onClick={() => setSearchQuery(sc.query)}
-                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-950/80 border border-slate-800 text-[11px] font-mono text-cyan-400 hover:text-white hover:border-cyan-500/40 transition-colors cursor-pointer"
+                    key={tab.id}
+                    onClick={() => handleCategorySelect(tab.id)}
+                    className={`px-3 py-2 text-xs font-medium whitespace-nowrap transition-colors border-b-2 -mb-px cursor-pointer ${
+                      isSelected
+                        ? 'border-cyan-400 text-white font-semibold'
+                        : 'border-transparent text-slate-400 hover:text-slate-200'
+                    }`}
                   >
-                    <Zap size={11} className="text-cyan-400" />
-                    <span>{sc.label}</span>
+                    {isFr ? tab.labelFr : tab.label}
                   </button>
-                ))}
-              </div>
-
-            {/* Sector Tabs Bar */}
-            <div className="pt-4 space-y-3 border-t border-slate-800/60 mt-4">
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                {sectorTabs.map((tab) => {
-                  const Icon = tab.icon;
-                  const isSelected = selectedIndustry === tab.id;
-                  const count = sectorCounts[tab.id] || 0;
-
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => handleIndustrySelect(tab.id)}
-                      className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-medium whitespace-nowrap transition-all border cursor-pointer ${
-                        isSelected
-                          ? 'bg-cyan-500 text-slate-950 border-cyan-400 font-bold shadow-md shadow-cyan-500/20'
-                          : 'bg-slate-950/60 text-slate-300 border-slate-800 hover:bg-slate-800/80 hover:text-white hover:border-slate-700'
-                      }`}
-                    >
-                      <Icon size={14} className={isSelected ? 'text-slate-950' : 'text-cyan-400'} />
-                      <span>{language === 'fr' ? tab.labelFr : tab.label}</span>
-                      <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
-                        isSelected ? 'bg-slate-950/20 text-slate-950 font-bold' : 'bg-slate-800 text-slate-400'
-                      }`}>
-                        {count}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Regulatory Framework Filter Chips Row */}
-              <div className="pt-3 border-t border-slate-800/50">
-                <div className="flex items-center justify-between mb-2.5">
-                  <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">
-                    <SlidersHorizontal size={13} />
-                    <span>{language === 'fr' ? 'Filtrer par Norme & Cadre Réglementaire :' : 'Filter by Regulatory Framework & Standard:'}</span>
-                  </div>
-                  {selectedFramework !== 'all' && (
-                    <button
-                      onClick={() => setSelectedFramework('all')}
-                      className="text-[11px] font-mono text-slate-400 hover:text-white transition-colors cursor-pointer"
-                    >
-                      {language === 'fr' ? 'Toutes les normes' : 'Reset standard'}
-                    </button>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                  {REGULATORY_FRAMEWORKS.map((fw) => {
-                    const isSelected = selectedFramework === fw.id;
-                    const count = frameworkCounts[fw.id] || 0;
-                    if (fw.id !== 'all' && count === 0) return null;
-
-                    return (
-                      <button
-                        key={fw.id}
-                        type="button"
-                        onClick={() => setSelectedFramework(isSelected && fw.id !== 'all' ? 'all' : fw.id)}
-                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium whitespace-nowrap transition-all border cursor-pointer ${
-                          isSelected
-                            ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400/60 shadow-sm shadow-cyan-500/10 font-bold'
-                            : 'bg-slate-950/70 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white'
-                        }`}
-                      >
-                        <ShieldCheck size={12} className={isSelected ? 'text-cyan-400' : 'text-slate-500'} />
-                        <span>{fw.shortName}</span>
-                        <span className={`px-1.5 py-0.2 rounded text-[10px] ${
-                          isSelected ? 'bg-cyan-400 text-slate-950 font-bold' : 'bg-slate-800 text-slate-400'
-                        }`}>
-                          {count}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+                );
+              })}
             </div>
-          </section>
+          </div>
 
-          {/* Sector Overview Spotlight Card (Rendered only when a specific sector is filtered) */}
-          <AnimatePresence mode="wait">
-            {activeSectorProfile && matchedCaseStudy && (
-              <motion.div
-                key={activeSectorProfile.id}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.25 }}
-                className="mb-12 rounded-3xl bg-gradient-to-br from-slate-900/90 to-slate-950/90 border border-cyan-500/30 p-6 md:p-8 shadow-2xl relative overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                  {/* Left Column: Sector context */}
-                  <div className="lg:col-span-7 space-y-4">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider">
-                        {activeSectorProfile.badge}
-                      </span>
-                      <span className="text-xs font-mono text-slate-400">
-                        {language === 'fr' ? 'Architecture Recommandée' : 'Target Architecture'}
-                      </span>
-                    </div>
-
-                    <h2 className="text-2xl md:text-3xl font-display font-bold text-white">
-                      {language === 'fr' ? activeSectorProfile.nameFr : activeSectorProfile.name}
-                    </h2>
-
-                    <p className="text-sm text-slate-300 font-light leading-relaxed">
-                      {language === 'fr' ? activeSectorProfile.descriptionFr : activeSectorProfile.description}
-                    </p>
-
-                    {/* Key Regulations */}
-                    <div className="flex flex-wrap items-center gap-2 pt-1">
-                      <span className="text-xs font-mono text-slate-500 uppercase">
-                        {language === 'fr' ? 'Cadres Réglementaires :' : 'Compliance Mandates:'}
-                      </span>
-                      {activeSectorProfile.keyRegulations.map((reg, rIdx) => (
-                        <span key={rIdx} className="px-2.5 py-0.5 rounded-md bg-slate-950 border border-slate-800 text-slate-300 text-xs font-mono">
-                          {reg}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Right Column: Linked Production Case Study */}
-                  <div className="lg:col-span-5 bg-slate-950/80 border border-slate-800 rounded-2xl p-5 space-y-4">
-                    <div className="flex items-center justify-between text-xs font-mono text-cyan-400">
-                      <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider">
-                        <Sparkles size={13} />
-                        {language === 'fr' ? 'Étude de Cas Déployée' : 'Verified Case Study'}
-                      </span>
-                      <span className="text-slate-500">{matchedCaseStudy.location}</span>
-                    </div>
-
-                    <h3 className="text-base font-bold text-white leading-snug">
-                      {matchedCaseStudy.title}
-                    </h3>
-
-                    {/* Results metrics */}
-                    <div className="grid grid-cols-3 gap-2">
-                      {matchedCaseStudy.results.map((res, mIdx) => (
-                        <div key={mIdx} className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-center">
-                          <span className="text-sm md:text-base font-extrabold font-mono text-white block">
-                            {res.metric}
-                          </span>
-                          <span className="text-[10px] font-mono text-slate-400 mt-0.5 block truncate">
-                            {res.label}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Link
-                      to={`/case-studies#${matchedCaseStudy.id}`}
-                      className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-mono font-medium transition-all group cursor-pointer"
-                    >
-                      <span>{language === 'fr' ? 'Consulter l’étude complète' : 'View Full Case Study'}</span>
-                      <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Loading Skeleton */}
+          {/* Loading State */}
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="flex flex-col bg-slate-900/40 rounded-3xl overflow-hidden border border-slate-800/60 animate-pulse">
-                  <div className="h-52 bg-slate-800" />
-                  <div className="p-7 space-y-4 flex-grow">
-                    <div className="w-24 h-4 bg-slate-800 rounded" />
-                    <div className="w-full h-6 bg-slate-800 rounded" />
-                    <div className="w-3/4 h-6 bg-slate-800 rounded" />
-                    <div className="w-full h-3 bg-slate-800 rounded mt-4" />
-                    <div className="w-4/5 h-3 bg-slate-800 rounded" />
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex flex-col bg-slate-900/30 rounded-2xl overflow-hidden border border-white/[0.05] animate-pulse">
+                  <div className="h-48 bg-slate-800/50" />
+                  <div className="p-6 space-y-3">
+                    <div className="w-24 h-3 bg-slate-800 rounded" />
+                    <div className="w-full h-5 bg-slate-800 rounded" />
+                    <div className="w-3/4 h-3 bg-slate-800 rounded mt-2" />
                   </div>
                 </div>
               ))}
             </div>
           ) : filteredPosts.length === 0 ? (
             /* Empty State */
-            <div className="text-center py-20 bg-slate-900/40 rounded-3xl border border-slate-800 border-dashed space-y-4">
-              <BookOpen className="mx-auto h-12 w-12 text-slate-600" />
-              <h2 className="text-xl font-display font-medium text-white">
-                {language === 'fr' ? 'Aucun rapport technique trouvé' : 'No technical reports matched your filter'}
-              </h2>
-              <p className="text-slate-400 text-sm max-w-md mx-auto font-light">
-                {language === 'fr'
-                  ? 'Essayez de modifier votre requête de recherche ou réinitialisez les filtres pour explorer nos publications.'
-                  : 'Try adjusting your search terms or clearing the current sector filter to see all research publications.'}
+            <div className="text-center py-16 bg-slate-900/20 rounded-2xl border border-white/[0.06] space-y-3">
+              <BookOpen className="mx-auto h-8 w-8 text-slate-600" />
+              <p className="text-base font-medium text-white">
+                {isFr ? 'Aucune publication ne correspond à vos critères' : 'No briefings match your search'}
               </p>
               <button
                 onClick={resetFilters}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-mono text-xs font-bold hover:bg-cyan-400 transition-colors shadow-lg shadow-cyan-500/20 cursor-pointer"
+                className="text-xs font-mono text-cyan-400 hover:underline cursor-pointer"
               >
-                {language === 'fr' ? 'Afficher toutes les publications' : 'View all publications'}
+                {isFr ? 'Afficher toutes les publications' : 'View all briefings'}
               </button>
             </div>
           ) : (
             <div className="space-y-12">
-              {/* Lead Featured Article (Magazine Editorial Layout) */}
+              
+              {/* Featured Lead Briefing (Clean Minimalist Editorial Layout) */}
               {featuredPost && (
-                <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
+                <article>
                   <Link
                     to={`/insights/${featuredPost.id}`}
-                    className="group block bg-slate-900/50 hover:bg-slate-900/80 border border-slate-800/80 hover:border-cyan-500/50 rounded-3xl overflow-hidden transition-all duration-300 shadow-2xl"
+                    className="group block bg-slate-900/30 hover:bg-slate-900/50 border border-white/[0.06] hover:border-cyan-500/30 rounded-2xl overflow-hidden transition-all duration-300"
                   >
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                      {/* Left Editorial Content */}
-                      <div className="lg:col-span-7 p-8 md:p-12 lg:p-14 flex flex-col justify-between">
-                        <div>
-                          <div className="flex flex-wrap items-center gap-3 mb-5">
-                            <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">
-                              {featuredPost.category}
-                            </span>
-                            <span className="text-slate-400 text-xs font-mono flex items-center gap-1.5">
-                              <Calendar size={13} />
-                              {featuredPost.date}
-                            </span>
-                            <span className="text-slate-400 text-xs font-mono flex items-center gap-1.5">
-                              <Clock size={13} className="text-cyan-400" />
-                              {featuredPost.readTime || calculateReadingTime(featuredPost.content)}
-                            </span>
+                      
+                      {/* Left: Pure Typography Content */}
+                      <div className="lg:col-span-7 p-6 sm:p-8 md:p-10 flex flex-col justify-between space-y-4">
+                        <div className="space-y-3">
+                          {/* Unboxed Metadata (Zero-Pill Discipline) */}
+                          <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+                            <span className="text-cyan-400 uppercase tracking-wider">{featuredPost.category}</span>
+                            <span aria-hidden="true" className="text-slate-600">·</span>
+                            <span>{featuredPost.date}</span>
+                            <span aria-hidden="true" className="text-slate-600">·</span>
+                            <span>{featuredPost.readTime || calculateReadingTime(featuredPost.content)}</span>
                           </div>
 
-                          <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-white group-hover:text-cyan-300 transition-colors leading-tight mb-4">
+                          <h2 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
                             {featuredPost.title}
                           </h2>
 
-                          <p className="text-slate-400 text-base md:text-lg font-light leading-relaxed mb-6">
+                          <p className="text-slate-400 text-sm sm:text-base font-light leading-relaxed line-clamp-3">
                             {featuredPost.excerpt}
                           </p>
-
-                          {/* Executive Takeaways Highlights */}
-                          {featuredPost.keyTakeaways && featuredPost.keyTakeaways.length > 0 && (
-                            <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 mb-6 space-y-2">
-                              <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-                                <Sparkles size={12} />
-                                {language === 'fr' ? 'Points Clés de Recherche :' : 'Key Research Takeaways:'}
-                              </span>
-                              <ul className="space-y-1.5">
-                                {featuredPost.keyTakeaways.slice(0, 2).map((takeaway, tIdx) => (
-                                  <li key={tIdx} className="text-xs text-slate-300 flex items-start gap-2">
-                                    <ChevronRight size={14} className="text-cyan-400 flex-shrink-0 mt-0.5" />
-                                    <span className="line-clamp-2">{takeaway}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
                         </div>
 
-                        <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-                          <span className="text-xs font-mono text-slate-400">
-                            {featuredPost.author}
-                          </span>
-                          <span className="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform">
-                            <span>{language === 'fr' ? 'Lire le rapport complet' : 'Read Full Analysis'}</span>
-                            <ArrowRight size={14} />
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Right Cover Image with SEO Alt Tag */}
-                      <div className="lg:col-span-5 relative h-72 sm:h-96 lg:h-auto overflow-hidden bg-slate-950">
-                        {featuredPost.coverImage ? (
-                          <OptimizedImage
-                            src={featuredPost.coverImage}
-                            alt={`${featuredPost.title} - Oakivo DevSecOps Intelligence`}
-                            fetchPriority="high"
-                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-slate-900 text-slate-700">
-                            <BookOpen size={48} />
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-900/90 via-transparent to-transparent pointer-events-none" />
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              )}
-
-              {/* Grid of Remaining Technical Reports */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {gridPosts.map((post, idx) => (
-                  <motion.div
-                    key={post.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: Math.min(idx * 0.05, 0.3) }}
-                  >
-                    <Link
-                      to={`/insights/${post.id}`}
-                      className="group flex flex-col h-full bg-slate-900/50 hover:bg-slate-900/80 border border-slate-800/80 hover:border-cyan-500/50 rounded-3xl overflow-hidden transition-all duration-300 shadow-xl"
-                    >
-                      {/* Image Header with Alt Tag */}
-                      <div className="h-52 w-full relative overflow-hidden bg-slate-950">
-                        {post.coverImage ? (
-                          <OptimizedImage
-                            src={post.coverImage}
-                            alt={`${post.title} - Oakivo DevSecOps Technical Report`}
-                            fetchPriority="low"
-                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-slate-900 text-slate-700">
-                            <BookOpen size={36} />
-                          </div>
-                        )}
-
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-70" />
-
-                        {/* Category badge */}
-                        <div className="absolute top-4 left-4">
-                          <span className="px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-md border border-slate-700 text-white font-mono text-[10px] font-bold uppercase tracking-wider">
-                            {post.category}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Content Card Body */}
-                      <div className="p-7 flex flex-col flex-grow justify-between space-y-4">
-                        <div>
-                          {/* Date and Read Time */}
-                          <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
-                            <span className="flex items-center gap-1.5">
-                              <Calendar size={13} />
-                              {post.date}
-                            </span>
-                            <span className="flex items-center gap-1 text-cyan-400">
-                              <Clock size={12} />
-                              {post.readTime || calculateReadingTime(post.content)}
-                            </span>
-                          </div>
-
-                          {/* Title */}
-                          <h3 className="text-xl font-display font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug mb-3">
-                            {post.title}
-                          </h3>
-
-                          {/* Excerpt */}
-                          <p className="text-sm text-slate-400 font-light line-clamp-3 leading-relaxed mb-4">
-                            {post.excerpt}
-                          </p>
-
-                          {/* Compliance Standards Tags */}
-                          {post.complianceStandards && post.complianceStandards.length > 0 && (
-                            <div className="flex flex-wrap gap-1.5 mb-2">
-                              {post.complianceStandards.slice(0, 3).map((std, sIdx) => (
-                                <span key={sIdx} className="px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-[10px] font-mono text-slate-400">
-                                  {std}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Footer link */}
-                        <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                          <span className="text-slate-500 truncate max-w-[150px]">
-                            {post.author}
-                          </span>
-                          <span className="inline-flex items-center gap-1 text-cyan-400 group-hover:translate-x-1 transition-transform font-medium">
-                            <span>{language === 'fr' ? 'Consulter' : 'Read Report'}</span>
+                        <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono">
+                          <span className="text-slate-500">{featuredPost.author}</span>
+                          <span className="inline-flex items-center gap-1.5 text-cyan-400 group-hover:translate-x-1 transition-transform font-medium">
+                            <span>{isFr ? 'Lire l’analyse' : 'Read briefing'}</span>
                             <ArrowRight size={13} />
                           </span>
                         </div>
                       </div>
+
+                      {/* Right: Clean Cover Image */}
+                      <div className="lg:col-span-5 relative h-56 sm:h-72 lg:h-auto overflow-hidden bg-slate-950">
+                        {featuredPost.coverImage && (
+                          <OptimizedImage
+                            src={featuredPost.coverImage}
+                            alt={featuredPost.title}
+                            fetchPriority="high"
+                            className="w-full h-full object-cover transform group-hover:scale-102 transition-transform duration-500"
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-[#070A10]/80 via-transparent to-transparent pointer-events-none" />
+                      </div>
+
+                    </div>
+                  </Link>
+                </article>
+              )}
+
+              {/* Grid of Remaining Briefings (Clean, Minimalist, Zero-Pill) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                {gridPosts.map((post) => (
+                  <article key={post.id} className="flex flex-col">
+                    <Link
+                      to={`/insights/${post.id}`}
+                      className="group flex flex-col h-full bg-slate-900/25 hover:bg-slate-900/50 border border-white/[0.06] hover:border-cyan-500/30 rounded-2xl overflow-hidden transition-all duration-200"
+                    >
+                      {/* Image */}
+                      <div className="h-44 w-full relative overflow-hidden bg-slate-950">
+                        {post.coverImage && (
+                          <OptimizedImage
+                            src={post.coverImage}
+                            alt={post.title}
+                            fetchPriority="low"
+                            className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-500"
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#070A10] via-transparent to-transparent opacity-60" />
+                      </div>
+
+                      {/* Body */}
+                      <div className="p-5 sm:p-6 flex flex-col flex-grow justify-between space-y-3">
+                        <div className="space-y-2.5">
+                          {/* Unboxed Metadata (Zero-Pill Discipline) */}
+                          <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
+                            <span className="text-cyan-400 uppercase tracking-wider">{post.category}</span>
+                            <span aria-hidden="true" className="text-slate-600">·</span>
+                            <span>{post.readTime || calculateReadingTime(post.content)}</span>
+                          </div>
+
+                          <h3 className="text-base sm:text-lg font-display font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">
+                            {post.title}
+                          </h3>
+
+                          <p className="text-xs sm:text-sm text-slate-400 font-light line-clamp-2 leading-relaxed">
+                            {post.excerpt}
+                          </p>
+                        </div>
+
+                        {/* Quiet Footer */}
+                        <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono">
+                          <span className="text-slate-500 text-[11px] truncate max-w-[140px]">
+                            {post.author}
+                          </span>
+                          <span className="inline-flex items-center gap-1 text-cyan-400 group-hover:translate-x-1 transition-transform font-medium">
+                            <span>{isFr ? 'Lire' : 'Read'}</span>
+                            <ArrowRight size={12} />
+                          </span>
+                        </div>
+                      </div>
                     </Link>
-                  </motion.div>
+                  </article>
                 ))}
               </div>
+
             </div>
           )}
 
-          {/* Bridging Theory & Production: Case Studies Banner */}
-          <section aria-label="Case studies banner" className="mt-20 p-8 md:p-10 rounded-3xl bg-slate-900/40 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-2 max-w-2xl">
-              <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
-                {language === 'fr' ? 'De l’Architecture à la Production' : 'From Architecture to Verified Production'}
-              </span>
-              <h3 className="text-xl md:text-2xl font-display font-bold text-white">
-                {language === 'fr'
-                  ? 'Découvrez comment nos architectures sont déployées chez nos clients canadiens.'
-                  : 'Explore how Oakivo architectures operate in mission-critical Canadian enterprises.'}
-              </h3>
-              <p className="text-sm text-slate-400 font-light">
-                {language === 'fr'
-                  ? 'Consultez nos études de cas avec métriques quantifiées d\'audit SOC 2, résilience eBPF et réduction de coûts cloud.'
-                  : 'Real data, zero marketing claims. See how we reduced deployment friction and guaranteed 100% audit readiness.'}
-              </p>
-            </div>
-
-            <Link
-              to="/case-studies"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-mono text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer"
-            >
-              <span>{language === 'fr' ? 'Voir les Études de Cas' : 'Explore All Case Studies'}</span>
-              <ArrowRight size={14} className="text-cyan-400" />
-            </Link>
-          </section>
-
-          {/* Newsletter Subscription Component in Footer of Insights Page */}
-          <SubscribeNewsletter className="mt-16" source="insights_page_footer" />
+          {/* Understated Minimalist Newsletter Subscription Strip */}
+          <div className="mt-16 pt-8 border-t border-white/[0.06]">
+            <SubscribeNewsletter />
+          </div>
 
         </div>
       </div>

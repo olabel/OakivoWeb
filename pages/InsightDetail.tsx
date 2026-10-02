@@ -269,8 +269,8 @@ const InsightDetail: React.FC = () => {
         }}
       />
       
-      {/* Top Reading Progress Bar (Pinned at top edge) */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-slate-900 z-50">
+      {/* Top Reading Progress Bar (Pinned beneath navbar) */}
+      <div className="fixed top-20 left-0 w-full h-0.5 bg-slate-900/80 z-[90]">
         <div 
           className="h-full bg-gradient-to-r from-cyan-500 to-sky-400 shadow-sm shadow-cyan-500/50 transition-all duration-150 ease-out"
           style={{ width: `${scrollProgress}%` }}

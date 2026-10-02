@@ -84,6 +84,13 @@ async function startServer() {
         console.warn(`[SECURITY ALERT] Honeypot field filled on ${req.path}. Bot activity intercepted from IP: ${ip}`);
         return res.status(200).json({ success: true, message: 'Submission processed.' });
       }
+
+      // Prototype Pollution & Injection Defense
+      const bodyStr = JSON.stringify(req.body || {});
+      if (bodyStr.includes('__proto__') || (bodyStr.includes('constructor') && bodyStr.includes('prototype'))) {
+        console.warn(`[SECURITY ALERT] Prototype pollution attempt blocked from IP: ${ip}`);
+        return res.status(400).json({ error: 'Malformed or disallowed request payload.' });
+      }
     }
     next();
   });
@@ -1459,7 +1466,17 @@ Timestamp: ${new Date().toISOString()}
         return res.status(401).json({ error: 'Unauthorized: User identity not found.' });
       }
 
-      (req as any).adminUser = data.users[0];
+      const user = data.users[0];
+      const userEmail = (user.email || '').toLowerCase().trim();
+      const authorizedEmails = ['olabel@gmail.com', 'hello@oakivo.com', 'contact@oakivo.com', 'admin@oakivo.com'];
+      const isAuthorized = userEmail && (authorizedEmails.includes(userEmail) || userEmail.endsWith('@oakivo.com'));
+      
+      if (!isAuthorized) {
+        console.warn(`[SECURITY ALERT] Unauthorized admin access attempt by ${userEmail} from ${req.ip}`);
+        return res.status(403).json({ error: 'Forbidden: Insufficient administrative privileges.' });
+      }
+
+      (req as any).adminUser = user;
       next();
     } catch (err) {
       console.error('[SECURITY AUDIT] Authentication check failure:', err);
