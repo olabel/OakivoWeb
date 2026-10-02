@@ -118,6 +118,13 @@ export const REGULATORY_FRAMEWORKS: RegulatoryFrameworkOption[] = [
     shortName: 'Zero-Trust',
     tag: 'Zero-Trust',
     keywords: ['zero trust', 'zero-trust', 'spiffe', 'spire', 'svid', 'mtls', 'least privilege', 'confidential computing']
+  },
+  {
+    id: 'composable_erp',
+    name: 'Modern ERP & Workflow Automation',
+    shortName: 'ERP & Automation',
+    tag: 'ERP & Automation',
+    keywords: ['erp', 'headless erp', 'composable erp', 'workflow automation', 'agentic', 'quote-to-cash', 'odoo', 'erpnext', 'web portal']
   }
 ];
 

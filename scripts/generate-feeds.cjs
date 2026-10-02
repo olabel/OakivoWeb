@@ -9,23 +9,23 @@ const insightBlocks = insightsFile.split(/\{\s*id:\s*['"]/g).slice(1);
 
 const insights = insightBlocks.map(block => {
   const idMatch = block.match(/^([^'"]+)['"]/);
-  const titleMatch = block.match(/title:\s*['"]([^'"]+)['"]/);
-  const excerptMatch = block.match(/excerpt:\s*['"]([^'"]+)['"]/);
-  const authorMatch = block.match(/author:\s*['"]([^'"]+)['"]/);
-  const dateMatch = block.match(/date:\s*['"]([^'"]+)['"]/);
-  const categoryMatch = block.match(/category:\s*['"]([^'"]+)['"]/);
-  const readTimeMatch = block.match(/readTime:\s*['"]([^'"]+)['"]/);
-  const coverImageMatch = block.match(/coverImage:\s*['"]([^'"]+)['"]/);
+  const titleMatch = block.match(/title:\s*(["'`])([\s\S]*?)\1\s*,/);
+  const excerptMatch = block.match(/excerpt:\s*(["'`])([\s\S]*?)\1\s*,/);
+  const authorMatch = block.match(/author:\s*(["'`])([\s\S]*?)\1\s*,/);
+  const dateMatch = block.match(/date:\s*(["'`])([\s\S]*?)\1\s*,/);
+  const categoryMatch = block.match(/category:\s*(["'`])([\s\S]*?)\1\s*,/);
+  const readTimeMatch = block.match(/readTime:\s*(["'`])([\s\S]*?)\1\s*,/);
+  const coverImageMatch = block.match(/coverImage:\s*(["'`])([\s\S]*?)\1\s*,/);
 
   return {
     id: idMatch ? idMatch[1] : '',
-    title: titleMatch ? titleMatch[1] : '',
-    excerpt: excerptMatch ? excerptMatch[1] : '',
-    author: authorMatch ? authorMatch[1] : 'Oakivo Research Group',
-    date: dateMatch ? dateMatch[1] : '2026-09-16',
-    category: categoryMatch ? categoryMatch[1] : 'DevSecOps',
-    readTime: readTimeMatch ? readTimeMatch[1] : '8 min read',
-    coverImage: coverImageMatch ? coverImageMatch[1] : 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200'
+    title: titleMatch ? titleMatch[2].trim() : '',
+    excerpt: excerptMatch ? excerptMatch[2].trim() : '',
+    author: authorMatch ? authorMatch[2].trim() : 'Oakivo Research Group',
+    date: dateMatch ? dateMatch[2].trim() : '2026-09-16',
+    category: categoryMatch ? categoryMatch[2].trim() : 'DevSecOps',
+    readTime: readTimeMatch ? readTimeMatch[2].trim() : '8 min read',
+    coverImage: coverImageMatch ? coverImageMatch[2].trim() : 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200'
   };
 }).filter(i => i.id && i.title);
 

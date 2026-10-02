@@ -11,15 +11,25 @@
     <copyright>Copyright 2026 Oakivo Solutions Inc. All rights reserved.</copyright>
     <managingEditor>hello@oakivo.com (Oakivo Editorial Team)</managingEditor>
     <webMaster>hello@oakivo.com (Oakivo Webmaster)</webMaster>
-    <lastBuildDate>Wed, 30 Sep 2026 18:24:22 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 01:08:57 GMT</lastBuildDate>
     <atom:link href="https://www.oakivo.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[The Composable Enterprise Stack: Why Forward-Thinking Companies Are Marrying Headless ERP, Agentic Workflows, and High-Converting Web Portals in 2026]]></title>
+      <link>https://www.oakivo.com/insights/composable-erp-agentic-workflows-web-portals-2026</link>
+      <guid isPermaLink="true">https://www.oakivo.com/insights/composable-erp-agentic-workflows-web-portals-2026</guid>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+      <author><![CDATA[Oakivo Applied Research Group]]></author>
+      <description><![CDATA[Across the US and Canada, mid-market businesses are abandoning monolithic, seven-figure ERP lock-in. A deeply practical, practitioner's guide to the triple convergence: pairing modular headless ERP backbones with autonomous agentic workflows and bespoke, high-converting digital portals that turn operational friction into compounding revenue.]]></description>
+      <category><![CDATA[Modern ERP & Automation]]></category>
+      <enclosure url="/images/insights/composable-erp-agentic-workflows-2026.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title><![CDATA[Canadian Healthcare Data Sovereignty: What Every Clinic, Hospital Network, and Health-Tech Founder Needs to Know in 2026]]></title>
       <link>https://www.oakivo.com/insights/canadian-healthcare-data-sovereignty-2026</link>
       <guid isPermaLink="true">https://www.oakivo.com/insights/canadian-healthcare-data-sovereignty-2026</guid>
       <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
       <author><![CDATA[Oakivo Applied Research Group]]></author>
-      <description><![CDATA[Navigating PHIPA, Law 25, provincial health information acts, and the US CLOUD Act doesn]]></description>
+      <description><![CDATA[Navigating PHIPA, Law 25, provincial health information acts, and the US CLOUD Act doesn't require a 30-person legal department. A plain-English, deeply practical guide on where patient data can live, how cross-provincial rules actually work, and the exact cloud architecture needed to stay fully compliant without slowing your software down.]]></description>
       <category><![CDATA[Healthcare & Compliance]]></category>
       <enclosure url="/images/insights/canadian-healthcare-data-sovereignty-2026.jpg" type="image/jpeg" length="0" />
     </item>
@@ -51,7 +61,7 @@
       <author><![CDATA[Oakivo Policy & Governance]]></author>
       <description><![CDATA[A strategic briefing on how multinational enterprises must operationalize compliance with the EU AI Act across their machine learning pipelines.]]></description>
       <category><![CDATA[AI Governance]]></category>
-      <enclosure url="/images/insights/ai-governance-eu-act-2026.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[The Evolution of Cloud-Native Security: Harnessing eBPF for Deep Runtime Visibility]]></title>
@@ -61,7 +71,7 @@
       <author><![CDATA[Oakivo Infrastructure Security]]></author>
       <description><![CDATA[How extended Berkeley Packet Filter (eBPF) is revolutionizing Cloud-Native Application Protection Platforms (CNAPP) by providing zero-instrumentation observability.]]></description>
       <category><![CDATA[Cloud Architecture]]></category>
-      <enclosure url="/images/insights/cnapp-ebpf-runtime-security.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[Autonomous Threat Modeling: Generative AI as a Force Multiplier in DevSecOps]]></title>
@@ -71,7 +81,7 @@
       <author><![CDATA[Oakivo Research Group]]></author>
       <description><![CDATA[An executive analysis of how large language models and autonomous agents are restructuring infrastructure-as-code validation and threat matrix generation.]]></description>
       <category><![CDATA[AI & Automation]]></category>
-      <enclosure url="/images/insights/ai-in-devsecops.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[Operationalizing Zero-Trust: Beyond the Network Perimeter]]></title>
@@ -81,7 +91,7 @@
       <author><![CDATA[Oakivo Architecture Practice]]></author>
       <description><![CDATA[A strategic blueprint for implementing Zero-Trust architecture across distributed microservices and ephemeral cloud workloads.]]></description>
       <category><![CDATA[Cloud Security]]></category>
-      <enclosure url="/images/insights/zero-trust-architecture-2026.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[SOC 2 Type II Audit Readiness Checklist Canada: Continuous CI/CD Compliance Blueprint]]></title>
@@ -91,7 +101,7 @@
       <author><![CDATA[Oakivo Compliance & Audit Strategy]]></author>
       <description><![CDATA[A complete SOC 2 Type II audit readiness checklist and engineering blueprint for Canadian SaaS and enterprise teams. Automate continuous evidence collection, eliminate audit panic, and satisfy Canadian auditor criteria with Policy-as-Code.]]></description>
       <category><![CDATA[Compliance & DevSecOps]]></category>
-      <enclosure url="/images/insights/soc2-compliance-automation.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[PIPEDA vs. HIPAA Cloud Storage Architecture: Canadian Data Sovereignty & Cross-Border Compliance]]></title>
@@ -101,7 +111,7 @@
       <author><![CDATA[Oakivo Architecture Practice]]></author>
       <description><![CDATA[In-depth engineering breakdown of PIPEDA vs. HIPAA cloud storage architecture. Learn how Canadian enterprises enforce cryptographic sovereignty, manage AWS Customer Managed Keys (CMKs), and prevent cross-border data leakage.]]></description>
       <category><![CDATA[Architecture & Law]]></category>
-      <enclosure url="/images/insights/pipeda-data-residency-aws.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[Terraform AWS EKS Hardening Consultant Blueprint: Kubernetes Security & CIS Benchmarks (Calgary, Toronto, Halifax)]]></title>
@@ -109,9 +119,9 @@
       <guid isPermaLink="true">https://www.oakivo.com/insights/k8s-posture-management</guid>
       <pubDate>Wed, 10 Jun 2026 00:00:00 GMT</pubDate>
       <author><![CDATA[Oakivo Infrastructure Security]]></author>
-      <description><![CDATA[Complete Terraform AWS EKS hardening blueprint from Oakivo]]></description>
+      <description><![CDATA[Complete Terraform AWS EKS hardening blueprint from Oakivo's certified Kubernetes consultants. Lockdown control planes, automate Kyverno admission controls, and implement zero-trust pod network policies across Canadian clusters.]]></description>
       <category><![CDATA[Container Security]]></category>
-      <enclosure url="/images/insights/k8s-posture-management.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[Cyber Resilience in the Age of GenAI: The Boardroom Imperative]]></title>
@@ -121,7 +131,7 @@
       <author><![CDATA[Oakivo Executive Strategy]]></author>
       <description><![CDATA[Why traditional perimeter security is failing against AI-generated attack vectors and how executives are restructuring their defense mechanisms.]]></description>
       <category><![CDATA[Strategic Risk & AI]]></category>
-      <enclosure url="/images/insights/cyber-resilience-genai-era.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[Securing the Digital Supply Chain: Vendor Risk Management in the Cloud Era]]></title>
@@ -131,37 +141,37 @@
       <author><![CDATA[Oakivo Compliance & Audit Strategy]]></author>
       <description><![CDATA[A comprehensive framework for auditing and securing third-party API integrations, SaaS vendors, and open-source dependencies.]]></description>
       <category><![CDATA[Supply Chain Risk]]></category>
-      <enclosure url="/images/insights/supply-chain-cyber-risk.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
-      <title><![CDATA[Quantum-Safe Cryptography: A CISO]]></title>
+      <title><![CDATA[Quantum-Safe Cryptography: A CISO's Timeline for Post-Quantum Migration]]></title>
       <link>https://www.oakivo.com/insights/quantum-safe-cryptography-ciso</link>
       <guid isPermaLink="true">https://www.oakivo.com/insights/quantum-safe-cryptography-ciso</guid>
       <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>
       <author><![CDATA[Oakivo Research Group]]></author>
       <description><![CDATA[Strategic imperatives for transitioning enterprise cryptographic infrastructure to NIST-approved post-quantum algorithms before Q-Day.]]></description>
       <category><![CDATA[Cryptography & Future Tech]]></category>
-      <enclosure url="/images/insights/quantum-safe-cryptography-ciso.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
-      <title><![CDATA[Securing the Eastern Seaboard: Zero-Trust for Atlantic Canada]]></title>
+      <title><![CDATA[Securing the Eastern Seaboard: Zero-Trust for Atlantic Canada's Critical Infrastructure]]></title>
       <link>https://www.oakivo.com/insights/atlantic-canada-critical-infrastructure-zero-trust</link>
       <guid isPermaLink="true">https://www.oakivo.com/insights/atlantic-canada-critical-infrastructure-zero-trust</guid>
       <pubDate>Wed, 09 Sep 2026 00:00:00 GMT</pubDate>
       <author><![CDATA[Oakivo Maritime Security Practice]]></author>
       <description><![CDATA[An architectural blueprint for defending offshore energy grids, transatlantic cable hubs, and maritime logistics networks against state-sponsored disruption.]]></description>
       <category><![CDATA[Critical Infrastructure]]></category>
-      <enclosure url="/images/insights/atlantic-canada-critical-infrastructure-zero-trust.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
-      <title><![CDATA[Navigating Data Sovereignty: Cloud Architectures for Atlantic Canada]]></title>
+      <title><![CDATA[Navigating Data Sovereignty: Cloud Architectures for Atlantic Canada's Health-Tech Sector]]></title>
       <link>https://www.oakivo.com/insights/data-residency-health-tech-atlantic-canada</link>
       <guid isPermaLink="true">https://www.oakivo.com/insights/data-residency-health-tech-atlantic-canada</guid>
       <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
       <author><![CDATA[Oakivo Compliance & Data Sovereignty]]></author>
       <description><![CDATA[How emerging health-tech firms in Nova Scotia and Newfoundland can architect globally scalable cloud pipelines while strictly adhering to PHIA and PIPEDA.]]></description>
       <category><![CDATA[Health-Tech & Compliance]]></category>
-      <enclosure url="/images/insights/data-residency-health-tech-atlantic-canada.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
     <item>
       <title><![CDATA[Bill C-26 Critical Cyber Systems Compliance Roadmap: Preparing Canadian Infrastructure for CCSPA Mandates]]></title>
@@ -169,9 +179,9 @@
       <guid isPermaLink="true">https://www.oakivo.com/insights/bill-c26-compliance-roadmap</guid>
       <pubDate>Sat, 12 Sep 2026 00:00:00 GMT</pubDate>
       <author><![CDATA[Oakivo Critical Infrastructure Practice]]></author>
-      <description><![CDATA[The executive and engineering compliance roadmap for Canada]]></description>
+      <description><![CDATA[The executive and engineering compliance roadmap for Canada's Bill C-26 (Critical Cyber Systems Protection Act). Step-by-step guidance for federally regulated energy, telecommunications, transport, and banking sectors.]]></description>
       <category><![CDATA[Regulatory Compliance]]></category>
-      <enclosure url="/images/insights/atlantic-canada-critical-infrastructure-zero-trust.jpg" type="image/jpeg" length="0" />
+      <enclosure url="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>
