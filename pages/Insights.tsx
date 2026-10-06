@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion } from 'motion/react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/SEO';
@@ -23,7 +22,7 @@ interface CategoryTab {
 
 const CATEGORY_TABS: CategoryTab[] = [
   { id: 'all', label: 'All Briefings', labelFr: 'Toutes les publications', keywords: [] },
-  { id: 'erp', label: 'Modern ERP & Automation', labelFr: 'ERP & Automatisation', keywords: ['erp', 'automation', 'quote-to-cash', 'workflow', 'odoo', 'composable'] },
+  { id: 'erp', label: 'Modern ERP & Automation', labelFr: 'ERP & Automatisation', keywords: ['erp', 'automation', 'quote-to-cash', 'workflow', 'odoo', 'composable', 'business', 'billing', 'inventory', 'dispatch'] },
   { id: 'platform', label: 'Platform & Growth', labelFr: 'Plateforme & Croissance', keywords: ['platform', 'growth', 'marketing', 'geo', 'engine', 'conversion'] },
   { id: 'security', label: 'Cloud Security & DevSecOps', labelFr: 'Sécurité Cloud & DevSecOps', keywords: ['security', 'soc 2', 'bill c-26', 'osfi', 'zero-trust', 'ebpf', 'agentic', 'mcp', 'governance'] },
   { id: 'healthcare', label: 'Healthcare & Data Sovereignty', labelFr: 'Santé & Souveraineté', keywords: ['health', 'phipa', 'law 25', 'pipeda', 'sovereignty', 'clinic'] }

@@ -1,5 +1,93 @@
 [
   {
+    "id": "log_1791300195924_xzbh3",
+    "timestamp": "2026-10-06T15:23:15.924Z",
+    "type": "client_lead",
+    "recipient": "sarah@maritimecoldstorage.ca (Mirrored to olabel@gmail.com)",
+    "sender": "Oakivo Security <onboarding@resend.dev>",
+    "subject": "Inquiry Received: Oakivo Cloud Security & Architecture Advisory (Consultation)",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "01a111cf-d613-7dc9-b1f7-6ad01df78ef4",
+    "error": "In Resend Testing Mode, client auto-reply was mirrored to olabel@gmail.com. Complete DNS verification on resend.com/domains to deliver to external inboxes.",
+    "metadata": {
+      "type": "lead",
+      "recipientEmail": "sarah@maritimecoldstorage.ca"
+    }
+  },
+  {
+    "id": "log_1791300195740_wnlyp",
+    "timestamp": "2026-10-06T15:23:15.740Z",
+    "type": "lead_notification",
+    "recipient": "olabel@gmail.com",
+    "sender": "Oakivo Solutions <onboarding@resend.dev>",
+    "subject": "[Oakivo Lead Alert] New LEAD: Maritime Cold Storage Ltd.",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "01a111cf-d55b-78f7-af53-c31140b9622e",
+    "error": "Delivered safely via Resend (onboarding@resend.dev). Add DNS verification for custom domain at resend.com/domains.",
+    "metadata": {
+      "Name": "Sarah Jenkins",
+      "Email": "sarah@maritimecoldstorage.ca",
+      "Company": "Maritime Cold Storage Ltd.",
+      "Stream": "Modern ERP & Operations",
+      "Message": "We want to replace our multi-warehouse spreadsheets with automated Odoo inventory and billing in under 90 days."
+    }
+  },
+  {
+    "id": "log_1791299671525_ud556",
+    "timestamp": "2026-10-06T15:14:31.525Z",
+    "type": "client_lead",
+    "recipient": "paul@bouchardlogistics.ca (Mirrored to olabel@gmail.com)",
+    "sender": "Oakivo Security <onboarding@resend.dev>",
+    "subject": "Inquiry Received: Oakivo Cloud Security & Architecture Advisory (Consultation)",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "01a111c7-d593-7df7-9b70-dcddb8533772",
+    "error": "In Resend Testing Mode, client auto-reply was mirrored to olabel@gmail.com. Complete DNS verification on resend.com/domains to deliver to external inboxes.",
+    "metadata": {
+      "type": "lead",
+      "recipientEmail": "paul@bouchardlogistics.ca"
+    }
+  },
+  {
+    "id": "log_1791299671341_b772b",
+    "timestamp": "2026-10-06T15:14:31.341Z",
+    "type": "lead_notification",
+    "recipient": "olabel@gmail.com",
+    "sender": "Oakivo Solutions <onboarding@resend.dev>",
+    "subject": "[Oakivo Lead Alert] New LEAD: Bouchard Logistics Inc.",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "01a111c7-d4d4-73cd-950f-8ad150352b46",
+    "error": "Delivered safely via Resend (onboarding@resend.dev). Add DNS verification for custom domain at resend.com/domains.",
+    "metadata": {
+      "Name": "Paul Bouchard",
+      "Email": "paul@bouchardlogistics.ca",
+      "Company": "Bouchard Logistics Inc.",
+      "Stream": "Modern ERP & Operations",
+      "Message": "We need to consolidate our dispatch and multi-warehouse operations from Excel into Odoo."
+    }
+  },
+  {
+    "id": "log_1791299326136_z6g8w",
+    "timestamp": "2026-10-06T15:08:46.136Z",
+    "type": "lead_notification",
+    "recipient": "olabel@gmail.com",
+    "sender": "Oakivo Security <onboarding@resend.dev>",
+    "subject": "[Oakivo Notification] New LEAD Received (Inquiry)",
+    "provider": "resend",
+    "status": "sandbox_mode",
+    "resendMessageId": "01a111c2-9081-7ac4-a4cc-7ab689041d05",
+    "error": "Delivered via Resend Sandbox (onboarding@resend.dev). Add DNS verification for custom domain at resend.com/domains.",
+    "metadata": {
+      "Name": "Test Lead",
+      "Email": "testlead@example.com",
+      "Company": "Acme Corp",
+      "Message": "Test submission to verify olabel@gmail.com notification"
+    }
+  },
+  {
     "id": "log_1789583295948_i0hzv",
     "timestamp": "2026-09-16T18:28:15.948Z",
     "type": "client_subscriber",

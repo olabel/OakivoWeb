@@ -233,26 +233,28 @@ async function startServer() {
 
   // Multi-Provider 3rd-Party Email Service Engine
   // Delivers executive notifications to olabel@gmail.com via Resend, SendGrid, Brevo, or SMTP
+  let isCustomDomainVerified = false; // Tracks whether oakivo.com DNS has completed verification in Resend
+
   const sendThirdPartyEmail = async (payload: ThirdPartyEmailPayload) => {
     const primaryRecipient = 'olabel@gmail.com';
     const recipientList = [primaryRecipient];
-    if (process.env.CONTACT_EMAIL && process.env.CONTACT_EMAIL !== primaryRecipient && !recipientList.includes(process.env.CONTACT_EMAIL)) {
-      recipientList.push(process.env.CONTACT_EMAIL);
-    }
-
-    const replyTo = payload.replyTo || (payload.metadata?.email ? String(payload.metadata.email) : undefined);
+    const replyTo = payload.replyTo || (payload.metadata?.email ? String(payload.metadata.email) : (payload.metadata?.Email ? String(payload.metadata.Email) : undefined));
     const emailType = payload.type || 'lead_notification';
 
     // 1. Resend API (Official SDK - Modern, High Deliverability, Fast)
     const resend = getResendClient();
     if (resend) {
-      const configuredFrom = process.env.RESEND_FROM || process.env.EMAIL_FROM || 'Oakivo Security <hello@oakivo.com>';
+      const configuredCustomFrom = process.env.RESEND_FROM || process.env.EMAIL_FROM || 'Oakivo Security <hello@oakivo.com>';
+      // In Resend, unverified custom domains fail with 403. 
+      // If custom domain is not yet verified, we use the official sandbox sender 'onboarding@resend.dev' directly to olabel@gmail.com.
+      const activeSender = isCustomDomainVerified ? configuredCustomFrom : 'Oakivo Solutions <onboarding@resend.dev>';
+      
       try {
-        console.log(`[3RD_PARTY_EMAIL] Dispatching via Resend SDK to ${recipientList.join(', ')} from ${configuredFrom}...`);
+        console.log(`[3RD_PARTY_EMAIL] Dispatching via Resend SDK directly to ${primaryRecipient} from ${activeSender}...`);
         
         let response = await resend.emails.send({
-          from: configuredFrom,
-          to: recipientList,
+          from: activeSender,
+          to: primaryRecipient,
           subject: payload.subject,
           html: payload.html,
           text: payload.text,
@@ -260,11 +262,8 @@ async function startServer() {
         });
 
         // Resend Sandbox / Domain Auto-Fallback:
-        // Before a custom domain DNS (e.g. oakivo.com) is verified in Resend,
-        // sending from a custom domain returns: validation_error "domain is not verified. To send emails in testing mode, use onboarding@resend.dev".
-        // In testing mode, Resend strictly allows sending ONLY to the account owner (olabel@gmail.com).
-        // Therefore, we fall back to 'onboarding@resend.dev' directly to 'olabel@gmail.com'.
-        let isSandboxFallback = false;
+        // If an unverified custom domain was attempted and returned validation_error, switch to onboarding@resend.dev
+        let isSandbox = !isCustomDomainVerified;
         if (response.error && (
           response.error.name === 'validation_error' || 
           response.error.message?.toLowerCase().includes('domain') || 
@@ -272,10 +271,11 @@ async function startServer() {
           response.error.message?.toLowerCase().includes('resend.dev') ||
           response.error.message?.toLowerCase().includes('testing emails')
         )) {
-          isSandboxFallback = true;
-          console.warn(`[3RD_PARTY_EMAIL] Resend domain '${configuredFrom}' requires DNS verification (${response.error.message}). Retrying seamlessly with 'Oakivo Security <onboarding@resend.dev>' specifically to '${primaryRecipient}'...`);
+          isSandbox = true;
+          isCustomDomainVerified = false;
+          console.warn(`[3RD_PARTY_EMAIL] Resend domain requires DNS verification (${response.error.message}). Retrying seamlessly with 'Oakivo Solutions <onboarding@resend.dev>' to '${primaryRecipient}'...`);
           response = await resend.emails.send({
-            from: 'Oakivo Security <onboarding@resend.dev>',
+            from: 'Oakivo Solutions <onboarding@resend.dev>',
             to: primaryRecipient,
             subject: payload.subject,
             html: payload.html,
@@ -285,16 +285,16 @@ async function startServer() {
         }
 
         if (response.data && response.data.id) {
-          console.log(`[3RD_PARTY_EMAIL] Dispatched successfully via Resend SDK. ID: ${response.data.id}`);
+          console.log(`[3RD_PARTY_EMAIL] Dispatched successfully via Resend SDK to ${primaryRecipient}. ID: ${response.data.id}`);
           const logItem = recordEmailAuditLog({
             type: emailType,
-            recipient: isSandboxFallback ? primaryRecipient : recipientList.join(', '),
-            sender: isSandboxFallback ? 'Oakivo Security <onboarding@resend.dev>' : configuredFrom,
+            recipient: primaryRecipient,
+            sender: isSandbox ? 'Oakivo Solutions <onboarding@resend.dev>' : configuredCustomFrom,
             subject: payload.subject,
             provider: 'resend',
-            status: isSandboxFallback ? 'sandbox_mode' : 'delivered',
+            status: isSandbox ? 'sandbox_mode' : 'delivered',
             resendMessageId: response.data.id,
-            error: isSandboxFallback ? 'Delivered via Resend Sandbox (onboarding@resend.dev). Add DNS verification for custom domain at resend.com/domains.' : undefined,
+            error: isSandbox ? 'Delivered safely via Resend (onboarding@resend.dev). Add DNS verification for custom domain at resend.com/domains.' : undefined,
             metadata: payload.metadata,
           });
 
@@ -310,8 +310,8 @@ async function startServer() {
           console.error('[3RD_PARTY_EMAIL] Resend SDK returned error:', response.error);
           recordEmailAuditLog({
             type: emailType,
-            recipient: recipientList.join(', '),
-            sender: configuredFrom,
+            recipient: primaryRecipient,
+            sender: activeSender,
             subject: payload.subject,
             provider: 'resend',
             status: 'failed',
@@ -323,8 +323,8 @@ async function startServer() {
         console.error('[3RD_PARTY_EMAIL] Resend SDK execution failure:', err);
         recordEmailAuditLog({
           type: emailType,
-          recipient: recipientList.join(', '),
-          sender: configuredFrom,
+          recipient: primaryRecipient,
+          sender: activeSender,
           subject: payload.subject,
           provider: 'resend',
           status: 'failed',
@@ -1347,16 +1347,18 @@ Timestamp: ${new Date().toISOString()}
 </html>
       `.trim();
 
-      const replyAddress = data?.email || data?.workEmail;
+      const replyAddress = data?.email || data?.workEmail || data?.Email || data?.WorkEmail || data?.clientEmail;
       const emailCategory = submissionType.includes('CONTACT') 
         ? 'contact_inquiry' 
         : submissionType.includes('APPLICANT') || submissionType.includes('CAREER')
         ? 'applicant_notification'
         : 'lead_notification';
 
+      const leadSubject = `[Oakivo Lead Alert] New ${submissionType}: ${data?.Company || data?.company || data?.Name || data?.name || 'Inquiry'}`;
+
       const delivery = await sendThirdPartyEmail({
         type: emailCategory as any,
-        subject: `[Oakivo Notification] New ${submissionType} Received (${data?.company || data?.name || data?.email || 'Inquiry'})`,
+        subject: leadSubject,
         text: textContent,
         html: htmlContent,
         replyTo: replyAddress ? String(replyAddress) : undefined,
@@ -1365,7 +1367,7 @@ Timestamp: ${new Date().toISOString()}
 
       // Automated Client Auto-Reply Email Dispatch
       let clientDelivery: any = null;
-      const targetClientEmail = data?.email || data?.workEmail || data?.clientEmail;
+      const targetClientEmail = data?.email || data?.workEmail || data?.clientEmail || data?.Email || data?.WorkEmail;
       
       if (targetClientEmail && typeof targetClientEmail === 'string' && targetClientEmail.includes('@')) {
         const clientEmailType = submissionType.includes('SUBSCRIBER')

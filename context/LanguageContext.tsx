@@ -14,14 +14,14 @@ export const translations: Record<Language, Record<string, any>> = {
   en: {
     nav: { 
       home: 'Home', 
-      capabilities: 'Services & Solutions', 
+      capabilities: 'Solutions', 
       industries: 'Industries', 
-      insights: 'How We Work',
+      insights: 'Methodology',
       firm: 'Why Oakivo', 
-      contact: 'Discovery Call', 
+      contact: 'Contact', 
       careers: 'Careers',
       booking: 'Schedule Discovery',
-      compliance: 'Security & Compliance',
+      compliance: 'Compliance',
       grader: 'Readiness Grader',
       privacy: 'Privacy Policy',
       solutions: 'Solutions',
@@ -174,8 +174,8 @@ export const translations: Record<Language, Record<string, any>> = {
       security3_desc: "Architected strictly within Canadian sovereign cloud regions (AWS ca-central-1, Azure Canada Central)."
     },
     landing: {
-      hero_headline: "We build software that works, automate your daily grind, and design websites that stand out.",
-      hero_subheadline: "Running a company is hard enough without duct-taped spreadsheets, manual data entry, or a website that doesn't bring in leads. We're a senior team based in Atlantic Canada who build clean back-office systems, connect your tools, design bespoke websites, and keep your data secure on Canadian soil. No junior hand-offs. No six-month slide decks.",
+      hero_headline: "High-Velocity Operations & Resilient Cloud Infrastructure Backed by Canadian Data Sovereignty.",
+      hero_subheadline: "Direct senior founder accountability. 100% bilingual (EN/FR) engineering in Atlantic Standard Time. Zero corporate consulting overhead.",
       strategic_headline: "Why Companies Choose Us Over Big Agencies",
       strategic_body: "Growing businesses deserve better than impersonal consulting firms with huge retainers or basic IT shops that only fix printers. We combine senior engineering with creative craft: modernizing your back office, automating repetitive admin, crafting websites that turn visitors into clients, and safeguarding your customer data from day one.",
       capabilities_headline: "What We Help You Solve",
@@ -625,19 +625,19 @@ export const translations: Record<Language, Record<string, any>> = {
   fr: {
     nav: { 
       home: 'Accueil', 
-      capabilities: 'Services & Solutions', 
+      capabilities: 'Solutions', 
       industries: 'Industries', 
-      insights: 'Notre Méthode',
+      insights: 'Méthodologie',
       firm: 'Pourquoi Oakivo', 
-      contact: 'Session Découverte', 
+      contact: 'Contact', 
       careers: 'Carrières',
-      booking: 'Planifier Découverte',
-      compliance: 'Sécurité & Conformité',
+      booking: 'Prendre Rendez-vous',
+      compliance: 'Conformité',
       grader: 'Évaluateur',
-      privacy: 'Politique de Confidentialité',
+      privacy: 'Confidentialité',
       solutions: 'Solutions',
-      locations: 'Emplacements',
-      research: 'Aperçus'
+      locations: 'Régions',
+      research: 'Perspectives'
     },
     trust: {
       soc2: "Certifié SOC 2 Type II",
@@ -785,8 +785,8 @@ export const translations: Record<Language, Record<string, any>> = {
       security3_desc: "Architecturé rigoureusement dans les régions infonuagiques souveraines canadiennes (AWS ca-central-1, Azure Canada Central)."
     },
     landing: {
-      hero_headline: "Des logiciels fiables, moins de paperasse et des sites web qui marquent les esprits.",
-      hero_subheadline: "Gérer une entreprise est assez exigeant sans se battre avec des tableurs emmêlés, des factures égarées ou un site web vieillissant. Nous sommes une équipe senior basée au Canada atlantique : nous unifions vos opérations, automatisons les tâches répétitives, concevons des sites web percutants et protégeons vos données sur le sol canadien. Sans intermédiaires juniors ni présentations théoriques infinies.",
+      hero_headline: "Opérations Ultra-Fluides et Infonuagique Résiliente Ancrées dans la Souveraineté Canadienne.",
+      hero_subheadline: "Responsabilité directe des fondateurs seniors. Ingénierie 100% bilingue (FR/EN) à l'Heure de l'Atlantique. Zéro lourdeur de cabinet conseil.",
       strategic_headline: "Pourquoi Choisir un Atelier Dédié Plutôt qu'une Méga-Agence",
       strategic_body: "Les entreprises d'ici méritent mieux que de gros cabinets aux honoraires exorbitants ou de simples dépanneurs informatiques. Nous combinons rigueur technique et créativité : nous modernisons vos opérations avec un ERP propre, automatisons vos tâches administratives, créons des sites web qui convertissent vos visiteurs en clients et sécurisons vos données dès le premier jour.",
       capabilities_headline: "Ce Que Nous Réglons Pour Vous",

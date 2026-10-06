@@ -1,45 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, Link } from 'react-router-dom';
-import { Menu, X, Globe } from 'lucide-react';
-import { NavRoute } from '../types';
+import { Menu, X, ArrowRight, ShieldCheck, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { analytics } from '../utils/analytics';
 import LeadDrawer from './LeadDrawer';
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [drawerTopic, setDrawerTopic] = useState<string>('');
   
   const location = useLocation();
-  const { language, setLanguage, t } = useLanguage();
-
-  const handleBookAuditClick = () => {
-    analytics.trackEvent('audit_booking_intent', {
-      location: 'navbar_header',
-      button: 'desktop_cta',
-      label: 'Book A Free Audit',
-    });
-    setIsDrawerOpen(true);
-  };
-
-  const handleMobileBookAuditClick = () => {
-    analytics.trackEvent('audit_booking_intent', {
-      location: 'navbar_mobile',
-      button: 'mobile_cta',
-      label: 'Book A Free Audit',
-    });
-    setIsOpen(false);
-    setIsDrawerOpen(true);
-  };
+  const { language, setLanguage } = useLanguage();
+  const isFr = language === 'fr';
 
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 15);
+          setIsScrolled(window.scrollY > 20);
           ticking = false;
         });
         ticking = true;
@@ -47,7 +27,7 @@ const Navbar: React.FC = () => {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    
+
     const openDrawer = (e?: Event) => {
       const customEvent = e as CustomEvent<{ focus?: string; topic?: string }>;
       if (customEvent?.detail?.focus) {
@@ -58,207 +38,233 @@ const Navbar: React.FC = () => {
       setIsDrawerOpen(true);
     };
     window.addEventListener('open-lead-drawer', openDrawer);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('open-lead-drawer', openDrawer);
     };
   }, []);
 
-  useEffect(() => setIsOpen(false), [location]);
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   const navLinks = [
-    { name: t('nav.capabilities'), path: NavRoute.CAPABILITIES },
-    { name: t('nav.compliance'), path: '/compliance-matrix' },
-    { name: t('nav.industries'), path: NavRoute.INDUSTRIES },
-    { name: t('nav.insights'), path: NavRoute.METHODOLOGY },
-    { name: t('nav.research'), path: NavRoute.INSIGHTS },
-    { name: t('nav.firm'), path: NavRoute.FIRM },
+    { 
+      name: isFr ? 'Solutions' : 'Solutions', 
+      path: '/services' 
+    },
+    { 
+      name: isFr ? 'Conformité' : 'Compliance', 
+      path: '/compliance-matrix' 
+    },
+    { 
+      name: isFr ? 'Méthodologie' : 'Methodology', 
+      path: '/methodology' 
+    },
+    { 
+      name: isFr ? 'Pourquoi Oakivo' : 'Why Oakivo', 
+      path: '/about' 
+    },
+    { 
+      name: isFr ? 'Perspectives' : 'Insights', 
+      path: '/insights' 
+    }
   ];
 
   return (
     <>
-      <nav 
-        role="navigation" 
-        aria-label="Main Navigation" 
-        className={`fixed top-0 left-0 w-full z-[100] transition-colors duration-200 ${
+      <header 
+        role="banner" 
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-[#06090F]/96 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.7)]' 
-            : 'bg-[#06090F]/85 backdrop-blur-xl border-b border-white/[0.04]'
+            ? 'bg-[#04070D]/90 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.8)]' 
+            : 'bg-[#04070D]/60 backdrop-blur-md border-b border-white/[0.04]'
         }`}
       >
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-            <Link 
-              to={NavRoute.HOME} 
-              aria-label="Oakivo Solutions homepage" 
-              className="text-xl font-display font-bold tracking-tight text-white flex items-center focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-md"
-            >
-                OAKIVO<span className="text-cyan-500">.</span>
-            </Link>
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-light text-slate-300" role="menubar">
-                {navLinks.map((link) => (
-                  <NavLink
-                    key={link.path}
-                    to={link.path}
-                    role="menuitem"
-                    aria-current={location.pathname === link.path ? 'page' : undefined}
-                    className={({ isActive }) => 
-                      `transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-md px-1 py-0.5 ${isActive ? 'text-white font-medium' : ''}`
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
-                ))}
-                
-                {/* Global Language Switcher */}
-                <div 
-                  id="global-language-switcher"
-                  className="flex items-center bg-slate-900/90 border border-slate-700/70 rounded-full p-1 shadow-inner backdrop-blur-md"
-                  role="group"
-                  aria-label="Language selection"
-                >
-                  <div className="flex items-center pl-2 pr-1.5 text-slate-400" aria-hidden="true">
-                    <Globe size={13} className="text-cyan-400" />
-                  </div>
-                  <button
-                    type="button"
-                    id="lang-btn-en"
-                    onClick={() => setLanguage('en')}
-                    className={`px-2.5 py-1 text-xs font-mono font-bold tracking-wider rounded-full transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
-                      language === 'en'
-                        ? 'bg-cyan-500 text-slate-950 shadow-sm shadow-cyan-500/25'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                    aria-pressed={language === 'en'}
-                    aria-label="Switch interface language to English"
-                    title="Switch language to English"
-                  >
-                    EN
-                  </button>
-                  <button
-                    type="button"
-                    id="lang-btn-fr"
-                    onClick={() => setLanguage('fr')}
-                    className={`px-2.5 py-1 text-xs font-mono font-bold tracking-wider rounded-full transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
-                      language === 'fr'
-                        ? 'bg-cyan-500 text-slate-950 shadow-sm shadow-cyan-500/25'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                    aria-pressed={language === 'fr'}
-                    aria-label="Passer l'interface en français"
-                    title="Passer au français"
-                  >
-                    FR
-                  </button>
-                </div>
+        <div className="container mx-auto max-w-7xl h-20 px-6 sm:px-8 lg:px-12 flex items-center justify-between">
+          
+          {/* Brand Wordmark with Architectural Subtitle */}
+          <Link 
+            to="/" 
+            aria-label="Oakivo Solutions homepage" 
+            className="flex items-center gap-3 group focus:outline-none focus:ring-1 focus:ring-cyan-400 rounded py-1"
+          >
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-mono font-bold text-sm tracking-wider group-hover:border-cyan-400 transition-colors">
+              O
             </div>
-
-            <div className="hidden md:block">
-              <button 
-                type="button"
-                id="nav-book-audit-btn"
-                onClick={handleBookAuditClick}
-                aria-label={language === 'fr' ? "Réserver une session découverte gratuite" : "Book a complimentary 30-minute discovery call"}
-                aria-haspopup="dialog"
-                className="group relative inline-flex items-center justify-center text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white border border-slate-200 hover:border-cyan-400/80 px-6 py-2.5 rounded-full transition-all duration-300 ease-out transform hover:scale-[1.04] active:scale-[0.98] hover:shadow-[0_0_22px_rgba(6,182,212,0.45)] text-slate-950 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
-              >
-                  {t('common.cta_book_audit')}
-              </button>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5">
+                <span className="text-lg font-display font-bold tracking-tight text-white group-hover:text-slate-100 transition-colors">
+                  OAKIVO
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              </div>
+              <span className="text-[9px] font-mono tracking-widest text-slate-400 uppercase -mt-0.5">
+                Boutique Engineering
+              </span>
             </div>
+          </Link>
 
-            {/* Mobile Toggle */}
-            <button 
-              type="button"
-              className="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-lg"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-              aria-expanded={isOpen}
-              aria-controls="mobile-navigation-menu"
-              aria-haspopup="true"
-            >
-              {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-            </button>
-        </div>
-
-        {/* Mobile Nav */}
-        <div 
-          id="mobile-navigation-menu"
-          role="region"
-          aria-label="Mobile Navigation Menu"
-          aria-hidden={!isOpen}
-          className={`md:hidden absolute top-20 left-0 w-full bg-[#06090F]/98 backdrop-blur-3xl border-b border-white/[0.1] shadow-2xl z-[105] transition-all duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-        >
-          <div className="px-6 py-6 flex flex-col gap-6">
+          {/* Minimalist Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-9 text-xs font-mono tracking-wider uppercase" aria-label="Main Navigation">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
-                aria-current={location.pathname === link.path ? 'page' : undefined}
                 className={({ isActive }) => 
-                  `text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-md py-1 ${isActive ? 'text-cyan-400' : 'text-slate-300'}`
+                  `transition-colors duration-200 py-1 relative ${
+                    isActive 
+                      ? 'text-cyan-400 font-semibold' 
+                      : 'text-slate-300 hover:text-white'
+                  }`
                 }
               >
-                {link.name}
+                {({ isActive }) => (
+                  <>
+                    <span>{link.name}</span>
+                    {isActive && (
+                      <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full" />
+                    )}
+                  </>
+                )}
               </NavLink>
             ))}
+          </nav>
 
-            {/* Mobile Language Selector */}
+          {/* Right Action Cluster: Unboxed Language Switcher + Executive CTA */}
+          <div className="hidden lg:flex items-center gap-7">
+            {/* Unboxed Typographic Language Toggle */}
             <div 
-              className="flex items-center justify-between p-3 rounded-xl bg-slate-900/70 border border-slate-800"
+              className="flex items-center gap-2 text-xs font-mono text-slate-400 select-none"
               role="group"
               aria-label="Language selection"
             >
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-300">
-                <Globe size={15} className="text-cyan-400" aria-hidden="true" />
-                <span>{language === 'en' ? 'Language / Langue' : 'Langue / Language'}</span>
-              </div>
-              <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-0.5">
-                <button
-                  type="button"
-                  onClick={() => setLanguage('en')}
-                  aria-pressed={language === 'en'}
-                  aria-label="Select English language"
-                  className={`px-3 py-1.5 text-xs font-mono font-bold rounded-md transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
-                    language === 'en'
-                      ? 'bg-cyan-500 text-slate-950'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  English
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLanguage('fr')}
-                  aria-pressed={language === 'fr'}
-                  aria-label="Sélectionner la langue française"
-                  className={`px-3 py-1.5 text-xs font-mono font-bold rounded-md transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
-                    language === 'fr'
-                      ? 'bg-cyan-500 text-slate-950'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Français
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
+                className={`transition-colors cursor-pointer py-1 ${
+                  language === 'en' ? 'text-white font-bold' : 'hover:text-slate-200'
+                }`}
+                aria-pressed={language === 'en'}
+                aria-label="Switch to English"
+              >
+                EN
+              </button>
+              <span className="text-slate-700" aria-hidden="true">·</span>
+              <button
+                type="button"
+                onClick={() => setLanguage('fr')}
+                className={`transition-colors cursor-pointer py-1 ${
+                  language === 'fr' ? 'text-white font-bold' : 'hover:text-slate-200'
+                }`}
+                aria-pressed={language === 'fr'}
+                aria-label="Passer au français"
+              >
+                FR
+              </button>
+            </div>
+
+            {/* Pristine Executive CTA */}
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-mono font-semibold tracking-wider uppercase text-slate-950 bg-white hover:bg-slate-200 rounded-lg transition-all duration-200 cursor-pointer shadow-lg shadow-white/5 hover:shadow-cyan-500/20"
+            >
+              <span>{isFr ? 'Planifier une Découverte' : 'Schedule Discovery'}</span>
+              <ArrowRight size={13} />
+            </Link>
+          </div>
+
+          {/* Mobile Menu Hamburger */}
+          <div className="flex lg:hidden items-center gap-3">
+            <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
+                className={language === 'en' ? 'text-white font-bold' : 'hover:text-slate-200'}
+              >
+                EN
+              </button>
+              <span>·</span>
+              <button
+                type="button"
+                onClick={() => setLanguage('fr')}
+                className={language === 'fr' ? 'text-white font-bold' : 'hover:text-slate-200'}
+              >
+                FR
+              </button>
             </div>
 
             <button 
               type="button"
-              id="mobile-nav-book-audit-btn"
-              onClick={handleMobileBookAuditClick}
-              aria-label={language === 'fr' ? "Réserver un audit gratuit d'architecture de sécurité" : "Book a free security architecture audit"}
-              aria-haspopup="dialog"
-              className="w-full text-center text-xs font-semibold tracking-widest uppercase bg-slate-100 hover:bg-white text-slate-950 px-6 py-3.5 rounded-full transition-all duration-300 ease-out transform active:scale-[0.98] hover:shadow-[0_0_20px_rgba(6,182,212,0.35)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="text-slate-300 hover:text-white p-2 rounded-lg bg-slate-900/60 border border-white/[0.08] focus:outline-none focus:ring-1 focus:ring-cyan-400"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
             >
-                {t('common.cta_book_audit')}
+              {isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
             </button>
           </div>
-        </div>
-      </nav>
 
-      <LeadDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} defaultTopic={drawerTopic} />
+        </div>
+
+        {/* Minimalist Mobile Drawer */}
+        {isOpen && (
+          <div 
+            id="mobile-menu"
+            role="region"
+            aria-label="Mobile Navigation"
+            className="lg:hidden bg-[#04070D]/98 backdrop-blur-3xl border-b border-white/[0.08] shadow-2xl px-6 py-6 space-y-4 animate-in fade-in duration-150"
+          >
+            <nav className="flex flex-col space-y-1">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) => 
+                    `px-4 py-3 rounded-xl text-xs font-mono uppercase tracking-wider transition-colors flex items-center justify-between ${
+                      isActive 
+                        ? 'bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/20' 
+                        : 'text-slate-300 hover:bg-white/[0.04]'
+                    }`
+                  }
+                >
+                  <span>{link.name}</span>
+                  <ChevronRight size={13} className="text-slate-600" />
+                </NavLink>
+              ))}
+
+              <Link
+                to="/compliance-grader"
+                onClick={() => setIsOpen(false)}
+                className="px-4 py-3 rounded-xl text-xs font-mono uppercase tracking-wider text-slate-300 hover:bg-white/[0.04] flex items-center justify-between"
+              >
+                <span>{isFr ? 'Diagnostic de Conformité' : 'Compliance Readiness Grader'}</span>
+                <ShieldCheck size={14} className="text-cyan-400" />
+              </Link>
+            </nav>
+
+            <div className="pt-4 border-t border-white/[0.08]">
+              <Link
+                to="/contact"
+                onClick={() => setIsOpen(false)}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-slate-950 font-mono font-semibold text-xs uppercase tracking-wider shadow-md"
+              >
+                <span>{isFr ? 'Planifier une Découverte (30 Min)' : 'Schedule 30-Minute Discovery'}</span>
+                <ArrowRight size={13} />
+              </Link>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Global Lead Capture Drawer */}
+      <LeadDrawer 
+        isOpen={isDrawerOpen} 
+        onClose={() => setIsDrawerOpen(false)} 
+        defaultTopic={drawerTopic}
+      />
     </>
   );
 };

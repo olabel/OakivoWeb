@@ -1,42 +1,37 @@
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'black' | 'visa' | 'white' | 'dark';
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline' | 'black' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ 
-  variant = 'primary', 
-  size = 'md', 
-  className = '', 
-  children, 
-  ...props 
+export const Button: React.FC<ButtonProps> = ({
+  variant = 'primary',
+  size = 'md',
+  className = '',
+  children,
+  ...props
 }) => {
-  const baseStyles = "font-sans font-bold transition-all duration-500 ease-in-out focus:outline-none flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-95 whitespace-nowrap";
-  
-  const variants = {
-    primary: "bg-oakivo-primary text-white hover:bg-black rounded-full shadow-lg border border-transparent",
-    visa: "bg-oakivo-primary text-white hover:bg-black rounded-full shadow-premium border border-transparent", 
-    black: "bg-[#020504] text-white hover:bg-gray-800 rounded-full shadow-xl border border-white/10",
-    secondary: "bg-white text-oakivo-primary border border-gray-200 hover:border-oakivo-secondary hover:bg-gray-50 rounded-full shadow-sm",
-    outline: "bg-transparent border-2 border-oakivo-primary text-oakivo-primary hover:bg-oakivo-primary hover:text-white rounded-full",
-    ghost: "bg-transparent text-oakivo-primary hover:text-oakivo-secondary p-0 shadow-none rounded-none border-b-2 border-transparent hover:border-oakivo-secondary",
-    white: "bg-white text-oakivo-primary hover:bg-oakivo-secondary hover:text-black rounded-full shadow-xl border border-transparent",
-    dark: "bg-oakivo-primary/10 text-oakivo-primary hover:bg-oakivo-primary hover:text-white border border-oakivo-primary/20 rounded-full",
+  const baseStyles = 'inline-flex items-center justify-center font-mono font-medium rounded-xl transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none';
+
+  const variantStyles = {
+    primary: 'bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold shadow-lg shadow-cyan-500/20',
+    secondary: 'bg-white hover:bg-slate-200 text-slate-950 font-semibold shadow-md',
+    black: 'bg-black hover:bg-slate-900 text-white border border-white/20 shadow-xl',
+    outline: 'bg-transparent hover:bg-white/[0.06] text-slate-200 border border-white/20 hover:border-white/40',
+    ghost: 'bg-transparent hover:bg-white/[0.04] text-slate-300 hover:text-white'
   };
 
-  const sizes = {
-    sm: "px-6 py-2.5 text-xs uppercase tracking-widest",
-    md: "px-8 py-3.5 text-sm uppercase tracking-widest",
-    lg: "px-12 py-5 text-base lg:text-xl",
+  const sizeStyles = {
+    sm: 'px-3 py-1.5 text-xs',
+    md: 'px-5 py-2.5 text-xs tracking-wider uppercase',
+    lg: 'px-7 py-3.5 text-sm tracking-wider uppercase'
   };
-
-  const activeSize = variant === 'ghost' ? 'pb-1' : sizes[size];
 
   return (
-    <button 
-      className={`${baseStyles} ${variants[variant]} ${activeSize} ${className}`}
+    <button
+      className={`${baseStyles} ${variantStyles[variant] || variantStyles.primary} ${sizeStyles[size] || sizeStyles.md} ${className}`}
       {...props}
     >
       {children}

@@ -4,6 +4,23 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  resolve: {
+    dedupe: ['react', 'react-dom', 'react-router-dom', 'react-router', 'react-helmet-async'],
+  },
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react-dom/client',
+      'react-router-dom',
+      'react-helmet-async',
+      'lucide-react',
+      'motion',
+      'motion/react',
+      'sonner',
+      'react-markdown'
+    ],
+  },
   server: {
     port: 3000,
     host: true,
