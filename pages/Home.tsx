@@ -146,13 +146,71 @@ export const Home: React.FC = () => {
     }
   ];
 
+  const homeFaqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': [
+      {
+        '@type': 'Question',
+        'name': isFr ? 'Que fait Oakivo Solutions ?' : 'What does Oakivo Solutions do?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': isFr
+            ? 'Oakivo Solutions modernise et automatise les entreprises canadiennes : déploiement ERP moderne (Odoo) en moins de 90 jours, automatisation complète des flux d’affaires (devis, facturation, encaissement) et ingénierie infonuagique souveraine avec conformité LPRPDE et Loi 25.'
+            : 'Oakivo Solutions delivers modern ERP implementations (composable Odoo and unified backbones in under 90 days), hands-free business workflow automations (quote-to-cash, inventory dispatch, billing), custom web portals, and Canadian sovereign cloud security with direct senior founder access.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': isFr ? 'Quelle est la règle d’or d’Oakivo pour l’automatisation des entreprises ?' : 'What is Oakivo’s golden rule for business automation?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': isFr
+            ? 'La règle d’or d’Oakivo est « L’IA prépare, l’humain approuve ». Les modèles d’IA ingèrent les documents, réconcilient les données et préparent les brouillons en quelques secondes, mais un humain qualifié conserve la validation finale pour toute action financière ou contractuelle irréversible.'
+            : 'Oakivo’s golden rule is "AI Prepares, Humans Approve." Autonomous models excel at ingesting messy documents, reconciling ledger disparities, and staging structured drafts in seconds, but a qualified human decision-maker retains the irrevocable key to commit irreversible transactions.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': isFr ? 'Combien de temps prend une intégration ERP avec Oakivo ?' : 'How long does an ERP implementation take with Oakivo?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': isFr
+            ? 'Une intégration ERP moderne avec Oakivo prend généralement de 60 à 90 jours, avec un périmètre et un budget fixes, sans interruption des opérations quotidiennes.'
+            : 'A modern ERP implementation with Oakivo typically takes 60 to 90 days with a fixed-scope milestone delivery, avoiding the multi-year delays and multi-million dollar overhead of legacy Big-4 consulting.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': isFr ? 'Où est située Oakivo Solutions ?' : 'Where is Oakivo Solutions located?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': isFr
+            ? 'Oakivo Solutions a son siège social à Dieppe, au Nouveau-Brunswick (Canada), avec une équipe 100% bilingue à l’heure normale de l’Atlantique (HNA) desservant des clients partout au Canada et en Amérique du Nord.'
+            : 'Oakivo Solutions is headquartered in Dieppe, New Brunswick, Canada (Atlantic Standard Time), with a 100% bilingual team (English/French) serving growing enterprises across Atlantic Canada, Canada, and North America.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': isFr ? 'Comment Oakivo garantit-elle la souveraineté des données canadiennes ?' : 'How does Oakivo guarantee Canadian data sovereignty?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': isFr
+            ? 'Toutes les architectures cloud et données sont hébergées exclusivement dans des centres de données situés sur le territoire canadien (AWS ca-central-1, Azure Canada), en stricte conformité avec la LPRPDE, la Loi 25 du Québec et les normes SOC 2 Type II.'
+            : 'All cloud architectures and customer data are hosted exclusively within domestic Canadian cloud regions (AWS ca-central-1, Azure Canada) under strict compliance with PIPEDA, Quebec Law 25, and SOC 2 Type II standards.'
+        }
+      }
+    ]
+  };
+
   return (
     <>
       <SEO 
-        title="Sovereign Technology Engineering | Modern ERP & Cloud Architecture | Oakivo"
-        description="Oakivo Solutions Inc. is a boutique technology engineering firm headquartered in Dieppe, NB. We replace spreadsheet chaos with turnkey Odoo ERP, cut 35% of cloud infrastructure waste, and guarantee Canadian data sovereignty."
-        keywords="Modern ERP Atlantic Canada, Cloud FinOps Canada, DevSecOps New Brunswick, AWS Azure ca-central, Odoo implementation Dieppe, PIPEDA SOC 2 compliance automation, Sovereign technology engineering"
+        title={isFr ? "Modernisation ERP, Automatisation des Flux & Sécurité Cloud | Oakivo Solutions" : "Modern ERP, Workflow Automation & Sovereign Cloud Engineering | Oakivo Solutions"}
+        description={isFr ? "Modernisation et automatisation des entreprises canadiennes : ERP moderne unifié en moins de 90 jours, flux sans friction et conformité continue avec accès direct aux fondateurs." : "Modern ERP implementations in under 90 days, hands-free business workflow automations, custom web platforms, and sovereign cloud security with direct senior founder access in Atlantic Standard Time."}
+        keywords="Modern ERP Atlantic Canada, Business Workflow Automation, Odoo implementation Dieppe, PIPEDA SOC 2 compliance automation, Canadian data sovereignty, AI Prepares Humans Approve"
         canonical="/"
+        schema={homeFaqSchema}
       />
       
       {/* ========================================================================= */}

@@ -1,5 +1,6 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'motion/react';
 import { HelmetProvider } from "react-helmet-async";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from './components/Navbar';
@@ -107,49 +108,60 @@ const AppLayout = () => {
         Skip to main content
       </a>
       {!isDemo && <Navbar />}
-      <main id="main-content" tabIndex={-1} className={!isDemo ? "flex-grow pt-20 lg:pt-24 focus:outline-none" : "flex-grow focus:outline-none"}>
-        <Suspense fallback={<RouteLoadingFallback />}>
-          <Routes>
-            <Route path={NavRoute.HOME} element={<Home />} />
-            <Route path="/services" element={<Expertise />} />
-            <Route path="/capabilities" element={<Navigate to="/services" replace />} />
-            <Route path="/expertise" element={<Navigate to="/services" replace />} />
-            <Route path="/case-studies" element={<CaseStudies />} />
-            <Route path="/casestudies" element={<Navigate to="/case-studies" replace />} />
-            <Route path="/work" element={<Navigate to="/case-studies" replace />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="/schedule" element={<Navigate to="/booking" replace />} />
-            <Route path="/audit" element={<Navigate to="/booking" replace />} />
-            <Route path="/methodology" element={<Methodology />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/firm" element={<Navigate to="/about" replace />} />
-            <Route path="/verticals" element={<Verticals />} />
-            <Route path="/industries" element={<Navigate to="/verticals" replace />} />
-            <Route path="/admin-portal" element={<AdminPortal />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/compliance-matrix" element={<ComplianceMatrix />} />
-            <Route path="/compliance-grader" element={<ComplianceGrader />} />
-            <Route path="/compliance-readiness-grader" element={<Navigate to="/compliance-grader" replace />} />
-            <Route path="/compliance" element={<Navigate to="/compliance-matrix" replace />} />
-            <Route path="/matrix" element={<Navigate to="/compliance-matrix" replace />} />
-            <Route path="/brand-identity" element={<BrandShowcase />} />
-            <Route path="/client-portal-demo" element={<ClientPortalDemo />} />
-            <Route path="/client-portal" element={<ClientPortal />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/insights/:id" element={<InsightDetail />} />
-            <Route path="/perspectives" element={<Navigate to="/insights" replace />} />
-            <Route path="/perspectives/:id" element={<Navigate to="/insights" replace />} />
-            <Route path="/solutions/:slug" element={<SolutionDetail />} />
-            <Route path="/locations/newfoundland" element={<Navigate to="/locations/newfoundland-labrador" replace />} />
-            <Route path="/locations/:slug" element={<LocationDetail />} />
-            <Route path="/compliance/:slug" element={<ComplianceSEO />} />
-            <Route path="/risk-calculator" element={<RiskCalculator />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+      <main id="main-content" tabIndex={-1} className={!isDemo ? "flex-grow pt-20 lg:pt-24 focus:outline-none overflow-x-hidden" : "flex-grow focus:outline-none overflow-x-hidden"}>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={pathname}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="flex-grow flex flex-col"
+          >
+            <Suspense fallback={<RouteLoadingFallback />}>
+              <Routes>
+                <Route path={NavRoute.HOME} element={<Home />} />
+                <Route path="/services" element={<Expertise />} />
+                <Route path="/capabilities" element={<Navigate to="/services" replace />} />
+                <Route path="/expertise" element={<Navigate to="/services" replace />} />
+                <Route path="/case-studies" element={<CaseStudies />} />
+                <Route path="/casestudies" element={<Navigate to="/case-studies" replace />} />
+                <Route path="/work" element={<Navigate to="/case-studies" replace />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/booking" element={<Booking />} />
+                <Route path="/schedule" element={<Navigate to="/booking" replace />} />
+                <Route path="/audit" element={<Navigate to="/booking" replace />} />
+                <Route path="/methodology" element={<Methodology />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/firm" element={<Navigate to="/about" replace />} />
+                <Route path="/verticals" element={<Verticals />} />
+                <Route path="/industries" element={<Navigate to="/verticals" replace />} />
+                <Route path="/admin-portal" element={<AdminPortal />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/compliance-matrix" element={<ComplianceMatrix />} />
+                <Route path="/compliance-grader" element={<ComplianceGrader />} />
+                <Route path="/compliance-readiness-grader" element={<Navigate to="/compliance-grader" replace />} />
+                <Route path="/compliance" element={<Navigate to="/compliance-matrix" replace />} />
+                <Route path="/matrix" element={<Navigate to="/compliance-matrix" replace />} />
+                <Route path="/brand-identity" element={<BrandShowcase />} />
+                <Route path="/client-portal-demo" element={<ClientPortalDemo />} />
+                <Route path="/client-portal" element={<ClientPortal />} />
+                <Route path="/insights" element={<Insights />} />
+                <Route path="/insights/:id" element={<InsightDetail />} />
+                <Route path="/perspectives" element={<Navigate to="/insights" replace />} />
+                <Route path="/perspectives/:id" element={<InsightDetail />} />
+                <Route path="/solutions/:slug" element={<SolutionDetail />} />
+                <Route path="/locations/newfoundland" element={<Navigate to="/locations/newfoundland-labrador" replace />} />
+                <Route path="/locations/:slug" element={<LocationDetail />} />
+                <Route path="/compliance/:slug" element={<ComplianceSEO />} />
+                <Route path="/risk-calculator" element={<RiskCalculator />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </motion.div>
+        </AnimatePresence>
       </main>
       {!isDemo && <Footer />}
       {!isDemo && <LiveChat />}

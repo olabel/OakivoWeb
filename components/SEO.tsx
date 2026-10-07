@@ -65,6 +65,8 @@ const SEO: React.FC<SEOProps> = ({
     'knowsAbout': [
       'Modern ERP',
       'Workflow Automation',
+      'Human-in-the-Loop AI Systems',
+      'AI Prepares Humans Approve Paradigm',
       'Creative Website Design',
       'Brand Digital Exposure',
       'Enterprise Cybersecurity',
@@ -74,7 +76,7 @@ const SEO: React.FC<SEOProps> = ({
       'Compliance Automation',
       'SOC 2 Type II',
       'PIPEDA',
-      'Law 25',
+      'Quebec Law 25',
       'Canadian Data Sovereignty'
     ]
   };
@@ -145,6 +147,7 @@ const SEO: React.FC<SEOProps> = ({
           <link rel="alternate" hrefLang="en-CA" href={fullUrl} />
           <link rel="alternate" hrefLang="fr-CA" href={`${fullUrl}?lang=fr`} />
           <link rel="alternate" hrefLang="x-default" href={fullUrl} />
+          <link rel="alternate" type="text/plain" href={`${siteUrl}/llms.txt`} title="LLM Knowledge Graph" />
         </>
       )}
       

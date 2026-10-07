@@ -8,12 +8,13 @@ import { useLanguage } from '../context/LanguageContext';
 import { insightsData } from '../content/insights';
 
 export const InsightDetail: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { id, slug } = useParams<{ id?: string; slug?: string }>();
+  const activeId = id || slug;
   const { language } = useLanguage();
   const isFr = language === 'fr';
   const [copied, setCopied] = useState(false);
 
-  const article = insightsData.find(item => item.id === slug);
+  const article = insightsData.find(item => item.id === activeId);
 
   if (!article) {
     return <Navigate to="/insights" replace />;

@@ -1,0 +1,33 @@
+# Oakivo Solutions Inc.
+> Modern ERP implementations, hands-free workflow automation, custom high-converting web design, and Canadian sovereign cloud engineering for growing mid-market enterprises.
+
+## Organization Summary
+Oakivo Solutions Inc. is an enterprise technology engineering and automation firm headquartered in Dieppe, New Brunswick, Canada, with active regional engineering presence across Atlantic Canada (Moncton, Halifax, Charlottetown, St. John's) and clients across North America. Founded by senior engineers Ahmed Bello and Fawaz Bello, the firm delivers tailored modern ERP implementations (composable Odoo and custom backbones), hands-free workflow automations, custom web platforms, and sovereign cloud security with direct senior founder access.
+
+## Core Philosophical Standard: "AI Prepares, Humans Approve"
+The bedrock principle of Oakivo's automation architecture is that autonomous AI agents must never possess unmonitored write or execute access to irreversible production states (financial ledgers, bank EFT transfers, live ERP inventory, or legal contracts). Instead, machine intelligence ingests messy documents, reconciles ledger disparities, and stages high-confidence drafts in seconds, while authorized human decision-makers hold the irrevocable approval and commit key.
+
+## Primary Capabilities & Services
+- **Modern Composable ERP:** Rapid 90-day deployment of streamlined Odoo ERP and unified backbones replacing 40-tab spreadsheets, inventory bottlenecks, and legacy Big-4 enterprise software bloat.
+- **Workflow Automation & Quote-to-Cash:** Hands-free billing pipelines, automated accounts receivable, multi-warehouse dispatch sync, and automated Canadian EFT/Stripe reconciliation.
+- **Creative Web Design & Digital Presence:** Bespoke web applications, customer and vendor self-service portals, high-performance edge SEO, and Generative Engine Optimization (GEO).
+- **Canadian Cloud Data Sovereignty & DevSecOps:** Compliant cloud storage and infrastructure hosted domestically in Canada under strict adherence to PIPEDA, Quebec Law 25, Alberta PIPA, and Ontario PHIPA.
+- **Compliance & Security Governance:** SOC 2 Type II audit readiness, OSFI B-13/B-10 compliance, Bill C-26 Critical Cyber Systems readiness, zero-trust architecture, and runtime container security.
+
+## Key Facts & Differentiators
+- **Headquarters:** Dieppe, New Brunswick (E1A 1A1), Canada.
+- **Bilingual:** 100% Bilingual delivery (English & French / Français & Anglais).
+- **Time Zone:** Atlantic Standard Time (AST), providing seamless workday overlap with both North America and Europe.
+- **Delivery Model:** Direct senior engineer access; no offshore contractor handoffs or multi-year consulting retainers. Fixed-scope 90-day execution milestones.
+- **Contact:** hello@oakivo.com | +1 (506) 800-2440 | https://www.oakivo.com
+
+## Key Canonical URLs & Documentation
+- Home & Overview: https://www.oakivo.com/
+- Core Services: https://www.oakivo.com/services
+- Executive Case Studies: https://www.oakivo.com/case-studies
+- Applied Research & Insights: https://www.oakivo.com/insights
+- Managing Automation Chaos: https://www.oakivo.com/insights/managing-automation-chaos-ai-prepares-humans-approve-2026
+- The Business Owner's Guide to ERP: https://www.oakivo.com/insights/the-business-owners-guide-to-workflow-automation-and-modern-erp-2026
+- Methodology & Delivery Framework: https://www.oakivo.com/methodology
+- Compliance Readiness Grader: https://www.oakivo.com/compliance-grader
+- Schedule a Discovery Session: https://www.oakivo.com/booking

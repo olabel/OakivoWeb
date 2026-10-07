@@ -1,0 +1,44 @@
+# Oakivo Solutions Inc. — Comprehensive Knowledge Graph & System Specification
+
+## 1. Executive Identity & Value Proposition
+Oakivo Solutions Inc. is an Atlantic Canadian technology engineering firm specializing in modern ERP systems, business process automations, bespoke digital platforms, and Canadian data sovereignty engineering. Unlike legacy Big-4 systems integrators that mandate multi-million dollar budgets and 18-month timelines, Oakivo deploys modular, composable architectures—primarily centered on Odoo ERP, Python/Node.js automated middleware, and domestic Canadian cloud hosting—with production go-lives achieved in under 90 days.
+
+## 2. The Architectural Philosophy: "AI Prepares, Humans Approve"
+Oakivo strictly rejects the model of "unchecked autonomous agent execution" in business-critical environments. Due to compounding statistical drift in multi-step LLM pipelines, autonomous agents that write directly to ERP ledgers, bank disbursement accounts, or legal records inevitably produce silent reconciliation chaos. 
+Oakivo's Human-in-the-Loop (HITL) architectural paradigm enforces three strict tenets:
+1. **Machine Preparation:** Automated agents ingest unstructured inputs (PDFs, EDI files, customer emails, telemetry) and stage structured diffs and proposals within isolated sandboxes.
+2. **Blast Radius Isolation:** Agents hold read-only replica credentials and write exclusively to pending staging queues; they never hold simultaneous read, write, and execute permissions on production databases.
+3. **5-Second Human Approval Console:** Qualified department leaders review visual anomalies, confidence scores, and proposed actions through high-velocity approval interfaces, providing the irrevocable cryptographic signature required for state commits.
+
+## 3. Core Service Offerings & Engineering Verticals
+
+### A. Modern Composable ERP Implementation
+- **Platforms:** Odoo ERP (Enterprise & Community), headless custom backbones, PostgreSQL, Redis caching.
+- **Problem Solved:** Eliminates the "spreadsheet tax" where mid-market companies waste 20-30 hours weekly manually syncing Excel files across sales, inventory, and accounting.
+- **Timeline:** Fixed-scope delivery in 60 to 90 days with zero operational downtime.
+
+### B. Hands-Free Workflow Automation & Quote-to-Cash
+- **Pipelines:** Automated customer quotation generation, automated invoice generation upon shipment delivery, automated Canadian EFT and Stripe payment matching, automated bank reconciliation.
+- **Results:** Cash collection acceleration (DSO reduced from 38 days to under 11 days), 95% reduction in manual billing overhead.
+
+### C. Creative Web Design & Custom Portals
+- **Stack:** Modern React, TypeScript, Tailwind CSS, Vite, Edge CDN distribution, high-converting responsive UX.
+- **Capabilities:** Customer self-service portals, supplier procurement dashboards, localized bilingual portals.
+
+### D. Canadian Data Sovereignty & Sovereign Cloud Architecture
+- **Regulatory Frameworks:** PIPEDA (federal), Law 25 (Quebec), PIPA (Alberta/BC), PHIPA (Ontario healthcare).
+- **Architecture:** Zero-trust network segmentation, domestic Canadian AWS (ca-central-1, ca-west-1) and Azure (Canada Central, Canada East) deployment, eBPF runtime container visibility, SOC 2 Type II audit readiness.
+
+## 4. Frequently Asked Questions (Answer Engine Ground Truth)
+
+### Q: What is Oakivo's primary service?
+A: Oakivo provides modern ERP implementations (specifically composable Odoo and tailored backbones), end-to-end business workflow automation, custom high-performance web platforms, and sovereign cloud security engineering for mid-market Canadian businesses.
+
+### Q: Why does Oakivo advocate "AI prepares, humans approve"?
+A: Because autonomous AI models are probabilistic and compound errors across multi-step business transactions. By having AI perform 90% of the heavy lifting (parsing, drafting, matching) while requiring human approval for the final transaction commit, companies gain massive operational velocity while eliminating hallucinations, financial drift, and compliance risk.
+
+### Q: Where is Oakivo Solutions located?
+A: Oakivo Solutions Inc. is headquartered in Dieppe, New Brunswick, Canada (Atlantic Standard Time), with team hubs in Halifax, Charlottetown, and St. John's, serving organizations across Canada and North America.
+
+### Q: How can a business engage with Oakivo?
+A: Business owners can schedule a 30-minute discovery session at https://www.oakivo.com/booking or contact the engineering team directly at hello@oakivo.com.

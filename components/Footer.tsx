@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { Mail, Phone, MapPin, ArrowRight, Calculator, ShieldCheck, Linkedin, Twitter } from 'lucide-react';
+import Logo from './Logo';
 
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
@@ -60,13 +61,11 @@ const Footer: React.FC = () => {
             <div>
               <Link 
                 to={NavRoute.HOME} 
-                className="text-2xl font-display font-bold tracking-tight text-white flex items-center"
+                className="inline-block focus:outline-none"
+                aria-label="Oakivo Solutions homepage"
               >
-                OAKIVO<span className="text-cyan-400">.</span>
+                <Logo size="lg" />
               </Link>
-              <p className="text-xs font-mono text-slate-500 mt-1 uppercase tracking-wider">
-                {isFr ? 'Ingénierie & Transformation Boutique' : 'Boutique Technology Engineering'}
-              </p>
             </div>
 
             <p className="text-xs md:text-sm text-slate-400 font-light leading-relaxed pr-6">

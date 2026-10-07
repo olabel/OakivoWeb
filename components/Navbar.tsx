@@ -3,6 +3,7 @@ import { NavLink, useLocation, Link } from 'react-router-dom';
 import { Menu, X, ArrowRight, ShieldCheck, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import LeadDrawer from './LeadDrawer';
+import Logo from './Logo';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,26 +85,13 @@ export const Navbar: React.FC = () => {
       >
         <div className="container mx-auto max-w-7xl h-20 px-6 sm:px-8 lg:px-12 flex items-center justify-between">
           
-          {/* Brand Wordmark with Architectural Subtitle */}
+          {/* Brand Wordmark & Emblem */}
           <Link 
             to="/" 
             aria-label="Oakivo Solutions homepage" 
-            className="flex items-center gap-3 group focus:outline-none focus:ring-1 focus:ring-cyan-400 rounded py-1"
+            className="flex items-center group focus:outline-none focus:ring-1 focus:ring-cyan-400 rounded py-1"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-mono font-bold text-sm tracking-wider group-hover:border-cyan-400 transition-colors">
-              O
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="text-lg font-display font-bold tracking-tight text-white group-hover:text-slate-100 transition-colors">
-                  OAKIVO
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              </div>
-              <span className="text-[9px] font-mono tracking-widest text-slate-400 uppercase -mt-0.5">
-                Boutique Engineering
-              </span>
-            </div>
+            <Logo size="md" />
           </Link>
 
           {/* Minimalist Desktop Navigation */}
