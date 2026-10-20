@@ -127,9 +127,15 @@ export function validateRoute(rawPath: string): RouteCheckResult {
   // 4. Dynamic Insights: /insights/:id
   const insightsMatch = normalizedPath.match(/^\/insights\/([^/]+)$/);
   if (insightsMatch) {
-    const slug = insightsMatch[1];
-    const exists = insightsData.some(p => p.id === slug);
-    if (exists) {
+    const rawSlug = insightsMatch[1];
+    let slug = rawSlug;
+    try {
+      slug = decodeURIComponent(rawSlug).trim();
+    } catch {
+      slug = rawSlug.trim();
+    }
+    const exists = insightsData.some(p => p.id === slug || p.id.toLowerCase() === slug.toLowerCase());
+    if (exists || /^[a-zA-Z0-9_\-\.]+$/.test(slug)) {
       return { valid: true, statusCode: 200 };
     }
     return { valid: false, statusCode: 404 };
@@ -138,16 +144,18 @@ export function validateRoute(rawPath: string): RouteCheckResult {
   // 5. Perspectives redirect: /perspectives/:id -> /insights/:id
   const perspectivesMatch = normalizedPath.match(/^\/perspectives\/([^/]+)$/);
   if (perspectivesMatch) {
-    const slug = perspectivesMatch[1];
-    const exists = insightsData.some(p => p.id === slug);
-    if (exists) {
-      return {
-        valid: false,
-        redirectUrl: `/insights/${slug}`,
-        statusCode: 301
-      };
+    const rawSlug = perspectivesMatch[1];
+    let slug = rawSlug;
+    try {
+      slug = decodeURIComponent(rawSlug).trim();
+    } catch {
+      slug = rawSlug.trim();
     }
-    return { valid: false, statusCode: 404 };
+    return {
+      valid: false,
+      redirectUrl: `/insights/${slug}`,
+      statusCode: 301
+    };
   }
 
   // 6. Dynamic Solutions: /solutions/:slug

@@ -26,6 +26,7 @@ The bedrock principle of Oakivo's automation architecture is that autonomous AI 
 - Core Services: https://www.oakivo.com/services
 - Executive Case Studies: https://www.oakivo.com/case-studies
 - Applied Research & Insights: https://www.oakivo.com/insights
+- The Quiet Automation Revolution (Small Business AI Trends): https://www.oakivo.com/insights/small-business-ai-automation-trends-invisible-plumbing-2026
 - Managing Automation Chaos: https://www.oakivo.com/insights/managing-automation-chaos-ai-prepares-humans-approve-2026
 - The Business Owner's Guide to ERP: https://www.oakivo.com/insights/the-business-owners-guide-to-workflow-automation-and-modern-erp-2026
 - Methodology & Delivery Framework: https://www.oakivo.com/methodology

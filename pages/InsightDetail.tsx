@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, Clock, Calendar, Share2, ShieldCheck, ArrowRight, CheckCircle2, Bookmark, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/SEO';
 import OptimizedImage from '../components/OptimizedImage';
 import { useLanguage } from '../context/LanguageContext';
-import { insightsData } from '../content/insights';
+import { insightsData, InsightPost } from '../content/insights';
+import { db } from '../utils/database';
 
 export const InsightDetail: React.FC = () => {
   const { id, slug } = useParams<{ id?: string; slug?: string }>();
@@ -14,7 +15,70 @@ export const InsightDetail: React.FC = () => {
   const isFr = language === 'fr';
   const [copied, setCopied] = useState(false);
 
-  const article = insightsData.find(item => item.id === activeId);
+  const cleanId = useMemo(() => {
+    if (!activeId) return '';
+    try {
+      return decodeURIComponent(activeId).trim();
+    } catch {
+      return activeId.trim();
+    }
+  }, [activeId]);
+
+  const staticArticle = useMemo(() => {
+    if (!cleanId) return null;
+    return insightsData.find(item => 
+      item.id === cleanId || 
+      item.id.toLowerCase() === cleanId.toLowerCase()
+    ) || null;
+  }, [cleanId]);
+
+  const [dbArticle, setDbArticle] = useState<InsightPost | null>(null);
+  const [isLoadingDb, setIsLoadingDb] = useState<boolean>(!staticArticle && Boolean(cleanId));
+
+  useEffect(() => {
+    if (staticArticle || !cleanId) {
+      setIsLoadingDb(false);
+      return;
+    }
+
+    let isMounted = true;
+    setIsLoadingDb(true);
+
+    db.getInsights()
+      .then((records) => {
+        if (!isMounted) return;
+        const match = records?.find((item: any) => 
+          item.id === cleanId || 
+          item.id?.toLowerCase() === cleanId.toLowerCase()
+        );
+        if (match) {
+          setDbArticle(match as InsightPost);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not query Firestore for insight:', err);
+      })
+      .finally(() => {
+        if (isMounted) setIsLoadingDb(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [cleanId, staticArticle]);
+
+  const article = staticArticle || dbArticle;
+
+  if (isLoadingDb) {
+    return (
+      <div className="bg-[#030712] min-h-screen pt-36 pb-24 px-6 flex flex-col items-center justify-center">
+        <div className="w-10 h-10 border-2 border-cyan-500/20 border-t-cyan-400 rounded-full animate-spin" />
+        <span className="mt-4 font-mono text-xs text-slate-400 tracking-wider">
+          {isFr ? 'CHARGEMENT DE LA PUBLICATION...' : 'LOADING STRATEGIC BRIEFING...'}
+        </span>
+      </div>
+    );
+  }
 
   if (!article) {
     return <Navigate to="/insights" replace />;
