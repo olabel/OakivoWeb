@@ -144,38 +144,33 @@ const Services: React.FC = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 border-b border-white/[0.08] overflow-hidden">
-        {/* Cinematic Video Background */}
-        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-particles-and-lines-in-space-26210-large.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950"></div>
+      <section className="relative pt-16 pb-20 md:pt-24 md:pb-28 border-b border-[#1e2d27]/70 bg-[#000000] overflow-hidden">
+        {/* Soft Ambient Depth */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-[#0f5e4a]/20 via-transparent to-transparent blur-[120px]" />
         </div>
-        <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
+        <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 max-w-7xl">
           <div className="max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
-              <Sparkles size={13} className="text-cyan-400" />
-              <span className="text-[11px] font-mono font-medium text-gray-300">
-                {t('hero.badge')}
-              </span>
-            </div>
+            <span className="nova-eyebrow text-[#23c694]">
+              {t('hero.badge')}
+            </span>
 
-            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-slate-100 leading-[1.06]">
+            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-display font-light text-white tracking-[-0.035em] leading-[1.06]">
               {t('hero.headline_main')}{' '}
-              <span className="text-linear-accent font-semibold">{t('hero.headline_accent')}</span>
+              <span className="text-[#23c694] font-normal">{t('hero.headline_accent')}</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
+            <p className="text-base md:text-lg text-[#a8b0ad] font-light leading-relaxed max-w-3xl">
               {t('hero.subtitle')}
             </p>
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
-              <button onClick={() => window.dispatchEvent(new CustomEvent("open-lead-drawer"))}
-                className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group cursor-pointer"
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent("open-lead-drawer"))}
+                className="nova-outline-btn cursor-pointer py-3.5 px-6"
               >
                 <span>{t('common.cta_book_audit')}</span>
-                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight size={14} className="text-[#23c694]" />
               </button>
               
               <DownloadBrochureButton size="lg" variant="outline" />

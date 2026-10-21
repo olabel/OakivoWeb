@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, Loader2, 
-  Mail, MapPin, Clock, Check
+  Mail, MapPin, Clock, Check, Sparkles, Calendar, PhoneCall, Terminal
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import DynamicHero from '../components/DynamicHero';
@@ -39,70 +39,44 @@ export const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, [isFr]);
 
-  // Contact / Discovery Session Form
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    focusStream: 'Sales Acceleration (< 90s Lead Response)',
-    message: ''
-  });
-
+  // Streamlined 1-Field Fast Executive Consultation Dispatch
+  const [contactInput, setContactInput] = useState('');
+  const [selectedFocus, setSelectedFocus] = useState('Sales Acceleration (< 90s Lead Response)');
   const [honeypot, setHoneypot] = useState('');
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [inputError, setInputError] = useState('');
 
-  const validateContactForm = () => {
-    const errors: Record<string, string> = {};
-    if (!contactForm.name.trim()) {
-      errors.name = isFr ? 'Votre nom est requis' : 'Your name is required';
-    }
-    if (!contactForm.email.trim()) {
-      errors.email = isFr ? 'Courriel professionnel requis' : 'Work email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email)) {
-      errors.email = isFr ? 'Format de courriel invalide' : 'Please enter a valid work email';
-    }
-    if (!contactForm.company.trim()) {
-      errors.company = isFr ? 'Nom de l’entreprise requis' : 'Company name is required';
-    }
-    if (!contactForm.message.trim()) {
-      errors.message = isFr ? 'Veuillez préciser votre besoin principal' : 'Please describe your biggest operational bottleneck';
-    }
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFastSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (honeypot) {
       setFormStatus('success');
       return;
     }
-    if (!validateContactForm()) return;
-
+    const val = contactInput.trim();
+    if (!val) {
+      setInputError(isFr ? 'Veuillez saisir votre courriel ou téléphone' : 'Please provide your work email or phone');
+      return;
+    }
+    setInputError('');
     setFormStatus('submitting');
+
     try {
       await db.saveEntry('lead', {
-        name: contactForm.name.trim(),
-        email: contactForm.email.trim().toLowerCase(),
-        phone: contactForm.phone.trim(),
-        company: contactForm.company.trim(),
-        focusArea: contactForm.focusStream,
-        bottleneck: contactForm.message.trim(),
-        source: 'Homepage Minimalist Contact Form'
+        contact: val,
+        focusArea: selectedFocus,
+        source: 'Homepage Streamlined Founder Fast-Track',
+        timestamp: new Date().toISOString()
       });
-
       setFormStatus('success');
     } catch (err) {
-      console.error('Failed to submit discovery request:', err);
+      console.error('Failed to submit consultation request:', err);
       setFormStatus('error');
     }
   };
 
   const scrollToContact = (focusStream?: string) => {
     if (focusStream) {
-      setContactForm(prev => ({ ...prev, focusStream }));
+      setSelectedFocus(focusStream);
     }
     const el = document.getElementById('contact');
     if (el) {
@@ -122,7 +96,7 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050811] text-white selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="min-h-screen bg-[#000000] text-[#f7faf9] selection:bg-[#23c694]/30 selection:text-[#dffff1]">
       
       {/* Dynamic SEO Meta */}
       <SEO 
@@ -140,7 +114,7 @@ export const Home: React.FC = () => {
       {/* Global Interactive AI Audit Modal */}
       <SmallBizAiAuditModal />
 
-      {/* 1. Calm, Minimalist Hero Section */}
+      {/* 1. Calm, Minimalist Hero Section (Faithful to Nova Intelligence design) */}
       <DynamicHero 
         onOpenAudit={openAuditModal}
         onScrollToContact={() => scrollToContact()}
@@ -155,292 +129,248 @@ export const Home: React.FC = () => {
       {/* 3. The Core Safeguard Philosophy: "AI Prepares, Humans Approve" */}
       <HumanInTheLoopPrinciple />
 
-      {/* 4. Tested Operational Blueprints (Radical Transparency & Realism) */}
+      {/* 4. Tested Operational Blueprints with Photography */}
       <SmallBizCaseStudies />
 
-      {/* 5. Direct Founder Partnership & Clean Inquiry Form */}
-      <section id="contact" className="py-24 bg-[#050811] border-b border-white/[0.06] relative">
+      {/* 5. Streamlined Founder Partnership & Low-Form Executive Console */}
+      <section id="contact" className="py-24 bg-[#000000] border-t border-[#1e2d27]/70 relative">
         <div className="container mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {/* Left Column: Direct Founder Partnership Note */}
-            <div className="lg:col-span-5 space-y-6">
+            {/* Left Column: Direct Founder Access (6 cols) */}
+            <div className="lg:col-span-6 space-y-6">
               
               <div className="space-y-3">
-                <div className="text-xs font-mono text-cyan-400 uppercase tracking-widest">
-                  {isFr ? 'Accès Direct aux Fondateurs' : 'Direct Founder Partnership'}
-                </div>
+                <span className="nova-eyebrow text-[#23c694]">
+                  {isFr ? 'ACCÈS DIRECT AUX FONDATEURS' : 'DIRECT FOUNDER ACCESS'}
+                </span>
                 
-                <h2 className="text-3xl sm:text-4xl font-display font-semibold text-white tracking-tight">
+                <h2 className="text-3xl sm:text-5xl font-display font-light text-white tracking-tight">
                   {isFr 
-                    ? 'Parlons de ce qui freine vos opérations.'
-                    : 'Let’s discuss what’s slowing your business down.'
+                    ? 'Parlons de vos opérations.'
+                    : 'Let’s look at your operations.'
                   }
                 </h2>
 
-                <p className="text-slate-300 text-sm leading-relaxed font-light">
+                <p className="text-[#a8b0ad] text-sm sm:text-base leading-relaxed font-light">
                   {isFr
-                    ? "Aucun commercial insistant. Vous échangez directement avec les fondateurs et ingénieurs seniors à Dieppe (N.-B.). Nous analysons vos goulots d’étranglement, évaluons les gains réalistes et proposons un plan concret en 14 jours si le projet est pertinent."
-                    : "No pushy sales reps. You will speak directly with our senior engineering founders in Dieppe, New Brunswick. We will review your bottlenecks, discuss realistic outcomes, and propose a fixed 14-day sprint if there is a genuine fit."
+                    ? "Aucun commercial. Vous échangez directement avec les fondateurs et ingénieurs seniors à Dieppe (N.-B.). Nous auditons vos processus manuels et vous indiquons en toute franchise si un sprint de 14 jours est rentable pour votre entreprise."
+                    : "Zero junior account reps or sales pitches. You talk directly with our engineering founders in Dieppe, New Brunswick. We review your workflows and provide a frank, honest assessment of what can be automated in a 14-day sprint."
                   }
                 </p>
               </div>
 
-              {/* Direct Founder Commitments (Clean Unboxed List) */}
-              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-3">
-                <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
-                  {isFr ? 'Nos Engagements Transparents :' : 'Our Straightforward Commitments:'}
+              {/* Founder Guarantees (Clean Unboxed Grid) */}
+              <div className="p-6 rounded-2xl bg-[#070a09] border border-[#1e2d27] space-y-3">
+                <div className="text-xs font-mono text-[#7c8581] uppercase tracking-wider mb-2">
+                  {isFr ? 'Nos Engagements d’Ingénierie :' : 'Our Engineering Commitments:'}
                 </div>
 
-                <div className="space-y-2.5 text-xs text-slate-300 font-mono">
-                  <div className="flex items-center gap-2">
-                    <Check size={14} className="text-cyan-400 shrink-0" />
-                    <span>{isFr ? 'Échange direct avec des ingénieurs seniors' : 'Direct senior engineering, zero junior account reps'}</span>
+                <div className="space-y-2.5 text-xs text-[#dce3e0] font-mono">
+                  <div className="flex items-center gap-2.5">
+                    <Check size={14} className="text-[#23c694] shrink-0" />
+                    <span>{isFr ? 'Sprints à périmètre et tarif fixes (14 jours)' : 'Fixed-scope, fixed-investment 14-day sprint delivery'}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Check size={14} className="text-cyan-400 shrink-0" />
-                    <span>{isFr ? 'Sprints à périmètre et tarif fixes (14 jours)' : 'Fixed-scope, fixed-investment 14-day sprints'}</span>
+                  <div className="flex items-center gap-2.5">
+                    <Check size={14} className="text-[#23c694] shrink-0" />
+                    <span>{isFr ? 'Garantie pilote de 30 jours sans risque' : '30-day risk-free production pilot milestone'}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Check size={14} className="text-cyan-400 shrink-0" />
-                    <span>{isFr ? 'Garantie pilote de 30 jours sans risque' : '30-day risk-free pilot milestone guarantee'}</span>
+                  <div className="flex items-center gap-2.5">
+                    <Check size={14} className="text-[#23c694] shrink-0" />
+                    <span>{isFr ? 'Hébergement souverain 100% canadien (AWS ca-central-1)' : '100% Canadian data residency (AWS ca-central-1)'}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Check size={14} className="text-cyan-400 shrink-0" />
-                    <span>{isFr ? 'Hébergement souverain 100% canadien (ca-central-1)' : '100% Canadian data residency (ca-central-1)'}</span>
+                  <div className="flex items-center gap-2.5">
+                    <Check size={14} className="text-[#23c694] shrink-0" />
+                    <span>{isFr ? 'Sas de sécurité humain « L’IA prépare, l’humain valide »' : 'Irrevocable human gate: "AI prepares, humans approve"'}</span>
                   </div>
                 </div>
               </div>
 
               {/* Direct Founder Coordinates */}
-              <div className="space-y-2 text-xs font-mono text-slate-400 pt-2">
-                <div className="flex items-center gap-2 text-slate-300">
-                  <MapPin size={13} className="text-cyan-400 shrink-0" />
-                  <span>Dieppe, New Brunswick, Canada</span>
+              <div className="flex flex-wrap items-center gap-6 text-xs font-mono text-[#7c8581] pt-2">
+                <div className="flex items-center gap-2 text-[#a8b0ad]">
+                  <MapPin size={13} className="text-[#23c694] shrink-0" />
+                  <span>Dieppe, NB, Canada</span>
                   {astTime && (
                     <>
-                      <span className="text-slate-600">·</span>
-                      <span className="text-cyan-400">{astTime} AST</span>
+                      <span className="text-[#1e2d27]">·</span>
+                      <span className="text-[#23c694]">{astTime} AST</span>
                     </>
                   )}
                 </div>
-                <div className="flex items-center gap-2 text-slate-300">
-                  <Mail size={13} className="text-cyan-400 shrink-0" />
-                  <a href="mailto:hello@oakivo.com" className="hover:text-cyan-300 transition-colors">
-                    hello@oakivo.com
+                <div className="flex items-center gap-2 text-[#a8b0ad]">
+                  <Mail size={13} className="text-[#23c694] shrink-0" />
+                  <a href="mailto:founders@oakivo.ca" className="hover:text-[#23c694] transition-colors">
+                    founders@oakivo.ca
                   </a>
                 </div>
               </div>
 
             </div>
 
-            {/* Right Column: Minimalist Intake Form */}
-            <div className="lg:col-span-7">
-              <div className="p-8 sm:p-10 rounded-2xl bg-white/[0.02] border border-white/[0.08]">
+            {/* Right Column: Zero-Friction 1-Step Executive Action Card (6 cols) */}
+            <div className="lg:col-span-6">
+              <div className="p-8 sm:p-10 rounded-3xl bg-[#070a09] border border-[#23c694]/35 shadow-2xl relative overflow-hidden">
                 
-                {formStatus === 'success' ? (
-                  <div className="text-center py-10 space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center mx-auto">
-                      <CheckCircle2 size={24} />
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="text-xl font-display font-semibold text-white tracking-tight">
-                        {isFr ? 'Message Bien Reçu' : 'Inquiry Received'}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-300 font-light max-w-md mx-auto leading-relaxed">
-                        {isFr
-                          ? 'Un de nos fondateurs examinera vos notes et vous répondra d’ici 2 heures ouvrables pour convenir d’un échange.'
-                          : 'Our senior founders will review your notes and reply within 2 business hours to schedule a direct working conversation.'
-                        }
-                      </p>
-                    </div>
+                {/* Soft Emerald Luster in corner */}
+                <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#0f5e4a]/25 blur-3xl rounded-full pointer-events-none" />
 
-                    <div className="pt-4">
+                <div className="space-y-6 relative z-10">
+                  
+                  <div className="flex items-center justify-between border-b border-[#1e2d27] pb-4">
+                    <div className="flex items-center gap-2 text-xs font-mono text-[#23c694] uppercase tracking-wider font-semibold">
+                      <Terminal size={14} />
+                      <span>{isFr ? 'Ligne Directe Fondateurs' : 'Founder Direct Line'}</span>
+                    </div>
+                    <span className="text-[10px] font-mono text-[#7c8581] bg-[#000000] px-2.5 py-1 rounded-full border border-[#1e2d27]">
+                      {isFr ? 'Réponse < 2h' : 'Response < 2h'}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-display font-light text-white mb-2">
+                      {isFr ? 'Planifier une Session de Découverte' : 'Schedule an Executive Discovery'}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#a8b0ad] font-light leading-relaxed">
+                      {isFr 
+                        ? 'Indiquez simplement votre courriel professionnel ou téléphone. Un fondateur vous contactera aujourd’hui pour une session de 15 minutes.' 
+                        : 'Simply enter your work email or direct phone. A senior founder will follow up today for a 15-minute operational review.'}
+                    </p>
+                  </div>
+
+                  {formStatus === 'success' ? (
+                    <div className="p-6 rounded-2xl bg-[#0f5e4a]/20 border border-[#23c694]/50 text-center space-y-3">
+                      <div className="w-10 h-10 rounded-full bg-[#23c694]/20 text-[#23c694] flex items-center justify-center mx-auto">
+                        <CheckCircle2 size={20} />
+                      </div>
+                      <div className="text-sm font-semibold text-white">
+                        {isFr ? 'Demande transmise directement aux fondateurs.' : 'Sent directly to senior founders.'}
+                      </div>
+                      <p className="text-xs text-[#a8b0ad] font-mono">
+                        {isFr 
+                          ? 'Nous reviendrons vers vous d’ici 2 heures ouvrables.' 
+                          : 'We will follow up with scheduling coordinates within 2 business hours.'}
+                      </p>
                       <button
                         type="button"
                         onClick={() => {
                           setFormStatus('idle');
-                          setContactForm({
-                            name: '',
-                            email: '',
-                            phone: '',
-                            company: '',
-                            focusStream: 'Sales Acceleration (< 90s Lead Response)',
-                            message: ''
-                          });
+                          setContactInput('');
                         }}
-                        className="px-5 py-2.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-slate-300 text-xs font-mono transition-colors cursor-pointer"
+                        className="text-xs text-[#23c694] underline hover:text-[#85e1bf] font-mono pt-2 cursor-pointer"
                       >
-                        {isFr ? 'Envoyer une autre note' : 'Send another message'}
+                        {isFr ? 'Envoyer une autre demande' : 'Submit another inquiry'}
                       </button>
                     </div>
-                  </div>
-                ) : (
-                  <form onSubmit={handleFormSubmit} className="space-y-4 text-left">
-                    
-                    {/* Honeypot field */}
-                    <input 
-                      type="text" 
-                      name="middle_name_check" 
-                      value={honeypot} 
-                      onChange={(e) => setHoneypot(e.target.value)} 
-                      className="hidden" 
-                      tabIndex={-1} 
-                      autoComplete="off" 
-                    />
-
-                    <div>
-                      <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block mb-2">
-                        {isFr ? 'Votre Priorité Principale :' : 'Primary Focus Area:'}
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {[
-                          { id: 'Sales Acceleration (< 90s Lead Response)', label: isFr ? 'Accélération des Ventes (< 90s)' : 'Sales Acceleration (< 90s)' },
-                          { id: 'Operational Cost Reduction', label: isFr ? 'Réduction des Coûts / Zéro Saisie' : 'Operational Cost Reduction' },
-                          { id: 'Custom Software / MVP Studio', label: isFr ? 'Logiciel Sur Mesure / Studio MVP' : 'Custom Software / MVP Studio' },
-                          { id: 'Canadian Sovereign Cyber Security', label: isFr ? 'Cybersécurité & LPRPDE / Loi 25' : 'Cyber Security & PIPEDA' }
-                        ].map((stream) => (
-                          <button
-                            key={stream.id}
-                            type="button"
-                            onClick={() => setContactForm(prev => ({ ...prev, focusStream: stream.id }))}
-                            className={`p-3 rounded-xl border text-xs font-mono text-left transition-colors cursor-pointer ${
-                              contactForm.focusStream === stream.id
-                                ? 'bg-cyan-500/15 border-cyan-400 text-white font-medium'
-                                : 'bg-black/30 border-white/[0.08] text-slate-400 hover:text-slate-200 hover:border-white/[0.15]'
-                            }`}
-                          >
-                            {stream.label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                      <div>
-                        <label className="block text-xs font-mono text-slate-400 mb-1">
-                          {isFr ? 'Votre Nom *' : 'Your Name *'}
-                        </label>
-                        <input
-                          type="text"
-                          value={contactForm.name}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
-                          placeholder="e.g. Marc Tremblay"
-                          className={`w-full px-4 py-3 rounded-xl bg-black/40 border text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors ${
-                            formErrors.name ? 'border-rose-500' : 'border-white/[0.1]'
-                          }`}
-                        />
-                        {formErrors.name && (
-                          <span className="text-[11px] text-rose-400 font-mono mt-1 block">{formErrors.name}</span>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-mono text-slate-400 mb-1">
-                          {isFr ? 'Courriel Professionnel *' : 'Work Email *'}
-                        </label>
-                        <input
-                          type="email"
-                          value={contactForm.email}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
-                          placeholder="marc@company.ca"
-                          className={`w-full px-4 py-3 rounded-xl bg-black/40 border text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors ${
-                            formErrors.email ? 'border-rose-500' : 'border-white/[0.1]'
-                          }`}
-                        />
-                        {formErrors.email && (
-                          <span className="text-[11px] text-rose-400 font-mono mt-1 block">{formErrors.email}</span>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-xs font-mono text-slate-400 mb-1">
-                          {isFr ? 'Nom de Votre Entreprise *' : 'Company Name *'}
-                        </label>
-                        <input
-                          type="text"
-                          value={contactForm.company}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, company: e.target.value }))}
-                          placeholder="e.g. Atlantic Mechanical Inc."
-                          className={`w-full px-4 py-3 rounded-xl bg-black/40 border text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors ${
-                            formErrors.company ? 'border-rose-500' : 'border-white/[0.1]'
-                          }`}
-                        />
-                        {formErrors.company && (
-                          <span className="text-[11px] text-rose-400 font-mono mt-1 block">{formErrors.company}</span>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-mono text-slate-400 mb-1">
-                          {isFr ? 'Téléphone (optionnel)' : 'Phone (optional)'}
-                        </label>
-                        <input
-                          type="tel"
-                          value={contactForm.phone}
-                          onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
-                          placeholder="(506) 555-0192"
-                          className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-mono text-slate-400 mb-1">
-                        {isFr ? 'Quel est votre plus grand goulot d’étranglement ? *' : 'What is your biggest operational headache right now? *'}
-                      </label>
-                      <textarea
-                        rows={3}
-                        value={contactForm.message}
-                        onChange={(e) => setContactForm(prev => ({ ...prev, message: e.target.value }))}
-                        placeholder={isFr 
-                          ? "e.g. Nous perdons des devis parce que nous répondons trop tard, et notre équipe passe trop de temps à ressaisir des factures dans QuickBooks..." 
-                          : "e.g. We lose bids because we take 3 days to return quotes, and our office wastes hours every week re-typing paper invoices into QuickBooks..."}
-                        className={`w-full px-4 py-3 rounded-xl bg-black/40 border text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors ${
-                          formErrors.message ? 'border-rose-500' : 'border-white/[0.1]'
-                        }`}
+                  ) : (
+                    <form onSubmit={handleFastSubmit} className="space-y-4">
+                      {/* Honeypot */}
+                      <input 
+                        type="text" 
+                        name="hp_check" 
+                        value={honeypot} 
+                        onChange={(e) => setHoneypot(e.target.value)} 
+                        className="hidden" 
+                        tabIndex={-1} 
+                        autoComplete="off" 
                       />
-                      {formErrors.message && (
-                        <span className="text-[11px] text-rose-400 font-mono mt-1 block">{formErrors.message}</span>
-                      )}
-                    </div>
 
-                    {formStatus === 'error' && (
-                      <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-mono flex items-center gap-2">
-                        <AlertCircle size={14} />
-                        <span>{isFr ? 'Erreur lors de l’envoi. Veuillez réessayer ou écrire à hello@oakivo.com.' : 'Submission error. Please try again or email hello@oakivo.com directly.'}</span>
+                      {/* Focus Selector Tags */}
+                      <div>
+                        <span className="text-[11px] font-mono text-[#7c8581] uppercase tracking-wider block mb-2">
+                          {isFr ? 'Votre priorité opérationnelle :' : 'Your primary focus:'}
+                        </span>
+                        <div className="grid grid-cols-2 gap-2">
+                          {[
+                            { id: 'Sales Acceleration (< 90s Lead Response)', label: isFr ? 'Ventes (< 90s)' : 'Sales (< 90s Lead)' },
+                            { id: 'Operational Cost Reduction', label: isFr ? 'Zéro Saisie Comptable' : 'Zero Paperwork' },
+                            { id: 'Custom Software / MVP Studio', label: isFr ? 'Logiciel Sur Mesure' : 'Custom Software' },
+                            { id: 'Canadian Sovereign Cyber Security', label: isFr ? 'Souveraineté LPRPDE' : 'PIPEDA / Law 25' }
+                          ].map((item) => (
+                            <button
+                              key={item.id}
+                              type="button"
+                              onClick={() => setSelectedFocus(item.id)}
+                              className={`px-3 py-2 rounded-xl text-[11px] font-mono text-left transition-colors cursor-pointer border ${
+                                selectedFocus === item.id
+                                  ? 'bg-[#0f5e4a]/40 border-[#23c694] text-white font-medium shadow-[0_0_12px_rgba(35,198,148,0.2)]'
+                                  : 'bg-[#000000]/50 border-[#1e2d27] text-[#7c8581] hover:text-[#dce3e0] hover:border-[#1e2d27]'
+                              }`}
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    )}
 
-                    <div className="pt-2">
-                      <button
-                        type="submit"
-                        disabled={formStatus === 'submitting'}
-                        className="w-full py-3.5 px-6 rounded-xl bg-white hover:bg-slate-200 disabled:opacity-50 text-slate-950 font-medium font-mono text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                      >
-                        {formStatus === 'submitting' ? (
-                          <>
-                            <Loader2 size={15} className="animate-spin text-slate-950" />
-                            <span>{isFr ? 'Transmission en cours...' : 'Sending to Founders...'}</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>{isFr ? 'Envoyer Ma Demande aux Fondateurs' : 'Send Inquiry to Senior Founders'}</span>
-                            <ArrowRight size={14} />
-                          </>
+                      {/* 1-Step Input Line */}
+                      <div>
+                        <label className="block text-xs font-mono text-[#a8b0ad] mb-1.5">
+                          {isFr ? 'Courriel professionnel ou téléphone direct *' : 'Work email or direct phone *'}
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            value={contactInput}
+                            onChange={(e) => {
+                              setContactInput(e.target.value);
+                              if (inputError) setInputError('');
+                            }}
+                            placeholder={isFr ? "marc@entreprise.ca ou (506) 555-0192" : "marc@company.ca or (506) 555-0192"}
+                            className={`w-full px-4 py-3.5 rounded-xl bg-[#000000]/60 border text-white text-sm focus:outline-none focus:border-[#23c694] transition-colors ${
+                              inputError ? 'border-rose-500' : 'border-[#1e2d27]'
+                            }`}
+                          />
+                        </div>
+                        {inputError && (
+                          <span className="text-[11px] text-rose-400 font-mono mt-1 block">{inputError}</span>
                         )}
-                      </button>
-                    </div>
+                      </div>
 
-                    <div className="text-center text-[10px] font-mono text-slate-500 pt-1">
-                      {isFr ? 'Réponse directe en moins de 2 heures ouvrables · 100 % Confidentiel' : 'Direct response in under 2 business hours · 100% Confidential'}
-                    </div>
+                      {formStatus === 'error' && (
+                        <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-mono flex items-center gap-2">
+                          <AlertCircle size={14} />
+                          <span>{isFr ? 'Erreur lors de la transmission. Écrivez à founders@oakivo.ca.' : 'Transmission error. Please email founders@oakivo.ca directly.'}</span>
+                        </div>
+                      )}
 
-                  </form>
-                )}
+                      <div className="pt-2">
+                        <button
+                          type="submit"
+                          disabled={formStatus === 'submitting'}
+                          className="w-full nova-outline-btn justify-center cursor-pointer py-3.5"
+                        >
+                          {formStatus === 'submitting' ? (
+                            <>
+                              <Loader2 size={15} className="animate-spin text-[#23c694]" />
+                              <span>{isFr ? 'Transmission directe...' : 'Sending to Founders...'}</span>
+                            </>
+                          ) : (
+                            <>
+                              <span>{isFr ? 'Prendre Rendez-vous (15 Min)' : 'Book Consultation (15 Min)'}</span>
+                              <ArrowRight size={14} className="text-[#23c694]" />
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      {/* Secondary instant option: Launch 60s AI Audit modal */}
+                      <div className="text-center pt-2">
+                        <button
+                          type="button"
+                          onClick={openAuditModal}
+                          className="text-xs font-mono text-[#7c8581] hover:text-[#23c694] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                        >
+                          <Sparkles size={12} className="text-[#23c694]" />
+                          <span>{isFr ? 'Ou lancer le diagnostic d’éligibilité IA en 60s →' : 'Or run the 60-second AI readiness audit first →'}</span>
+                        </button>
+                      </div>
+
+                    </form>
+                  )}
+
+                </div>
 
               </div>
             </div>

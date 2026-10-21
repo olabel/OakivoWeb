@@ -75,21 +75,21 @@ export const CoreDisciplines: React.FC<CoreDisciplinesProps> = ({ onSelectTopic 
   };
 
   return (
-    <section id="disciplines" className="py-24 bg-[#050811] text-white border-b border-white/[0.06] relative">
+    <section id="disciplines" className="py-24 bg-[#000000] text-[#f7faf9] border-b border-[#1e2d27]/60 relative">
       <div className="container mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
         
-        {/* Section Header: Quiet, Dignified Editorial */}
+        {/* Section Header: Quiet, Dignified Editorial (Nova Style) */}
         <div className="max-w-2xl mb-16">
-          <div className="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-3">
-            {isFr ? 'Ce Que Nous Faisons' : 'What We Do'}
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-display font-semibold tracking-tight text-white mb-4">
+          <span className="nova-eyebrow text-[#23c694] mb-3">
+            {isFr ? 'CE QUE NOUS FAISONS' : 'WHAT WE DO'}
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-display font-light tracking-[-0.035em] text-[#f7faf9] mb-4">
             {isFr 
               ? 'Quatre disciplines. Des résultats économiques concrets.'
               : 'Four disciplines. Real balance-sheet outcomes.'
             }
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
+          <p className="text-[#a8b0ad] text-sm sm:text-base leading-relaxed font-light">
             {isFr
               ? 'Nous ne construisons pas de gadgets artificiels. Nous concevons des systèmes discrets et fiables qui s’intègrent directement aux outils que vous utilisez déjà.'
               : 'We don’t build novelty chatbots. We engineer quiet, reliable systems that connect directly into the tools your team already relies on every day.'
@@ -97,43 +97,43 @@ export const CoreDisciplines: React.FC<CoreDisciplinesProps> = ({ onSelectTopic 
           </p>
         </div>
 
-        {/* 4-Pillar Grid: Spacious, Elegant, Non-AI-Slop */}
+        {/* 4-Pillar Grid: Nova Card Style */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {disciplines.map((d) => {
             const Icon = d.icon;
             return (
               <div 
                 key={d.num}
-                className="p-8 sm:p-10 rounded-2xl bg-white/[0.02] border border-white/[0.08] hover:border-white/[0.16] transition-all flex flex-col justify-between"
+                className="p-8 sm:p-10 rounded-2xl bg-[#070a09] border border-[#1e2d27] hover:border-[#23c694]/40 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-xs font-mono text-cyan-400 font-semibold tracking-widest">
+                    <span className="text-xs font-mono text-[#23c694] font-semibold tracking-widest">
                       {d.num}
                     </span>
-                    <div className="p-2 rounded-lg bg-white/[0.04] text-slate-300">
+                    <div className="p-2.5 rounded-xl bg-[#0f5e4a]/20 border border-[#23c694]/30 text-[#23c694]">
                       <Icon size={18} />
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-display font-semibold text-white tracking-tight mb-2">
+                  <h3 className="text-xl font-display font-medium text-white tracking-tight mb-2 group-hover:text-[#23c694] transition-colors">
                     {d.title}
                   </h3>
                   
-                  <div className="text-xs font-mono text-slate-400 mb-4">
+                  <div className="text-xs font-mono text-[#7c8581] mb-4">
                     {d.subtitle}
                   </div>
 
-                  <p className="text-sm text-slate-300 font-light leading-relaxed mb-6">
+                  <p className="text-sm text-[#a8b0ad] font-light leading-relaxed mb-6">
                     {d.description}
                   </p>
                 </div>
 
                 <div>
-                  <div className="pt-6 border-t border-white/[0.06] mb-6 space-y-2">
+                  <div className="pt-6 border-t border-[#1e2d27] mb-6 space-y-2.5">
                     {d.benchmarks.map((bm, bIdx) => (
-                      <div key={bIdx} className="flex items-center gap-2 text-xs font-mono text-slate-300">
-                        <Check size={13} className="text-cyan-400 shrink-0" />
+                      <div key={bIdx} className="flex items-center gap-2 text-xs font-mono text-[#dce3e0]">
+                        <Check size={13} className="text-[#23c694] shrink-0" />
                         <span>{bm}</span>
                       </div>
                     ))}
@@ -142,10 +142,10 @@ export const CoreDisciplines: React.FC<CoreDisciplinesProps> = ({ onSelectTopic 
                   <button
                     type="button"
                     onClick={() => handleAction(d.title)}
-                    className="inline-flex items-center gap-2 text-xs font-mono text-cyan-300 hover:text-white transition-colors cursor-pointer group"
+                    className="inline-flex items-center gap-2 text-xs font-mono text-[#c2ccc7] group-hover:text-[#85e1bf] transition-colors cursor-pointer"
                   >
                     <span>{isFr ? 'Discuter de cette priorité' : 'Discuss this focus'}</span>
-                    <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform text-[#23c694]" />
                   </button>
                 </div>
               </div>

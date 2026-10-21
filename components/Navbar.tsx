@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, Link } from 'react-router-dom';
-import { Menu, X, ArrowRight, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Menu, X, ArrowRight, ChevronRight, Globe } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import LeadDrawer from './LeadDrawer';
 import Logo from './Logo';
@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 20);
+          setIsScrolled(window.scrollY > 15);
           ticking = false;
         });
         ticking = true;
@@ -50,26 +50,27 @@ export const Navbar: React.FC = () => {
     setIsOpen(false);
   }, [location]);
 
+  // KPMG Standard Enterprise Menu (Clean, institutional, no 14-day sprint clutter)
   const navLinks = [
     { 
-      name: isFr ? 'Systèmes IA' : 'AI Systems', 
+      name: isFr ? 'Services' : 'Services', 
       path: '/services' 
     },
     { 
-      name: isFr ? 'Cas Clients' : 'Case Studies', 
+      name: isFr ? 'Secteurs' : 'Industries', 
+      path: '/verticals' 
+    },
+    { 
+      name: isFr ? 'Études de Cas' : 'Case Studies', 
       path: '/case-studies' 
-    },
-    { 
-      name: isFr ? 'Méthodologie 14j' : '14-Day Sprint', 
-      path: '/methodology' 
-    },
-    { 
-      name: isFr ? 'Pourquoi Oakivo' : 'Why Oakivo', 
-      path: '/about' 
     },
     { 
       name: isFr ? 'Perspectives' : 'Insights', 
       path: '/insights' 
+    },
+    { 
+      name: isFr ? 'Le Cabinet' : 'About', 
+      path: '/about' 
     }
   ];
 
@@ -79,8 +80,8 @@ export const Navbar: React.FC = () => {
         role="banner" 
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-[#04070D]/90 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.8)]' 
-            : 'bg-[#04070D]/60 backdrop-blur-md border-b border-white/[0.04]'
+            ? 'bg-[#000000]/92 backdrop-blur-2xl border-b border-[#1e2d27]/80 shadow-[0_10px_35px_rgba(0,0,0,0.85)]' 
+            : 'bg-[#000000]/75 backdrop-blur-md border-b border-[#1e2d27]/40'
         }`}
       >
         <div className="container mx-auto max-w-7xl h-20 px-6 sm:px-8 lg:px-12 flex items-center justify-between">
@@ -89,62 +90,63 @@ export const Navbar: React.FC = () => {
           <Link 
             to="/" 
             aria-label="Oakivo Solutions homepage" 
-            className="flex items-center group focus:outline-none focus:ring-1 focus:ring-cyan-400 rounded py-1"
+            className="flex items-center group focus:outline-none focus:ring-1 focus:ring-[#23c694] rounded py-1"
           >
             <Logo size="md" />
           </Link>
 
-          {/* Minimalist Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8 text-xs font-mono tracking-wider uppercase" aria-label="Main Navigation">
+          {/* KPMG-Standard Minimalist Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-9" aria-label="Main Navigation">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) => 
-                  `transition-colors duration-200 py-1 relative ${
+                  `text-[13px] font-sans tracking-wide transition-colors duration-200 py-1 relative ${
                     isActive 
-                      ? 'text-cyan-400 font-semibold' 
-                      : 'text-slate-300 hover:text-white'
+                      ? 'text-[#ffffff] font-semibold' 
+                      : 'text-[#9ba6a1] hover:text-[#f7faf9]'
                   }`
                 }
               >
                 {({ isActive }) => (
-                  <>
-                    <span>{link.name}</span>
+                  <span className="flex items-center gap-1.5">
+                    {link.name}
                     {isActive && (
-                      <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-full" />
+                      <span className="w-1 h-1 rounded-full bg-[#23c694] inline-block" />
                     )}
-                  </>
+                  </span>
                 )}
               </NavLink>
             ))}
           </nav>
 
-          {/* Right Action Cluster: Unboxed Language Switcher + AI Audit + Primary CTA */}
-          <div className="hidden lg:flex items-center gap-5">
-            {/* Unboxed Typographic Language Toggle */}
+          {/* Right Action Cluster: Language Switcher + Single Authoritative Executive CTA */}
+          <div className="hidden lg:flex items-center gap-6">
+            
+            {/* Minimalist Bilingual Toggle */}
             <div 
-              className="flex items-center gap-2 text-xs font-mono text-slate-400 select-none mr-1"
+              className="flex items-center gap-1.5 text-xs font-mono text-[#7c8581] select-none"
               role="group"
               aria-label="Language selection"
             >
               <button
                 type="button"
                 onClick={() => setLanguage('en')}
-                className={`transition-colors cursor-pointer py-1 ${
-                  language === 'en' ? 'text-white font-bold' : 'hover:text-slate-200'
+                className={`transition-colors cursor-pointer px-1 py-0.5 rounded ${
+                  language === 'en' ? 'text-white font-bold' : 'hover:text-[#dce3e0]'
                 }`}
                 aria-pressed={language === 'en'}
                 aria-label="Switch to English"
               >
                 EN
               </button>
-              <span className="text-slate-700" aria-hidden="true">·</span>
+              <span className="text-[#36423d]" aria-hidden="true">/</span>
               <button
                 type="button"
                 onClick={() => setLanguage('fr')}
-                className={`transition-colors cursor-pointer py-1 ${
-                  language === 'fr' ? 'text-white font-bold' : 'hover:text-slate-200'
+                className={`transition-colors cursor-pointer px-1 py-0.5 rounded ${
+                  language === 'fr' ? 'text-white font-bold' : 'hover:text-[#dce3e0]'
                 }`}
                 aria-pressed={language === 'fr'}
                 aria-label="Passer au français"
@@ -153,40 +155,31 @@ export const Navbar: React.FC = () => {
               </button>
             </div>
 
-            {/* Quick 60s AI Audit Button */}
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new CustomEvent('open-ai-audit-modal'))}
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-mono font-medium tracking-wider uppercase text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all cursor-pointer"
-            >
-              <span>{isFr ? 'Audit 60s' : '60s Audit'}</span>
-            </button>
-
-            {/* Pristine Executive CTA */}
+            {/* Reviewed Executive Call to Action */}
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-mono font-semibold tracking-wider uppercase text-slate-950 bg-white hover:bg-slate-200 rounded-lg transition-all duration-200 cursor-pointer shadow-lg shadow-white/5 hover:shadow-cyan-500/20"
+              className="nova-outline-btn text-xs font-mono tracking-wider uppercase py-2 px-5"
             >
-              <span>{isFr ? 'Planifier une Session' : 'Schedule Discovery'}</span>
-              <ArrowRight size={13} />
+              <span>{isFr ? 'Prendre Rendez-vous' : 'Book Consultation'}</span>
+              <ArrowRight size={13} className="text-[#23c694]" />
             </Link>
           </div>
 
           {/* Mobile Menu Hamburger */}
           <div className="flex lg:hidden items-center gap-3">
-            <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+            <div className="flex items-center gap-1.5 text-xs font-mono text-[#7c8581]">
               <button
                 type="button"
                 onClick={() => setLanguage('en')}
-                className={language === 'en' ? 'text-white font-bold' : 'hover:text-slate-200'}
+                className={language === 'en' ? 'text-white font-bold' : 'hover:text-[#dce3e0]'}
               >
                 EN
               </button>
-              <span>·</span>
+              <span>/</span>
               <button
                 type="button"
                 onClick={() => setLanguage('fr')}
-                className={language === 'fr' ? 'text-white font-bold' : 'hover:text-slate-200'}
+                className={language === 'fr' ? 'text-white font-bold' : 'hover:text-[#dce3e0]'}
               >
                 FR
               </button>
@@ -194,7 +187,7 @@ export const Navbar: React.FC = () => {
 
             <button 
               type="button"
-              className="text-slate-300 hover:text-white p-2 rounded-lg bg-slate-900/60 border border-white/[0.08] focus:outline-none focus:ring-1 focus:ring-cyan-400"
+              className="text-[#dce3e0] hover:text-white p-2 rounded-lg bg-[#070a09] border border-[#1e2d27] focus:outline-none focus:ring-1 focus:ring-[#23c694]"
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Close menu" : "Open menu"}
               aria-expanded={isOpen}
@@ -211,7 +204,7 @@ export const Navbar: React.FC = () => {
             id="mobile-menu"
             role="region"
             aria-label="Mobile Navigation"
-            className="lg:hidden bg-[#04070D]/98 backdrop-blur-3xl border-b border-white/[0.08] shadow-2xl px-6 py-6 space-y-4 animate-in fade-in duration-150"
+            className="lg:hidden bg-[#000000]/98 backdrop-blur-3xl border-b border-[#1e2d27] shadow-2xl px-6 py-6 space-y-4 animate-in fade-in duration-150"
           >
             <nav className="flex flex-col space-y-1">
               {navLinks.map((link) => (
@@ -222,33 +215,24 @@ export const Navbar: React.FC = () => {
                   className={({ isActive }) => 
                     `px-4 py-3 rounded-xl text-xs font-mono uppercase tracking-wider transition-colors flex items-center justify-between ${
                       isActive 
-                        ? 'bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/20' 
-                        : 'text-slate-300 hover:bg-white/[0.04]'
+                        ? 'bg-[#0f5e4a]/25 text-[#23c694] font-semibold border border-[#23c694]/30' 
+                        : 'text-[#dce3e0] hover:bg-white/[0.04]'
                     }`
                   }
                 >
                   <span>{link.name}</span>
-                  <ChevronRight size={13} className="text-slate-600" />
+                  <ChevronRight size={13} className="text-[#7c8581]" />
                 </NavLink>
               ))}
-
-              <Link
-                to="/compliance-grader"
-                onClick={() => setIsOpen(false)}
-                className="px-4 py-3 rounded-xl text-xs font-mono uppercase tracking-wider text-slate-300 hover:bg-white/[0.04] flex items-center justify-between"
-              >
-                <span>{isFr ? 'Diagnostic de Conformité' : 'Compliance Readiness Grader'}</span>
-                <ShieldCheck size={14} className="text-cyan-400" />
-              </Link>
             </nav>
 
-            <div className="pt-4 border-t border-white/[0.08]">
+            <div className="pt-4 border-t border-[#1e2d27]">
               <Link
                 to="/contact"
                 onClick={() => setIsOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-slate-950 font-mono font-semibold text-xs uppercase tracking-wider shadow-md"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-white text-black font-mono font-semibold text-xs uppercase tracking-wider hover:bg-[#23c694] transition-colors"
               >
-                <span>{isFr ? 'Planifier une Découverte (30 Min)' : 'Schedule 30-Minute Discovery'}</span>
+                <span>{isFr ? 'Prendre Rendez-vous' : 'Book Consultation'}</span>
                 <ArrowRight size={13} />
               </Link>
             </div>

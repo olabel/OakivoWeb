@@ -2,43 +2,45 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavRoute } from '../types';
 import { useLanguage } from '../context/LanguageContext';
-import { Mail, Phone, MapPin, ArrowRight, Calculator, ShieldCheck, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight, Calculator, ShieldCheck, Linkedin } from 'lucide-react';
 import Logo from './Logo';
 
 const Footer: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const isFr = language === 'fr';
 
   const triggerDiscoveryDrawer = () => {
     window.dispatchEvent(new CustomEvent('open-lead-drawer', {
       detail: {
-        focus: 'General Digital Transformation Advisory',
-        topic: 'Footer CTA: Discovery Session',
+        focus: 'Executive Consultation Advisory',
+        topic: 'Footer CTA: Executive Consultation',
         industry: isFr ? 'Entreprise Canadienne' : 'Canadian Enterprise'
       }
     }));
   };
 
   return (
-    <footer id="contact" className="bg-[#05070B] pt-20 pb-12 px-6 border-t border-white/[0.08] relative">
+    <footer id="footer" className="bg-[#000000] pt-20 pb-12 px-6 sm:px-8 lg:px-12 border-t border-[#1e2d27]/70 relative text-[#f7faf9]">
       <div className="container mx-auto max-w-7xl">
         
-        {/* Pre-Footer Action Strip - Sleek, Minimalist, High Converting */}
-        <div className="mb-20 p-8 md:p-10 rounded-2xl bg-gradient-to-r from-slate-900/90 via-[#091122] to-slate-900/90 border border-cyan-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-1.5 max-w-2xl">
-            <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest font-bold block">
-              {isFr ? 'ACCÈS DIRECT AUX FONDATEURS' : 'DIRECT SENIOR FOUNDER PARTNERSHIP'}
+        {/* Pre-Footer Action Strip - Sleek, KPMG Executive Standard */}
+        <div className="mb-20 p-8 md:p-10 rounded-3xl bg-[#070a09] border border-[#23c694]/35 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xl relative overflow-hidden">
+          <div className="absolute -top-16 -right-16 w-56 h-56 bg-[#0f5e4a]/20 blur-3xl rounded-full pointer-events-none" />
+
+          <div className="space-y-2 max-w-2xl relative z-10">
+            <span className="nova-eyebrow text-[#23c694]">
+              {isFr ? 'ACCÈS DIRECT AUX ASSOCIÉS' : 'DIRECT SENIOR PARTNER CONSULTATION'}
             </span>
-            <h3 className="text-xl md:text-2xl font-display font-bold text-white tracking-tight">
+            <h3 className="text-2xl md:text-3xl font-display font-light text-white tracking-tight">
               {isFr 
-                ? 'Prêt à transformer l’IA en nouvelles ventes et en heures gagnées ?'
-                : 'Ready to turn AI into new customer sales and slashed overhead?'
+                ? 'Prêt à évaluer vos gains d’automatisation ?'
+                : 'Ready to evaluate your applied automation gains?'
               }
             </h3>
-            <p className="text-xs md:text-sm text-slate-400 font-light">
+            <p className="text-xs md:text-sm text-[#a8b0ad] font-light leading-relaxed">
               {isFr
-                ? 'Session confidentielle de 30 minutes avec nos ingénieurs fondateurs pour cartographier vos gains concrets.'
-                : '30-minute confidential session with senior partners to evaluate your lead leaks and map high-ROI quick wins.'
+                ? 'Session de travail confidentielle de 30 minutes avec nos associés fondateurs pour auditer vos processus et cartographier un déploiement concret.'
+                : 'Confidential 30-minute working session with our founding partners to assess operational bottlenecks and map an actionable systems blueprint.'
               }
             </p>
           </div>
@@ -46,15 +48,15 @@ const Footer: React.FC = () => {
           <button
             type="button"
             onClick={triggerDiscoveryDrawer}
-            className="shrink-0 inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-cyan-500/20 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            className="shrink-0 nova-outline-btn cursor-pointer py-3.5 px-6 relative z-10"
           >
-            <span>{isFr ? 'Planifier Mon Plan IA (30 Min)' : 'Map Your AI Blueprint (30 Min)'}</span>
-            <ArrowRight size={14} />
+            <span>{isFr ? 'Planifier une Consultation (30 Min)' : 'Book Executive Consultation (30 Min)'}</span>
+            <ArrowRight size={14} className="text-[#23c694]" />
           </button>
         </div>
 
         {/* Main Footer Directory Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-white/[0.08]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-[#1e2d27]/70">
           
           {/* Brand & Regional Presence Column */}
           <div className="lg:col-span-4 space-y-6">
@@ -68,32 +70,32 @@ const Footer: React.FC = () => {
               </Link>
             </div>
 
-            <p className="text-xs md:text-sm text-slate-400 font-light leading-relaxed pr-6">
+            <p className="text-xs md:text-sm text-[#a8b0ad] font-light leading-relaxed pr-6">
               {isFr
-                ? 'Nous concevons des micro-systèmes d’IA silencieux et performants pour petites entreprises : réponse aux prospects en 90s, devis ressuscités, factures sans saisie et contrôle 100% humain.'
-                : 'We build quiet, high-converting AI micro-systems for small businesses: under-90-second speed-to-lead response, quote resurrection, zero-typing bookkeeping, and 100% human approval control.'
+                ? 'Couche d’intelligence et systèmes autonomes pour entreprises canadiennes : accélération des devis en 45s, suppression de la paperasse comptable et souveraineté totale des données.'
+                : 'Applied intelligence and autonomous systems for Canadian enterprise: under-45-second quote acceleration, paperless accounting workflows, and 100% sovereign Canadian data residency.'
               }
             </p>
 
-            <div className="space-y-2.5 pt-2 text-xs font-mono text-slate-400">
-              <div className="flex items-center gap-2 text-slate-300">
-                <MapPin size={13} className="text-cyan-400 shrink-0" />
-                <span>Dieppe, NB (HQ) · Halifax · Charlottetown · St. John’s</span>
+            <div className="space-y-2.5 pt-2 text-xs font-mono text-[#7c8581]">
+              <div className="flex items-center gap-2 text-[#dce3e0]">
+                <MapPin size={13} className="text-[#23c694] shrink-0" />
+                <span>Dieppe, NB (HQ) · Montreal ca-central-1 AWS</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail size={13} className="text-cyan-400 shrink-0" />
-                <a href="mailto:hello@oakivo.com" className="hover:text-cyan-400 transition-colors">
-                  hello@oakivo.com
+                <Mail size={13} className="text-[#23c694] shrink-0" />
+                <a href="mailto:founders@oakivo.ca" className="hover:text-[#23c694] transition-colors">
+                  founders@oakivo.ca
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Phone size={13} className="text-cyan-400 shrink-0" />
-                <a href="tel:+15068002440" className="hover:text-cyan-400 transition-colors">
+                <Phone size={13} className="text-[#23c694] shrink-0" />
+                <a href="tel:+15068002440" className="hover:text-[#23c694] transition-colors">
                   +1 (506) 800-2440
                 </a>
               </div>
-              <div className="pt-1 text-[11px] text-cyan-400 font-medium">
-                {isFr ? 'Équipe 100% Bilingue • Heure de l’Atlantique (HNA)' : '100% Bilingual Team • Atlantic Standard Time'}
+              <div className="pt-1 text-[11px] text-[#23c694] font-medium">
+                {isFr ? 'Équipe 100% Bilingue · Heure de l’Atlantique (HNA)' : '100% Bilingual Practice · Atlantic Standard Time (AST)'}
               </div>
             </div>
           </div>
@@ -103,107 +105,103 @@ const Footer: React.FC = () => {
             
             {/* Column 1: Core Solutions */}
             <div className="space-y-4">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-200">
-                {isFr ? 'Solutions & Services' : 'Core Solutions'}
+              <h4 className="text-xs font-mono font-semibold uppercase tracking-widest text-[#f7faf9]">
+                {isFr ? 'Services & Systèmes' : 'Services & Systems'}
               </h4>
               <ul className="space-y-3">
                 <li>
-                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'ERP Moderne & Opérations Unifiées' : 'Modern ERP & Clean Operations'}
+                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Moteur de Ventes & Devis Immédiats' : 'Speed-to-Lead & Quote Engines'}
                   </Link>
                 </li>
                 <li>
-                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Automatisation des Flux & Facturation' : 'Workflow & Billing Automation'}
+                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Zéro Saisie & Synchronisation ERP' : 'Zero-Typing Accounting & ERP'}
                   </Link>
                 </li>
                 <li>
-                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Conception Web Créative & Image Numérique' : 'Creative Website Design & Digital Exposure'}
+                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Studio Logiciel & MVPs Sur Mesure' : 'Custom Software & MVP Studio'}
                   </Link>
                 </li>
                 <li>
-                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Cloud Souverain & Sécurité Concrète' : 'Sovereign Cloud & Practical Security'}
+                  <Link to={NavRoute.SERVICES} className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Souveraineté Cloud & Conformité LPRPDE' : 'PIPEDA & Law 25 Cloud Residency'}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/compliance-matrix" className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Conformité Continue (LPRPDE, SOC 2, Loi 25)' : 'Continuous Compliance (SOC 2, PIPEDA, Law 25)'}
+                  <Link to="/verticals" className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Secteurs d’Industrie Ciblés' : 'Industry Verticals'}
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Column 2: The Firm & Methodology */}
+            {/* Column 2: The Firm & Governance */}
             <div className="space-y-4">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-200">
-                {isFr ? 'Le Cabinet Boutique' : 'The Boutique Firm'}
+              <h4 className="text-xs font-mono font-semibold uppercase tracking-widest text-[#f7faf9]">
+                {isFr ? 'Le Cabinet' : 'The Practice'}
               </h4>
               <ul className="space-y-3">
                 <li>
-                  <Link to={NavRoute.ABOUT} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Pourquoi Choisir Oakivo' : 'Why Oakivo (The Difference)'}
+                  <Link to={NavRoute.ABOUT} className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Pourquoi Oakivo' : 'Why Oakivo'}
                   </Link>
                 </li>
                 <li>
-                  <Link to={NavRoute.METHODOLOGY} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Méthodologie en 3 Étapes' : '3-Step Engagement Method'}
+                  <Link to="/case-studies" className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Études de Cas & Résultats' : 'Client Case Studies'}
                   </Link>
                 </li>
                 <li>
-                  <Link to={NavRoute.COMPLIANCE} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Souveraineté des Données Canada' : 'Canadian Data Sovereignty'}
+                  <Link to="/insights" className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Perspectives & Analyses' : 'Executive Insights'}
                   </Link>
                 </li>
                 <li>
-                  <Link to={NavRoute.CAREERS} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Carrières & Talents' : 'Careers & Engineering'}
+                  <Link to={NavRoute.CONTACT} className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Siège Social & Contact' : 'Headquarters & Inquiries'}
                   </Link>
                 </li>
                 <li>
-                  <Link to={NavRoute.CONTACT} className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Contact Direct & Siège' : 'Contact Headquarters'}
+                  <Link to={NavRoute.CAREERS} className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Carrières en Ingénierie' : 'Engineering Careers'}
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Column 3: Interactive Tools & Resources */}
+            {/* Column 3: Interactive Tools & Audits */}
             <div className="space-y-4 col-span-2 md:col-span-1">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-slate-200">
-                {isFr ? 'Outils & Évaluation' : 'Tools & Assessment'}
+              <h4 className="text-xs font-mono font-semibold uppercase tracking-widest text-[#f7faf9]">
+                {isFr ? 'Diagnostics & Outils' : 'Audits & Tools'}
               </h4>
               <ul className="space-y-3">
                 <li>
-                  <Link 
-                    to="/services#roi-calculator" 
-                    className="text-xs md:text-sm text-cyan-400 font-medium hover:text-cyan-300 transition-colors flex items-center gap-1.5"
+                  <button 
+                    type="button"
+                    onClick={() => window.dispatchEvent(new CustomEvent('open-ai-audit-modal'))}
+                    className="text-xs md:text-sm text-[#23c694] font-medium hover:text-[#85e1bf] transition-colors flex items-center gap-1.5 cursor-pointer"
                   >
                     <Calculator size={13} />
-                    <span>{isFr ? 'Calculateur de RCI' : 'Automation ROI Calculator'}</span>
-                    <span className="text-[10px] font-mono text-emerald-400 font-bold px-1.5 py-0.2 rounded bg-emerald-500/10 border border-emerald-500/30">Live</span>
-                  </Link>
+                    <span>{isFr ? 'Audit d’Éligibilité IA (60s)' : '60-Second AI Audit'}</span>
+                    <span className="text-[10px] font-mono text-[#23c694] px-1.5 py-0.5 rounded-full bg-[#0f5e4a]/30 border border-[#23c694]/40">Live</span>
+                  </button>
                 </li>
                 <li>
-                  <Link to="/compliance-grader" className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                  <Link to="/compliance-grader" className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors flex items-center gap-1.5">
                     <ShieldCheck size={13} />
                     <span>{isFr ? 'Évaluateur Réglementaire' : 'Compliance Readiness Grader'}</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/compliance-matrix" className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Matrice de Conformité' : 'Compliance Matrix (LPRPDE / SOC 2)'}
+                  <Link to="/compliance-matrix" className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Matrice de Conformité LPRPDE' : 'PIPEDA / Law 25 Matrix'}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/insights" className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Articles & Analyses Pratiques' : 'Modernization Insights'}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/risk-calculator" className="text-xs md:text-sm text-slate-400 hover:text-cyan-400 transition-colors">
-                    {isFr ? 'Calculateur de Risque' : 'Risk & Vulnerability Calculator'}
+                  <Link to="/risk-calculator" className="text-xs md:text-sm text-[#a8b0ad] hover:text-[#23c694] transition-colors">
+                    {isFr ? 'Calculateur de Vulnérabilités' : 'Risk & Security Calculator'}
                   </Link>
                 </li>
               </ul>
@@ -214,26 +212,26 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Legal & Copyright Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#7c8581]">
           <p>
             © {new Date().getFullYear()} Oakivo Solutions Inc. · {isFr ? 'Tous droits réservés' : 'All rights reserved'}.
           </p>
 
           <div className="flex items-center gap-6">
-            <Link to={NavRoute.PRIVACY} className="hover:text-slate-300 transition-colors">
+            <Link to={NavRoute.PRIVACY} className="hover:text-[#f7faf9] transition-colors">
               {isFr ? 'Confidentialité' : 'Privacy Policy'}
             </Link>
-            <span className="text-slate-700" aria-hidden="true">·</span>
-            <Link to={NavRoute.COMPLIANCE} className="hover:text-slate-300 transition-colors">
+            <span className="text-[#36423d]" aria-hidden="true">·</span>
+            <Link to={NavRoute.COMPLIANCE} className="hover:text-[#f7faf9] transition-colors">
               {isFr ? 'Sécurité & Données' : 'Security & Trust'}
             </Link>
-            <span className="text-slate-700" aria-hidden="true">·</span>
+            <span className="text-[#36423d]" aria-hidden="true">·</span>
             <a 
               href="https://www.linkedin.com/company/oakivo" 
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="Oakivo LinkedIn"
-              className="hover:text-cyan-400 transition-colors"
+              className="hover:text-[#23c694] transition-colors"
             >
               <Linkedin size={14} />
             </a>

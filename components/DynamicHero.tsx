@@ -1,8 +1,8 @@
-import React, { useState, useId } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  ArrowRight, ShieldCheck, Clock, CheckCircle2, 
-  Calculator, Sliders, ChevronRight, Server, Zap, 
-  Check, Lock, FileCheck, PhoneCall, Receipt, Sparkles, Building2
+  ArrowRight, ShieldCheck, CheckCircle2, ChevronRight, 
+  Server, Lock, Sparkles, Sliders, Calculator, Check, PhoneCall,
+  Terminal, Activity, Compass
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -12,8 +12,6 @@ interface DynamicHeroProps {
   onScrollToBlueprints?: () => void;
 }
 
-type HeroTab = 'calculator' | 'architecture';
-
 export const DynamicHero: React.FC<DynamicHeroProps> = ({ 
   onOpenAudit, 
   onScrollToContact,
@@ -22,22 +20,46 @@ export const DynamicHero: React.FC<DynamicHeroProps> = ({
   const { language } = useLanguage();
   const isFr = language === 'fr';
 
-  // Active view inside the executive console card
-  const [activeTab, setActiveTab] = useState<HeroTab>('calculator');
+  // Nova Intelligence Agent Status Card Cycler (Deck of stacked cards)
+  const [activeAgentIndex, setActiveAgentIndex] = useState(0);
 
-  // Interactive ROI Calculator State
-  const [inboundVolume, setInboundVolume] = useState<number>(45); // monthly inquiries
-  const [adminHoursPerWeek, setAdminHoursPerWeek] = useState<number>(14); // weekly admin hours
+  const agentTasks = [
+    {
+      badge: isFr ? 'ACCÉLÉRATION COMMERCIALE' : 'SPEED-TO-LEAD ENGINE',
+      task: isFr 
+        ? 'Génération automatique de devis selon la grille tarifaire (< 45s)' 
+        : 'Auto-drafting itemized quote from master price sheet (< 45s)',
+      metric: isFr ? 'Réponse en 38s (était 3 jours)' : 'Response in 38s (was 3 days)'
+    },
+    {
+      badge: isFr ? 'ZÉRO SAISIE COMPTABLE' : 'PAPERLESS LEDGER SYNC',
+      task: isFr 
+        ? 'Extraction de factures PDF et ventilation automatique dans QuickBooks' 
+        : 'Extracting invoice PDF line items & tax codes into QuickBooks',
+      metric: isFr ? '11h administratives économisées / sem.' : '11 admin desk hours saved / wk'
+    },
+    {
+      badge: isFr ? 'SAS DE SÉCURITÉ HUMAIN' : 'HUMAN APPROVAL GATE',
+      task: isFr 
+        ? 'Sas actif : En attente de validation mobile 1-clic du gestionnaire' 
+        : 'Air-gap held: Awaiting manager 1-tap mobile authorization',
+      metric: isFr ? '0 dérive autonome autorisée' : 'Zero autonomous dispatch errors'
+    },
+    {
+      badge: isFr ? 'SOUVERAINETÉ CLOUD CANADA' : 'CANADIAN CLOUD RESIDENCY',
+      task: isFr 
+        ? 'Conformité LPRPDE & hébergement souverain à Montréal ca-central-1' 
+        : 'PIPEDA compliant & Montreal ca-central-1 cloud residency',
+      metric: isFr ? '100% données résidentes au Canada' : '100% domestic Canadian data'
+    }
+  ];
 
-  const inboundSliderId = useId();
-  const adminSliderId = useId();
-
-  // Calculated benchmarks based on real Canadian SME figures:
-  // - Speed-to-lead recovers ~18% more qualified quotes ($3,500 avg deal size)
-  // - Admin automation saves ~75% of manual invoice/timesheet processing time at $38/hr blended cost
-  const estimatedHoursSavedMonth = Math.round(adminHoursPerWeek * 4.33 * 0.75);
-  const annualPayrollReclaimed = Math.round(estimatedHoursSavedMonth * 12 * 38);
-  const potentialNewBidsWon = Math.max(1, Math.round(inboundVolume * 0.08));
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveAgentIndex((prev) => (prev + 1) % agentTasks.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [agentTasks.length]);
 
   const handleContactClick = () => {
     if (onScrollToContact) {
@@ -65,404 +87,234 @@ export const DynamicHero: React.FC<DynamicHeroProps> = ({
     }
   };
 
+  const currentAgent = agentTasks[activeAgentIndex];
+
   return (
-    <section 
-      id="hero" 
-      aria-label={isFr ? "Accueil Oakivo Solutions" : "Oakivo Solutions Overview"} 
-      className="relative min-h-[92vh] flex flex-col items-center justify-center bg-[#050811] text-white pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden border-b border-white/[0.08]"
-    >
+    <div className="relative bg-[#000000] text-[#f7faf9] overflow-hidden selection:bg-[#23c694]/30 selection:text-[#dffff1]">
+      
       {/* 
-        Background Layer: Precision Architectural Blueprint Grid & Soft Ambient Luster
-        Strictly static, zero video, zero distracting animations
+        HERO SECTION (Faithfully adjusted to Nova Intelligence composition)
+        Features: Centered celestial sphere aura, concentric orbital wireframes, 5-stage coordinate axis, 3D stacked deck status pill, display typography & reviewed executive CTA
       */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true">
-        {/* Soft Radial Ambient Halos */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-emerald-500/[0.07] blur-[140px] rounded-full pointer-events-none" />
-        <div className="absolute top-1/4 -right-24 w-[500px] h-[500px] bg-cyan-500/[0.05] blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute top-1/3 -left-24 w-[500px] h-[500px] bg-slate-500/[0.04] blur-[160px] rounded-full pointer-events-none" />
-
-        {/* Crisp Hairline Engineering Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_35%,#000_40%,transparent_100%)] pointer-events-none" />
-      </div>
-
-      <div className="relative z-10 container mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl text-center">
+      <section 
+        id="hero" 
+        aria-label={isFr ? "Accueil Oakivo Solutions" : "Oakivo Solutions Overview"}
+        className="relative min-h-[90vh] lg:min-h-[94vh] flex flex-col justify-between pt-28 pb-14 md:pt-36 md:pb-16 overflow-hidden border-b border-[#1e2d27]/70"
+      >
         
-        {/* Kicker: Canadian Identity & Engineering Focus (Zero-Pill Discipline) */}
-        <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-slate-300 uppercase mb-8">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400" />
-          <span className="text-white font-semibold">Oakivo Solutions</span>
-          <span className="text-slate-600" aria-hidden="true">/</span>
-          <span>{isFr ? 'Dieppe, Nouveau-Brunswick' : 'Dieppe, New Brunswick'}</span>
-          <span className="text-slate-600 hidden sm:inline" aria-hidden="true">/</span>
-          <span className="text-cyan-400 hidden sm:inline">{isFr ? 'Ingénierie Logicielle & Automatisation' : 'Software & Applied Automation'}</span>
-        </div>
-
-        {/* Masterpiece Headline: Disciplined, Grounded, Authoritative */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-semibold tracking-tight text-white leading-[1.08] max-w-4xl mx-auto mb-6 text-balance">
-          {isFr ? (
-            <>
-              Automatisation discrète et logiciels sur mesure pour les entreprises d'ici.
-            </>
-          ) : (
-            <>
-              Quiet automation and reliable custom software for Canadian business.
-            </>
-          )}
-        </h1>
-
-        {/* Measured, Honest Value Proposition */}
-        <p className="text-base sm:text-lg md:text-xl text-slate-300 font-light max-w-3xl mx-auto leading-relaxed mb-10 text-balance">
-          {isFr
-            ? "Nous aidons les PME canadiennes à remporter plus de devis, éliminer la paperasse répétitive et déployer des logiciels robustes. Livré en sprints de 14 jours, avec hébergement souverain à Montréal et validation humaine à 100 %."
-            : "We engineer production-grade systems that turn inbound leads into signed contracts, eliminate hours of manual paperwork, and launch bespoke web tools. Deployed in 14-day sprints with domestic Canadian hosting and 100% human-in-the-loop validation."
-          }
-        </p>
-
-        {/* Dual Primary Action Pair */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-          <button 
-            type="button"
-            onClick={handleContactClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-medium text-xs font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-lg shadow-white/10 hover:shadow-white/20 active:scale-[0.99]"
-          >
-            <span>{isFr ? 'Échanger Avec un Ingénieur' : 'Talk With an Engineer'}</span>
-            <ArrowRight size={14} />
-          </button>
-
-          <button 
-            type="button"
-            onClick={handleAuditClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-slate-900/80 hover:bg-white/[0.08] text-slate-200 hover:text-white font-medium text-xs font-mono tracking-wider border border-white/[0.15] hover:border-white/[0.3] transition-all duration-200 cursor-pointer backdrop-blur-md"
-          >
-            <Sparkles size={14} className="text-cyan-400" />
-            <span>{isFr ? 'Diagnostic de Faisabilité (60s)' : '60-Second Readiness Audit'}</span>
-          </button>
-        </div>
-
-        {/* 
-          Centerpiece: The Sovereign Engineering Console
-          Replacing the video and operational workflows with an exceptional, interactive, high-value asset
-        */}
-        <div className="relative mx-auto max-w-4xl text-left">
+        {/* ================= BACKGROUND: DUAL CELESTIAL SPHERE AURA + ORBITAL WIREFRAMES ================= */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0" aria-hidden="true">
           
-          {/* Subtle Accent Glow around the Console */}
-          <div 
-            className="absolute -inset-1 bg-gradient-to-r from-emerald-500/15 via-cyan-500/20 to-slate-500/10 rounded-2xl blur-xl opacity-75 pointer-events-none" 
-            aria-hidden="true" 
-          />
+          {/* Centered Planetary Sphere Halo: Emerald Core + Radiant Sand Amber Halo */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] sm:w-[960px] h-[520px] sm:h-[680px] pointer-events-none">
+            {/* Emerald Core Sphere */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_45%_48%,rgba(15,94,74,0.48)_0%,rgba(35,198,148,0.22)_32%,transparent_70%)] blur-[110px]" />
+            {/* Warm Golden Sand / Amber Halo */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_56%_52%,rgba(212,163,115,0.36)_0%,rgba(195,145,70,0.16)_36%,transparent_68%)] blur-[95px]" />
+          </div>
 
-          <div className="relative rounded-2xl bg-slate-950/95 border border-white/[0.12] shadow-2xl backdrop-blur-xl overflow-hidden">
+          {/* Top Edge Ambient Fade */}
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[1100px] h-[340px] bg-gradient-to-b from-[#0f5e4a]/18 via-transparent to-transparent blur-[120px]" />
+
+          {/* Concentric Geometric Astrolabe / Orbital Wireframes */}
+          <svg 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[920px] sm:w-[1020px] h-[920px] sm:h-[1020px] max-w-none opacity-45 sm:opacity-60"
+            viewBox="0 0 1000 1000" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="orbit-grad-emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#23c694" stopOpacity="0.55" />
+                <stop offset="50%" stopColor="#ffffff" stopOpacity="0.14" />
+                <stop offset="100%" stopColor="#d4a373" stopOpacity="0.45" />
+              </linearGradient>
+              <linearGradient id="orbit-grad-soft" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.2" />
+                <stop offset="50%" stopColor="#23c694" stopOpacity="0.1" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0.04" />
+              </linearGradient>
+            </defs>
+
+            {/* Outermost Tilted Ellipses */}
+            <ellipse cx="500" cy="500" rx="465" ry="235" transform="rotate(-18 500 500)" stroke="url(#orbit-grad-emerald)" strokeWidth="1" />
+            <ellipse cx="500" cy="500" rx="440" ry="215" transform="rotate(14 500 500)" stroke="url(#orbit-grad-soft)" strokeWidth="0.8" strokeDasharray="3 5" />
             
-            {/* Terminal Window Header Bar */}
-            <div className="px-5 py-3.5 bg-white/[0.03] border-b border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5" aria-hidden="true">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                </div>
-                <div className="h-4 w-px bg-white/[0.1]" />
-                <span className="text-xs font-mono text-slate-300 flex items-center gap-2">
-                  <Server size={12} className="text-cyan-400" />
-                  <span className="text-slate-400">oakivo ::</span>
-                  <span className="text-white font-medium">{isFr ? 'console-ingenierie-pme' : 'smb-engineering-console'}</span>
-                </span>
-              </div>
+            {/* Mid Tilted Ellipses */}
+            <ellipse cx="500" cy="500" rx="360" ry="180" transform="rotate(-8 500 500)" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="1" />
+            <ellipse cx="500" cy="500" rx="330" ry="165" transform="rotate(22 500 500)" stroke="rgba(212, 163, 115, 0.25)" strokeWidth="0.8" />
+            
+            {/* Inner Concentric Rings */}
+            <ellipse cx="500" cy="500" rx="260" ry="130" transform="rotate(-4 500 500)" stroke="rgba(35, 198, 148, 0.3)" strokeWidth="1.2" />
+            <ellipse cx="500" cy="500" rx="190" ry="95" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="0.8" strokeDasharray="4 6" />
+            <circle cx="500" cy="500" r="110" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="0.8" />
+            
+            {/* Coordinate Crosshairs */}
+            <line x1="500" y1="120" x2="500" y2="880" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="0.8" strokeDasharray="2 4" />
+            <line x1="120" y1="500" x2="880" y2="500" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="0.8" strokeDasharray="2 4" />
+            
+            {/* Node Markers */}
+            <circle cx="500" cy="265" r="2.5" fill="#23c694" className="animate-pulse" />
+            <circle cx="735" cy="500" r="2.5" fill="#d4a373" />
+            <circle cx="265" cy="500" r="2.5" fill="#23c694" />
+            <circle cx="500" cy="735" r="2" fill="#ffffff" opacity="0.6" />
+          </svg>
 
-              {/* Console Mode Switcher (Calculator vs Architecture Blueprint) */}
-              <div className="flex items-center gap-1 bg-white/[0.04] p-1 rounded-lg border border-white/[0.06]">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('calculator')}
-                  className={`px-3 py-1 rounded text-xs font-mono tracking-tight transition-colors cursor-pointer flex items-center gap-1.5 ${
-                    activeTab === 'calculator' 
-                      ? 'bg-cyan-500/20 text-cyan-300 font-semibold shadow-xs' 
-                      : 'text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  <Calculator size={12} />
-                  <span>{isFr ? 'Simulateur d’Impact' : 'Impact Estimator'}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('architecture')}
-                  className={`px-3 py-1 rounded text-xs font-mono tracking-tight transition-colors cursor-pointer flex items-center gap-1.5 ${
-                    activeTab === 'architecture' 
-                      ? 'bg-emerald-500/20 text-emerald-300 font-semibold shadow-xs' 
-                      : 'text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  <ShieldCheck size={12} />
-                  <span>{isFr ? 'Sas de Contrôle Humain' : 'Safe Architecture'}</span>
-                </button>
-              </div>
+          {/* Micro Geometric Dot Texture */}
+          <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_20%,transparent_100%)] pointer-events-none" />
+        </div>
+
+        {/* ================= TOP SECTION: LIFECYCLE AXIS & STACKED DECK STATUS PILL ================= */}
+        <div className="relative z-10 container mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl mb-8">
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#1e2d27]/70">
+            
+            {/* 5-Axis Technical Lifecycle Coordinates (Nova Signature) */}
+            <div className="flex flex-wrap items-center gap-x-5 sm:gap-x-7 gap-y-2 text-[11px] font-mono tracking-widest text-[#7c8581] uppercase select-none">
+              <span className="flex items-center gap-1.5 transition-colors hover:text-[#dffff1] cursor-default">
+                <span className="text-[#23c694] font-semibold">01.</span>
+                <span>{isFr ? 'DÉCOUVERTE' : 'DISCOVER'}</span>
+              </span>
+              <span className="text-[#1e2d27] hidden sm:inline" aria-hidden="true">/</span>
+              <span className="flex items-center gap-1.5 transition-colors hover:text-[#dffff1] cursor-default">
+                <span className="text-[#23c694] font-semibold">02.</span>
+                <span>{isFr ? 'CONCEPTION' : 'DESIGN'}</span>
+              </span>
+              <span className="text-[#1e2d27] hidden sm:inline" aria-hidden="true">/</span>
+              <span className="flex items-center gap-1.5 transition-colors hover:text-[#dffff1] cursor-default">
+                <span className="text-[#23c694] font-semibold">03.</span>
+                <span>{isFr ? 'DÉVELOPPEMENT' : 'BUILD'}</span>
+              </span>
+              <span className="text-[#1e2d27] hidden sm:inline" aria-hidden="true">/</span>
+              <span className="flex items-center gap-1.5 transition-colors hover:text-[#dffff1] cursor-default">
+                <span className="text-[#23c694] font-semibold">04.</span>
+                <span>{isFr ? 'DÉPLOIEMENT' : 'DEPLOY'}</span>
+              </span>
+              <span className="text-[#1e2d27] hidden sm:inline" aria-hidden="true">/</span>
+              <span className="flex items-center gap-1.5 transition-colors hover:text-[#dffff1] cursor-default">
+                <span className="text-[#23c694] font-semibold">05.</span>
+                <span>{isFr ? 'EXÉCUTION' : 'OPERATE'}</span>
+              </span>
             </div>
 
-            {/* Console Content Body */}
-            <div className="p-6 md:p-8">
-              
-              {activeTab === 'calculator' ? (
-                /* TAB 1: Real-World Time & Revenue Estimator */
-                <div className="space-y-6">
+            {/* 3D Stacked Deck Status Pill (Faithful to Nova screenshot) */}
+            <div className="relative flex justify-start lg:justify-end">
+              <button
+                type="button"
+                onClick={handleAuditClick}
+                aria-label="See Oakivo autonomous agent in action — launch readiness audit"
+                className="group relative cursor-pointer text-left transition-transform duration-300 hover:scale-[1.015]"
+              >
+                {/* Layer 3 - Bottom shadow deck */}
+                <div 
+                  className="absolute inset-0 translate-y-3 scale-[0.92] rounded-full bg-[#070a09] border border-white/[0.04] opacity-30 pointer-events-none" 
+                  aria-hidden="true" 
+                />
+                
+                {/* Layer 2 - Middle stacked deck */}
+                <div 
+                  className="absolute inset-0 translate-y-1.5 scale-[0.96] rounded-full bg-[#0a0e0c] border border-white/[0.08] opacity-60 pointer-events-none" 
+                  aria-hidden="true" 
+                />
+
+                {/* Subtle outer glow on hover */}
+                <div 
+                  className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#23c694]/25 via-[#d4a373]/20 to-[#0f5e4a]/25 blur-md opacity-40 group-hover:opacity-100 transition-opacity" 
+                  aria-hidden="true" 
+                />
+
+                {/* Layer 1 - Active Top Floating Card */}
+                <div className="relative flex items-center gap-3 px-4 sm:px-5 py-2.5 rounded-full bg-[#0a0f0d]/95 border border-[#23c694]/45 backdrop-blur-2xl shadow-[0_12px_35px_rgba(0,0,0,0.85)]">
                   
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-white/[0.06] pb-4">
-                    <div>
-                      <h2 className="text-base font-semibold text-white">
-                        {isFr ? 'Estimation Pratique de Gain de Temps & Revenus' : 'Practical Time & Revenue Yield Simulator'}
-                      </h2>
-                      <p className="text-xs text-slate-400 font-light mt-0.5">
-                        {isFr 
-                          ? 'Ajustez vos volumes actuels pour visualiser les heures récupérées et les devis sauvés.' 
-                          : 'Adjust your current operating volume to see hours reclaimed and recovered quotes.'}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20">
-                        {isFr ? 'Déploiement en 14 Jours' : '14-Day Sprint Ready'}
-                      </span>
-                    </div>
+                  {/* Cellular 4-Node Clover Glowing Icon (Signature Nova node) */}
+                  <div className="relative w-6 h-6 shrink-0 text-[#23c694] flex items-center justify-center">
+                    <svg viewBox="0 0 32 32" fill="currentColor" className="w-5 h-5" aria-hidden="true">
+                      <circle cx="11" cy="11" r="4.2" className="animate-pulse fill-[#23c694]" />
+                      <circle cx="21" cy="11" r="4.2" className="fill-[#23c694] opacity-90" />
+                      <circle cx="11" cy="21" r="4.2" className="fill-[#23c694] opacity-75" />
+                      <circle cx="21" cy="21" r="4.2" className="fill-[#23c694] opacity-60" />
+                    </svg>
                   </div>
 
-                  {/* Sliders Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                    
-                    {/* Slider 1: Monthly Inbound Leads */}
-                    <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-3">
-                      <div className="flex items-center justify-between">
-                        <label htmlFor={inboundSliderId} className="text-xs font-mono text-slate-300 flex items-center gap-2">
-                          <PhoneCall size={13} className="text-cyan-400" />
-                          <span>{isFr ? 'Demandes & Appels / mois' : 'Monthly Inbound Inquiries'}</span>
-                        </label>
-                        <span className="text-sm font-mono font-semibold text-white bg-slate-900 px-2.5 py-0.5 rounded border border-white/[0.1]">
-                          {inboundVolume}
-                        </span>
-                      </div>
-                      <input 
-                        id={inboundSliderId}
-                        type="range"
-                        min="10"
-                        max="250"
-                        step="5"
-                        value={inboundVolume}
-                        onChange={(e) => setInboundVolume(Number(e.target.value))}
-                        className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
-                        aria-label={isFr ? "Nombre de demandes par mois" : "Monthly inbound leads slider"}
-                      />
-                      <div className="flex justify-between text-[10px] font-mono text-slate-500">
-                        <span>10 / mo</span>
-                        <span>125 / mo</span>
-                        <span>250+ / mo</span>
-                      </div>
-                      <p className="text-[11px] text-slate-400 font-light">
-                        {isFr 
-                          ? 'Réponse automatique en < 90s aux appels manqués et formulaires web.' 
-                          : 'Automated <90s 2-way SMS/quote drafting for after-hours calls & web forms.'}
-                      </p>
-                    </div>
-
-                    {/* Slider 2: Weekly Admin / Invoicing Hours */}
-                    <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-3">
-                      <div className="flex items-center justify-between">
-                        <label htmlFor={adminSliderId} className="text-xs font-mono text-slate-300 flex items-center gap-2">
-                          <Receipt size={13} className="text-emerald-400" />
-                          <span>{isFr ? 'Heures de paperasse / sem.' : 'Weekly Admin Desk Hours'}</span>
-                        </label>
-                        <span className="text-sm font-mono font-semibold text-white bg-slate-900 px-2.5 py-0.5 rounded border border-white/[0.1]">
-                          {adminHoursPerWeek} h
-                        </span>
-                      </div>
-                      <input 
-                        id={adminSliderId}
-                        type="range"
-                        min="4"
-                        max="35"
-                        step="1"
-                        value={adminHoursPerWeek}
-                        onChange={(e) => setAdminHoursPerWeek(Number(e.target.value))}
-                        className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400"
-                        aria-label={isFr ? "Heures administratives par semaine" : "Weekly administrative hours slider"}
-                      />
-                      <div className="flex justify-between text-[10px] font-mono text-slate-500">
-                        <span>4 h</span>
-                        <span>18 h</span>
-                        <span>35 h</span>
-                      </div>
-                      <p className="text-[11px] text-slate-400 font-light">
-                        {isFr 
-                          ? 'Saisie de factures fournisseurs, feuilles de temps et synchro comptable.' 
-                          : 'Manual PDF invoice extraction, timesheets, and accounting ledger entry.'}
-                      </p>
-                    </div>
-
+                  {/* Cycling Status Label */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-2.5 text-xs font-mono">
+                    <span className="text-[#23c694] font-semibold tracking-wider uppercase text-[10px] sm:text-[11px] flex items-center gap-1.5 shrink-0">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#23c694] animate-ping" />
+                      {currentAgent.badge}
+                    </span>
+                    <span className="text-[#36423d] hidden sm:inline" aria-hidden="true">/</span>
+                    <span className="text-[#dce3e0] font-normal truncate max-w-[230px] sm:max-w-[330px]">
+                      {currentAgent.task}
+                    </span>
                   </div>
 
-                  {/* Calculated Results Bar */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                    
-                    <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/[0.08] flex flex-col justify-between">
-                      <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-                        {isFr ? 'Temps Récupéré' : 'Reclaimed Time'}
-                      </span>
-                      <div className="mt-2 flex items-baseline gap-1.5">
-                        <span className="text-2xl font-bold font-mono text-white">~{estimatedHoursSavedMonth}</span>
-                        <span className="text-xs text-slate-400 font-mono">{isFr ? 'h / mois' : 'hrs / mo'}</span>
-                      </div>
-                      <span className="text-[10px] text-cyan-400 font-mono mt-1">
-                        {isFr ? 'Directement réinjectées dans les ventes' : 'Directly redirected to client work'}
-                      </span>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/[0.08] flex flex-col justify-between">
-                      <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-                        {isFr ? 'Valeur Salariale Libérée' : 'Payroll Cost Saved'}
-                      </span>
-                      <div className="mt-2 flex items-baseline gap-1.5">
-                        <span className="text-2xl font-bold font-mono text-emerald-400">
-                          ${annualPayrollReclaimed.toLocaleString()}
-                        </span>
-                        <span className="text-xs text-slate-400 font-mono">CAD / an</span>
-                      </div>
-                      <span className="text-[10px] text-emerald-400/80 font-mono mt-1">
-                        {isFr ? 'Sur la base de 38 $/h chargé' : 'Based on $38/hr blended desk rate'}
-                      </span>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-slate-900/60 border border-white/[0.08] flex flex-col justify-between">
-                      <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-                        {isFr ? 'Devis Gagnés Additionnels' : 'Rescued Proposals'}
-                      </span>
-                      <div className="mt-2 flex items-baseline gap-1.5">
-                        <span className="text-2xl font-bold font-mono text-cyan-300">+{potentialNewBidsWon}</span>
-                        <span className="text-xs text-slate-400 font-mono">{isFr ? 'devis / mois' : 'bids / mo'}</span>
-                      </div>
-                      <span className="text-[10px] text-slate-400 font-mono mt-1">
-                        {isFr ? 'Grâce à la réponse < 90 secondes' : 'Via instant speed-to-lead response'}
-                      </span>
-                    </div>
-
-                  </div>
-
-                  {/* Inline Action Link */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono border-t border-white/[0.06]">
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <Clock size={13} className="text-amber-400" />
-                      <span>{isFr ? 'Étude de cas similaire : Récupération de 11h/semaine pour un distributeur canadien' : 'Typical sprint outcome: 11 hrs/wk reclaimed for Atlantic distributor'}</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleContactClick}
-                      className="text-white hover:text-cyan-300 inline-flex items-center gap-1.5 font-medium transition-colors cursor-pointer"
-                    >
-                      <span>{isFr ? 'Configurer cette architecture pour votre équipe' : 'Deploy this architecture for your team'}</span>
-                      <ChevronRight size={13} />
-                    </button>
-                  </div>
-
+                  <ChevronRight size={14} className="text-[#7c8581] group-hover:text-[#85e1bf] group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
                 </div>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* ================= MIDDLE: MASSIVE DISPLAY HEADLINE & ACTION CLUSTER ================= */}
+        <div className="relative z-10 container mx-auto px-6 sm:px-8 lg:px-12 max-w-6xl my-auto">
+          
+          <div className="max-w-5xl">
+            <span className="nova-eyebrow mb-6">
+              {isFr 
+                ? 'OAKIVO SOLUTIONS · STUDIO DE SYSTÈMES AUTONOMES · DIEPPE, N.-B.' 
+                : 'OAKIVO SOLUTIONS · SOVEREIGN APPLIED AUTOMATION STUDIO · DIEPPE, NB'}
+            </span>
+
+            {/* Massive Display Headline */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[84px] font-display font-light text-[#f7faf9] tracking-[-0.04em] leading-[0.98] mb-8">
+              {isFr ? (
+                <>
+                  <span className="block">Le Moteur d'Automatisation</span>
+                  <span className="block text-[#9ba6a1] font-normal">pour les Entreprises d'Ici.</span>
+                </>
               ) : (
-                /* TAB 2: The Safe Human-in-the-Loop Architecture */
-                <div className="space-y-6">
-                  
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-white/[0.06] pb-4">
-                    <div>
-                      <h2 className="text-base font-semibold text-white">
-                        {isFr ? 'Le Protocole « L’IA Prépare, l’Humain Valide »' : 'The "AI Prepares, Humans Approve" Safety Protocol'}
-                      </h2>
-                      <p className="text-xs text-slate-400 font-light mt-0.5">
-                        {isFr 
-                          ? 'Pourquoi nos systèmes ne commettent jamais d’erreur autonome sur vos devis ou votre grand livre.' 
-                          : 'Why our systems never dispatch unverified emails or make rogue ledger edits.'}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/20">
-                        {isFr ? 'Loi 25 & LPRPDE Conformes' : 'PIPEDA & Law 25 Compliant'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* 3-Step Schematic Flow */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-                    
-                    {/* Step 1 */}
-                    <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2 relative">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Étape / Step 01</span>
-                        <Zap size={13} className="text-amber-400" />
-                      </div>
-                      <h3 className="text-xs font-semibold text-white">
-                        {isFr ? 'Capture & Synthèse Inbound' : 'Inbound Capture & Extraction'}
-                      </h3>
-                      <p className="text-[11px] text-slate-400 font-light leading-relaxed">
-                        {isFr 
-                          ? 'Appel manqué, formulaire web ou facture PDF fournisseur reçu. L’agent extrait les lignes et calcule le montant exact en 15 secondes.' 
-                          : 'Missed call, web bid, or vendor PDF arrives. System parses line items and drafts calculations in 15 seconds.'}
-                      </p>
-                      <div className="pt-1 text-[10px] font-mono text-slate-500">
-                        ⚡ {isFr ? 'Délai moyen : 15s' : 'Execution time: ~15s'}
-                      </div>
-                    </div>
-
-                    {/* Step 2 (The Gate) */}
-                    <div className="p-4 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/30 space-y-2 relative shadow-xs">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-semibold">
-                          {isFr ? 'Sas Obligatoire' : 'Mandatory Gate'}
-                        </span>
-                        <Lock size={13} className="text-emerald-400" />
-                      </div>
-                      <h3 className="text-xs font-semibold text-emerald-300">
-                        {isFr ? 'Sas de Validation Humaine' : 'Human Approval Air-Gap'}
-                      </h3>
-                      <p className="text-[11px] text-slate-300 font-light leading-relaxed">
-                        {isFr 
-                          ? 'Rien ne part automatiquement. Le gestionnaire reçoit une alerte WhatsApp ou SMS et confirme d’un clic sur son téléphone.' 
-                          : 'Nothing sends automatically. Manager receives a clean mobile preview and taps to approve, edit, or decline.'}
-                      </p>
-                      <div className="pt-1 text-[10px] font-mono text-emerald-400 font-medium">
-                        🛡️ {isFr ? 'Zéro courriel fantôme' : 'Zero rogue dispatches'}
-                      </div>
-                    </div>
-
-                    {/* Step 3 */}
-                    <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2 relative">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Étape / Step 03</span>
-                        <Server size={13} className="text-cyan-400" />
-                      </div>
-                      <h3 className="text-xs font-semibold text-white">
-                        {isFr ? 'Exécution Souveraine Canada' : 'Sovereign Dispatch & Sync'}
-                      </h3>
-                      <p className="text-[11px] text-slate-400 font-light leading-relaxed">
-                        {isFr 
-                          ? 'Envoi instantané au client, synchronisation dans QuickBooks/Xero et archivage immuable sur AWS ca-central-1 à Montréal.' 
-                          : 'Instant client dispatch, ledger sync to QuickBooks/ERP, and encrypted audit logging in Montreal AWS.'}
-                      </p>
-                      <div className="pt-1 text-[10px] font-mono text-cyan-400">
-                        🍁 {isFr ? 'Données résidentes au Canada' : 'Domestic data residency'}
-                      </div>
-                    </div>
-
-                  </div>
-
-                  {/* Architecture Specs Bottom Bar */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono border-t border-white/[0.06]">
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <CheckCircle2 size={13} className="text-emerald-400" />
-                      <span>{isFr ? 'Propriété intégrale du code source — aucun verrouillage propriétaire' : '100% client code ownership — zero vendor lock-in'}</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleBlueprintsClick}
-                      className="text-white hover:text-emerald-300 inline-flex items-center gap-1.5 font-medium transition-colors cursor-pointer"
-                    >
-                      <span>{isFr ? 'Consulter les schémas techniques détaillés' : 'Inspect full technical blueprints'}</span>
-                      <ChevronRight size={13} />
-                    </button>
-                  </div>
-
-                </div>
+                <>
+                  <span className="block">The Applied Automation Engine</span>
+                  <span className="block text-[#9ba6a1] font-normal">for Canadian Business.</span>
+                </>
               )}
+            </h1>
+
+            {/* Subhead and Reviewed Action Cluster Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-2">
+              
+              {/* Left Subcopy */}
+              <div className="lg:col-span-7">
+                <p className="text-base sm:text-lg text-[#a8b0ad] font-light leading-relaxed max-w-xl">
+                  {isFr
+                    ? "Une couche d'intelligence unifiée pour les PME et entreprises canadiennes afin d'accélérer les ventes, d'éradiquer la paperasse manuelle et de déployer des logiciels robustes en 14 jours."
+                    : "One unified intelligence layer for Canadian enterprise to win high-margin bids, eliminate manual paperwork, and deploy custom software in focused 14-day sprints."
+                  }
+                </p>
+              </div>
+
+              {/* Right Reviewed Action Cluster (Single Clear Executive Action + Secondary Link) */}
+              <div className="lg:col-span-5 flex flex-wrap items-center gap-5 lg:justify-end">
+                <button 
+                  type="button"
+                  onClick={handleContactClick}
+                  className="nova-outline-btn cursor-pointer py-3 px-6 text-sm"
+                >
+                  <span>{isFr ? 'Prendre Rendez-vous' : 'Book Consultation'}</span>
+                  <ArrowRight size={15} className="text-[#23c694]" />
+                </button>
+
+                <button 
+                  type="button"
+                  onClick={handleBlueprintsClick}
+                  className="inline-flex items-center gap-1.5 text-sm font-mono text-[#c2ccc7] hover:text-[#85e1bf] transition-colors cursor-pointer py-2"
+                >
+                  <span>{isFr ? 'Consulter les Schémas' : 'Explore Technical Blueprints'}</span>
+                  <span aria-hidden="true">→</span>
+                </button>
+              </div>
 
             </div>
 
@@ -470,40 +322,105 @@ export const DynamicHero: React.FC<DynamicHeroProps> = ({
 
         </div>
 
-        {/* 
-          Trust & Sovereignty Strip: Unboxed, Clean, Human 
-          Zero-Pill Discipline
-        */}
-        <div className="pt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-mono text-slate-400">
-          <span className="flex items-center gap-2 text-slate-300">
-            <Clock size={13} className="text-cyan-400" />
-            <span>{isFr ? 'Sprints de livraison en 14 jours' : '14-Day Delivery Sprints'}</span>
-          </span>
-          
-          <span className="text-slate-700 hidden sm:inline" aria-hidden="true">·</span>
-          
-          <span className="flex items-center gap-2 text-slate-300">
-            <Server size={13} className="text-emerald-400" />
-            <span>{isFr ? 'Hébergement Montréal (ca-central-1)' : 'Domestic AWS Montreal (ca-central-1)'}</span>
-          </span>
-          
-          <span className="text-slate-700 hidden sm:inline" aria-hidden="true">·</span>
-          
-          <span className="flex items-center gap-2 text-slate-300">
-            <ShieldCheck size={13} className="text-cyan-400" />
-            <span>{isFr ? 'Loi 25 & LPRPDE Conformes' : 'PIPEDA & Law 25 Compliant'}</span>
-          </span>
-          
-          <span className="text-slate-700 hidden sm:inline" aria-hidden="true">·</span>
-          
-          <span className="flex items-center gap-2 text-slate-300">
-            <FileCheck size={13} className="text-slate-400" />
-            <span>{isFr ? 'Garantie pilote de 30 jours' : '30-Day Risk-Free Pilot Guarantee'}</span>
-          </span>
+        {/* ================= BOTTOM: CUSTOMER & SECTOR PROOF STRIP ================= */}
+        <div className="relative z-10 container mx-auto max-w-6xl px-6 sm:px-8 lg:px-12 mt-12 pt-6 border-t border-[#1e2d27]/70">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            
+            <div className="space-y-2.5">
+              <p className="text-[11px] font-mono uppercase tracking-widest text-[#7c8581]">
+                {isFr ? 'Accélération des Opérations & Réduction des Coûts pour :' : 'Reducing Overhead & Accelerating Operations for'}
+              </p>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {[
+                  { en: 'Wholesale & Distribution', fr: 'Distribution & Vente en Gros' },
+                  { en: 'Precision Manufacturing', fr: 'Fabrication de Précision' },
+                  { en: 'Health & Medical Clinics', fr: 'Cliniques de Santé & Médical' },
+                  { en: 'Supply Chain & Logistics', fr: 'Chaîne Logistique & Flottes' },
+                  { en: 'Professional Practices', fr: 'Cabinets Professionnels' }
+                ].map((sector) => (
+                  <span 
+                    key={sector.en}
+                    className="px-3 py-1 rounded-full text-xs font-mono text-[#dce3e0] bg-[#080c0a] border border-[#1e2d27] hover:border-[#23c694]/50 transition-colors cursor-default"
+                  >
+                    {isFr ? sector.fr : sector.en}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:text-right shrink-0 border-t lg:border-t-0 lg:border-l border-[#1e2d27] pt-4 lg:pt-0 lg:pl-8">
+              <p className="text-[11px] font-mono uppercase tracking-widest text-[#7c8581] mb-1">
+                {isFr ? 'Hébergement Souverain Canada' : 'Domestic Data Residency'}
+              </p>
+              <div className="inline-flex items-center gap-2 text-xs font-mono text-[#23c694]">
+                <Server size={13} />
+                <span className="font-semibold text-white">Montreal AWS ca-central-1</span>
+                <span className="text-[#7c8581]">·</span>
+                <span className="text-[#a8b0ad]">{isFr ? 'Loi 25 & LPRPDE' : 'PIPEDA & Law 25'}</span>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-      </div>
-    </section>
+      </section>
+
+      {/* 
+        METRICS SECTION (Key Impact Statistics)
+      */}
+      <section className="py-20 bg-[#000000] border-b border-[#1e2d27]/70 relative z-10" aria-label="Impact statistics">
+        <div className="container mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <article className="p-8 rounded-2xl bg-[#070a09] border border-[#1e2d27] hover:border-[#23c694]/40 transition-all duration-300 group">
+              <span className="nova-eyebrow text-[#23c694] mb-3">
+                {isFr ? 'Capacité Accrue' : 'Higher Capacity'}
+              </span>
+              <strong className="text-6xl font-light font-display text-white tracking-tight block my-2 group-hover:text-[#23c694] transition-colors">
+                5x
+              </strong>
+              <p className="text-sm text-[#a8b0ad] font-light leading-relaxed mt-2">
+                {isFr 
+                  ? 'Vitesse de réponse aux prospects ramenée de 3 jours à moins de 90 secondes avec devis pré-rempli.' 
+                  : 'Speed-to-lead response compressed from 3 business days to under 90 seconds with instant quote drafting.'}
+              </p>
+            </article>
+
+            <article className="p-8 rounded-2xl bg-[#070a09] border border-[#1e2d27] hover:border-[#23c694]/40 transition-all duration-300 group">
+              <span className="nova-eyebrow text-[#23c694] mb-3">
+                {isFr ? 'Réduction des Coûts' : 'Lower Overhead'}
+              </span>
+              <strong className="text-6xl font-light font-display text-white tracking-tight block my-2 group-hover:text-[#23c694] transition-colors">
+                50%
+              </strong>
+              <p className="text-sm text-[#a8b0ad] font-light leading-relaxed mt-2">
+                {isFr 
+                  ? 'Éradication de la saisie manuelle de factures fournisseurs, reçus et feuilles de temps dans vos logiciels comptables.' 
+                  : 'Reduction in repetitive administrative overhead through automated document parsing into QuickBooks and ERPs.'}
+              </p>
+            </article>
+
+            <article className="p-8 rounded-2xl bg-[#070a09] border border-[#1e2d27] hover:border-[#23c694]/40 transition-all duration-300 group">
+              <span className="nova-eyebrow text-[#23c694] mb-3">
+                {isFr ? 'Déploiement Rapide' : 'Rapid Production Sprint'}
+              </span>
+              <strong className="text-6xl font-light font-display text-white tracking-tight block my-2 group-hover:text-[#23c694] transition-colors">
+                14 Days
+              </strong>
+              <p className="text-sm text-[#a8b0ad] font-light leading-relaxed mt-2">
+                {isFr 
+                  ? 'De l’analyse initiale à la mise en production opérationnelle, avec notre garantie pilote de 30 jours sans risque.' 
+                  : 'From architectural design kickoff to verified live deployment, backed by our 30-day risk-free pilot guarantee.'}
+              </p>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+    </div>
   );
 };
 

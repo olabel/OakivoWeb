@@ -54,27 +54,27 @@ export const SmallBizFaq: React.FC = () => {
         ? "Pourquoi faire appel à Oakivo plutôt qu'à une agence marketing classique ou une embauche interne ?"
         : "Why hire Oakivo instead of a traditional agency or an internal tech hire?",
       a: isFr
-        ? "Les agences marketing facturent des abonnements mensuels de 3 000 à 7 000 $ sans s'intéresser à vos opérations réelles, tandis qu'un développeur interne coûte plus de 85 000 $/an plus les charges. Chez Oakivo, vous travaillez directement avec des fondateurs et ingénieurs seniors, sur un sprint clair de 14 jours, à tarif fixe, sans mauvaise surprise."
-        : "Traditional marketing agencies charge $3k-$7k monthly retainers without touching your backend operational leaks, while hiring an in-house developer costs $90k+ plus benefits. With Oakivo, you get direct senior engineering founders, a fixed 14-day rapid deployment sprint, and guaranteed ROI without endless retainer lock-ins."
+        ? "Les agences marketing facturent des abonnements mensuels sans s'intéresser à vos opérations réelles, tandis qu'un développeur interne coûte cher et demande du temps de recrutement. Chez Oakivo, vous travaillez directement avec des associés fondateurs et ingénieurs seniors, sur des livrables clairs, à tarif fixe, sans mauvaise surprise."
+        : "Traditional marketing agencies charge monthly retainers without touching your backend operational leaks, while hiring an in-house developer costs $90k+ plus benefits. With Oakivo, you get direct senior engineering partners, fixed-scope delivery, and guaranteed outcomes without endless retainer lock-ins."
     }
   ];
 
   return (
-    <section id="faq" className="py-24 bg-[#030610] border-t border-white/[0.08] relative">
+    <section id="faq" className="py-24 bg-[#000000] border-t border-[#1e2d27]/70 relative text-[#f7faf9]">
       <div className="container mx-auto max-w-5xl px-6 sm:px-8 lg:px-12">
         
         {/* Section Header */}
         <div className="max-w-2xl mb-16">
-          <div className="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-3">
-            {isFr ? 'Questions Fréquentes' : 'Frequently Asked Questions'}
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-white tracking-tight mb-4">
+          <span className="nova-eyebrow text-[#23c694] mb-3">
+            {isFr ? 'QUESTIONS FRÉQUENTES' : 'FREQUENTLY ASKED QUESTIONS'}
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-display font-light text-white tracking-[-0.035em] mb-4">
             {isFr 
               ? 'Réponses claires pour les dirigeants d’entreprise.'
-              : 'Direct answers for practical business owners.'
+              : 'Direct answers for practical business leaders.'
             }
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
+          <p className="text-[#a8b0ad] text-sm sm:text-base leading-relaxed font-light">
             {isFr
               ? 'Pas de jargon technique. Des réponses transparentes sur le fonctionnement, les garanties et la rentabilité.'
               : 'Zero technical buzzwords. Honest answers about implementation, security, and bottom-line economics.'
@@ -89,23 +89,23 @@ export const SmallBizFaq: React.FC = () => {
             return (
               <div 
                 key={idx}
-                className="rounded-2xl bg-white/[0.02] border border-white/[0.08] hover:border-white/[0.15] transition-colors overflow-hidden"
+                className="rounded-2xl bg-[#070a09] border border-[#1e2d27] hover:border-[#23c694]/40 transition-colors overflow-hidden"
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
                   className="w-full p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
                 >
-                  <span className="text-base sm:text-lg font-display font-medium text-white tracking-tight">
+                  <span className="text-base sm:text-lg font-display font-light text-white tracking-tight">
                     {faq.q}
                   </span>
-                  <div className={`p-1.5 rounded-lg bg-white/[0.04] text-slate-400 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180 text-cyan-400' : ''}`}>
-                    <ChevronDown size={18} />
+                  <div className={`p-1.5 rounded-lg bg-[#000000] text-[#7c8581] border border-[#1e2d27] transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180 text-[#23c694] border-[#23c694]/40' : ''}`}>
+                    <ChevronDown size={17} />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 pt-1 text-xs sm:text-sm text-slate-300 font-light leading-relaxed border-t border-white/[0.04]">
+                  <div className="px-6 pb-6 pt-1 text-xs sm:text-sm text-[#a8b0ad] font-light leading-relaxed border-t border-[#1e2d27]/60">
                     <p>{faq.a}</p>
                   </div>
                 )}

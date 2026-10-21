@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, Sparkles, CheckCircle2, ArrowRight, ShieldCheck, 
   Clock, Zap, TrendingUp, AlertTriangle, Send, Loader2, 
@@ -94,7 +93,6 @@ export const SmallBizAiAuditModal: React.FC = () => {
     } catch (err) {
       console.error('Audit submission error:', err);
       setSubmitting(false);
-      // Still show completed state so user gets their score
       setCompleted(true);
     }
   };
@@ -112,7 +110,7 @@ export const SmallBizAiAuditModal: React.FC = () => {
     handleClose();
     window.dispatchEvent(new CustomEvent('open-lead-drawer', {
       detail: {
-        focus: `Audit Review Session (${answers.company || 'Small Business'})`,
+        focus: `Audit Review Session (${answers.company || 'Enterprise'})`,
         topic: `Audit Roadmap Review: Score ${calculateScore()}/100`
       }
     }));
@@ -123,21 +121,21 @@ export const SmallBizAiAuditModal: React.FC = () => {
   const score = calculateScore();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
       <div 
-        className="relative w-full max-w-xl rounded-3xl bg-[#090E1F] border border-cyan-500/30 p-6 sm:p-8 shadow-2xl text-left overflow-hidden"
+        className="relative w-full max-w-xl rounded-3xl bg-[#070a09] border border-[#23c694]/40 p-6 sm:p-8 shadow-2xl text-left overflow-hidden text-[#f7faf9]"
         role="dialog"
         aria-modal="true"
       >
         {/* Ambient Top Light */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-[#0f5e4a]/25 rounded-full blur-3xl pointer-events-none" />
 
         {/* Close Button */}
         <button
           type="button"
           onClick={handleClose}
           aria-label="Close modal"
-          className="absolute top-6 right-6 p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-slate-400 hover:text-white transition-colors cursor-pointer"
+          className="absolute top-6 right-6 p-2 rounded-full bg-white/[0.05] hover:bg-white/[0.1] text-[#7c8581] hover:text-white transition-colors cursor-pointer"
         >
           <X size={18} />
         </button>
@@ -146,38 +144,38 @@ export const SmallBizAiAuditModal: React.FC = () => {
           <div>
             {/* Modal Header */}
             <div className="mb-6 space-y-1">
-              <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">
-                <Sparkles size={12} className="text-emerald-400" />
-                <span>{isFr ? 'AUDIT EXPRESS EN 60 SECONDES' : '60-SECOND SMALL BUSINESS AI AUDIT'}</span>
-                <span className="text-slate-600">·</span>
-                <span className="text-slate-400">{isFr ? `Étape ${step} sur 5` : `Step ${step} of 5`}</span>
+              <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#23c694] uppercase tracking-widest">
+                <Sparkles size={12} className="text-[#23c694]" />
+                <span>{isFr ? 'DIAGNOSTIC EXPRESS EN 60 SECONDES' : '60-SECOND EXECUTIVE AI AUDIT'}</span>
+                <span className="text-[#36423d]">·</span>
+                <span className="text-[#a8b0ad]">{isFr ? `Étape ${step} sur 5` : `Step ${step} of 5`}</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-display font-light text-white tracking-tight">
                 {step === 1 && (isFr ? 'À quelle vitesse répondez-vous aux nouveaux prospects ?' : 'How fast does your team respond to new inbound leads?')}
                 {step === 2 && (isFr ? 'Comment relancez-vous vos devis sans réponse ?' : 'How consistently do you follow up on sent quotes & estimates?')}
-                {step === 3 && (isFr ? 'Combien d’heures par semaine sont perdues en saisie manuelle ?' : 'How many hours a week does your team spend on manual paperwork?')}
-                {step === 4 && (isFr ? 'Quels sont vos logiciels actuels principaux ?' : 'What primary software does your business run on today?')}
-                {step === 5 && (isFr ? 'Où devons-nous envoyer votre rapport personnalisé ?' : 'Where should we send your custom AI Roadmap?')}
+                {step === 3 && (isFr ? 'Combien d’heures par semaine sont perdues en paperasse ?' : 'How many hours a week does your team spend on manual paperwork?')}
+                {step === 4 && (isFr ? 'Quels sont vos logiciels d’exploitation principaux ?' : 'What primary software does your business run on today?')}
+                {step === 5 && (isFr ? 'Où devons-nous transmettre votre rapport personnalisé ?' : 'Where should we send your custom AI Roadmap?')}
               </h3>
             </div>
 
             {/* Step 1: Speed to Lead */}
             {step === 1 && (
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {[
-                  { label: isFr ? '⚡ Moins de 5 minutes (très rare)' : '⚡ Under 5 minutes (Fast responder)', val: 'Under 5 mins' },
+                  { label: isFr ? '⚡ Moins de 5 minutes (réponse instantanée)' : '⚡ Under 5 minutes (Instant responder)', val: 'Under 5 mins' },
                   { label: isFr ? '⏱️ Entre 1 et 4 heures' : '⏱️ Within 1 to 4 hours', val: '1-4 hours' },
                   { label: isFr ? '📅 Le lendemain ou le soir après la tournée' : '📅 Next business day / evening catchup', val: 'Next day' },
-                  { label: isFr ? '⚠️ Quand nous avons le temps (aléatoire)' : '⚠️ Whenever we get a free moment', val: 'Inconsistent' }
+                  { label: isFr ? '⚠️ Quand nous avons le temps (aléatoire)' : '⚠️ Inconsistent / when time permits', val: 'Inconsistent' }
                 ].map((opt) => (
                   <button
                     key={opt.val}
                     type="button"
                     onClick={() => handleSelectOption('responseTime', opt.val)}
-                    className="w-full p-4 rounded-xl bg-black/40 hover:bg-slate-800/80 border border-white/[0.08] hover:border-cyan-500/40 text-left text-sm text-slate-200 hover:text-white font-medium transition-all duration-200 cursor-pointer flex items-center justify-between"
+                    className="w-full p-4 rounded-xl bg-[#000000]/50 hover:bg-[#0f5e4a]/20 border border-[#1e2d27] hover:border-[#23c694]/50 text-left text-xs sm:text-sm text-[#dce3e0] hover:text-white font-mono transition-all duration-200 cursor-pointer flex items-center justify-between"
                   >
                     <span>{opt.label}</span>
-                    <ArrowRight size={14} className="text-cyan-400" />
+                    <ArrowRight size={14} className="text-[#23c694]" />
                   </button>
                 ))}
               </div>
@@ -185,7 +183,7 @@ export const SmallBizAiAuditModal: React.FC = () => {
 
             {/* Step 2: Followup Consistency */}
             {step === 2 && (
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {[
                   { label: isFr ? '✅ Nous relançons 3+ fois de façon systématique' : '✅ We follow up 3+ times systematically', val: '3+ systematic' },
                   { label: isFr ? '📨 Nous envoyons 1 seul courriel poli' : '📨 We send 1 polite follow-up email', val: '1 email only' },
@@ -196,10 +194,10 @@ export const SmallBizAiAuditModal: React.FC = () => {
                     key={opt.val}
                     type="button"
                     onClick={() => handleSelectOption('followUpStyle', opt.val)}
-                    className="w-full p-4 rounded-xl bg-black/40 hover:bg-slate-800/80 border border-white/[0.08] hover:border-cyan-500/40 text-left text-sm text-slate-200 hover:text-white font-medium transition-all duration-200 cursor-pointer flex items-center justify-between"
+                    className="w-full p-4 rounded-xl bg-[#000000]/50 hover:bg-[#0f5e4a]/20 border border-[#1e2d27] hover:border-[#23c694]/50 text-left text-xs sm:text-sm text-[#dce3e0] hover:text-white font-mono transition-all duration-200 cursor-pointer flex items-center justify-between"
                   >
                     <span>{opt.label}</span>
-                    <ArrowRight size={14} className="text-cyan-400" />
+                    <ArrowRight size={14} className="text-[#23c694]" />
                   </button>
                 ))}
               </div>
@@ -207,21 +205,21 @@ export const SmallBizAiAuditModal: React.FC = () => {
 
             {/* Step 3: Admin Hours */}
             {step === 3 && (
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {[
                   { label: isFr ? 'Moins de 5 heures par semaine' : 'Under 5 hours per week', val: '< 5 hrs' },
                   { label: isFr ? '5 à 15 heures par semaine (1 à 2 jours perdus)' : '5 to 15 hours per week (1-2 days lost)', val: '5–15 hrs' },
                   { label: isFr ? '15 à 30 heures par semaine (lourd goulot)' : '15 to 30 hours per week (heavy friction)', val: '15–30 hrs' },
-                  { label: isFr ? '30+ heures par semaine (chaos administratif)' : '30+ hours per week (constant paperwork backlog)', val: '30+ hrs' }
+                  { label: isFr ? '30+ heures par semaine (chaos administratif)' : '30+ hours per week (constant backlog)', val: '30+ hrs' }
                 ].map((opt) => (
                   <button
                     key={opt.val}
                     type="button"
                     onClick={() => handleSelectOption('adminHours', opt.val)}
-                    className="w-full p-4 rounded-xl bg-black/40 hover:bg-slate-800/80 border border-white/[0.08] hover:border-cyan-500/40 text-left text-sm text-slate-200 hover:text-white font-medium transition-all duration-200 cursor-pointer flex items-center justify-between"
+                    className="w-full p-4 rounded-xl bg-[#000000]/50 hover:bg-[#0f5e4a]/20 border border-[#1e2d27] hover:border-[#23c694]/50 text-left text-xs sm:text-sm text-[#dce3e0] hover:text-white font-mono transition-all duration-200 cursor-pointer flex items-center justify-between"
                   >
                     <span>{opt.label}</span>
-                    <ArrowRight size={14} className="text-cyan-400" />
+                    <ArrowRight size={14} className="text-[#23c694]" />
                   </button>
                 ))}
               </div>
@@ -229,21 +227,21 @@ export const SmallBizAiAuditModal: React.FC = () => {
 
             {/* Step 4: Tech Stack */}
             {step === 4 && (
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {[
-                  { label: isFr ? 'QuickBooks ou Xero + Gmail / Outlook' : 'QuickBooks or Xero + Gmail / Outlook', val: 'QBO/Xero' },
-                  { label: isFr ? 'Jobber, Housecall Pro ou ServiceTitan' : 'Jobber, Housecall Pro, or ServiceTitan', val: 'Jobber/Field' },
-                  { label: isFr ? 'Tableurs Excel, fiches papier & boîte de reçus' : 'Excel spreadsheets, paper forms & physical receipts', val: 'Excel/Paper' },
-                  { label: isFr ? 'Odoo, CRM sur mesure ou ERP existant' : 'Odoo, custom CRM, or legacy ERP', val: 'Odoo/CRM' }
+                  { label: 'QuickBooks / Xero + Google Workspace / Outlook', val: 'QB/Xero + Workspace' },
+                  { label: 'Jobber / ServiceTitan / Procore', val: 'Jobber/ServiceTitan' },
+                  { label: 'ERP Sur Mesure / Odoo / NetSuite', val: 'Custom ERP / Odoo' },
+                  { label: isFr ? 'Principalement papier, Excel et messages textes' : 'Primarily paper receipts, Excel & text messages', val: 'Paper & Excel' }
                 ].map((opt) => (
                   <button
                     key={opt.val}
                     type="button"
                     onClick={() => handleSelectOption('techStack', opt.val)}
-                    className="w-full p-4 rounded-xl bg-black/40 hover:bg-slate-800/80 border border-white/[0.08] hover:border-cyan-500/40 text-left text-sm text-slate-200 hover:text-white font-medium transition-all duration-200 cursor-pointer flex items-center justify-between"
+                    className="w-full p-4 rounded-xl bg-[#000000]/50 hover:bg-[#0f5e4a]/20 border border-[#1e2d27] hover:border-[#23c694]/50 text-left text-xs sm:text-sm text-[#dce3e0] hover:text-white font-mono transition-all duration-200 cursor-pointer flex items-center justify-between"
                   >
                     <span>{opt.label}</span>
-                    <ArrowRight size={14} className="text-cyan-400" />
+                    <ArrowRight size={14} className="text-[#23c694]" />
                   </button>
                 ))}
               </div>
@@ -251,48 +249,50 @@ export const SmallBizAiAuditModal: React.FC = () => {
 
             {/* Step 5: Contact Info */}
             {step === 5 && (
-              <form onSubmit={handleSubmitAudit} className="space-y-4">
-                {/* Honeypot anti-spam */}
-                <input 
-                  type="text" 
-                  name="website_url" 
-                  value={honeypot} 
-                  onChange={(e) => setHoneypot(e.target.value)} 
-                  className="hidden" 
-                  tabIndex={-1} 
-                  autoComplete="off" 
+              <form onSubmit={handleSubmitAudit} className="space-y-3.5">
+                {/* Honeypot */}
+                <input
+                  type="text"
+                  name="audit_honeypot_code"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  className="hidden"
                 />
 
-                <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1">
-                    {isFr ? 'Votre Nom Complet *' : 'Your Full Name *'}
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={answers.name}
-                    onChange={(e) => setAnswers(prev => ({ ...prev, name: e.target.value }))}
-                    placeholder="e.g. David Cormier"
-                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-cyan-400"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-mono text-[#a8b0ad] mb-1">
+                      {isFr ? 'Votre Nom *' : 'Your Name *'}
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={answers.name}
+                      onChange={(e) => setAnswers(prev => ({ ...prev, name: e.target.value }))}
+                      placeholder="Marc Tremblay"
+                      className="w-full px-4 py-3 rounded-xl bg-[#000000]/60 border border-[#1e2d27] focus:border-[#23c694] text-white text-xs font-mono focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono text-[#a8b0ad] mb-1">
+                      {isFr ? 'Entreprise *' : 'Company Name *'}
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={answers.company}
+                      onChange={(e) => setAnswers(prev => ({ ...prev, company: e.target.value }))}
+                      placeholder="Atlantic Dynamics Inc."
+                      className="w-full px-4 py-3 rounded-xl bg-[#000000]/60 border border-[#1e2d27] focus:border-[#23c694] text-white text-xs font-mono focus:outline-none"
+                    />
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1">
-                    {isFr ? 'Nom de Votre Entreprise *' : 'Company Name *'}
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={answers.company}
-                    onChange={(e) => setAnswers(prev => ({ ...prev, company: e.target.value }))}
-                    placeholder="e.g. Apex Mechanical"
-                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-cyan-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1">
+                  <label className="block text-xs font-mono text-[#a8b0ad] mb-1">
                     {isFr ? 'Courriel Professionnel *' : 'Work Email *'}
                   </label>
                   <input
@@ -300,21 +300,21 @@ export const SmallBizAiAuditModal: React.FC = () => {
                     required
                     value={answers.email}
                     onChange={(e) => setAnswers(prev => ({ ...prev, email: e.target.value }))}
-                    placeholder="david@apexmechanical.ca"
-                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-cyan-400"
+                    placeholder="marc@company.ca"
+                    className="w-full px-4 py-3 rounded-xl bg-[#000000]/60 border border-[#1e2d27] focus:border-[#23c694] text-white text-xs font-mono focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1">
-                    {isFr ? 'Numéro de Téléphone (pour SMS de suivi, optionnel)' : 'Phone Number (for SMS report link, optional)'}
+                  <label className="block text-xs font-mono text-[#a8b0ad] mb-1">
+                    {isFr ? 'Numéro de Téléphone (optionnel)' : 'Direct Phone (optional)'}
                   </label>
                   <input
                     type="tel"
                     value={answers.phone}
                     onChange={(e) => setAnswers(prev => ({ ...prev, phone: e.target.value }))}
-                    placeholder="(506) 555-0199"
-                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-cyan-400"
+                    placeholder="(506) 555-0192"
+                    className="w-full px-4 py-3 rounded-xl bg-[#000000]/60 border border-[#1e2d27] focus:border-[#23c694] text-white text-xs font-mono focus:outline-none"
                   />
                 </div>
 
@@ -325,17 +325,17 @@ export const SmallBizAiAuditModal: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-4 px-6 rounded-xl bg-emerald-400 hover:bg-emerald-300 disabled:opacity-50 text-slate-950 font-bold font-mono text-xs uppercase tracking-wider transition-all shadow-xl hover:shadow-emerald-400/20 flex items-center justify-center gap-2 cursor-pointer mt-4"
+                  className="w-full py-3.5 px-6 rounded-full bg-white hover:bg-[#23c694] disabled:opacity-50 text-black font-semibold font-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer mt-3 shadow-lg"
                 >
                   {submitting ? (
                     <>
-                      <Loader2 size={16} className="animate-spin" />
-                      <span>{isFr ? 'Analyse en cours...' : 'Calculating AI Opportunity Score...'}</span>
+                      <Loader2 size={15} className="animate-spin text-black" />
+                      <span>{isFr ? 'Calcul en cours...' : 'Calculating AI Yield Score...'}</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles size={16} />
-                      <span>{isFr ? 'Afficher Mon Score & Ma Feuille de Route' : 'Generate My Custom AI Score & Roadmap'}</span>
+                      <Sparkles size={15} />
+                      <span>{isFr ? 'Générer Mon Score et Ma Feuille de Route' : 'Generate My Executive AI Score'}</span>
                     </>
                   )}
                 </button>
@@ -343,15 +343,15 @@ export const SmallBizAiAuditModal: React.FC = () => {
             )}
 
             {step > 1 && step <= 4 && (
-              <div className="mt-4 pt-4 border-t border-white/[0.06] flex justify-between items-center text-xs font-mono text-slate-500">
+              <div className="mt-4 pt-4 border-t border-[#1e2d27] flex justify-between items-center text-xs font-mono text-[#7c8581]">
                 <button
                   type="button"
                   onClick={() => setStep(prev => prev - 1)}
-                  className="hover:text-slate-300 transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   ← {isFr ? 'Retour' : 'Back'}
                 </button>
-                <span>{Math.round((step / 5) * 100)}% {isFr ? 'terminé' : 'completed'}</span>
+                <span>{Math.round((step / 5) * 100)}% {isFr ? 'complété' : 'completed'}</span>
               </div>
             )}
           </div>
@@ -359,36 +359,36 @@ export const SmallBizAiAuditModal: React.FC = () => {
           /* Completed Result Screen */
           <div className="space-y-6">
             <div className="text-center space-y-2">
-              <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest block">
-                {isFr ? 'RÉSULTATS DE L’AUDIT OAKIVO' : 'OAKIVO AI OPPORTUNITY REPORT'}
+              <span className="nova-eyebrow text-[#23c694] block">
+                {isFr ? 'RÉSULTATS DE L’AUDIT OAKIVO' : 'OAKIVO AI YIELD ASSESSMENT'}
               </span>
-              <div className="text-4xl sm:text-5xl font-mono font-bold text-white tracking-tight">
-                {score} <span className="text-sm font-sans font-light text-slate-400">/ 100</span>
+              <div className="text-5xl font-mono font-light text-white tracking-tight">
+                {score} <span className="text-sm font-sans font-light text-[#7c8581]">/ 100</span>
               </div>
-              <div className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-mono font-semibold">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#0f5e4a]/25 border border-[#23c694]/40 text-[#23c694] text-xs font-mono font-medium">
                 {score < 60 
-                  ? (isFr ? 'Fuite de Revenu Élevée Détectée' : 'High Revenue & Time Leakage Detected')
-                  : (isFr ? 'Potentiel d’Accélération Immédiat' : 'Immediate Acceleration Potential')}
+                  ? (isFr ? 'Fuite Opérationnelle & Potentiel d’Accélération Élevé' : 'High Operational Leakage Detected')
+                  : (isFr ? 'Gains Concrets Détectés dès le Premier Mois' : 'Immediate Acceleration Potential')}
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-black/40 border border-white/[0.08] space-y-3 text-xs font-mono">
-              <div className="text-slate-300 font-bold uppercase tracking-wider text-[11px] flex items-center gap-2">
-                <CheckCircle2 size={13} className="text-cyan-400" />
-                <span>{isFr ? 'Vos 3 Micro-Automations Prioritaires :' : 'Your Top 3 High-ROI Quick Wins:'}</span>
+            <div className="p-4 rounded-xl bg-[#000000]/60 border border-[#1e2d27] space-y-3 text-xs font-mono">
+              <div className="text-white font-medium uppercase tracking-wider text-[11px] flex items-center gap-2">
+                <CheckCircle2 size={13} className="text-[#23c694]" />
+                <span>{isFr ? 'Vos 3 Micro-Automations Prioritaires :' : 'Your Top 3 High-Yield Opportunities:'}</span>
               </div>
-              <ul className="space-y-2 text-slate-300 font-sans">
+              <ul className="space-y-2 text-[#a8b0ad] font-sans">
                 <li className="flex items-start gap-2">
-                  <span className="text-cyan-400 font-bold">1.</span>
-                  <span><strong>Speed-to-Lead 90s:</strong> Stop losing inbound leads during busy job hours.</span>
+                  <span className="text-[#23c694] font-mono font-bold">1.</span>
+                  <span><strong>Speed-to-Lead 45s:</strong> Instant quote drafting before competitors review inquiries.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-emerald-400 font-bold">2.</span>
-                  <span><strong>Automated Quote Resurrector:</strong> Reclaim ~18% of stalled estimates.</span>
+                  <span className="text-[#23c694] font-mono font-bold">2.</span>
+                  <span><strong>Automated Quote Resurrector:</strong> Reactivate stalled proposals with polite SMS.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-cyan-300 font-bold">3.</span>
-                  <span><strong>Zero-Typing Receipts:</strong> Eliminate 8-12 hours of weekly invoice typing.</span>
+                  <span className="text-[#23c694] font-mono font-bold">3.</span>
+                  <span><strong>Zero-Typing Invoices:</strong> Eradicate 8–12 hours of weekly invoice entry into accounting.</span>
                 </li>
               </ul>
             </div>
@@ -397,18 +397,18 @@ export const SmallBizAiAuditModal: React.FC = () => {
               <button
                 type="button"
                 onClick={openBookingDirectly}
-                className="w-full py-4 px-6 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold font-mono text-xs uppercase tracking-wider transition-all shadow-xl hover:shadow-cyan-400/20 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full nova-outline-btn justify-center cursor-pointer py-3.5"
               >
-                <Calendar size={15} />
-                <span>{isFr ? 'Réserver Ma Session d’Examen (30 Min)' : 'Schedule 30-Min Roadmap Review with Founders'}</span>
+                <Calendar size={14} className="text-[#23c694]" />
+                <span>{isFr ? 'Planifier une Consultation avec les Fondateurs' : 'Schedule Consultation with Senior Founders'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleClose}
-                className="w-full py-2.5 text-center text-xs font-mono text-slate-400 hover:text-white transition-colors cursor-pointer"
+                className="w-full py-2 text-center text-xs font-mono text-[#7c8581] hover:text-white transition-colors cursor-pointer"
               >
-                {isFr ? 'Fermer cette fenêtre' : 'Close and return to website'}
+                {isFr ? 'Fermer cette fenêtre' : 'Close and return to site'}
               </button>
             </div>
           </div>
