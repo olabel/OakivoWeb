@@ -52,15 +52,15 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { 
-      name: isFr ? 'Solutions' : 'Solutions', 
+      name: isFr ? 'Systèmes IA' : 'AI Systems', 
       path: '/services' 
     },
     { 
-      name: isFr ? 'Conformité' : 'Compliance', 
-      path: '/compliance-matrix' 
+      name: isFr ? 'Cas Clients' : 'Case Studies', 
+      path: '/case-studies' 
     },
     { 
-      name: isFr ? 'Méthodologie' : 'Methodology', 
+      name: isFr ? 'Méthodologie 14j' : '14-Day Sprint', 
       path: '/methodology' 
     },
     { 
@@ -95,7 +95,7 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Minimalist Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-9 text-xs font-mono tracking-wider uppercase" aria-label="Main Navigation">
+          <nav className="hidden lg:flex items-center gap-8 text-xs font-mono tracking-wider uppercase" aria-label="Main Navigation">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -112,7 +112,7 @@ export const Navbar: React.FC = () => {
                   <>
                     <span>{link.name}</span>
                     {isActive && (
-                      <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full" />
+                      <span className="absolute -bottom-2 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-full" />
                     )}
                   </>
                 )}
@@ -120,11 +120,11 @@ export const Navbar: React.FC = () => {
             ))}
           </nav>
 
-          {/* Right Action Cluster: Unboxed Language Switcher + Executive CTA */}
-          <div className="hidden lg:flex items-center gap-7">
+          {/* Right Action Cluster: Unboxed Language Switcher + AI Audit + Primary CTA */}
+          <div className="hidden lg:flex items-center gap-5">
             {/* Unboxed Typographic Language Toggle */}
             <div 
-              className="flex items-center gap-2 text-xs font-mono text-slate-400 select-none"
+              className="flex items-center gap-2 text-xs font-mono text-slate-400 select-none mr-1"
               role="group"
               aria-label="Language selection"
             >
@@ -153,12 +153,21 @@ export const Navbar: React.FC = () => {
               </button>
             </div>
 
+            {/* Quick 60s AI Audit Button */}
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-ai-audit-modal'))}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-mono font-medium tracking-wider uppercase text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-lg transition-all cursor-pointer"
+            >
+              <span>{isFr ? 'Audit 60s' : '60s Audit'}</span>
+            </button>
+
             {/* Pristine Executive CTA */}
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-mono font-semibold tracking-wider uppercase text-slate-950 bg-white hover:bg-slate-200 rounded-lg transition-all duration-200 cursor-pointer shadow-lg shadow-white/5 hover:shadow-cyan-500/20"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-mono font-semibold tracking-wider uppercase text-slate-950 bg-white hover:bg-slate-200 rounded-lg transition-all duration-200 cursor-pointer shadow-lg shadow-white/5 hover:shadow-cyan-500/20"
             >
-              <span>{isFr ? 'Planifier une Découverte' : 'Schedule Discovery'}</span>
+              <span>{isFr ? 'Planifier une Session' : 'Schedule Discovery'}</span>
               <ArrowRight size={13} />
             </Link>
           </div>

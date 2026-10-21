@@ -16,6 +16,22 @@ const Services: React.FC = () => {
 
   const corePillars = [
     {
+      id: 'ai-sales-cost-automation',
+      title: 'AI Growth & Cost-Reduction Micro-Systems',
+      tagline: 'Under 90s Speed-to-Lead & 15h Reclaimed Weekly',
+      icon: <Sparkles size={28} className="text-emerald-400" />,
+      headline: 'Multiply Inbound Sales & Slash Repetitive Busywork.',
+      problem: 'Inbound leads lost during busy job hours, un-followed cold quotes, and 15+ hours lost to manual receipt typing.',
+      capabilities: [
+        'Under-90-second speed-to-lead automated qualification and calendar booking',
+        'Automated quote resurrection campaigns that revive stalled estimates after 3, 7, and 14 days',
+        'Zero-typing invoice & receipt extraction directly into QuickBooks, Xero, or Odoo',
+        'The "AI Prepares, Humans Approve" guarantee: 100% owner control with 1-click approvals'
+      ],
+      outcomeMetric: '+$42k Revived Quotes',
+      outcomeDesc: 'Average resurrected deal value and 14+ hours saved weekly with a fixed 14-day deployment sprint.'
+    },
+    {
       id: 'modern-erp-transformation',
       title: 'Modern ERP & Operations Modernization',
       tagline: 'Single Source of Truth & Operational Flow',

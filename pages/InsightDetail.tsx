@@ -84,9 +84,14 @@ export const InsightDetail: React.FC = () => {
     return <Navigate to="/insights" replace />;
   }
 
-  const title = article.title;
-  const excerpt = article.excerpt;
-  const content = article.content;
+  const title = (isFr && article.titleFr) ? article.titleFr : article.title;
+  const excerpt = (isFr && article.excerptFr) ? article.excerptFr : article.excerpt;
+  const content = (isFr && article.contentFr) ? article.contentFr : article.content;
+  const category = (isFr && article.categoryFr) ? article.categoryFr : article.category;
+  const author = (isFr && article.authorFr) ? article.authorFr : article.author;
+  const readTime = (isFr && article.readTimeFr) ? article.readTimeFr : article.readTime;
+  const keyTakeaways = (isFr && article.keyTakeawaysFr && article.keyTakeawaysFr.length > 0) ? article.keyTakeawaysFr : article.keyTakeaways;
+  const industryLabel = (isFr && article.industryLabelFr) ? article.industryLabelFr : article.industryLabel;
   const coverImage = article.coverImage || '/og-image.png';
 
   const handleShare = async () => {
@@ -185,16 +190,16 @@ export const InsightDetail: React.FC = () => {
           <header className="space-y-6 border-b border-white/[0.08] pb-10">
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-400">
               <span className="px-2.5 py-1 rounded-md bg-cyan-950/60 text-cyan-300 border border-cyan-500/30 uppercase tracking-wider font-semibold">
-                {article.category}
+                {category}
               </span>
               <span className="text-slate-700">·</span>
               <span>{article.date}</span>
               <span className="text-slate-700">·</span>
-              <span>{article.readTime}</span>
-              {article.industryLabel && (
+              <span>{readTime}</span>
+              {industryLabel && (
                 <>
                   <span className="text-slate-700">·</span>
-                  <span className="text-slate-400">{article.industryLabel}</span>
+                  <span className="text-slate-400">{industryLabel}</span>
                 </>
               )}
             </div>
@@ -209,7 +214,7 @@ export const InsightDetail: React.FC = () => {
 
             <div className="flex items-center gap-3 pt-2 text-xs font-mono text-slate-400">
               <span className="text-slate-500">{isFr ? 'Rédigé par :' : 'Authored by:'}</span>
-              <span className="text-white font-medium">{article.author}</span>
+              <span className="text-white font-medium">{author}</span>
             </div>
           </header>
 
@@ -227,14 +232,14 @@ export const InsightDetail: React.FC = () => {
           )}
 
           {/* Executive Key Takeaways Box */}
-          {article.keyTakeaways && article.keyTakeaways.length > 0 && (
+          {keyTakeaways && keyTakeaways.length > 0 && (
             <div className="p-6 sm:p-8 rounded-3xl bg-[#090E1D]/90 border border-cyan-500/30 shadow-xl space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 font-bold uppercase tracking-wider">
                 <Bookmark size={15} />
                 <span>{isFr ? 'Points Clés pour Dirigeants' : 'Executive Key Takeaways'}</span>
               </div>
               <ul className="space-y-3 text-xs sm:text-sm font-mono text-slate-200">
-                {article.keyTakeaways.map((takeaway, tIdx) => (
+                {keyTakeaways.map((takeaway, tIdx) => (
                   <li key={tIdx} className="flex items-start gap-2.5">
                     <CheckCircle2 size={16} className="text-cyan-400 shrink-0 mt-0.5" />
                     <span className="leading-relaxed">{takeaway}</span>

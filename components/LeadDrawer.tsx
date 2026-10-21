@@ -17,7 +17,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
     name: '',
     email: '',
     company: '',
-    focusArea: 'Modern ERP Implementation & Migration',
+    focusArea: 'AI Speed-to-Lead & Lead Capture (< 90s)',
     bottleneck: ''
   });
   const [honeypot, setHoneypot] = useState('');
@@ -39,7 +39,7 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
       name: '', 
       email: '', 
       company: '', 
-      focusArea: 'Modern ERP Implementation & Migration',
+      focusArea: 'AI Speed-to-Lead & Lead Capture (< 90s)',
       bottleneck: '' 
     });
     setErrors({});
@@ -238,11 +238,12 @@ const LeadDrawer: React.FC<LeadDrawerProps> = ({ isOpen, onClose, defaultTopic }
                       onChange={(e) => setFormData({ ...formData, focusArea: e.target.value })}
                       className="w-full bg-[#0B0F17] border border-white/15 focus:border-white rounded-2xl px-4 py-3.5 text-xs text-white focus:outline-none transition-colors cursor-pointer"
                     >
-                      <option value="Modern ERP Implementation & Migration">{t('drawer.focus_opt1')}</option>
-                      <option value="Workflow & Revenue Automation">{t('drawer.focus_opt2')}</option>
-                      <option value="Cloud Infrastructure Modernization & DevOps">{t('drawer.focus_opt3')}</option>
-                      <option value="Compliance & Security (SOC 2, PIPEDA, Law 25)">{t('drawer.focus_opt4')}</option>
-                      <option value="General Digital Transformation Advisory">{t('drawer.focus_opt5')}</option>
+                      <option value="AI Speed-to-Lead & Lead Capture (< 90s)">Speed-to-Lead Under 90s (Sales Engine)</option>
+                      <option value="Automated Quote Resurrection & Revival">Automated Quote Resurrection (Sales Engine)</option>
+                      <option value="Zero-Typing Receipt & Invoice Sync">Zero-Typing Invoices & Bookkeeping (Cost Engine)</option>
+                      <option value="24/7 AI Lead & Appointment Booker">24/7 AI Appointment Booker & Missed Call SMS</option>
+                      <option value="14-Day Rapid AI Deployment Sprint">14-Day Rapid AI Deployment Sprint</option>
+                      <option value="Modern ERP Implementation & Migration">Modern ERP & Composable Architecture</option>
                     </select>
                   </div>
 

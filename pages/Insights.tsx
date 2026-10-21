@@ -278,19 +278,25 @@ const Insights: React.FC = () => {
                         <div className="space-y-3">
                           {/* Unboxed Metadata (Zero-Pill Discipline) */}
                           <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-                            <span className="text-cyan-400 uppercase tracking-wider">{featuredPost.category}</span>
+                            <span className="text-cyan-400 uppercase tracking-wider">
+                              {(isFr && featuredPost.categoryFr) ? featuredPost.categoryFr : featuredPost.category}
+                            </span>
                             <span aria-hidden="true" className="text-slate-600">·</span>
                             <span>{featuredPost.date}</span>
                             <span aria-hidden="true" className="text-slate-600">·</span>
-                            <span>{featuredPost.readTime || calculateReadingTime(featuredPost.content)}</span>
+                            <span>
+                              {(isFr && featuredPost.readTimeFr) 
+                                ? featuredPost.readTimeFr 
+                                : (featuredPost.readTime || calculateReadingTime(featuredPost.content))}
+                            </span>
                           </div>
 
                           <h2 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-white group-hover:text-cyan-300 transition-colors leading-snug">
-                            {featuredPost.title}
+                            {(isFr && featuredPost.titleFr) ? featuredPost.titleFr : featuredPost.title}
                           </h2>
 
                           <p className="text-slate-400 text-sm sm:text-base font-light leading-relaxed line-clamp-3">
-                            {featuredPost.excerpt}
+                            {(isFr && featuredPost.excerptFr) ? featuredPost.excerptFr : featuredPost.excerpt}
                           </p>
                         </div>
 
@@ -308,7 +314,7 @@ const Insights: React.FC = () => {
                         {featuredPost.coverImage && (
                           <OptimizedImage
                             src={featuredPost.coverImage}
-                            alt={featuredPost.title}
+                            alt={(isFr && featuredPost.titleFr) ? featuredPost.titleFr : featuredPost.title}
                             fetchPriority="high"
                             className="w-full h-full object-cover transform group-hover:scale-102 transition-transform duration-500"
                           />
@@ -334,7 +340,7 @@ const Insights: React.FC = () => {
                         {post.coverImage && (
                           <OptimizedImage
                             src={post.coverImage}
-                            alt={post.title}
+                            alt={(isFr && post.titleFr) ? post.titleFr : post.title}
                             fetchPriority="low"
                             className="w-full h-full object-cover transform group-hover:scale-103 transition-transform duration-500"
                           />
@@ -347,17 +353,23 @@ const Insights: React.FC = () => {
                         <div className="space-y-2.5">
                           {/* Unboxed Metadata (Zero-Pill Discipline) */}
                           <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
-                            <span className="text-cyan-400 uppercase tracking-wider">{post.category}</span>
+                            <span className="text-cyan-400 uppercase tracking-wider">
+                              {(isFr && post.categoryFr) ? post.categoryFr : post.category}
+                            </span>
                             <span aria-hidden="true" className="text-slate-600">·</span>
-                            <span>{post.readTime || calculateReadingTime(post.content)}</span>
+                            <span>
+                              {(isFr && post.readTimeFr) 
+                                ? post.readTimeFr 
+                                : (post.readTime || calculateReadingTime(post.content))}
+                            </span>
                           </div>
 
                           <h3 className="text-base sm:text-lg font-display font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">
-                            {post.title}
+                            {(isFr && post.titleFr) ? post.titleFr : post.title}
                           </h3>
 
                           <p className="text-xs sm:text-sm text-slate-400 font-light line-clamp-2 leading-relaxed">
-                            {post.excerpt}
+                            {(isFr && post.excerptFr) ? post.excerptFr : post.excerpt}
                           </p>
                         </div>
 

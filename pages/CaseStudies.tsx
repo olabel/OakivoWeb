@@ -132,8 +132,8 @@ const CaseStudies: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Cloud Security & DevSecOps Case Studies | Oakivo"
-        description="See how Atlantic Canada businesses achieve rapid SOC 2 compliance, lock down cloud security, and streamline DevSecOps process automation with Oakivo Solutions."
+        title="Tested Small Business Blueprints & Operational Architectures | Oakivo"
+        description="Explore concrete operational blueprints for Canadian small businesses: AI sales automation, operational cost cutting, custom digital products, and sovereign cybersecurity."
         canonical="/casestudies"
       />
 
@@ -144,29 +144,29 @@ const CaseStudies: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
               <TrendingUp size={13} className="text-cyan-400" />
               <span className="text-[11px] font-mono font-medium text-gray-300">
-                {language === 'fr' ? 'Résultats Clients au Canada Atlantique' : 'Atlantic Canada Client Results'}
+                {language === 'fr' ? 'Schémas d’Architecture & Benchmarks Réalistes' : 'Architecture Blueprints & Grounded Benchmarks'}
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-slate-100 leading-[1.06]">
-              {language === 'fr' ? 'Heures Réelles Économisées pour les ' : 'Real Hours Saved for '}{' '}
+              {language === 'fr' ? 'Gains Concrets & Chiffrés pour les ' : 'Measurable Operational Wins for '}{' '}
               <span className="text-linear-accent font-semibold">
-                {language === 'fr' ? 'Entreprises du Canada Atlantique' : 'Atlantic Canada Businesses'}
+                {language === 'fr' ? 'PME Canadiennes' : 'Canadian Small Businesses'}
               </span>
             </h1>
 
             <p className="text-lg md:text-xl text-[#8A8F98] font-normal leading-relaxed max-w-3xl tracking-linear-normal">
               {language === 'fr'
-                ? 'Découvrez comment des organisations du Nouveau-Brunswick, de la Nouvelle-Écosse et de l\'Î.-P.-É. ont automatisé la conformité, éliminé les goulots d\'étranglement et sécurisé leurs systèmes critiques.'
-                : 'Explore concrete examples of how local businesses across New Brunswick, Nova Scotia, and PEI eliminated manual copy-paste admin work and reclaimed staff hours.'}
+                ? 'Pas de battage publicitaire ni de fausses promesses. Découvrez nos schémas techniques rigoureux pour accroître vos ventes, réduire vos coûts administratifs et verrouiller votre cybersécurité au Canada.'
+                : 'No vanity hype or inflated promises. Explore our verified technical architectures designed to accelerate sales, slash 10+ hours of weekly admin toil, and lock down Canadian cybersecurity.'}
             </p>
 
-            <div className="pt-4 flex flex-wrap items-center gap-4">
+            <div className="pt-2 flex flex-wrap items-center gap-4">
               <button 
                 onClick={() => window.dispatchEvent(new CustomEvent("open-lead-drawer"))}
                 className="px-7 py-4 rounded-full bg-white hover:bg-gray-100 text-black font-semibold text-xs tracking-wide transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] flex items-center gap-2 group cursor-pointer"
               >
-                <span>{language === 'fr' ? 'Demander l\'Audit de Sécurité' : 'Book 30-Min Security Audit'}</span>
+                <span>{language === 'fr' ? 'Planifier une Découverte (30 min)' : 'Schedule 30-Min Discovery'}</span>
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </button>
 

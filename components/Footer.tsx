@@ -24,21 +24,21 @@ const Footer: React.FC = () => {
       <div className="container mx-auto max-w-7xl">
         
         {/* Pre-Footer Action Strip - Sleek, Minimalist, High Converting */}
-        <div className="mb-20 p-8 md:p-10 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-slate-900/90 border border-white/[0.08] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
+        <div className="mb-20 p-8 md:p-10 rounded-2xl bg-gradient-to-r from-slate-900/90 via-[#091122] to-slate-900/90 border border-cyan-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
           <div className="space-y-1.5 max-w-2xl">
             <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest font-bold block">
               {isFr ? 'ACCÈS DIRECT AUX FONDATEURS' : 'DIRECT SENIOR FOUNDER PARTNERSHIP'}
             </span>
             <h3 className="text-xl md:text-2xl font-display font-bold text-white tracking-tight">
               {isFr 
-                ? 'Prêt à éliminer la friction administrative et accélérer vos revenus ?'
-                : 'Ready to eliminate operational friction and accelerate company revenue?'
+                ? 'Prêt à transformer l’IA en nouvelles ventes et en heures gagnées ?'
+                : 'Ready to turn AI into new customer sales and slashed overhead?'
               }
             </h3>
             <p className="text-xs md:text-sm text-slate-400 font-light">
               {isFr
-                ? 'Session confidentielle de 30 minutes sans engagement commercial pour cartographier vos gains d’automatisation.'
-                : '30-minute confidential session with senior partners to evaluate bottlenecks and map high-ROI quick wins.'
+                ? 'Session confidentielle de 30 minutes avec nos ingénieurs fondateurs pour cartographier vos gains concrets.'
+                : '30-minute confidential session with senior partners to evaluate your lead leaks and map high-ROI quick wins.'
               }
             </p>
           </div>
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
             onClick={triggerDiscoveryDrawer}
             className="shrink-0 inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-cyan-500/20 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400"
           >
-            <span>{isFr ? 'Planifier Ma Session (30 Min)' : 'Schedule 30-Min Discovery'}</span>
+            <span>{isFr ? 'Planifier Mon Plan IA (30 Min)' : 'Map Your AI Blueprint (30 Min)'}</span>
             <ArrowRight size={14} />
           </button>
         </div>
@@ -70,8 +70,8 @@ const Footer: React.FC = () => {
 
             <p className="text-xs md:text-sm text-slate-400 font-light leading-relaxed pr-6">
               {isFr
-                ? 'Nous modernisons et automatisons les entreprises canadiennes en pleine croissance : ERP moderne unifié, flux de travail sans friction et conformité continue avec accès direct aux fondateurs.'
-                : 'Tailored modern ERP, hands-free business workflow automations, and resilient cloud engineering for growing mid-market enterprises. Built in Atlantic Canada with direct senior founder accountability.'
+                ? 'Nous concevons des micro-systèmes d’IA silencieux et performants pour petites entreprises : réponse aux prospects en 90s, devis ressuscités, factures sans saisie et contrôle 100% humain.'
+                : 'We build quiet, high-converting AI micro-systems for small businesses: under-90-second speed-to-lead response, quote resurrection, zero-typing bookkeeping, and 100% human approval control.'
               }
             </p>
 
