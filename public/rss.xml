@@ -4,15 +4,25 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Oakivo Insights | Modern ERP, Workflow Automation, Creative Web Design &amp; Cloud Security</title>
+    <title>Oakivo Insights | Applied Automation, Digital Experiences &amp; Cloud Sovereignty</title>
     <link>https://www.oakivo.com/insights</link>
-    <description>Authoritative research on modern ERP architectures, quote-to-cash workflow automations, creative website design &amp; digital exposure, Canadian healthcare data sovereignty, SOC 2 compliance, and cloud security by Oakivo Solutions.</description>
+    <description>Authoritative executive research on deterministic systems, event-driven state machines, immersive digital experiences, Canadian healthcare data sovereignty, SOC 2 compliance, and Law 25 cloud security by Oakivo Solutions.</description>
     <language>en-ca</language>
     <copyright>Copyright 2026 Oakivo Solutions Inc. All rights reserved.</copyright>
-    <managingEditor>hello@oakivo.com (Oakivo Editorial Team)</managingEditor>
-    <webMaster>hello@oakivo.com (Oakivo Webmaster)</webMaster>
-    <lastBuildDate>Wed, 07 Oct 2026 13:18:54 GMT</lastBuildDate>
+    <managingEditor>founders@oakivo.ca (Oakivo Editorial Board)</managingEditor>
+    <webMaster>founders@oakivo.ca (Oakivo Webmaster)</webMaster>
+    <lastBuildDate>Thu, 22 Oct 2026 19:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.oakivo.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[Deterministic Systems vs. Stochastic Agents: Why 74% of Enterprise Automation Pilots Fail to Scale, and the Architectural Shift to Event-Driven State Machines]]></title>
+      <link>https://www.oakivo.com/insights/deterministic-systems-vs-stochastic-agents-enterprise-automation-2026</link>
+      <guid isPermaLink="true">https://www.oakivo.com/insights/deterministic-systems-vs-stochastic-agents-enterprise-automation-2026</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <author><![CDATA[Oakivo Executive Systems Practice & KPMG-Benchmarked Engineering Group]]></author>
+      <description><![CDATA[According to KPMG and Gartner benchmarks, 74% of corporate autonomous agent deployments remain trapped in proof-of-concept limbo. An in-depth executive briefing on compounding probabilistic error cascades, verified Canadian mid-market case studies, and how decoupled event-driven state machines deliver verified operating yield without unmitigated risk.]]></description>
+      <category><![CDATA[Executive Strategy & Applied Automation]]></category>
+      <enclosure url="/images/insights/deterministic-state-machines-enterprise-2026.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title><![CDATA[Managing Automation Chaos & Unchecked Autonomy: Why the Golden Rule 'AI Prepares, Humans Approve' Is the Only Enterprise Standard That Survives Production]]></title>
       <link>https://www.oakivo.com/insights/managing-automation-chaos-ai-prepares-humans-approve-2026</link>

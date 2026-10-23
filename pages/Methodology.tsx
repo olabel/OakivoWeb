@@ -22,29 +22,23 @@ const Methodology: React.FC = () => {
         canonical="/methodology"
       />
 
-      <section className="bg-slate-950 text-slate-100 pt-32 pb-24 relative overflow-hidden border-b border-slate-900/50">
-        {/* Cinematic Video Background */}
-        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-network-connections-loop-27402-large.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950"></div>
+      <section className="bg-[#000000] text-[#f7faf9] pt-32 pb-24 relative overflow-hidden border-b border-[#1e2d27]/70">
+        {/* Soft Ambient Depth */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-[#0f5e4a]/20 via-transparent to-transparent blur-[120px]" />
         </div>
 
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 bg-slate-900/50 border border-slate-800 px-4 py-2 rounded-sm mb-8">
-            <ShieldCheck size={14} className="text-cyan-400" />
-            <span className="text-[10px] font-mono tracking-widest text-cyan-400 font-bold uppercase">
-              {isFr ? "Cadre d'Ingénierie" : "Engineering Framework"}
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-6">
+          <span className="nova-eyebrow text-[#23c694] mb-4">
+            {isFr ? "Cadre d'Ingénierie" : "Engineering Framework"}
+          </span>
+          <h1 className="text-4xl md:text-6xl font-display font-light text-white tracking-[-0.035em] mb-6">
             {isFr ? "La Méthodologie de Déploiement Oakivo" : "The Oakivo Deployment Methodology"}
           </h1>
-          <p className="text-base md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="text-base md:text-xl text-[#a8b0ad] max-w-2xl mx-auto font-light leading-relaxed">
             {isFr 
-              ? "Une approche déterministe du DevSecOps. Nous éliminons les frictions de déploiement et intégrons la conformité directement dans vos pipelines CI/CD."
-              : "A deterministic approach to DevSecOps. We eliminate deployment friction and bake compliance directly into your CI/CD pipelines."}
+              ? "Une approche déterministe de l'automatisation. Nous éliminons les frictions opérationnelles et intégrons la conformité directement dans vos systèmes."
+              : "A deterministic approach to systems engineering. We eliminate operational friction and bake compliance directly into your production pipelines."}
           </p>
         </div>
       </section>

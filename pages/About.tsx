@@ -102,25 +102,19 @@ const About: React.FC = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 border-b border-white/[0.08] overflow-hidden">
-        {/* Cinematic Video Background */}
-        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-technology-and-network-connections-background-loop-27411-large.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950"></div>
+      <section className="relative pt-16 pb-20 md:pt-24 md:pb-28 border-b border-[#1e2d27]/70 bg-[#000000] overflow-hidden">
+        {/* Soft Ambient Depth */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-[#0f5e4a]/20 via-transparent to-transparent blur-[120px]" />
         </div>
-        <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
+        <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 max-w-7xl">
           <div className="max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full linear-pill backdrop-blur-md">
-              <MapPin size={13} className="text-cyan-400" />
-              <span className="text-[11px] font-mono font-medium text-gray-300">
-                Dieppe, New Brunswick • Atlantic Canada Authority
-              </span>
-            </div>
+            <span className="nova-eyebrow text-[#23c694]">
+              Dieppe, New Brunswick · Atlantic Canada Headquarters
+            </span>
 
-            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-linear-tight text-slate-100 leading-[1.06]">
-              {isFr ? 'L\'Approche Boutique Agile : ' : 'The Agile Boutique Advantage: '}<span className="text-linear-accent font-semibold">{isFr ? 'Proximité & Vélocité.' : 'Personal Touch & Velocity.'}</span>
+            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-display font-light text-white tracking-[-0.035em] leading-[1.06]">
+              {isFr ? 'L\'Approche Boutique : ' : 'The Boutique Practice: '}<span className="text-[#23c694] font-normal">{isFr ? 'Rigueur & Vélocité.' : 'Senior Engineering & Velocity.'}</span>
             </h1>
 
             {/* Brand Mission Statement */}

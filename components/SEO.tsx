@@ -56,19 +56,19 @@ const SEO: React.FC<SEOProps> = ({
     ],
     'serviceType': [
       'Modern ERP Implementation & Clean Operations',
-      'Business Workflow & Billing Automation',
-      'Creative Website Design & Digital Exposure',
+      'Deterministic Workflow & Billing Automation',
+      'High-Yield Digital Experiences & Web Software Studio',
       'Cloud Architecture & Sovereign Infrastructure',
       'Enterprise Cybersecurity & Continuous Compliance (SOC 2, PIPEDA, Law 25)'
     ],
     'priceRange': '$$$',
     'knowsAbout': [
       'Modern ERP',
-      'Workflow Automation',
-      'Human-in-the-Loop AI Systems',
-      'AI Prepares Humans Approve Paradigm',
-      'Creative Website Design',
-      'Brand Digital Exposure',
+      'Deterministic Workflow Automation',
+      'Human-in-the-Loop Validation Systems',
+      'Executive Validation Gate Paradigm',
+      'Digital Experience Engineering',
+      'High-Impact Web Applications',
       'Enterprise Cybersecurity',
       'Cloud Architecture',
       'DevSecOps',
@@ -86,7 +86,7 @@ const SEO: React.FC<SEOProps> = ({
     '@type': 'WebSite',
     'name': 'Oakivo Solutions',
     'url': siteUrl,
-    'description': 'Modern ERP, business workflow automation, and enterprise cloud cybersecurity for growing Canadian businesses.',
+    'description': 'Modern ERP, deterministic workflow automation, high-impact digital experiences, and enterprise cloud cybersecurity for growing Canadian enterprises.',
     'publisher': {
       '@type': 'Organization',
       'name': 'Oakivo Solutions'

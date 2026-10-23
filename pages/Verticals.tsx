@@ -57,34 +57,29 @@ const Verticals: React.FC = () => {
         canonical="/verticals"
       />
 
-      <section className="bg-slate-950 text-slate-100 pt-32 pb-24 relative overflow-hidden border-b border-slate-900/50">
-        {/* Cinematic Video Background */}
-        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-global-world-network-connections-loop-27407-large.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950"></div>
+      <section className="bg-[#000000] text-[#f7faf9] pt-32 pb-24 relative overflow-hidden border-b border-[#1e2d27]/70">
+        {/* Soft Ambient Depth */}
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-[#0f5e4a]/20 via-transparent to-transparent blur-[120px]" />
         </div>
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 bg-slate-900/50 border border-slate-800 px-4 py-2 rounded-sm mb-8">
-            <ShieldCheck size={14} className="text-cyan-400" />
-            <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest">
-              {isFr ? "Focus Sectoriel Canada Atlantique" : "Atlantic Canada Sector Focus"}
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-6">
+          <span className="nova-eyebrow text-[#23c694] mb-4">
+            {isFr ? "Focus Sectoriel Canada Atlantique" : "Atlantic Canada Sector Focus"}
+          </span>
+          <h1 className="text-4xl md:text-6xl font-display font-light text-white tracking-[-0.035em] mb-6">
             {isFr ? "Conçu pour la Complexité" : "Architected for Complexity"}
           </h1>
-          <p className="text-base md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed mb-10">
+          <p className="text-base md:text-xl text-[#a8b0ad] max-w-2xl mx-auto font-light leading-relaxed mb-10">
             {isFr 
               ? "Nous concevons des pipelines sécurisés et conformes, ainsi que des réseaux Zéro Confiance adaptés aux impératifs réglementaires stricts de votre secteur."
               : "We engineer secure, compliant pipelines and zero-trust networks tailored to the exact regulatory demands of your specific industry vertical."}
           </p>
           <button
             onClick={() => setIsDrawerOpen(true)}
-            className="px-8 py-4 rounded-sm bg-slate-100 hover:bg-white text-slate-950 font-semibold text-xs tracking-wide transition-all inline-flex items-center gap-2 cursor-pointer"
+            className="nova-outline-btn cursor-pointer py-3.5 px-7"
           >
-            {isFr ? "Demander un Séance d'Information" : "Request Industry Briefing"}
+            <span>{isFr ? "Prendre Rendez-vous" : "Book Consultation"}</span>
+            <ArrowRight size={14} className="text-[#23c694]" />
           </button>
         </div>
       </section>
